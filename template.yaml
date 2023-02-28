@@ -1,0 +1,45 @@
+id: __CVE_ID__
+
+info:
+  name: __CVE_NAME__
+  author: topscoder
+  severity: __CVE_SEVERITY__
+  description: __CVE_DESCRIPTION__
+  reference:
+    __CVE_REFERENCES__
+  classification:
+    cvss-metrics: __CVSS_VECTOR__
+    cvss-score: __CVSS_SCORE__
+    cve-id: __CVE_ID__
+  metadata:
+    fofa-query: "wp-content/plugins/__PLUGIN_SLUG__/"
+    google-query: inurl:"/wp-content/plugins/__PLUGIN_SLUG__/"
+  tags: cve,wordpress,wp-plugin
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/__PLUGIN_SLUG__/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        internal: true
+        group: 1
+        regex:
+          - "(?m)Stable tag: ([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "__PLUGIN_SLUG__"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '__VERSION_COMPARE__')
