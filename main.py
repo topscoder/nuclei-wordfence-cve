@@ -2,7 +2,11 @@
 # python3 main.py
 #   --url https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/tenweb-speed-optimizer/10web-booster-website-speed-optimization-cache-page-speed-optimizer-21344-missing-authorization-in-settings-import-to-stored-cross-site-scripting
 #   --output cve-1234-09876.yaml
+#
+# TODO: Fix parser for multiple themes (https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/wallstreet/multiple-themes-various-versions-reflected-cross-site-scripting)
+# TODO: Implement wordpress core vulnerabilities (https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-401-hash-collision)
 
+from colors import red, green, yellow
 from lxml import html
 import argparse
 import os
@@ -16,17 +20,29 @@ parser.add_argument('--force', required=False, help='ignore if there is already 
 parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
 args = parser.parse_args()
 
+
 try:
     page = requests.get(args.url)
 except:
-    print(f"Whoops, URL niet bereikbaar.")
+    print(red(f"[*] Whoops, URL not found."))
     exit(1)
 
 content = html.fromstring(page.content)
 
+print("")
+
+desc = content.xpath(
+    '/html/body/div[1]/section[3]/div/div/div[2]/div/div/p/text()')
+if len(desc) == 0:
+    print(red(f"[*] Whoops. Are you sure this is a valid CVE page?"))
+    print(red(f"[*] {args.url}"))
+    exit(1)
+
+description = desc[0]
+
 title = content.xpath('//h1/text()')[0]
+
 print(f"[ ] Title: {title}")
-description = content.xpath('/html/body/div[1]/section[3]/div/div/div[2]/div/div/p/text()')[0]
 
 cve_ids = content.xpath('//table/tbody/tr/td/a[contains(@href, "cve")]/text()')
 cve_id = cve_ids[0].strip() if len(cve_ids) > 0 else ""
@@ -36,7 +52,7 @@ if args.output != "" and args.output != "None":
     target_filename = args.output
 else:
     if cve_id == "":
-        print(f"[*] Whoops. No CVE ID found and neither a filename passed.")
+        print(red(f"[*] Whoops. No CVE ID found and neither a filename was passed."))
         exit(1)
     else:
         target_filename = f"{cve_id}.yaml"
@@ -48,13 +64,11 @@ if cve_id != "":
     year = cve_parts[1]
 
     # Check to see if there is already a template for this cve in our local templates repo
-    if os.path.isfile("nuclei-templates/CVE-2022-0234.yaml"):
-        print(
-            f"[*] Note: There is already a template for this cve in our local nuclei-templates repo.")
-        print(f"[*] ./nuclei-templates/CVE-2022-0234.yaml")
+    if os.path.isfile(f"nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"):
+        print(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo."))
+        print(yellow(f"[*] ./nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"))
         if args.overwrite is not True:
-            print(
-                f"[*] Exiting. Use --overwrite if you want to ignore this and overwrite the template.")
+            print(yellow(f"[*] Exiting. Use --overwrite if you want to ignore this and overwrite the template."))
             exit(1)
 
     # Check to see if there is already a template for this cve in the nuclei-templates repo
@@ -62,11 +76,10 @@ if cve_id != "":
         f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
 
     if check_page.status_code == 200:
-        print(f"[*] Note: There is already a template for this cve in the nuclei-templates repo.")
-        print(
-            f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
+        print(yellow(f"[*] Note: There is already a template for this cve in the nuclei-templates repo."))
+        print(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml"))
         if args.force is not True:
-            print(f"[*] Exiting. Use --force if you want to ignore this and create a new template.")
+            print(yellow(f"[*] Exiting. Use --force if you want to ignore this and create a new template."))
             exit(1)
 
 template_id = cve_id if cve_id != "" else "random-id-" + str(random.randint(0,10000))
@@ -98,7 +111,7 @@ print(f"[ ] Software Type: {software_type}")
 
 # software_type should be Plugin
 if software_type != "Plugin" and software_type != "Theme":
-    print(f"[*] Exiting. Software type {software_type} is not supported.")
+    print(red(f"[*] Exiting. Software type {software_type} is not supported."))
     exit(1)
 
 object_category_slug = "themes" if software_type == "Theme" else "plugins"
@@ -143,4 +156,4 @@ with open('template.yaml') as template:
 
     with open("nuclei-templates/" + target_filename, 'w+') as target:
         target.write(template_content)
-        print("[>] ./nuclei-templates/" + target_filename)
+        print(green("[>] ./nuclei-templates/" + target_filename))
