@@ -1,4 +1,4 @@
-id: __CVE_ID__
+id: __TEMPLATE_ID__
 
 info:
   name: __CVE_NAME__
@@ -12,14 +12,14 @@ info:
     cvss-score: __CVSS_SCORE__
     cve-id: __CVE_ID__
   metadata:
-    fofa-query: "wp-content/plugins/__PLUGIN_SLUG__/"
-    google-query: inurl:"/wp-content/plugins/__PLUGIN_SLUG__/"
-  tags: cve,wordpress,wp-plugin
+    fofa-query: "wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
+    google-query: inurl:"/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
+  tags: cve,wordpress,__OBJECT_CATEGORY_TAG__
 
 requests:
   - method: GET
     path:
-      - "{{BaseURL}}/wp-content/plugins/__PLUGIN_SLUG__/readme.txt"
+      - "{{BaseURL}}/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/readme.txt"
 
     extractors:
       - type: regex
@@ -37,7 +37,7 @@ requests:
 
       - type: word
         words:
-          - "__PLUGIN_SLUG__"
+          - "__OBJECT_SLUG__"
         part: body
 
       - type: dsl
