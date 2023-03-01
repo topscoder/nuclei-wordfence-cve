@@ -15,3 +15,7 @@ options:
   --force          ignore if there is already a template in the nuclei-templates repo
   --overwrite      ignore if there is already a template in our local nuclei-templates repo
 ```
+
+```shell
+katana -u https://www.wordfence.com -depth 10 -timeout 2 | grep wordfence.com/threat-intel/vulnerabilities/wordpress- | tee urls.txt
+```
