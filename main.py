@@ -5,6 +5,7 @@
 
 from lxml import html
 import argparse
+import os
 import requests
 import random
 
@@ -12,6 +13,7 @@ parser = argparse.ArgumentParser(description='Process a Wordfence CVE report')
 parser.add_argument('--url', required=True, help='the URL of the Wordfence CVE report. eg https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/houzez-login-register/houzez-login-register-263-privilege-escalation')
 parser.add_argument('--output', required=False, help='the output filename to store the nuclei-template in', default="")
 parser.add_argument('--force', required=False, help='ignore if there is already a template in the nuclei-templates repo', default=False, action='store_true')
+parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
 args = parser.parse_args()
 
 try:
@@ -34,17 +36,28 @@ if args.output != "" and args.output != "None":
     target_filename = args.output
 else:
     if cve_id == "":
-        print(f"Whoops. No CVE ID found and neither a filename passed.")
+        print(f"[*] Whoops. No CVE ID found and neither a filename passed.")
         exit(1)
     else:
         target_filename = f"{cve_id}.yaml"
 
 print(f"[ ] Target filename: {target_filename}")
 
-# Check to see if there is already a template for this cve in the nuclei-templates repo
 if cve_id != "":
     cve_parts = cve_id.split('-')
     year = cve_parts[1]
+
+    # Check to see if there is already a template for this cve in our local templates repo
+    if os.path.isfile("nuclei-templates/CVE-2022-0234.yaml"):
+        print(
+            f"[*] Note: There is already a template for this cve in our local nuclei-templates repo.")
+        print(f"[*] ./nuclei-templates/CVE-2022-0234.yaml")
+        if args.overwrite is not True:
+            print(
+                f"[*] Exiting. Use --overwrite if you want to ignore this and overwrite the template.")
+            exit(1)
+
+    # Check to see if there is already a template for this cve in the nuclei-templates repo
     check_page = requests.get(
         f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
 
@@ -53,7 +66,7 @@ if cve_id != "":
         print(
             f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
         if args.force is not True:
-            print(f"Exiting. Use --force if you want to ignore this and create a new template.")
+            print(f"[*] Exiting. Use --force if you want to ignore this and create a new template.")
             exit(1)
 
 template_id = cve_id if cve_id != "" else "random-id-" + str(random.randint(0,10000))
@@ -85,7 +98,7 @@ print(f"[ ] Software Type: {software_type}")
 
 # software_type should be Plugin
 if software_type != "Plugin" and software_type != "Theme":
-    print(f"Exiting. Software type {software_type} is not supported.")
+    print(f"[*] Exiting. Software type {software_type} is not supported.")
     exit(1)
 
 object_category_slug = "themes" if software_type == "Theme" else "plugins"
