@@ -30,7 +30,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         logger.warning(red(f"[*] Whoops. No description found. Are you sure this is a valid CVE page? ${url}$"))
         return False
 
-    description = desc[0]
+    description = desc[0].replace('"', "'").replace("\\", "/")
 
     # Read "TITLE"
     title = content.xpath('//h1/text()')[0]

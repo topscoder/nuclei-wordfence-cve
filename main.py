@@ -24,6 +24,7 @@ parser.add_argument('--outputfile', required=False, help='the output filename to
 parser.add_argument('--force', required=False, help='ignore if there is already a template in the official nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
+# parser.add_argument('--warningsfile', required=False, help='filename to store warnings in so its possible to investigate issues', default=False, action='store_true')
 args = parser.parse_args()
 
 
