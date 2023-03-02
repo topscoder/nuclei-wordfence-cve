@@ -40,6 +40,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     # Read "CVE_ID"
     cve_ids = content.xpath('//table/tbody/tr/td/a[contains(@href, "cve")]/text()')
     cve_id = cve_ids[0].strip() if len(cve_ids) > 0 else ""
+    year = ""
 
     if outputfile != "" and outputfile != "None":
         target_filename = outputfile
@@ -189,6 +190,8 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         template_content = template_content.replace(
             '__VERSION_COMPARE__', affected_version.strip())
 
-        with open("nuclei-templates/" + target_filename, 'w+') as target:
+        filepath = os.path.join("nuclei-templates", year, target_filename)
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        with open(filepath, 'w+') as target:
             target.write(template_content)
-            logger.info(green("[>] ./nuclei-templates/" + target_filename))
+            logger.info(green("[>] " + filepath))
