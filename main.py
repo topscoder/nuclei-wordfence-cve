@@ -82,7 +82,6 @@ def process_wordfence_url(url):
 
     cve_ids = content.xpath('//table/tbody/tr/td/a[contains(@href, "cve")]/text()')
     cve_id = cve_ids[0].strip() if len(cve_ids) > 0 else ""
-    logger.info(f"[ ] CVE ID: {cve_id}")
 
     if args.outputfile != "" and args.outputfile != "None":
         target_filename = args.outputfile
@@ -93,32 +92,32 @@ def process_wordfence_url(url):
         else:
             target_filename = f"{cve_id}.yaml"
 
-    logger.info(f"[ ] Target filename: {target_filename}")
+    logger.info(f"[ ] CVE ID: {cve_id}")
 
     if cve_id != "":
         cve_parts = cve_id.split('-')
         year = cve_parts[1]
 
         # Check to see if there is already a template for this cve in our local templates repo
-        if os.path.isfile(f"nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"):
-            logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo."))
-            logger.info(yellow(f"[*] ./nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"))
-
-            if args.overwrite is not True:
+        if args.overwrite is not True:
+            if os.path.isfile(f"nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"):
+                logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo."))
+                logger.info(yellow(f"[*] ./nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"))
                 logger.info(yellow(f"[*] Exiting. Use --overwrite if you want to ignore this and overwrite the template."))
                 return False
 
         # Check to see if there is already a template for this cve in the nuclei-templates repo
-        check_page = requests.get(
-            f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
+        if args.force is not True:
+            check_page = requests.get(
+                f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
 
-        if check_page.status_code == 200:
-            logger.info(yellow(f"[*] Note: There is already a template for this cve in the nuclei-templates repo."))
-            logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml"))
-
-            if args.force is not True:
+            if check_page.status_code == 200:
+                logger.info(yellow(f"[*] Note: There is already a template for this cve in the nuclei-templates repo."))
+                logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml"))
                 logger.info(yellow(f"[*] Exiting. Use --force if you want to ignore this and create a new template."))
                 return False
+
+    logger.info(f"[ ] Target filename: {target_filename}")
 
     template_id = cve_id if cve_id != "" else "random-id-" + str(random.randint(0,10000))
 
@@ -143,8 +142,13 @@ def process_wordfence_url(url):
     logger.info(f"[ ] CVSS Rating: {cvss_rating}")
 
     software_type = content.xpath(
-        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[1]/td/text()')[0].strip()
+        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[1]/td/text()')
+    
+    if len(software_type) == 0:
+        logger.warning(red(f"[*] Exiting. No software type was found."))
+        return False
 
+    software_type = software_type[0].strip()
     logger.info(f"[ ] Software Type: {software_type}")
 
     # software_type should be Plugin
