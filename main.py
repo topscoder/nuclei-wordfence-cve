@@ -17,7 +17,6 @@ import os
 import requests
 import random
 
-WORKER_THREADS = 3
 
 parser = argparse.ArgumentParser(description='Process a Wordfence CVE report')
 parser.add_argument('--inputfile', required=False, help='file containing Urls to Wordfence CVE reports')
@@ -25,11 +24,15 @@ parser.add_argument('--url', required=False, help='the URL of the Wordfence CVE 
 parser.add_argument('--outputfile', required=False, help='the output filename to store the nuclei-template in', default="")
 parser.add_argument('--force', required=False, help='ignore if there is already a template in the official nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
+parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
 args = parser.parse_args()
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+WORKER_THREADS = int(args.threads)
+logger.info(f"Setting threads to {WORKER_THREADS}")
 
 
 class DownloadWorker(Thread):
