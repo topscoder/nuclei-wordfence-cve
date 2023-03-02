@@ -16,7 +16,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     except:
         logger.warning(red(f"[*] Whoops, Failed to open URL: {url}"))
         return False
-    
+
     if page.status_code > 400:
         logger.warning(red(f"[*] [HTTP {page.status_code}] Could not read URL: ${url}$"))
         return False
@@ -59,9 +59,10 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
 
         # Check to see if there is already a template for this cve in our local templates repo
         if overwrite is False:
-            if os.path.isfile(f"nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"):
+            if os.path.isfile(f"nuclei-templates/{year}/CVE-{year}-{cve_parts[2]}.yaml"):
                 logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo."))
-                logger.info(yellow(f"[*] ./nuclei-templates/CVE-{year}-{cve_parts[2]}.yaml"))
+                logger.info(
+                    yellow(f"[*] ./nuclei-templates/{year}/CVE-{year}-{cve_parts[2]}.yaml"))
                 logger.info(yellow(f"[*] Exiting. Use --overwrite if you want to ignore this and overwrite the template."))
                 return False
 
@@ -85,7 +86,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     try:
         cvss_vector_xp = content.xpath(
             '/html/body/div[1]/section[3]/div/div/div[1]/div/div/div/div[2]/div[2]/a/text()')
-        
+
         if len(cvss_vector_xp) == 0:
             raise
 
@@ -99,10 +100,10 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     try:
         cvss_score_xp = content.xpath(
             '/html/body/div[1]/section[3]/div/div/div[1]/div/div/div/div[1]/div/span/text()')
-        
+
         if len(cvss_score_xp) == 0:
             raise
-        
+
         cvss_score = float(cvss_score_xp[0].strip())
     except:
         cvss_score = ""
@@ -122,7 +123,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     # Read "SOFTWARE_TYPE"
     software_type = content.xpath(
         '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[1]/td/text()')
-    
+
     if len(software_type) == 0:
         logger.warning(red(f"[*] Exiting. No software type was found."))
         return False
@@ -145,7 +146,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     if len(object_slug_xp) == 0:
         logger.warning(red(f"[*] Exiting. No object slug found."))
         return False
-    
+
     object_slug = object_slug_xp[0].strip()
 
     logger.info(f"[ ] Plugin slug: {object_slug}")
@@ -161,7 +162,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     # Read "AFFECTED_VERSION"
     affected_version_xp = content.xpath(
         '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[5]/td/ul/li/text()')
-    
+
     if len(affected_version_xp) == 0:
         affected_version = ""
     else:
