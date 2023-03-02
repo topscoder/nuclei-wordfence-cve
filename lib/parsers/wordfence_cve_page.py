@@ -81,21 +81,36 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     template_id = cve_id if cve_id != "" else "random-id-" + str(random.randint(0,10000))
 
     # Read "CVSS_VECTOR"
-    cvss_vector = content.xpath(
-        '/html/body/div[1]/section[3]/div/div/div[1]/div/div/div/div[2]/div[2]/a/text()')[0].strip()
+    try:
+        cvss_vector_xp = content.xpath(
+            '/html/body/div[1]/section[3]/div/div/div[1]/div/div/div/div[2]/div[2]/a/text()')
+        
+        if len(cvss_vector_xp) == 0:
+            raise
+
+        cvss_vector = cvss_vector_xp[0].strip()
+    except:
+        cvss_vector = ""
 
     logger.info(f"[ ] CVSS Vector: {cvss_vector}")
 
     # Read "CVSS_SCORE"
-    cvss_score = content.xpath(
-        '/html/body/div[1]/section[3]/div/div/div[1]/div/div/div/div[1]/div/span/text()')[0].strip()
-
-    cvss_score = float(cvss_score)
+    try:
+        cvss_score_xp = content.xpath(
+            '/html/body/div[1]/section[3]/div/div/div[1]/div/div/div/div[1]/div/span/text()')
+        
+        if len(cvss_score_xp) == 0:
+            raise
+        
+        cvss_score = float(cvss_score_xp[0].strip())
+    except:
+        cvss_score = ""
 
     logger.info(f"[ ] CVSS Score: {cvss_score}")
 
     # Determine "CVSS_RATING"
-    cvss_rating = "Low" if cvss_score < 4 \
+    cvss_rating = "" if cvss_score == "" \
+        else "Low" if cvss_score < 4 \
         else "Medium" if cvss_score < 7 \
         else "High" if cvss_score < 9 \
         else "Critical" if cvss_score <= 10 \
@@ -123,8 +138,14 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     object_category_tag = "wp-theme" if software_type == "Theme" else "wp-plugin"
 
     # Read "OBJECT_SLUG"
-    object_slug = content.xpath(
-        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[2]/td/text()')[0].strip()
+    object_slug_xp = content.xpath(
+        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[2]/td/text()')
+
+    if len(object_slug_xp) == 0:
+        logger.warning(red(f"[*] Exiting. No object slug found."))
+        return False
+    
+    object_slug = object_slug_xp[0].strip()
 
     logger.info(f"[ ] Plugin slug: {object_slug}")
 
@@ -137,8 +158,13 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         reference_list.append("- " + ref.attrib['href'])
 
     # Read "AFFECTED_VERSION"
-    affected_version = content.xpath(
-        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[5]/td/ul/li/text()')[0]
+    affected_version_xp = content.xpath(
+        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[5]/td/ul/li/text()')
+    
+    if len(affected_version_xp) == 0:
+        affected_version = ""
+    else:
+        affected_version = affected_version_xp[0].strip()
 
     logger.info(f"[ ] Affected version: {affected_version}")
 
