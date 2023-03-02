@@ -6,7 +6,7 @@
 # TODO: Fix parser for multiple themes (https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/wallstreet/multiple-themes-various-versions-reflected-cross-site-scripting)
 # TODO: Implement wordpress core vulnerabilities (https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-401-hash-collision)
 
-from colors import red, green, yellow
+from lib.colors import red, green, yellow
 from lxml import html
 from queue import Queue
 from threading import Thread
@@ -169,7 +169,7 @@ def process_wordfence_url(url):
 
     logger.info(f"[ ] Affected version: {affected_version}")
 
-    with open('template.yaml') as template:
+    with open('lib/template.yaml') as template:
         template_content = template.read()
         template_content = template_content.replace(
             '__TEMPLATE_ID__', str(template_id))
