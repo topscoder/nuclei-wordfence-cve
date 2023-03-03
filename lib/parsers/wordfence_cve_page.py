@@ -140,6 +140,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     object_category_slug = "themes" if software_type == "Theme" else "plugins"
     object_category_tag = "wp-theme" if software_type == "Theme" else "wp-plugin"
     find_file = "style.css" if software_type == "Theme" else "readme.txt"
+    version_tag = "Version" if software_type == "Theme" else "Stable tag"
 
     # Read "OBJECT_SLUG"
     object_slug_xp = content.xpath(
@@ -203,6 +204,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         template_content = template_content.replace('__OBJECT_CATEGORY_SLUG__', object_category_slug)
         template_content = template_content.replace('__OBJECT_CATEGORY_TAG__', object_category_tag)
         template_content = template_content.replace('__FIND_FILE__', find_file)
+        template_content = template_content.replace('__VERSION_TAG__', version_tag)
         template_content = template_content.replace(
             '__OBJECT_SLUG__', object_slug.strip())
         template_content = template_content.replace(

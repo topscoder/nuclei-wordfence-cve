@@ -31,14 +31,14 @@ requests:
         group: 1
         internal: true
         regex:
-          - "(?m)Stable tag: ([0-9.]+)"
+          - "(?m)__VERSION_TAG__: ([0-9.]+)"
 
       - type: regex
         name: version
         part: body
         group: 1
         regex:
-          - "(?m)Stable tag: ([0-9.]+)"
+          - "(?m)__VERSION_TAG__: ([0-9.]+)"
 
     matchers-condition: and
     matchers:
