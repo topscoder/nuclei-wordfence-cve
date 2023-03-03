@@ -22,9 +22,17 @@ requests:
     redirects: true
     max-redirects: 3
     path:
-      - "{{BaseURL}}/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/readme.txt"
+      - "{{BaseURL}}/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/__FIND_FILE__"
 
     extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        internal: true
+        regex:
+          - "(?m)Stable tag: ([0-9.]+)"
+
       - type: regex
         name: version
         part: body
