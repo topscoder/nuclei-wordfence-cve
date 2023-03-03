@@ -18,9 +18,9 @@ info:
   tags: cve,wordpress,__OBJECT_CATEGORY_TAG__
 
 requests:
-  redirects: true
-  max-redirects: 3
   - method: GET
+    redirects: true
+    max-redirects: 3
     path:
       - "{{BaseURL}}/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/readme.txt"
 
