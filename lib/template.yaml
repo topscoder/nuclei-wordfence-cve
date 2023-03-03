@@ -14,9 +14,12 @@ info:
   metadata:
     fofa-query: "wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
     google-query: inurl:"/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
+    shodan-query: 'vuln:__CVE_ID__'
   tags: cve,wordpress,__OBJECT_CATEGORY_TAG__
 
 requests:
+  redirects: true
+  max-redirects: 3
   - method: GET
     path:
       - "{{BaseURL}}/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/readme.txt"
@@ -42,4 +45,4 @@ requests:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '__VERSION_COMPARE__')
+          - compare_versions(version, __VERSION_COMPARE__)

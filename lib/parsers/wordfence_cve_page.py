@@ -4,6 +4,7 @@ from lxml import html
 import os
 import requests
 import random
+import re
 
 def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False):
     if url is None or url.strip() == "":
@@ -167,6 +168,20 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         affected_version = ""
     else:
         affected_version = affected_version_xp[0].strip()
+        # <= 0.2.35
+        # < 0.2.35
+        # 0.2.35
+        # 0.2.35 - 0.4.3
+        # all
+        # *
+        m = re.match("(.*?)([0-9.-]+)(\s?-\s?)([0-9.-]+)(.*?)", affected_version)
+        if m and m.groups():
+            affected_version = f"'=>{m.group(2)}', '<={m.group(4)}'"
+        else:
+            if str(affected_version).lower().find("all") > -1:
+                affected_version = f"'>0'"
+            else:
+                affected_version = f"'{affected_version}'"
 
     logger.info(f"[ ] Affected version: {affected_version}")
 
@@ -189,7 +204,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         template_content = template_content.replace(
             '__OBJECT_SLUG__', object_slug.strip())
         template_content = template_content.replace(
-            '__VERSION_COMPARE__', affected_version.strip())
+            '__VERSION_COMPARE__', f"{affected_version}")
 
         filepath = os.path.join("nuclei-templates", year, target_filename)
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
