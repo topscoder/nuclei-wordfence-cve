@@ -178,7 +178,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         # *
         m = re.match("(.*?)([0-9.-]+)(\s?-\s?)([0-9.-]+)(.*?)", affected_version)
         if m and m.groups():
-            affected_version = f"'=>{m.group(2)}', '<={m.group(4)}'"
+            affected_version = f"'>= {m.group(2)}', '<= {m.group(4)}'"
         else:
             if str(affected_version).lower().find("all") > -1:
                 affected_version = f"'>0'"
