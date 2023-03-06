@@ -2,3 +2,4 @@ test.yaml
 __pycache__/
 trash/
 output.log
+.DS_Store
