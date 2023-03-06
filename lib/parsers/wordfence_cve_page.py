@@ -195,7 +195,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         template_content = template_content.replace('__CVE_ID__', cve_id.strip())
         template_content = template_content.replace('__CVE_NAME__', title.strip())
         template_content = template_content.replace(
-            '__CVE_SEVERITY__', cvss_rating.strip())
+            '__CVE_SEVERITY__', cvss_rating.strip().lower())
         template_content = template_content.replace('__CVE_DESCRIPTION__', description.strip())
         template_content = template_content.replace(
             '__CVE_REFERENCES__', "\n    ".join(reference_list))
