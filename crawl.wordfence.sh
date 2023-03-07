@@ -24,10 +24,10 @@ cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vuln
 
 # Show only new URLs
 echo "\n\n NEW VULNERABILITIES FOR PLUGINS:\n" | lolcat
-cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ | unfurl format %s://%d%p | sort | uniq | anew wordfence.com.wordpress-plugins.txt | tee lib/sources/wordfence.com.wordpress-plugins.new.txt
+cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ | unfurl format %s://%d%p | sort | uniq | anew lib/sources/wordfence.com.wordpress-plugins.txt | tee lib/sources/wordfence.com.wordpress-plugins.new.txt
 
 echo "\n\n NEW VULNERABILITIES FOR THEMES:\n" | lolcat
-cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-themes/ | unfurl format %s://%d%p | sort | uniq | anew wordfence.com.wordpress-themes.txt | tee lib/sources/wordfence.com.wordpress-themes.new.txt
+cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-themes/ | unfurl format %s://%d%p | sort | uniq | anew lib/sources/wordfence.com.wordpress-themes.txt | tee lib/sources/wordfence.com.wordpress-themes.new.txt
 
 echo "\n\n NEW VULNERABILITIES FOR CORE:\n" | lolcat
-cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-core/ | unfurl format %s://%d%p | sort | uniq | anew wordfence.com.wordpress-core.txt | tee lib/sources/wordfence.com.wordpress-core.new.txt
+cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-core/ | unfurl format %s://%d%p | sort | uniq | anew lib/sources/wordfence.com.wordpress-core.txt | tee lib/sources/wordfence.com.wordpress-core.new.txt
