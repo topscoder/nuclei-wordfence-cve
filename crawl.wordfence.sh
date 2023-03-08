@@ -1,5 +1,9 @@
 #!/bin/sh
 #
+# Required packages: lolcat, katana, unfurl, anew
+# Used sys: echo, tee, grep, sort, uniq, tee, wc
+# Usage: sh crawl.wordfence.sh 
+#
 # Crawls wordfence.com and stores all urls in txt file
 # - lib/sources/wordfence.com.crawler.txt
 #
@@ -14,7 +18,7 @@
 # - lib/sources/wordfence.com.wordpress-plugins.new.txt
 #
 
-echo "CRAWLING" | lolcat
+echo "=== CRAWLING ===" | lolcat
 
 katana -u https://wordfence.com/threat-intel/vulnerabilities/ -depth 10 | tee lib/sources/wordfence.com.crawler.txt
 
@@ -23,11 +27,18 @@ cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vuln
 cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ | unfurl format %s://%d%p | sort | uniq | tee lib/sources/wordfence.com.wordpress-plugins.txt
 
 # Show only new URLs
-echo "\n\n NEW VULNERABILITIES FOR PLUGINS:\n" | lolcat
 cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ | unfurl format %s://%d%p | sort | uniq | anew lib/sources/wordfence.com.wordpress-plugins.txt | tee lib/sources/wordfence.com.wordpress-plugins.new.txt
+new_plugins=$(cat lib/sources/wordfence.com.wordpress-plugins.new.txt | wc -l)
+echo "\n\n => NEW VULNERABILITIES FOR PLUGINS:\n $new_plugins\n" | lolcat
 
-echo "\n\n NEW VULNERABILITIES FOR THEMES:\n" | lolcat
 cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-themes/ | unfurl format %s://%d%p | sort | uniq | anew lib/sources/wordfence.com.wordpress-themes.txt | tee lib/sources/wordfence.com.wordpress-themes.new.txt
+new_themes=$(cat lib/sources/wordfence.com.wordpress-themes.new.txt | wc -l)
+echo "\n\n => NEW VULNERABILITIES FOR THEMES: $new_themes\n" | lolcat
 
-echo "\n\n NEW VULNERABILITIES FOR CORE:\n" | lolcat
 cat lib/sources/wordfence.com.crawler.txt | grep wordfence.com/threat-intel/vulnerabilities/wordpress-core/ | unfurl format %s://%d%p | sort | uniq | anew lib/sources/wordfence.com.wordpress-core.txt | tee lib/sources/wordfence.com.wordpress-core.new.txt
+new_core=$(cat lib/sources/wordfence.com.wordpress-core.new.txt | wc -l)
+echo "\n\n => NEW VULNERABILITIES FOR CORE: $new_core\n" | lolcat
+
+[[ $new_plugins -eq 0 ]]    || echo "Hint: python3 main.py --inputfile lib/sources/wordfence.com/wordpress-plugins.txt\n"
+[[ $new_themes -eq 0 ]]     || echo "Hint: python3 main.py --inputfile lib/sources/wordfence.com/wordpress-themes.txt\n"
+[[ $new_core -eq 0 ]]       || echo "Hint: python3 main.py --inputfile lib/sources/wordfence.com/wordpress-core.txt\n"
