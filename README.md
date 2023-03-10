@@ -1,11 +1,24 @@
-# nuclei-wordfence-cve
+# nuclei-wordfence-cve 
 
-It's a kind of magic 🧙‍♀️
+It's a kind of magic 🧙‍♀️ 
 
-```shell
-usage: main.py [-h] [--inputfile INPUTFILE] [--url URL] [--outputfile OUTPUTFILE] [--force] [--overwrite] [--threads THREADS]
+### Overview 
 
-Process a Wordfence CVE report
+<!-- START: __STATISTICS_TABLE -->
+| templates | total | |
+|---|---|---|
+| plugins | tbd | |
+| themes | tbd | |
+| core | | tbd |
+| other | tbd | |
+<!-- END: __STATISTICS_TABLE --> 
+
+### Usage 
+
+```shell 
+usage: main.py [-h] [--inputfile INPUTFILE] [--url URL] [--outputfile OUTPUTFILE] [--force] [--overwrite] [--threads THREADS] 
+
+Generate a Nuclei template out of a Wordfence CVE report 🧙‍♀️ 
 
 options:
   -h, --help            show this help message and exit
@@ -19,10 +32,12 @@ options:
   --threads THREADS     boost by increasing the default worker threads (default 2)
 ```
 
-```shell
-nuclei -templates ./nuclei-templates/ -validate
-```
+### Validate Nuclei templates 
+```shell 
+nuclei -templates ./nuclei-templates/ -validate 
+``` 
 
-```shell
-katana -u https://www.wordfence.com -depth 10 -timeout 2 | grep wordfence.com/threat-intel/vulnerabilities/wordpress- | grep -v wordpress-core | unfurl format %s://%d%p | sort | uniq | tee urls.uniq2.txt
+### 🕷 
+```shell 
+katana -u https://www.wordfence.com -depth 10 -timeout 2 | grep wordfence.com/threat-intel/vulnerabilities/wordpress- | grep -v wordpress-core | unfurl format %s://%d%p | sort | uniq | tee urls.uniq2.txt 
 ```
