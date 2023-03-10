@@ -24,9 +24,9 @@ other = len(glob.glob("./nuclei-templates/*.yaml"))
 table = "<!-- START: __STATISTICS_TABLE -->\n"
 table += "| templates | total | |\n"
 table += "|---|---|---|\n"
-table += f"| plugins | {plugins} | |\n"
-table += f"| themes | {themes} | |\n"
-table += f"| core | {core} | |\n"
+table += f"| wp-plugins | {plugins} | |\n"
+table += f"| wp-themes | {themes} | |\n"
+table += f"| wp-core | {core} | |\n"
 table += f"| other | {other} | |\n"
 table += "<!-- END: __STATISTICS_TABLE -->"
 
