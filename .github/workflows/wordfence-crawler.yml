@@ -18,18 +18,29 @@ jobs:
       with:
         python-version: "3.10"
         
-    - name: Install dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+    - name: Setup Golang
+      uses: actions/setup-go@v4
+      with:
+        go-version: 'stable'
+
+    - name: Install Go packages
+      run: |
+        go install github.com/projectdiscovery/katana/cmd/katana@latest
+        go install github.com/tomnomnom/unfurl@latest
+        go install -v github.com/tomnomnom/anew@latest
         
     - name: Run crawler
       run: sh crawl.wordfence.sh
       
     - name: Commit crawled URL logfiles
       run: |
-        git add lib/sources/*.txt
+        git add lib/sources/*.txt -f
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Auto Updated URL logfiles [$(date)] :robot:" -a
