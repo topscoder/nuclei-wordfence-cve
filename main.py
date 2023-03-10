@@ -11,7 +11,7 @@
 from lib.colors import red, green, yellow
 
 from queue import Queue
-from time import time
+import time
 from lib.DownloadWorker import DownloadWorker
 from lib.logger import logger
 import argparse
@@ -33,7 +33,7 @@ logger.info(f"Setting threads to {WORKER_THREADS}")
 
 
 def main():
-    ts = time()
+    ts = time.time()
     urls = []
 
     if args.url is None and args.inputfile is None:
@@ -63,7 +63,7 @@ def main():
         queue.put((url, args.outputfile, args.overwrite, args.force))
     
     queue.join()
-    logger.info('Done. Took %s', time() - ts)
+    logger.info('Done. Took %s', time.strftime("%H:%M:%S", time.gmtime(time.time() - ts)))
 
 
 if __name__ == '__main__':
