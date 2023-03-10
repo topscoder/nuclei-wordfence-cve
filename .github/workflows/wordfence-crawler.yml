@@ -3,9 +3,8 @@ name: 🕷 Wordfence crawler
 on:
   schedule:
     - cron: '25 3 * * *'
-
-permissions:
-  contents: read
+  
+  workflow_dispatch:
 
 jobs:
   build:
