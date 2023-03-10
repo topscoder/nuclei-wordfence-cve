@@ -5,12 +5,12 @@ It's a kind of magic 🧙‍♀️
 ### Overview 
 
 <!-- START: __STATISTICS_TABLE -->
-| templates | total | |
-|---|---|---|
-| wp-plugins | 4945 | |
-| wp-themes | 128 | |
-| wp-core | 0 | |
-| other | 1 | |
+| templates | total |
+|---|---|
+| wp-plugins | 4945 |
+| wp-themes | 128 |
+| wp-core | 0 |
+| other | 1 |
 <!-- END: __STATISTICS_TABLE --> 
 
 ### Usage 
