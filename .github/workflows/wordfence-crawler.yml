@@ -67,10 +67,9 @@ jobs:
     
     - name: Commit new vulnerability templates
       run: |
-        git add nuclei-templates/**/*.yaml
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Auto Created Nuclei template files [$(date)] :robot:" -a
+        git status | grep "yaml" | while read -r line; do git add "$line" && git commit -m "New Nuclei template for $line [$(date)] :robot:" ; done
       
     - name: Push changes
       uses: ad-m/github-push-action@master
