@@ -40,8 +40,7 @@ jobs:
     - name: Commit files
       if: steps.stats.outputs.CHANGES > 0
       run: |
-        git add TEMPLATES-STATS.*
-        git add TOP-10.md
+        git add README.md
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Auto Updated README statistics [$(date)] :robot:" -a
