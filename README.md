@@ -31,13 +31,3 @@ options:
   --overwrite           ignore if there is already a template in our local nuclei-templates repo
   --threads THREADS     boost by increasing the default worker threads (default 2)
 ```
-
-### Validate Nuclei templates 
-```shell 
-nuclei -templates ./nuclei-templates/ -validate 
-``` 
-
-### 🕷 
-```shell 
-katana -u https://www.wordfence.com -depth 10 -timeout 2 | grep wordfence.com/threat-intel/vulnerabilities/wordpress- | grep -v wordpress-core | unfurl format %s://%d%p | sort | uniq | tee urls.uniq2.txt 
-```
