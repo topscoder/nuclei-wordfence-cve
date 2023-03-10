@@ -7,10 +7,10 @@ It's a kind of magic 🧙‍♀️
 <!-- START: __STATISTICS_TABLE -->
 | templates | total | |
 |---|---|---|
-| plugins | tbd | |
-| themes | tbd | |
-| core | | tbd |
-| other | tbd | |
+| plugins | 4945 | |
+| themes | 128 | |
+| core | 0 | |
+| other | 1 | |
 <!-- END: __STATISTICS_TABLE --> 
 
 ### Usage 
