@@ -7,9 +7,9 @@ It's a kind of magic 🧙‍♀️
 <!-- START: __STATISTICS_TABLE -->
 | templates | total | |
 |---|---|---|
-| plugins | 4945 | |
-| themes | 128 | |
-| core | 0 | |
+| wp-plugins | 4945 | |
+| wp-themes | 128 | |
+| wp-core | 0 | |
 | other | 1 | |
 <!-- END: __STATISTICS_TABLE --> 
 
