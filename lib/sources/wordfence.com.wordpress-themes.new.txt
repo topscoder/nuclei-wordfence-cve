@@ -1,0 +1,2 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/esplanade/esplanade-115-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/exquisite-wp/exquisite-ultimate-newspaper-theme-133-cross-site-scripting

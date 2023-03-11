@@ -1251,3 +1251,5 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/speculor
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/twentyfifteen/example.html
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/unakit/freemius-sdk-242-missing-authorization-checks
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/wphrm/wphrm-human-resource-management-system-11-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/esplanade/esplanade-115-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/exquisite-wp/exquisite-ultimate-newspaper-theme-133-cross-site-scripting
