@@ -2,7 +2,7 @@
 
 It's a kind of magic 🧙‍♀️ 
 
-### Overview 
+### What's in it?! 
 
 <!-- START: __STATISTICS_TABLE -->
 | templates | total |
