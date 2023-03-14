@@ -7,7 +7,7 @@ It's a kind of magic 🧙‍♀️
 <!-- START: __STATISTICS_TABLE -->
 | templates | total |
 |---|---|
-| wp-plugins | 5198 |
+| wp-plugins | 5209 |
 | wp-themes | 130 |
 | wp-core | 0 |
 | other | 1 |
