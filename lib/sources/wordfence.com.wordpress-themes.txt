@@ -1253,3 +1253,7 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/unakit/f
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/wphrm/wphrm-human-resource-management-system-11-sql-injection
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/esplanade/esplanade-115-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/exquisite-wp/exquisite-ultimate-newspaper-theme-133-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/customify
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/customify/customify-2104-cross-site-request-forgery-to-settings-update
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/intrepidity
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/intrepidity/intrepidity-151-cross-site-request-forgery-via-mytheme-add-admin
