@@ -1,6 +1,9 @@
 name: 🗒 Templates Stats
 
 on:
+  schedule:
+    - cron: '25 8 * * *'
+    
   push:
     branches: [ "main" ]
   pull_request:
