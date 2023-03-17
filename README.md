@@ -1,6 +1,10 @@
+<p align="center">
+<img width="250" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
+</p>
+
 # nuclei-wordfence-cve 
 
-It's a kind of magic 🧙‍♀️ 
+It's a kind of magic 🧙‍♀️
 
 ### What's in it?! 
 
