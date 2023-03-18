@@ -1257,3 +1257,5 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/customif
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/customify/customify-2104-cross-site-request-forgery-to-settings-update
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/intrepidity
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/intrepidity/intrepidity-151-cross-site-request-forgery-via-mytheme-add-admin
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/brilliance/brilliance-131-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/regina-lite/regina-lite-207-reflected-cross-site-scripting
