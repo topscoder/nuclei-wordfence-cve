@@ -1,0 +1,25 @@
+id: wordpress-account-registration-enabled
+
+info:
+  name: WordPress account registration enabled
+  author: topscoder
+  severity: info
+  description: 
+  reference:
+  - foo.bar
+  tags: wordpress,wp-core,core,info
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-login.php?action=register"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        words:
+          - "Register"
+        part: body
