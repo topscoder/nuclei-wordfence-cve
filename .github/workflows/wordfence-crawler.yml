@@ -65,6 +65,16 @@ jobs:
         run: |
           python main.py --inputfile lib/sources/wordfence.com.wordpress-themes.new.txt
 
+      # run main.py for core if there are new core vulnerabilities found
+      - name: Count newly found core vulnerabilities
+        id: new_core
+        run: cat lib/sources/wordfence.com.wordpress-core.new.txt | wc -l | xargs -I {} echo NEW_CORE={} >> $GITHUB_OUTPUT
+
+      - name: Process newly found core vulnerabilities
+        if: steps.new_plugins.outputs.NEW_CORE > 0
+        run: |
+          python main.py --inputfile lib/sources/wordfence.com.wordpress-core.new.txt
+
       - name: Commit new vulnerability templates
         run: |
           git config --local user.email "action@github.com"
