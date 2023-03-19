@@ -22,7 +22,7 @@ requests:
     redirects: true
     max-redirects: 3
     path:
-      - "{{BaseURL}}/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/__FIND_FILE__"
+      - "{{BaseURL}}/__FIND_FILE__"
 
     extractors:
       - type: regex
@@ -31,14 +31,14 @@ requests:
         group: 1
         internal: true
         regex:
-          - "(?mi)__VERSION_TAG__: ([0-9.]+)"
+          - "__VERSION_REGEX__"
 
       - type: regex
         name: version
         part: body
         group: 1
         regex:
-          - "(?mi)__VERSION_TAG__: ([0-9.]+)"
+          - "__VERSION_REGEX__"
 
     matchers-condition: and
     matchers:

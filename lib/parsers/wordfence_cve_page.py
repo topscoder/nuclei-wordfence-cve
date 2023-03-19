@@ -6,6 +6,48 @@ import requests
 import random
 import re
 
+
+class WordfenceParser:
+
+    def __init__(self, software_type) -> None:
+        self.software_type = software_type
+
+    def get_object_category_slug(self):
+        return "themes" if self.software_type == "Theme" else "core" if self.software_type == "Core" else "plugins"
+
+    def get_object_category_tag(self):
+        return  "wp-theme" if self.software_type == "Theme" else "wp-core" if self.software_type == "Core" else "wp-plugin"
+    
+    def find_version_in_file(self):
+        if self.software_type == "Theme":
+            filepath = f"wp-content/{self.get_object_category_tag()}/{self.get_object_category_tag()}/style.css"
+        elif self.software_type == "Core":
+            filepath = f"index.php"
+        else:
+            filepath = f"wp-content/{self.get_object_category_tag()}/{self.get_object_category_tag()}/readme.txt"
+
+        return filepath
+    
+    # def find_version_string(self):
+        # return "Version" if self.software_type == "Theme" else "?v=" if self.software_type == "Core" else "Stable tag"
+    
+    def get_version_regex(self):
+        if self.software_type == "Theme":
+            regex = f"(?mi)Version: ([0-9.]+)"
+        elif self.software_type == "Core":
+            regex = f"(?mi)\?v=([0-9.]+)"
+        else:
+            regex = f"(?mi)Stable tag: ([0-9.]+)"
+
+        return regex
+
+    def get_template_filename(self):
+        if self.software_type == "Core":
+            return 'lib/template-wp-core.yaml'
+
+        return 'lib/template.yaml'
+
+
 def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False):
     if url is None or url.strip() == "":
         return False
@@ -131,14 +173,20 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     logger.debug(f"[ ] Software Type: {software_type}")
 
     # Validate "SOFTWARE_TYPE"
-    if software_type != "Plugin" and software_type != "Theme":
+    if software_type != "Plugin" and software_type != "Theme" and software_type != "Core":
         logger.warning(red(f"[*] Skipping. Software type {software_type} is not supported."))
         return False
 
-    object_category_slug = "themes" if software_type == "Theme" else "plugins"
-    object_category_tag = "wp-theme" if software_type == "Theme" else "wp-plugin"
-    find_file = "style.css" if software_type == "Theme" else "readme.txt"
-    version_tag = "Version" if software_type == "Theme" else "Stable tag"
+    try:
+        wfparser = WordfenceParser(software_type)
+        object_category_slug = wfparser.get_object_category_slug()
+        object_category_tag = wfparser.get_object_category_tag()
+        find_file = wfparser.find_version_in_file()
+        # version_tag = wfparser.find_version_string()
+        version_regex = wfparser.get_version_regex()
+        tpl = wfparser.get_template_filename()
+    except Exception as e:
+        logger.debug(e)
 
     # Read "OBJECT_SLUG"
     object_slug_xp = content.xpath(
@@ -153,16 +201,15 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     logger.debug(f"[ ] Plugin slug: {object_slug}")
 
     # Read "REFERENCES"
-    references = content.xpath(
-        '/html/body/div[1]/section[3]/div/div/div[2]/div/div/ul/li/a')
+    # references = content.xpath('/html/body/div[1]/section[3]/div/div/div[2]/div/div/ul/li/a')
+    references = content.xpath('//*[@id="app-wrapper"]//h4[text()="References"]/following-sibling::ul/li/a')
 
     reference_list = []
     for ref in references:
         reference_list.append("- " + ref.attrib['href'])
 
     # Read "AFFECTED_VERSION"
-    affected_version_xp = content.xpath(
-        '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[5]/td/ul/li/text()')
+    affected_version_xp = content.xpath('//*[@id="app-wrapper"]//th[text()="Affected Version"]/following-sibling::td//li/text()')
 
     if len(affected_version_xp) == 0:
         affected_version = ""
@@ -186,7 +233,7 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
     logger.debug(f"[ ] Affected version: {affected_version}")
 
     # Parse template
-    with open('lib/template.yaml') as template:
+    with open(tpl) as template:
         template_content = template.read()
         template_content = template_content.replace(
             '__TEMPLATE_ID__', str(template_id))
@@ -202,7 +249,8 @@ def wordfence_cve_page(url, outputfile = None, overwrite = False, force = False)
         template_content = template_content.replace('__OBJECT_CATEGORY_SLUG__', object_category_slug)
         template_content = template_content.replace('__OBJECT_CATEGORY_TAG__', object_category_tag)
         template_content = template_content.replace('__FIND_FILE__', find_file)
-        template_content = template_content.replace('__VERSION_TAG__', version_tag)
+        # template_content = template_content.replace('__VERSION_TAG__', version_tag)
+        template_content = template_content.replace('__VERSION_REGEX__', version_regex)
         template_content = template_content.replace(
             '__OBJECT_SLUG__', object_slug.strip())
         template_content = template_content.replace(
