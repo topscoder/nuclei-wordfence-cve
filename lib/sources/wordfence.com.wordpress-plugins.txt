@@ -13894,3 +13894,8 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/xml-sit
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/xml-sitemaps-for-videos/google-xml-sitemap-for-videos-261-cross-site-request-forgery-via-video-sitemap-generate
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yandexnews-feed-by-teplitsa
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yandexnews-feed-by-teplitsa/yandexnews-feed-by-teplitsa-1125-authenticated-administrator-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/duplicate-wp-page-post/duplicate-page-and-post-27-authenticated-admin-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/duplicate-wp-page-post/duplicate-page-and-post-27-authenticated-admin-stored-cross-site-scripting-2
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/duplicate-wp-page-post/duplicate-page-plugins-various-versions-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/magic-fields
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/magic-fields/RCCWP_CreateCustomFieldPage.php

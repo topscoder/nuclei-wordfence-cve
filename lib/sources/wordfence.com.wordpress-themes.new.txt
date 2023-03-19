@@ -1,2 +1,0 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/brilliance/brilliance-131-reflected-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/regina-lite/regina-lite-207-reflected-cross-site-scripting
