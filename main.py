@@ -2,11 +2,6 @@
 # python3 main.py
 #   --url https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/tenweb-speed-optimizer/10web-booster-website-speed-optimization-cache-page-speed-optimizer-21344-missing-authorization-in-settings-import-to-stored-cross-site-scripting
 #   --outputfile cve-1234-09876.yaml
-#
-# TODO: Implement template validation in pre-commit hook
-# TODO: Implement a ParserInterface so it's easier to create new template parsers
-# TODO: Fix parser for multiple themes (https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/wallstreet/multiple-themes-various-versions-reflected-cross-site-scripting)
-# TODO: Implement wordpress core vulnerabilities (https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-401-hash-collision)
 
 from lib.colors import red, green, yellow
 
