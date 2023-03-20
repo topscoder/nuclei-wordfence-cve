@@ -13955,3 +13955,6 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/sliding
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-fb-autoconnect
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-timed-popup
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-timed-popup/timed-popup-wordpress-plugin-14-cross-site-request-forgery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simple-job-board/simple-job-board-244-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simple-job-board/simple-job-board-293-local-file-inclusion
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simple-job-board/simple-job-board-296-information-disclosure
