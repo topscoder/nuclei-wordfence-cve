@@ -19,7 +19,7 @@ for file in glob.glob("./nuclei-templates/**/*.yaml"):
         if re.search("wp-core", content):
             core+=1
 
-other = len(glob.glob("./nuclei-templates/*.yaml"))
+other = len(glob.glob("./nuclei-templates/misc/*.yaml"))
 
 table = "<!-- START: __STATISTICS_TABLE -->\n"
 table += "| templates | total |\n"
