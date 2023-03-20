@@ -61,7 +61,7 @@ jobs:
         run: cat lib/sources/wordfence.com.wordpress-themes.new.txt | wc -l | xargs -I {} echo NEW_THEMES={} >> $GITHUB_OUTPUT
 
       - name: Process newly found theme vulnerabilities
-        if: steps.new_plugins.outputs.NEW_THEMES > 0
+        if: steps.new_themes.outputs.NEW_THEMES > 0
         run: |
           python main.py --inputfile lib/sources/wordfence.com.wordpress-themes.new.txt
 
@@ -71,7 +71,7 @@ jobs:
         run: cat lib/sources/wordfence.com.wordpress-core.new.txt | wc -l | xargs -I {} echo NEW_CORE={} >> $GITHUB_OUTPUT
 
       - name: Process newly found core vulnerabilities
-        if: steps.new_plugins.outputs.NEW_CORE > 0
+        if: steps.new_core.outputs.NEW_CORE > 0
         run: |
           python main.py --inputfile lib/sources/wordfence.com.wordpress-core.new.txt
 
