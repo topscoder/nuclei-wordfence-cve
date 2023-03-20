@@ -12,8 +12,8 @@ It's a kind of magic 🧙‍♀️
 | templates | total |
 |---|---|
 | wp-plugins | 5288 |
-| wp-themes | 130 |
-| wp-core | 1 |
+| wp-themes | 170 |
+| wp-core | 300 |
 | other | 4 |
 <!-- END: __STATISTICS_TABLE --> 
 
