@@ -12,5 +12,7 @@ class DownloadWorker(Thread):
             try:
                 parser = WordfenceParser()
                 parser.run(url, outputfile, overwrite, force)
+            except Exception as e:
+                print(f'exception: {e}')
             finally:
                 self.queue.task_done()
