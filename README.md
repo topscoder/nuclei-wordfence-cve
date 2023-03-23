@@ -11,9 +11,9 @@ It's a kind of magic 🧙‍♀️
 <!-- START: __STATISTICS_TABLE -->
 | templates | total |
 |---|---|
-| wp-plugins | 5314 |
-| wp-themes | 181 |
-| wp-core | 283 |
+| wp-plugins | 5318 |
+| wp-themes | 182 |
+| wp-core | 292 |
 | other | 5 |
 <!-- END: __STATISTICS_TABLE --> 
 
