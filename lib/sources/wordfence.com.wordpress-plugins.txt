@@ -14041,3 +14041,13 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-simp
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpml/wpml-461-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wsb-brands
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wsb-brands/wsb-brands-118-authenticated-administrator-stored-cross-site-scripting-via-logo
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/contact-form-to-email/contact-form-email-1331-cross-site-request-forgery-to-feedback-submission
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/contact-form-to-email/contact-form-email-1331-missing-authorization-to-feedback-submission
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cp-multi-view-calendar/cp-multi-view-event-calendar-1410-missing-authentication-leading-to-authenticated-subscriber-private-form-submission
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/fluentform/fluentforms-4324-authenticatedcontributor-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/open-graphite
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/open-graphite/open-graphite-160-reflected-cross-site-scripting-via-topic-parameter
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/photo-gallery/photo-gallery-by-10web-1814-authenticated-administrator-directory-traversal
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simple-slideshow-manager/simple-slideshow-manager-21-cross-site-request-forgery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/userlike
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/userlike/userlike-22-authenticated-administrator-stored-cross-site-scripting

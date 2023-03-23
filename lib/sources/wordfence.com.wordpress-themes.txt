@@ -1248,3 +1248,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/salient/
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/salutation-wp/salutation-3016-authenticated-stored-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/vernissage/vernissage-129-arbitrary-options-update
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/weeklynews/weekly-news-229-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/chankhe/chankhe-105-missing-authorization-to-authenticated-subscriber-arbitrary-plugin-activation
