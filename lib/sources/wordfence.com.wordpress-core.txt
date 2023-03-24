@@ -308,3 +308,12 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-552-spam-embed-on-multisite-installations
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-58-beta-stored-cross-site-scripting-in-custom-html-block
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-602-authenticated-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-301-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-332-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-332-cross-site-scripting-3
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-482-sql-injection-via-mishandled-placeholders
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-492-denial-of-service
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-501-arbitrary-file-deletion
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-552-arbitrary-file-deletion
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-552-stored-cross-site-scripting-via-post-slugs
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-583-authenticated-author-stored-cross-site-scripting

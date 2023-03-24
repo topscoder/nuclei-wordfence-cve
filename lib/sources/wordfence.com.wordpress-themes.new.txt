@@ -1,1 +1,0 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/chankhe/chankhe-105-missing-authorization-to-authenticated-subscriber-arbitrary-plugin-activation
