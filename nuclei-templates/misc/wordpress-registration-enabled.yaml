@@ -4,9 +4,6 @@ info:
   name: WordPress account registration enabled
   author: topscoder
   severity: info
-  description: 
-  reference:
-  - foo.bar
   tags: wordpress,wp-core,core,info
 
 requests:
