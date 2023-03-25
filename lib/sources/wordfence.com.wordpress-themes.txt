@@ -1249,3 +1249,17 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/salutati
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/vernissage/vernissage-129-arbitrary-options-update
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/weeklynews/weekly-news-229-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/chankhe/chankhe-105-missing-authorization-to-authenticated-subscriber-arbitrary-plugin-activation
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/amela/freemius-sdk-242-missing-authorization-checks
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/aquarella-lite/freemius-sdk-242-missing-authorization-checks
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/arendelle/freemius-sdk-242-missing-authorization-checks
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/busicare/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/businessexpo/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/businesswp/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/busiprof/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/cactus/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/cloudpress/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/consultera/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/consultstreet/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/designexo/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/elitepress/multiple-themes-various-versions-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/envo-business/multiple-themes-various-versions-reflected-cross-site-scripting
