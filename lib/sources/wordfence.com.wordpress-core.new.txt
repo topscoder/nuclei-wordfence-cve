@@ -1,7 +1,2 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-283-authorization-bypass
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-283-missing-authorization
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-284-denial-of-service
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-284-forced-password-reset
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-285-arbitrary-file-upload
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-382-sql-injection
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-501-stored-cross-site-scripting-via-file-uploads
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-285-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-303-cross-site-scripting
