@@ -1,9 +1,10 @@
-id: wp-uploads-listing
+id: wordpress-uploads-dirlisting
 
 info:
   name: WordPress Upload Directory Listing Enable
   author: yashgoti
   severity: info
+  tags: wordpress-misc
 
 requests:
   - method: GET

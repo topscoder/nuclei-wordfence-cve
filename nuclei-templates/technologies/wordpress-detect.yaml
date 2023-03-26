@@ -7,7 +7,7 @@ info:
   metadata:
     verified: true
     shodan-query: http.component:"WordPress"
-  tags: tech,wordpress,cms,wp
+  tags: tech,wordpress,cms,wp,technologies
 
 requests:
   - method: GET

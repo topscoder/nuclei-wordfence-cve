@@ -6,7 +6,7 @@ info:
   severity: critical
   reference: 
     - https://wpscan.com/vulnerability/10192
-  tags: wordpress,wp-plugin,rce
+  tags: wordpress-misc,wordpress,wp-plugin,rce
 
 requests:
   - raw:

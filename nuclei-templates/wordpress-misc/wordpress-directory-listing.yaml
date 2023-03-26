@@ -4,7 +4,7 @@ info:
   name: Wordpress directory listing
   author: Manas_Harsh
   severity: info
-  tags: wordpress
+  tags: wordpress-misc,wordpress
 
 requests:
   - method: GET

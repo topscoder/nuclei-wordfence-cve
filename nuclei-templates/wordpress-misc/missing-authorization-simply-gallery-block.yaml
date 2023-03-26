@@ -14,7 +14,7 @@ info:
   metadata:
     fofa-query: "wp-content/plugins/simply-gallery-block/"
     google-query: inurl:"/wp-content/plugins/simply-gallery-block/"
-  tags:  cve,wordpress,wp-plugin,critical
+  tags: wordpress-misc,cve,wordpress,wp-plugin,critical
 
 requests:
   - method: GET

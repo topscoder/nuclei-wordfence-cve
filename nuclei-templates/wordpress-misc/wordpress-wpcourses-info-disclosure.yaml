@@ -8,7 +8,7 @@ info:
   reference:
     - https://www.exploit-db.com/exploits/48910
     - https://www.redtimmy.com/critical-information-disclosure-on-wp-courses-plugin-exposes-private-course-videos-and-materials/
-  tags: wordpress,plugin
+  tags: wordpress-misc,wordpress,plugin
 
 requests:
   - method: GET

@@ -3,7 +3,7 @@ info:
   name: "WordPress accessible wp-config"
   author: Kiblyn11, zomsop82, madrobot, geeknik, daffainfo
   severity: high
-  tags: wordpress,backups
+  tags: wordpress-misc,wordpress,backups
 
 requests:
   - method: GET

@@ -3,7 +3,7 @@ info:
   name: Wordpress XML-RPC List System Methods
   author: 0ut0fb4nd
   severity: info
-  tags: wordpress
+  tags: wordpress-misc,wordpress
 
 requests:
   - method: POST

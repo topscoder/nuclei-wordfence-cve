@@ -4,7 +4,7 @@ info:
   name: WordPress account registration enabled
   author: topscoder
   severity: info
-  tags: wordpress,wp-core,core,info
+  tags: wordpress-misc,wordpress,wp-core,core,info
 
 requests:
   - method: GET

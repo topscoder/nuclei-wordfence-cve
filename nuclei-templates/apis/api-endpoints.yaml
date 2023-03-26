@@ -6,7 +6,7 @@ info:
   severity: info
   reference:
     - https://github.com/1in9e/my-nuclei-templates/blob/main/api_endpoints.yaml
-  tags: info,api,misc
+  tags: info,api,apis,misc
 
 requests:
   - method: GET

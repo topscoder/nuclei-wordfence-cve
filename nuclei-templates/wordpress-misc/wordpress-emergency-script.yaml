@@ -6,7 +6,7 @@ info:
   severity: info
   reference:
     - https://wordpress.org/support/article/resetting-your-password/#using-the-emergency-password-reset-script
-  tags: wordpress,info
+  tags: wordpress-misc,wordpress,info
 
 requests:
   - method: GET

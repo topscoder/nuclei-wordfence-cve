@@ -6,7 +6,7 @@ info:
   severity: critical
   reference: 
     - https://github.com/SECFORCE/WPTimeCapsulePOC
-  tags: wordpress,wp-plugin
+  tags: wordpress-misc,wordpress,wp-plugin,critical
 
 requests:
   - raw:
