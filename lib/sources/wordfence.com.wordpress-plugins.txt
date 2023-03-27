@@ -14195,3 +14195,5 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/w4-post
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-concours
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-payeezy-pay
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-splashing-images
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ml-slider/appsero-121-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ml-slider/sheets-to-wp-table-live-sync-21214-cross-site-request-forgery

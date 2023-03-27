@@ -326,3 +326,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-501-stored-cross-site-scripting-via-file-uploads
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-285-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-303-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-31-cross-site-scripting
