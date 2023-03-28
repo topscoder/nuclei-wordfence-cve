@@ -14,7 +14,7 @@ It's a kind of magic 🧙‍♀️
 | wp-plugins | 5362 |
 | wp-themes | 182 |
 | wp-core | 298 |
-| other | 10 |
+| other | 11 |
 <!-- END: __STATISTICS_TABLE --> 
 
 ### Usage 
