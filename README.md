@@ -13,7 +13,7 @@ It's a kind of magic 🧙‍♀️
 |---|---|
 | wp-plugins | 5362 |
 | wp-themes | 182 |
-| wp-core | 298 |
+| wp-core | 299 |
 | other | 11 |
 <!-- END: __STATISTICS_TABLE --> 
 
