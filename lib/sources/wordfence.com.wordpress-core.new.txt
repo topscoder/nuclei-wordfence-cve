@@ -1,0 +1,1 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-412-cross-site-scripting

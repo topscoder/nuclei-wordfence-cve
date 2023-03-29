@@ -14242,3 +14242,16 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/worth-t
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/worth-the-read/appsero-121-missing-authorization
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-maximum-upload-file-size
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-maximum-upload-file-size/appsero-121-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cbcurrencyconverter
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/contact-forms/wordpress-contact-forms-by-cimatti-154-unauthenticated-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/continuous-image-carousel-with-lightbox
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/continuous-image-carousel-with-lightbox/continuous-image-carousel-with-lightbox-1015-reflected-cross-site-scripting-via-search-term-order-by-and-order-pos
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/elementor-pro/elementor-pro-3116-authenticatedsubscriber-privilege-escalation-via-update-page-option
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/google-maps-widget
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/google-maps-widget/maps-widget-for-google-maps-423-cross-site-request-forgery-via-dismiss-notice
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/newsletter/newsletter-768-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/quick-paypal-payments/quick-paypal-payments-57263-authenticated-administrator-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simple-author-box
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simple-author-box/simple-author-box-250-cross-site-request-forgery-via-save-user-profile
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wc-fields-factory
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wc-fields-factory/wc-fields-factory-415-authenticatedsubscriber-sql-injection
