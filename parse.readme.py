@@ -19,7 +19,12 @@ for file in glob.glob("./nuclei-templates/**/*.yaml"):
         if re.search("wp-core", content):
             core+=1
 
-other = len(glob.glob("./nuclei-templates/misc/*.yaml"))
+misc = len(glob.glob("./nuclei-templates/misc/*.yaml"))
+apis = len(glob.glob("./nuclei-templates/apis/*.yaml"))
+url_params = len(glob.glob("./nuclei-templates/url-params/*.yaml"))
+wordpress_misc = len(glob.glob("./nuclei-templates/wordpress-misc/*.yaml"))
+
+other = misc + apis + url_params + wordpress_misc
 
 table = "<!-- START: __STATISTICS_TABLE -->\n"
 table += "| templates | total |\n"
