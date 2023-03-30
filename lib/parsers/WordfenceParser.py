@@ -1,9 +1,9 @@
 from lib.colors import red, green, yellow
 from lib.logger import logger
 from lxml import html
+import hashlib
 import os
 import requests
-import random
 import re
 
 from lib.parsers.ParserInterface import ParserInterface
@@ -11,6 +11,7 @@ from lib.parsers.ParserInterface import ParserInterface
 
 class WordfenceParser(ParserInterface):
     
+    url = None
     html_content = None
 
     def run(self, url, outputfile = None, overwrite = False, force = False) -> bool:
@@ -29,6 +30,7 @@ class WordfenceParser(ParserInterface):
             return False
 
         url = url.strip()
+        self.url = url
 
         try:
             page = requests.get(url)
@@ -44,52 +46,63 @@ class WordfenceParser(ParserInterface):
         title = self.read_title(self.html_content)
         description = self.read_description(self.html_content)
         cve_id = self.read_cve_id(self.html_content)
-        target_filename = self.get_target_filename(cve_id, outputfile)
-        if target_filename is False:
+        
+        software_type = self.get_software_type(self.html_content)
+        if software_type is False:
             return False
         
+        object_slug = self.get_object_slug(self.html_content)
+        if object_slug is False:
+            return False
+        
+        object_category_slug = self.get_object_category_slug(software_type)
+        
+        target_filename = self.get_target_filename(cve_id, outputfile, object_slug)
+        logger.debug(f"[ ] Target filename: {target_filename}")
+
+        template_id = self.get_template_id(cve_id, outputfile, object_slug)
+
+        # determine file path
         year = ""
         if cve_id != "":
             cve_parts = cve_id.split('-')
             year = cve_parts[1]
+            filepath = f'nuclei-templates/{year}/{target_filename}'
+        else:
+            filepath = f'nuclei-templates/cve-less/{object_category_slug}/{target_filename}'
 
-            # Check to see if there is already a template for this cve in our local templates repo
-            if overwrite is False:
-                if os.path.isfile(f"nuclei-templates/{year}/CVE-{year}-{cve_parts[2]}.yaml"):
-                    logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo: {year}/CVE-{year}-{cve_parts[2]}.yaml"))
-                    logger.info(yellow(f"[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
-                    return False
+        # Check to see if there is already a template for this cve in our local templates repo
+        if overwrite is False:
+            if os.path.isfile(f"{filepath}"):
+                logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo: {filepath}"))
+                logger.info(yellow(f"[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
+                return False
 
-            # Check to see if there is already a template for this cve in the nuclei-templates repo
-            if force is False:
-                check_page = requests.get(
-                    f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml")
+        # Check to see if there is already a template for this cve in the nuclei-templates repo
+        if force is False and year != "":
+            check_page = requests.get(
+                f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}")
 
-                if check_page.status_code == 200:
-                    logger.info(yellow(f"[*] Note: There is already a template for this cve in the nuclei-templates repo."))
-                    logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/CVE-{year}-{cve_parts[2]}.yaml"))
-                    logger.info(yellow(f"[*] Skipping. Use --force if you want to ignore this and create a new template."))
-                    return False
-
-        logger.debug(f"[ ] Target filename: {target_filename}")
-
-        software_type = self.get_software_type(self.html_content)
+            if check_page.status_code == 200:
+                logger.info(yellow(f"[*] Note: There is already a template for this cve in the nuclei-templates repo."))
+                logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}"))
+                logger.info(yellow(f"[*] Skipping. Use --force if you want to ignore this and create a new template."))
+                return False
 
         # Validate "SOFTWARE_TYPE"
         if software_type != "Plugin" and software_type != "Theme" and software_type != "Core":
             logger.warning(red(f"[*] Skipping. Software type {software_type} is not supported."))
+            # TODO could be a page with a vuln which affects more plugins/themes
+            # like https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/fuse-social-floating-sidebar/appsero-121-missing-authorization
             return False
 
-        template_id = self.get_template_id(cve_id)
         cvss_score = self.get_cvss_score(self.html_content)
         cvss_rating = self.get_cvss_rating(cvss_score)
         reference_list = self.get_references(self.html_content)
         cvss_vector = self.get_cvss_vector(self.html_content)
-        object_category_slug = self.get_object_category_slug(software_type)
         object_category_tag = self.get_object_category_tag(software_type)
         find_file = self.find_version_in_file(software_type)
         version_regex = self.get_version_regex(software_type)
-        object_slug = self.get_object_slug(self.html_content)
 
         try:
             affected_version = self.get_affected_version(self.html_content)
@@ -117,10 +130,8 @@ class WordfenceParser(ParserInterface):
             template_content = template_content.replace('__OBJECT_SLUG__', object_slug.strip())
             template_content = template_content.replace('__VERSION_COMPARE__', f"{affected_version}")
 
-            logger.debug(f'year={year}')
             logger.debug(f'target_filename={target_filename}')
 
-            filepath = os.path.join("nuclei-templates", year, target_filename)
             os.makedirs(os.path.dirname(filepath), exist_ok=True)
             with open(filepath, 'w+') as target:
                 target.write(template_content)
@@ -130,9 +141,7 @@ class WordfenceParser(ParserInterface):
 
     def read_title(self, content):
         title = content.xpath('//h1/text()')[0]
-
         logger.info(f"[ ] Title: {title}")
-
         return title
 
     def read_description(self, content):
@@ -140,7 +149,9 @@ class WordfenceParser(ParserInterface):
         desc = content.xpath(
             '/html/body/div[1]/section[3]/div/div/div[2]/div/div/p/text()')
         if len(desc) == 0:
-            logger.warning(red(f"[*] Whoops. No description found. Are you sure this is a valid CVE page? ${url}$"))
+            logger.warning(red(f"[*] Whoops. No description found. Are you sure this is a valid CVE page? {self.url}"))
+            # TODO could be a plugin page containing multiple vulnerabilities
+            # like https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/brandfolder
             return False
 
         description = desc[0].replace('"', "'").replace("\\", "/")
@@ -151,24 +162,27 @@ class WordfenceParser(ParserInterface):
         cve_ids = content.xpath('//table/tbody/tr/td/a[contains(@href, "cve")]/text()')
         cve_id = cve_ids[0].strip() if len(cve_ids) > 0 else ""
         return cve_id
+    
+    def get_uniq_id(self, url):
+        md5 = hashlib.md5(url.encode())
+        return md5.hexdigest()
 
-    def get_target_filename(self, cve_id, outputfile):
-        if outputfile != "" and outputfile != "None":
-            target_filename = outputfile
-        else:
-            if cve_id == "":
-                logger.warning(red(f"[*] Whoops. No CVE ID found nor a filename was passed."))
-                return False
-            else:
-                target_filename = f"{cve_id}.yaml"
+    def get_target_filename(self, cve_id, outputfile, object_slug):
+        return self.get_template_id(cve_id, outputfile, object_slug) + ".yaml"
 
-        logger.debug(f"[ ] CVE ID: {cve_id}")
-
-        return target_filename
-
-    def get_template_id(self, cve_id):
+    def get_template_id(self, cve_id, outputfile, object_slug):
         # Create "TEMPLATE_ID"
-        return cve_id if cve_id != "" else "random-id-" + str(random.randint(0,10000))
+        if outputfile != "" and outputfile != "None":
+            return outputfile.replace(".yaml", "")
+        
+        if cve_id != "":
+            logger.debug(f"[ ] CVE ID: {cve_id}")
+            return cve_id
+        
+        unique_id = self.get_uniq_id(self.url)
+
+        logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
+        return f"{object_slug}-{unique_id}"
 
     def get_cvss_vector(self, content):
         # Read "CVSS_VECTOR"
