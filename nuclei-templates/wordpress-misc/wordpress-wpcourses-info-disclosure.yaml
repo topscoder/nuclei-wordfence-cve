@@ -21,7 +21,6 @@ requests:
         regex:
           - "rest_post_invalid_id"
           - "\"(guid|title|content|excerpt)\":{\"rendered\":"
-        condition: or
         part: body
       
       - type: word
@@ -33,4 +32,3 @@ requests:
         status:
           - 200
           - 404
-        condition: or

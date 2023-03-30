@@ -32,7 +32,6 @@ requests:
           - '<link[^>]+s\d+\.wp\.com'
           - '<!-- This site is optimized with the Yoast (?:WordPress )?SEO plugin v([\d.]+) -'
           - '<!--[^>]+WP-Super-Cache'
-        condition: or
 
       - type: status
         status:
