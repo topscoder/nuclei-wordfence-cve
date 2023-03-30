@@ -11,10 +11,10 @@ It's a kind of magic 🧙‍♀️
 <!-- START: __STATISTICS_TABLE -->
 | templates | total |
 |---|---|
-| wp-plugins | 5396 |
+| wp-plugins | 5397 |
 | wp-themes | 183 |
-| wp-core | 299 |
-| other | 11 |
+| wp-core | 314 |
+| other | 38 |
 <!-- END: __STATISTICS_TABLE --> 
 
 ### Usage 
