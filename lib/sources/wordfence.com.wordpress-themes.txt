@@ -1264,3 +1264,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/designex
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/elitepress/multiple-themes-various-versions-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/envo-business/multiple-themes-various-versions-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/resoto
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/resoto/resoto-108-missing-authorization-leading-to-authenticated-subscriber-arbitrary-plugin-activation
