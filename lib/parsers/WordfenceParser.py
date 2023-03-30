@@ -297,13 +297,13 @@ class WordfenceParser(ParserInterface):
         return affected_version
 
     def find_version_in_file(self, software_type):
-        object_category_tag = self.get_object_category_tag(software_type)
+        object_slug = self.get_object_slug(self.html_content)
         if software_type == "Theme":
-            filepath = f"wp-content/{object_category_tag}/{object_category_tag}/style.css"
+            filepath = f"wp-content/themes/{object_slug}/style.css"
         elif software_type == "Core":
             filepath = f"index.php"
         else:
-            filepath = f"wp-content/{object_category_tag}/{object_category_tag}/readme.txt"
+            filepath = f"wp-content/plugins/{object_slug}/readme.txt"
 
         return filepath
     
