@@ -36,7 +36,7 @@ jobs:
           go install -v github.com/tomnomnom/anew@latest
 
       - name: Run crawler
-        run: sh crawl.wordfence.sh
+        run: sh scripts/crawl.wordfence.sh
 
       - name: Commit crawled URL logfiles
         run: |

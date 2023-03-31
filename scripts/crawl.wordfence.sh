@@ -2,7 +2,7 @@
 #
 # Required packages: katana, unfurl, anew
 # Used sys: echo, tee, grep, sort, uniq, tee, wc
-# Usage: sh crawl.wordfence.sh 
+# Usage: sh ./scripts/crawl.wordfence.sh 
 #
 # Crawls wordfence.com and stores all urls in txt file
 # - lib/sources/wordfence.com.crawler.txt
