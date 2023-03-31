@@ -69,11 +69,10 @@ requests:
       - type: status
         status:
           - 200
-          - 405
-          - 500
-          - 403
           
       - type: word
         words:
           - "Content-Type: application/json"
         part: header
+
+# Enhanced
