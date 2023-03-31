@@ -1,11 +1,13 @@
 id: kube-api-scan
 info:
   name: Kube API Scan
-  author: sharath
+  author: sharath,topscoder
   severity: info
   description: Scans all open urls of kube api server
 requests:
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/version"
     matchers-condition: and
@@ -14,12 +16,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "major"
           - "minor"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/namespaces"
     matchers-condition: and
@@ -28,12 +36,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "NamespaceList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/nodes"
     matchers-condition: and
@@ -42,12 +56,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "NodeList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/roles"
     matchers-condition: and
@@ -56,12 +76,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
-          - ""
+          - "role"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/secrets"
     matchers-condition: and
@@ -70,12 +96,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "SecretList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/services"
     matchers-condition: and
@@ -84,12 +116,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "ServiceList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/serviceaccounts"
     matchers-condition: and
@@ -98,12 +136,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "ServiceAccountList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/apis/apps/v1/"
     matchers-condition: and
@@ -112,12 +156,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "APIResourceList"
           - "resources"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/apis/apps/v1/daemonsets"
     matchers-condition: and
@@ -126,12 +176,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "DaemonSetList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/apis/apps/v1/deployments"
     matchers-condition: and
@@ -140,12 +196,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "DeploymentList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/apis/rbac.authorization.k8s.io/v1beta1/clusterroles"
     matchers-condition: and
@@ -154,12 +216,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "ClusterRoleList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/namespaces/default/pods"
     matchers-condition: and
@@ -168,12 +236,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "PodList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/namespaces/default/configmaps"
     matchers-condition: and
@@ -182,12 +256,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "ConfigMapList"
           - "items"          
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/namespaces/default/secrets"
     matchers-condition: and
@@ -196,12 +276,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "SecretList"
           - "items"          
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/namespaces/default/serviceaccounts"
     matchers-condition: and
@@ -210,12 +296,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "ServiceAccountList"
           - "items"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/api/v1/namespaces/default/services"
     matchers-condition: and
@@ -224,12 +316,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "ServiceList"
           - "items"           
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/apis/node.k8s.io/"
     matchers-condition: and
@@ -238,12 +336,18 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "APIGroup"
           - "versions"
   
   - method: GET
+    headers:
+      Accept: "application/json"
     path:
       - "{{BaseURL}}/apis/apps/v1/namespaces/default/deployments"
     matchers-condition: and
@@ -252,7 +356,13 @@ requests:
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:          
           - "DeploymentList"
           - "items"
+
+# Enhanced by topscoder 31.march.2023

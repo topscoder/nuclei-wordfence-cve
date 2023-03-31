@@ -7,28 +7,38 @@ info:
 
 requests:
   - method: GET
+    headers:
+      Accept: application/json
     path:
       - "{{BaseURL}}/version"
-      - "{{Scheme}}://{{Host}}:6443/version"
     matchers-condition: and
     matchers:
       - type: status
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "etcdserver"          
 
   - method: GET
+    headers:
+      Accept: application/json
     path:
       - "{{BaseURL}}/v2/keys/"
-      - "{{Scheme}}://{{Host}}:6443/v2/keys/"
     matchers-condition: and
     matchers:
       - type: status
         status:
           - 200
+      - type: word
+        part: header
+        words:
+          - "application/json"
       - type: word
         part: body
         words:
@@ -36,16 +46,23 @@ requests:
           - "key" 
 
   - method: GET
+    headers:
+      Accept: application/json
     path:
       - "{{BaseURL}}/v2/keys/?recursive=true"
-      - "{{Scheme}}://{{Host}}:6443/v2/keys/?recursive=true"
     matchers-condition: and
     matchers:
       - type: status
         status:
           - 200
       - type: word
+        part: header
+        words:
+          - "application/json"
+      - type: word
         part: body
         words:
           - "node" 
           - "key"  
+
+# Enhanced
