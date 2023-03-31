@@ -18,6 +18,7 @@ parser.add_argument('--url', required=False, help='the URL of the Wordfence CVE 
 parser.add_argument('--outputfile', required=False, help='the output filename to store the nuclei-template in', default="")
 parser.add_argument('--force', required=False, help='ignore if there is already a template in the official nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
+parser.add_argument('--overwrite_enhanced', required=False, help='ignore if there is already an **enhanced** template in our local nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
 # parser.add_argument('--warningsfile', required=False, help='filename to store warnings in so its possible to investigate issues', default=False, action='store_true')
 args = parser.parse_args()
@@ -55,7 +56,7 @@ def main():
         worker.start()
     
     for url in urls:
-        queue.put((url, args.outputfile, args.overwrite, args.force))
+        queue.put((url, args.outputfile, args.overwrite, args.force, args.overwrite_enhanced))
     
     queue.join()
     logger.info('Done. Took %s', time.strftime("%H:%M:%S", time.gmtime(time.time() - ts)))

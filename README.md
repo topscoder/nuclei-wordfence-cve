@@ -20,7 +20,7 @@ It's a kind of magic 🧙‍♀️
 ### Usage 
 
 ```shell 
-usage: main.py [-h] [--inputfile INPUTFILE] [--url URL] [--outputfile OUTPUTFILE] [--force] [--overwrite] [--threads THREADS] 
+usage: main.py [-h] [--inputfile INPUTFILE] [--url URL] [--outputfile OUTPUTFILE] [--force] [--overwrite] [--overwrite_enhanced] [--threads THREADS]
 
 Generate a Nuclei template out of a Wordfence CVE report 🧙‍♀️ 
 
@@ -33,5 +33,6 @@ options:
                         the output filename to store the nuclei-template in
   --force               ignore if there is already a template in the official nuclei-templates repo
   --overwrite           ignore if there is already a template in our local nuclei-templates repo
+  --overwrite_enhanced  ignore if there is already an **enhanced** template in our local nuclei-templates repo
   --threads THREADS     boost by increasing the default worker threads (default 2)
 ```

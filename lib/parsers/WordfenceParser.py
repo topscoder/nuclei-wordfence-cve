@@ -14,7 +14,7 @@ class WordfenceParser(ParserInterface):
     url = None
     html_content = None
 
-    def run(self, url, outputfile = None, overwrite = False, force = False) -> bool:
+    def run(self, url, outputfile = None, overwrite = False, force = False, overwrite_enhanced = False) -> bool:
         """Execute the Wordfence Parser.
 
         Args:
@@ -88,6 +88,17 @@ class WordfenceParser(ParserInterface):
                 logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}"))
                 logger.info(yellow(f"[*] Skipping. Use --force if you want to ignore this and create a new template."))
                 return False
+
+        # Manually enhanced templates can be marked with "# Enhanced" in last line of the template.
+        # This ensures the template is overwritten only after using the --overwrite-enhanced flag.
+        if os.path.isfile(f"{filepath}"):
+            with open(f"{filepath}", "r") as fp:
+                lines = fp.readlines()
+                for line in lines:
+                    if line.find("# Enhanced") == 0:
+                        logger.info(yellow(f"[*] Note: There is already an **enhanced** template in our local nuclei-templates repo: {filepath}"))
+                        logger.info(yellow(f"[*] Skipping. Use --overwrite-enhanced if you want to ignore this and overwrite the template."))
+                        return False
 
         # Validate "SOFTWARE_TYPE"
         if software_type != "Plugin" and software_type != "Theme" and software_type != "Core":

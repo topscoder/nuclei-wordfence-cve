@@ -8,10 +8,10 @@ class DownloadWorker(Thread):
 
     def run(self):
         while True:
-            (url, outputfile, overwrite, force) = self.queue.get()
+            (url, outputfile, overwrite, force, overwrite_enhanced) = self.queue.get()
             try:
                 parser = WordfenceParser()
-                parser.run(url, outputfile, overwrite, force)
+                parser.run(url, outputfile, overwrite, force, overwrite_enhanced)
             except Exception as e:
                 print(f'exception: {e}')
             finally:
