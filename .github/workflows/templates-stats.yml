@@ -30,7 +30,7 @@ jobs:
     
     - name: Parse readme
       run: |
-        python /home/runner/work/nuclei-wordfence-cve/nuclei-wordfence-cve/parse.readme.py
+        python /home/runner/work/nuclei-wordfence-cve/nuclei-wordfence-cve/scripts/parse.readme.py
     
     - name: Get statistical changes
       id: stats
