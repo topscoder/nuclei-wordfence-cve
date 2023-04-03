@@ -14476,3 +14476,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ultimat
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ultimate-elementor/ultimate-addons-for-elementor-1201-authentication-bypass
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ultimate-elementor/ultimate-addons-for-elementor-1241-registration-bypass
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/web-stat
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/embed-swagger
