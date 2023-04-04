@@ -1266,3 +1266,5 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/envo-bus
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/resoto
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/resoto/resoto-108-missing-authorization-leading-to-authenticated-subscriber-arbitrary-plugin-activation
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Resoto
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viral-mag
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viral-mag/viral-mag-109-missing-authorization-to-arbitrary-plugin-activation
