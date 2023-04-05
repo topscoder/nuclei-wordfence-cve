@@ -1,2 +1,0 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viral-mag
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viral-mag/viral-mag-109-missing-authorization-to-arbitrary-plugin-activation
