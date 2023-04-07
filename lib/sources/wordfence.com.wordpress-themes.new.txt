@@ -1,2 +1,2 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/weaver-xtreme
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/weaver-xtreme/weaver-xtreme-theme-507-authenticatedcontributor-stored-cross-site-scripting-via-display-name
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/outdoor
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/outdoor/outdoor-396-reflected-cross-site-scripting
