@@ -1,2 +1,1 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/outdoor
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/outdoor/outdoor-396-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Viral%20Mag
