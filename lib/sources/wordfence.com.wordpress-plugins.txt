@@ -14681,3 +14681,6 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-fast
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-shoutbox-live-chat/steveas-wp-live-chat-shoutbox-142-unauthenticated-sql-injection
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-shoutbox-live-chat/steveas-wp-live-chat-shoutbox-142-unauthenticated-stored-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-ultimate-review/wp-ultimate-review-203-authenticated-administrator-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/popup-zyrex
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/randomtext
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/show-posts
