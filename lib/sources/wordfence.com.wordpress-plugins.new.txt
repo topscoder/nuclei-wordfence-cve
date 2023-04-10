@@ -1,3 +1,0 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/popup-zyrex
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/randomtext
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/show-posts
