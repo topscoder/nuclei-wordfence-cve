@@ -1273,3 +1273,6 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/weaver-x
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/outdoor
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/outdoor/outdoor-396-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Viral%20Mag
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/dt-the7/the7-1160-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/theroof
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/theroof/theroof-103-reflected-cross-site-scripting
