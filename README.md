@@ -11,8 +11,8 @@ It's a kind of magic 🧙‍♀️
 <!-- START: __STATISTICS_TABLE -->
 | templates | total |
 |---|---|
-| wp-plugins | 6019 |
-| wp-themes | 186 |
+| wp-plugins | 6040 |
+| wp-themes | 188 |
 | wp-core | 317 |
 | other | 38 |
 <!-- END: __STATISTICS_TABLE --> 
