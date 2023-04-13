@@ -1,3 +1,2 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/dt-the7/the7-1160-reflected-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/theroof
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/theroof/theroof-103-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/attorney/attorney-3-missing-authorization-to-unauthenticated-arbitrary-content-deletion
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/houzez/houzez-282-unauthenticated-sql-injection
