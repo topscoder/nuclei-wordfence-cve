@@ -329,3 +329,6 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-31-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-412-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-422-cross-site-scripting-via-comments
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-313-media-related-security-issue
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-313-security-hardening
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-313-username-enumeration

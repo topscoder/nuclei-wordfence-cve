@@ -14790,3 +14790,16 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/visuali
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-listings
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-listings/impress-listings-201-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpforo/wpforo-forum-209-authenticated-subscriber-html-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/backup-scheduler/backup-scheduler-1513-missing-authorization-to-sensitive-information-disclosure
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cyr3lat
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cyr3lat/cyr-to-lat-35-authenticated-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/miniorange-2-factor-authentication/minioranges-google-authenticator-561-sensitive-data-exposure-of-multifactor-backup-codes
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/no-captcha-recaptcha-for-woocommerce
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/no-captcha-recaptcha-for-woocommerce/no-captcha-recaptcha-for-woocommerce-126-missing-authorization-to-notification-dismissal
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/opening-hours/were-open-144-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/photoblocks-grid-gallery/gallery-photoblocks-128-cross-site-request-forgery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/shiftcontroller
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/shiftcontroller/shiftcontroller-employee-shift-scheduling-4923-unauthenticated-stored-cross-site-scripting-via-hc-title
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/shiftcontroller/shiftcontroller-employee-shift-scheduling-4925-reflected-cross-site-scripting-via-query-string
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/stock-exporter-for-woocommerce
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/stock-exporter-for-woocommerce/stock-exporter-for-woocommerce-110-cross-site-request-forgery
