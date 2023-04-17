@@ -1,2 +1,1 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/mainwp/mainwp-dashboard-and-mainwp-child-2022-unspecified-vulnerability
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-custom-admin-interface
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/pretty-link/pretty-links-219-unauthenticated-stored-cross-site-scripting-via-track-link
