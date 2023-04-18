@@ -1,0 +1,8 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/activello/activello-144-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/attorney
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/betheme/betheme-2675-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/blogger-buzz
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/blogger-buzz/blogger-buzz-121-missing-authorization-via-activate-plugin
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/educenter
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/educenter/educenter-151-missing-authorization-via-activate-plugin
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/square/square-200-missing-authorization-via-activate-plugin
