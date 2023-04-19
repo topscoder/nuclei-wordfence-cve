@@ -1286,3 +1286,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/blogger-
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/educenter
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/educenter/educenter-151-missing-authorization-via-activate-plugin
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/square/square-200-missing-authorization-via-activate-plugin
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/square
