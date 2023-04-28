@@ -15228,3 +15228,7 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-page
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-page-numbers/wp-page-numbers-05-cross-site-request-forgery-via-wp-page-numbers-settings
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/xml-for-google-merchant-center
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/xml-for-google-merchant-center/xml-for-google-merchant-center-301-reflected-cross-site-scripting-via-page-parameter
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/bit-form/bit-form-181-unauthenticated-arbitrary-file-upload-to-remote-code-execution
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/customizer-export-import/customizer-exportimport-095-authenticated-administrator-php-object-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/seo-alert
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/seo-alert/seo-alert-159-authenticatedadministrator-stored-cross-site-scripting

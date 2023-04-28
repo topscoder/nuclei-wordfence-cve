@@ -1295,3 +1295,9 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Square
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/The7%20%E2%80%94%20Website%20and%20eCommerce%20Builder%20for%20WordPress
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/TheRoof
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Weaver%20Xtreme
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/arya-multipurpose
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/arya-multipurpose/arya-multipurpose-105-unauthenticated-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/mocho-blog
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/mocho-blog/mocho-blog-104-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viable-blog
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viable-blog/viable-blog-114-cross-site-scripting
