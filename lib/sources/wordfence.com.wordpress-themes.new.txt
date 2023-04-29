@@ -1,6 +1,8 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/arya-multipurpose
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/arya-multipurpose/arya-multipurpose-105-unauthenticated-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/mocho-blog
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/mocho-blog/mocho-blog-104-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viable-blog
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/viable-blog/viable-blog-114-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/cream-blog
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/cream-blog/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/everest-news
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/everest-news/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/fascinate
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/fascinate/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/glaze-blog-lite
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/glaze-blog-lite/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
