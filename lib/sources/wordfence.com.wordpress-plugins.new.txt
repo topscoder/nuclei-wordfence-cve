@@ -1,14 +1,2 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/bit-form
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ko-fi-button
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ko-fi-button/ko-fi-button-132-authenticated-administrator-stored-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/loginizer/loginizer-175-reflected-cross-site-scripting-via-name
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/nextgen-gallery-voting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/nextgen-gallery-voting/nextgen-gallery-voting-275-authenticated-admin-sql-injection
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ninja-forms/ninja-forms-contact-form-3621-reflected-cross-site-scripting-via-title
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/plugins-list
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/plugins-list/plugins-list-25-authenticated-editor-stored-cross-site-scripting-via-replace-plugin-list-tags
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/url-params
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/url-params/url-params-24-authenticated-contributor-stored-cross-site-scripting-via-shortcode
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-responsive-photo-gallery
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-responsive-photo-gallery/photo-gallery-slideshow-masonry-tiled-gallery-1013-reflected-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yellow-yard/yellow-yard-searchbar-2727-authenticated-contributor-stored-cross-site-scripting-via-shortcode
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/pretty-url/pretty-url-154-authenticated-admin-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-responsive-thumbnail-slider/thumbnail-carousel-slider-119-reflected-cross-site-scripting-1
