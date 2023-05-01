@@ -15248,3 +15248,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-resp
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yellow-yard/yellow-yard-searchbar-2727-authenticated-contributor-stored-cross-site-scripting-via-shortcode
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/pretty-url/pretty-url-154-authenticated-admin-stored-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-responsive-thumbnail-slider/thumbnail-carousel-slider-119-reflected-cross-site-scripting-1
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/td-composer/tagdiv-composer-40-reflected-cross-site-scripting-via-td-video-url
