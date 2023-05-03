@@ -15295,3 +15295,5 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirec
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-119-open-redirect
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yet-another-related-posts-plugin/yarpp-yet-another-related-posts-plugin-5302-authenticated-subscriber-sql-injection-via-shortcode
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zephyr-project-manager/zephyr-project-manager-339-open-redirect
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/easy-digital-downloads/easy-digital-downloads-31141-unauthenticated-arbitrary-password-reset-to-privilege-escalation
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-docs/wp-docs-199-reflected-cross-site-scripting
