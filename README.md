@@ -9,12 +9,21 @@ Every single day new templates are added to this repo based on updates on Wordfe
 ### What's in it?! 
 
 <!-- START: __STATISTICS_TABLE -->
-| templates | total |
+| category | total |
 |---|---|
 | wp-plugins | 6413 |
 | wp-themes | 205 |
 | wp-core | 317 |
 | other | 39 |
+
+
+| severity | total |
+|---|---|
+| info | 2048 |
+| low | 116 |
+| medium | 4411 |
+| high | 1860 |
+| critical | 740 |
 <!-- END: __STATISTICS_TABLE --> 
 
 ~~ Please use it responsibly!
