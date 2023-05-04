@@ -15297,3 +15297,13 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yet-ano
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zephyr-project-manager/zephyr-project-manager-339-open-redirect
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/easy-digital-downloads/easy-digital-downloads-31141-unauthenticated-arbitrary-password-reset-to-privilege-escalation
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-docs/wp-docs-199-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-contact-us/ai-contact-us-form-10-authenticated-admin-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cf7-google-map
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cf7-google-map/contact-form-7-extension-for-google-map-fields-183-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/formassembly-web-forms/wp-formassembly-208-limited-server-side-request-forgery-via-formassembly-shortcode
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/holler-box
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/holler-box/hollerbox-213-authenticatededit-popups-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/participants-database/participants-database-249-authenticatedadministrator-stored-cross-site-scripting-via-plugin-settings
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/spiffy-calendar/spiffy-calendar-493-reflected-cross-site-scripting-via-page-parameter
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-121-cross-site-request-forgery-to-plugin-settings-changedelete-demo-import-directory-kit-modificationdeletion-via-admin-page-display
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-122-missing-authorization-to-plugin-settings-changedelete-demo-import-directory-kit-deletion-via-wdk-public-action
