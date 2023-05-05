@@ -1,10 +1,6 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-contact-us/ai-contact-us-form-10-authenticated-admin-stored-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cf7-google-map
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cf7-google-map/contact-form-7-extension-for-google-map-fields-183-stored-cross-site-scripting
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/formassembly-web-forms/wp-formassembly-208-limited-server-side-request-forgery-via-formassembly-shortcode
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/holler-box
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/holler-box/hollerbox-213-authenticatededit-popups-sql-injection
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/participants-database/participants-database-249-authenticatedadministrator-stored-cross-site-scripting-via-plugin-settings
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/spiffy-calendar/spiffy-calendar-493-reflected-cross-site-scripting-via-page-parameter
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-121-cross-site-request-forgery-to-plugin-settings-changedelete-demo-import-directory-kit-modificationdeletion-via-admin-page-display
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-122-missing-authorization-to-plugin-settings-changedelete-demo-import-directory-kit-deletion-via-wdk-public-action
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/advanced-custom-fields/advanced-custom-fields-615-reflected-cross-site-scripting-via-post-status
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dx-delete-attached-media
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dx-delete-attached-media/dx-delete-attached-media-202-missing-authorization-to-settings-update
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/enhanced-tooltipglossary/cm-tooltip-glossary-better-seo-and-uex-for-your-wp-site-313-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/metform/metform-elementor-contact-form-builder-330-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-product-addon/ppom-for-woocommerce-3205-authenticated-administrator-stored-cross-site-scripting-via-plugin-settings

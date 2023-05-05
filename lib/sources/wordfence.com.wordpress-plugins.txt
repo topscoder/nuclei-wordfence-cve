@@ -15307,3 +15307,9 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/partici
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/spiffy-calendar/spiffy-calendar-493-reflected-cross-site-scripting-via-page-parameter
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-121-cross-site-request-forgery-to-plugin-settings-changedelete-demo-import-directory-kit-modificationdeletion-via-admin-page-display
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpdirectorykit/wp-directory-kit-122-missing-authorization-to-plugin-settings-changedelete-demo-import-directory-kit-deletion-via-wdk-public-action
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/advanced-custom-fields/advanced-custom-fields-615-reflected-cross-site-scripting-via-post-status
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dx-delete-attached-media
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dx-delete-attached-media/dx-delete-attached-media-202-missing-authorization-to-settings-update
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/enhanced-tooltipglossary/cm-tooltip-glossary-better-seo-and-uex-for-your-wp-site-313-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/metform/metform-elementor-contact-form-builder-330-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-product-addon/ppom-for-woocommerce-3205-authenticated-administrator-stored-cross-site-scripting-via-plugin-settings
