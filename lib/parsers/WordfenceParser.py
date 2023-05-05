@@ -231,12 +231,13 @@ class WordfenceParser(ParserInterface):
 
     def get_cvss_rating(self, cvss_score):
         # Determine "CVSS_RATING"
-        cvss_rating = "" if cvss_score == "" \
+        # In compliance with docs: https://github.com/projectdiscovery/nuclei/blob/main/SYNTAX-REFERENCE.md#severityholder
+        cvss_rating = "unknown" if cvss_score == "" \
             else "Low" if cvss_score < 4 \
             else "Medium" if cvss_score < 7 \
             else "High" if cvss_score < 9 \
             else "Critical" if cvss_score <= 10 \
-            else "invalid cvss score"
+            else "unknown"
 
         logger.debug(f"[ ] CVSS Rating: {cvss_rating}")
 
