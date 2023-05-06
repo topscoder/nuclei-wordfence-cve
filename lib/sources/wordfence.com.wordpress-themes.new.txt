@@ -1,0 +1,1 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/jupiterx/jupiterx-theme-300-authenticated-local-file-inclusion-via-print-pane

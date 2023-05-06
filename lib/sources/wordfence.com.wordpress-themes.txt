@@ -1309,3 +1309,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/fascinat
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/fascinate/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/glaze-blog-lite
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/glaze-blog-lite/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/jupiterx/jupiterx-theme-300-authenticated-local-file-inclusion-via-print-pane
