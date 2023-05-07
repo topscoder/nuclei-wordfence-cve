@@ -15336,3 +15336,5 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/vikbook
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/vikbooking/vikbooking-hotel-booking-engine-pms-161-cross-site-request-forgery-in-listentosfieldsavingtask-function
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/vikbooking/vikbooking-hotel-booking-engine-pms-161-cross-site-request-forgery-in-multiple-functions-in-admincontrollerphp
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wppizza/wppizza-3171-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/cm-pop-up-banners/cm-pop-up-banners-1510-authenticated-subscriber-sql-injection-via-getstatistics
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/otter-blocks/otter-gutenberg-blocks-225-authenticated-author-phar-deserialization
