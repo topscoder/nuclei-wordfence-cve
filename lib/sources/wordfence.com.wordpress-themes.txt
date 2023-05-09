@@ -1310,3 +1310,7 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/fascinat
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/glaze-blog-lite
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/glaze-blog-lite/cream-blog-fascinate-glaze-blog-lite-everest-news-all-versions-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/jupiterx/jupiterx-theme-300-authenticated-local-file-inclusion-via-print-pane
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/editorialmag
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/editorialmag/editorialmag-119-missing-authorization-to-authenticated-plugin-activation
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem/thegem-5811-authenticated-subscriber-stored-cross-site-scripting

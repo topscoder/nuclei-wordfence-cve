@@ -1,0 +1,4 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/editorialmag
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/editorialmag/editorialmag-119-missing-authorization-to-authenticated-plugin-activation
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem/thegem-5811-authenticated-subscriber-stored-cross-site-scripting
