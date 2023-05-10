@@ -11,7 +11,7 @@ Every single day new templates are added to this repo based on updates on Wordfe
 <!-- START: __STATISTICS_TABLE -->
 | templates | total |
 |---|---|
-| wp-plugins | 6353 |
+| wp-plugins | 6364 |
 | wp-themes | 202 |
 | wp-core | 317 |
 | other | 39 |
