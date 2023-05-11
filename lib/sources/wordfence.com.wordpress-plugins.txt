@@ -15387,3 +15387,14 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/sitepre
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-product-addon/ppom-for-woocommerce-3206-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-fastest-cache/wp-fastest-cache-114-authenticatedadministrator-blind-server-side-request-forgery-via-check-url
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zero-spam/zero-spam-for-wordpress-544-authenticatedadministrator-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/custom-base-terms
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/custom-base-terms/custom-base-terms-1023-authenticated-administrator-stored-cross-site-scripting-via-base
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/injection-guard
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/injection-guard/injection-guard-121-cross-site-request-forgery-to-whitelist-update
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/injection-guard/injection-guard-121-missing-authorization-to-whitelist-update
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/login-rebuilder/login-rebuilder-280-authenticated-administrator-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/mailin/newsletter-smtp-email-marketing-and-subscribe-forms-by-sendinblue-3160-reflected-cross-site-scripting-via-lang
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/osm/osm-openstreetmap-61-authenticatedcontributor-stored-cross-site-scripting-via-shortcode
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wd-facebook-feed/10web-social-post-feed-128-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-replicate-post
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-replicate-post/wp-replicate-post-402-authenticated-contributor-sql-injection

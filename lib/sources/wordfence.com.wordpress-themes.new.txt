@@ -1,0 +1,3 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem/thegem-5811-authenticated-subscriber-stored-cross-site-scripting-1
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem/thegem-5811-improper-authentication
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/thegem/thegem-5811-missing-authorization
