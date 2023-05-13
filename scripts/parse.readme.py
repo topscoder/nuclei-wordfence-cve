@@ -13,12 +13,6 @@ medium = 0
 low = 0
 info = 0
 
-files_plugins = ()
-files_themes = ()
-files_core = ()
-files_other = ()
-
-files_critical = []
 
 for file in glob.glob("./nuclei-templates/**/*.yaml"):
     with open(file) as f:
@@ -47,9 +41,6 @@ for file in glob.glob("./nuclei-templates/**/*.yaml"):
 
         if re.search("severity: critical", content):
             critical+=1
-            files_critical.append(file)
-
-files_critical.sort()
 
 
 misc = len(glob.glob("./nuclei-templates/misc/*.yaml"))
@@ -62,19 +53,20 @@ other = misc + apis + url_params + wordpress_misc
 table = "<!-- START: __STATISTICS_TABLE -->\n"
 table += "| category | total |\n"
 table += "|---|---|\n"
-table += f"| wp-plugins | {plugins} |\n"
-table += f"| wp-themes | {themes} |\n"
-table += f"| wp-core | {core} |\n"
-table += f"| other | {other} |\n"
+table += f"| wp-plugins | [{plugins}](https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| wp-themes | [{themes}](https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| wp-core | [{core}](https://github.com/search?q=%22wp-core%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| other | [{other}](https://github.com/search?q=repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML++NOT+%22wp-plugin%22+NOT+%22wp-core%22+NOT+%22wp-theme%22+path%3A%2F%5Enuclei-templates%5C%2F%2F&type=code&ref=advsearch) |\n"
 table += "\n"
+
 table += "\n"
 table += "| severity | total |\n"
 table += "|---|---|\n"
-table += f"| info | {info} |\n"
-table += f"| low | {low} |\n"
-table += f"| medium | {medium} |\n"
-table += f"| high | {high} |\n"
-table += f"| critical | {critical} |\n"
+table += f"| info | [{info}](https://github.com/search?q=severity%3A+info+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| low | [{low}](https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| medium | [{medium}](https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| high | [{high}](https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
+table += f"| critical | [{critical}](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |\n"
 table += "<!-- END: __STATISTICS_TABLE -->"
 
 
@@ -100,24 +92,8 @@ def write_string_to_file(string, target_file, marker_start, marker_end):
             f2.write(content)
 
 
-# with open("README.md", "r") as f:
-#     content = f.read()
-#     content = re.sub(r"<!-- START: __STATISTICS_TABLE -->.*<!-- END: __STATISTICS_TABLE -->", table, content, 0, re.S)
-    
-#     with open("README.md", "w") as f2:
-#         f2.write(content)
-
-
 write_string_to_file(
     table, 
     "README.md", 
     "<!-- START: __STATISTICS_TABLE -->",
     "<!-- END: __STATISTICS_TABLE -->")
-
-
-write_list_to_file(
-    files_critical, 
-    "templates-by-score-critical.md", 
-    "<!-- START: __TEMPLATES_TABLE -->",
-    "<!-- END: __TEMPLATES_TABLE -->")
-
