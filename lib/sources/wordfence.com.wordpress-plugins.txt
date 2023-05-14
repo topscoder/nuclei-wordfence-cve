@@ -15469,3 +15469,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-whyd
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpseo-local/yoast-seo-local-148-cross-site-request-forgery
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpseo-local/yoast-seo-local-148-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zero-spam/zero-spam-544-authenticated-administrator-sql-injection
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/block-referer-spam/block-referer-spam-1194-authenticated-administrator-stored-cross-site-scripting
