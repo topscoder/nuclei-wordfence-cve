@@ -15470,3 +15470,10 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpseo-l
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpseo-local/yoast-seo-local-148-reflected-cross-site-scripting
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zero-spam/zero-spam-544-authenticated-administrator-sql-injection
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/block-referer-spam/block-referer-spam-1194-authenticated-administrator-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/UNKNOWN-CVE-2023-1979-1
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/google-site-verification-using-meta-tag
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/link-whisper
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/order-your-posts-manually
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/seo-by-10web
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woo-custom-emails
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-whydonate
