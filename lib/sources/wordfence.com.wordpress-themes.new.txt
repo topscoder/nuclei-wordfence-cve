@@ -1,1 +1,1 @@
-https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/woodmart/woodmart-721-missing-authorization
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/woodmart/woodmart-721-authenticated-subscriber-stored-cross-site-scripting

@@ -332,3 +332,8 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-313-media-related-security-issue
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-313-security-hardening
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-313-username-enumeration
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-authenticated-contributor-stored-cross-site-scripting-via-embed-discovery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-cross-site-request-forgery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-directory-traversal
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-insufficient-sanitization-of-block-attributes
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-shortcode-execution-in-user-generated-content
