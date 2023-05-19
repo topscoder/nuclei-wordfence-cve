@@ -10,12 +10,15 @@ import time
 from lib.DownloadWorker import DownloadWorker
 from lib.logger import logger
 import argparse
+from lib.parsers.WordfenceAPIParser import WordfenceAPIParser
+
+from lib.parsers.WordfenceParser import WordfenceParser
 
 
 parser = argparse.ArgumentParser(description='Process a Wordfence CVE report')
-parser.add_argument('--inputfile', required=False, help='file containing Urls to Wordfence CVE reports')
-parser.add_argument('--url', required=False, help='the URL of the Wordfence CVE report. eg https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/houzez-login-register/houzez-login-register-263-privilege-escalation')
-parser.add_argument('--outputfile', required=False, help='the output filename to store the nuclei-template in', default="")
+parser.add_argument('--api_endpoint', required=False, help='API endpoint containing Wordfence CVE reports')
+# parser.add_argument('--url', required=False, help='the URL of the Wordfence CVE report. eg https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/houzez-login-register/houzez-login-register-263-privilege-escalation')
+# parser.add_argument('--outputfile', required=False, help='the output filename to store the nuclei-template in', default="")
 parser.add_argument('--force', required=False, help='ignore if there is already a template in the official nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
 parser.add_argument('--overwrite_enhanced', required=False, help='ignore if there is already an **enhanced** template in our local nuclei-templates repo', default=False, action='store_true')
@@ -30,35 +33,18 @@ logger.info(f"Setting threads to {WORKER_THREADS}")
 
 def main():
     ts = time.time()
-    urls = []
 
-    if args.url is None and args.inputfile is None:
-        logger.warning("Please pass a url (--url) or a file (--inputfile) to process.")
+    if args.api_endpoint is None:
+        logger.warning("Please pass a API endpoint URL (--api_endpoint) to process.")
         exit(1)
-
-    # Single URL mode
-    if args.url is not None:
-        logger.info(yellow('Single URL mode'))
-        urls.append(args.url)
         
     # Input file (multi URL) mode
-    if args.inputfile is not None:
-        logger.info(yellow('Multi URL mode'))
-        with open(args.inputfile, 'r') as inp:
-            for line in inp.readlines():
-                if line.strip() != "":
-                    urls.append(line)
+    if args.api_endpoint is not None:
+        logger.info(yellow('API mode'))
+        
+        parser = WordfenceAPIParser()
+        parser.run(args.api_endpoint, outputfile="", overwrite=False, force=False, overwrite_enhanced=False)
 
-    queue = Queue()
-    for x in range(WORKER_THREADS):
-        worker = DownloadWorker(queue)
-        worker.daemon = True
-        worker.start()
-    
-    for url in urls:
-        queue.put((url, args.outputfile, args.overwrite, args.force, args.overwrite_enhanced))
-    
-    queue.join()
     logger.info('Done. Took %s', time.strftime("%H:%M:%S", time.gmtime(time.time() - ts)))
 
 
