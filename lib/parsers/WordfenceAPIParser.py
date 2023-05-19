@@ -129,7 +129,7 @@ class WordfenceAPIParser(ParserInterface):
                     cvss_vector = ""
 
                 if cvss_rating == "":
-                    cvss_rating = "Uknown"
+                    cvss_rating = self.determine_severity(item)
 
                 reference_list = item.get('references', [])
                 object_category_tag = self.get_object_category_tag(software_type)
@@ -169,6 +169,25 @@ class WordfenceAPIParser(ParserInterface):
         else:
             logger.warning(f"nothing to do")
     
+    def determine_severity(self, vuln) -> str:
+
+        if "Arbitrary File Upload" in vuln.get('title'):
+            return "Critical"
+
+        if "File Inclusion" in vuln.get('title'):
+            return "Critical"
+
+        if "Remote Code Execution" in vuln.get('title'):
+            return "Critical"
+
+        if "Cross-Site Scripting" in vuln.get('title'):
+            return "High"
+
+        if "Username Enumeration" in vuln.get('title'):
+            return "Medium"
+
+        return ""
+
     def type_is_supported(self, software_type) -> bool:
         if software_type != "plugin" and software_type != "theme" and software_type != "core":
             return False
