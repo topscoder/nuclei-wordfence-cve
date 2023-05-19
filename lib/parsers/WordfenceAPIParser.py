@@ -73,7 +73,7 @@ class WordfenceAPIParser(ParserInterface):
                 template_id = self.get_template_id(cve_id, item)
 
                 target_filename = template_id + ".yaml" 
-                logger.warning(f"[ ] Target filename: {target_filename}")
+                logger.info(f"[ ] Target filename: {target_filename}")
 
                 # determine file path
                 year = ""
@@ -127,6 +127,9 @@ class WordfenceAPIParser(ParserInterface):
                     cvss_score = ""
                     cvss_rating = ""
                     cvss_vector = ""
+
+                if cvss_rating == "":
+                    cvss_rating = "Uknown"
 
                 reference_list = item.get('references', [])
                 object_category_tag = self.get_object_category_tag(software_type)
