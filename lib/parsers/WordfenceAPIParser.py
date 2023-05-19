@@ -15,12 +15,11 @@ class WordfenceAPIParser(ParserInterface):
     url = None
     html_content = None
 
-    def run(self, url, outputfile = None, overwrite = False, force = False, overwrite_enhanced = False) -> bool:
+    def run(self, url, overwrite = False, force = False, overwrite_enhanced = False) -> bool:
         """Execute the Wordfence API Parser.
 
         Args:
             url (string): URL of the Wordfence page to parse.
-            outputfile (string, optional): Target filename to write the generated template to. Defaults to None.
             overwrite (bool, optional): Whether or not to overwrite the template if it already exists. Defaults to False.
             force (bool, optional): Whether or not to regenerate the template if it already exists. Defaults to False.
 
@@ -42,7 +41,7 @@ class WordfenceAPIParser(ParserInterface):
     
         #     # Print the vulnerabilities
         #     for vulnerability_id, vulnerability in vulnerabilities.items():
-        #         self.parse_item(vulnerability, outputfile, overwrite, force, overwrite_enhanced)
+        #         self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
         
         # if response.status_code > 400:
         #     logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
@@ -51,16 +50,12 @@ class WordfenceAPIParser(ParserInterface):
         file_path = "./vulnerabilities.production.json"
         with open(file_path, "r") as file:
             vulnerabilities = json.load(file)
-            # vulnerabilities = data.json()
             
             # Print the vulnerabilities
             for vulnerability_id, vulnerability in vulnerabilities.items():
-                self.parse_item(vulnerability, outputfile, overwrite, force, overwrite_enhanced)
+                self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
         
-    def parse_item(self, json_object, outputfile, overwrite, force, overwrite_enhanced):
-
-        print(json_object)
-
+    def process_item(self, json_object, overwrite, force, overwrite_enhanced):
         title = json_object.get('title')
         description = json_object.get('description')
         cve_id = json_object.get('cve')
@@ -75,7 +70,7 @@ class WordfenceAPIParser(ParserInterface):
         
                 object_category_slug = "plugins" if software_type == 'plugin' else 'unknown'
 
-                template_id = self.get_template_id(item, outputfile)
+                template_id = self.get_template_id(cve_id, item)
 
                 target_filename = template_id + ".yaml" 
                 logger.warning(f"[ ] Target filename: {target_filename}")
@@ -180,14 +175,8 @@ class WordfenceAPIParser(ParserInterface):
     def get_object_category_tag(self, software_type):
         return  "wp-theme" if software_type == "theme" else "wp-core" if software_type == "core" else "wp-plugin"
 
-    def get_template_id(self, vuln, outputfile):
-        # Create "TEMPLATE_ID"
-        if outputfile != "" and outputfile != "None" and outputfile != None:
-            return outputfile.replace(".yaml", "")
-        
-        cve_id = vuln.get('cve')
-
-        if cve_id != "" and cve_id != None:
+    def get_template_id(self, cve_id, vuln):
+        if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
             return cve_id
         
