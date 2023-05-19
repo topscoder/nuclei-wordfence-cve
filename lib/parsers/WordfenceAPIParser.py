@@ -171,44 +171,51 @@ class WordfenceAPIParser(ParserInterface):
     
     def determine_severity(self, title) -> str:
         # Severity scores
-        # Low 1
-        # Medium 2
-        # High 3
-        # Critical 4
+        SEVERITY_LOW = 1
+        SEVERITY_MEDIUM = 2
+        SEVERITY_HIGH = 3
+        SEVERITY_CRITICAL = 4
+
         score = 0
 
         if "Arbitrary File Upload" in title:
-            score = 4
+            score = SEVERITY_CRITICAL
 
         if "File Inclusion" in title:
-            score = 4
+            score = SEVERITY_CRITICAL
         
         if "SQL Injection" in title:
-            score = 4
+            score = SEVERITY_CRITICAL
         
         if "Unauthenticated PHP Object Injection" in title:
-            score = 4
+            score = SEVERITY_CRITICAL
 
         if "Remote Code Execution" in title:
-            score = 4
+            score = SEVERITY_CRITICAL
+        
+        if "Authentication Bypass" in title:
+            score = SEVERITY_CRITICAL
 
         if "Cross-Site Scripting" in title:
-            score = 3
+            score = SEVERITY_HIGH
         
         if "Authorization Bypass" in title:
-            score = 3
+            score = SEVERITY_HIGH
         
         if "Missing Authorization" in title:
-            score = 3
+            score = SEVERITY_HIGH
 
         if "Username Enumeration" in title:
-            score = 2
+            score = SEVERITY_MEDIUM
 
         if "Cross-Site Request Forgery" in title:
-            score = 2
+            score = SEVERITY_MEDIUM
+
+        if "Reflected Cross-Site Scripting" in title:
+            score = SEVERITY_MEDIUM
 
         if "Authenticated" in title:
-            # Downsize the score if it's an "Authenticated" vulnerability
+            """ Downsize the score if it's an "Authenticated" vulnerability """
             score = score - 1
 
         return "Critical" if score == 4 else "High" if score == 3 else "Medium" if score == 2 else "Low"
