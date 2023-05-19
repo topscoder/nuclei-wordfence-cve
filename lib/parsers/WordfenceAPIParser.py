@@ -175,6 +175,8 @@ class WordfenceAPIParser(ParserInterface):
         # Medium 2
         # High 3
         # Critical 4
+        score = 0
+
         if "Arbitrary File Upload" in title:
             score = 4
 
