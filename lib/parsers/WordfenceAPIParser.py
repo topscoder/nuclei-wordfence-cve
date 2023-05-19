@@ -170,32 +170,46 @@ class WordfenceAPIParser(ParserInterface):
             logger.warning(f"nothing to do")
     
     def determine_severity(self, title) -> str:
-
+        # Severity scores
+        # Low 1
+        # Medium 2
+        # High 3
+        # Critical 4
         if "Arbitrary File Upload" in title:
-            return "Critical"
+            score = 4
 
         if "File Inclusion" in title:
-            return "Critical"
+            score = 4
+        
+        if "SQL Injection" in title:
+            score = 4
+        
+        if "Unauthenticated PHP Object Injection" in title:
+            score = 4
 
         if "Remote Code Execution" in title:
-            return "Critical"
+            score = 4
 
         if "Cross-Site Scripting" in title:
-            return "High"
+            score = 3
         
         if "Authorization Bypass" in title:
-            return "High"
+            score = 3
         
         if "Missing Authorization" in title:
-            return "High"
+            score = 3
 
         if "Username Enumeration" in title:
-            return "Medium"
+            score = 2
 
         if "Cross-Site Request Forgery" in title:
-            return "Medium"
+            score = 2
 
-        return ""
+        if "Authenticated" in title:
+            # Downsize the score if it's an "Authenticated" vulnerability
+            score = score - 1
+
+        return "Critical" if score == 4 else "High" if score == 3 else "Medium" if score == 2 else "Low"
 
     def type_is_supported(self, software_type) -> bool:
         if software_type != "plugin" and software_type != "theme" and software_type != "core":
