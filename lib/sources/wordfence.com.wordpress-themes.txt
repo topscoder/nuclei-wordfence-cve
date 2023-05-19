@@ -1328,3 +1328,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/TheGem
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Viable%20Blog
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/woodmart/woodmart-721-missing-authorization
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/woodmart/woodmart-721-authenticated-subscriber-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-themes/Woodmart

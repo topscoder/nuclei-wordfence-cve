@@ -15602,3 +15602,10 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-secu
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-security-audit-log-premium/wp-activity-log-premium-450-missing-authorization-via-ajax-switch-db
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-security-audit-log/wp-activity-log-450-cross-site-request-forgery-via-ajax-run-cleanup
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-security-audit-log/wp-activity-log-450-missing-capabilities-check-to-user-enumeration
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/automatewoo/automatewoo-571-cross-site-request-forgery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/bp-social-connect
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/bp-social-connect/bp-social-connect-15-authentication-bypass
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/panda-pods-repeater-field/panda-pods-repeater-field-153-reflected-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/recaptcha-for-all/recaptcha-for-all-122-missing-authorization-via-recaptcha-for-all-image-select
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-product-addons/woocommerce-product-add-ons-613-cross-site-request-forgery
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-product-recommendations/woocommerce-product-recommendations-230-cross-site-request-forgery
