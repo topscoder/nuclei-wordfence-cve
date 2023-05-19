@@ -26,34 +26,34 @@ class WordfenceAPIParser(ParserInterface):
         Returns:
             bool: Template generated
         """
-        # if url is None or url.strip() == "":
-        #     return False
+        if url is None or url.strip() == "":
+            return False
 
-        # url = url.strip()
+        url = url.strip()
 
-        # # try:
-        # response = requests.get(url)
+        # try:
+        response = requests.get(url)
 
-        # # Check the response status code
-        # if response.status_code == 200:
-        #     # The request was successful, so parse the JSON response
-        #     vulnerabilities = response.json()
+        # Check the response status code
+        if response.status_code == 200:
+            # The request was successful, so parse the JSON response
+            vulnerabilities = response.json()
     
-        #     # Print the vulnerabilities
-        #     for vulnerability_id, vulnerability in vulnerabilities.items():
-        #         self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
-        
-        # if response.status_code > 400:
-        #     logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
-        #     return False
-
-        file_path = "./vulnerabilities.production.json"
-        with open(file_path, "r") as file:
-            vulnerabilities = json.load(file)
-            
             # Print the vulnerabilities
             for vulnerability_id, vulnerability in vulnerabilities.items():
                 self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
+        
+        if response.status_code > 400:
+            logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
+            return False
+
+        # file_path = "./vulnerabilities.production.json"
+        # with open(file_path, "r") as file:
+        #     vulnerabilities = json.load(file)
+            
+        #     # Print the vulnerabilities
+        #     for vulnerability_id, vulnerability in vulnerabilities.items():
+        #         self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
         
     def process_item(self, json_object, overwrite, force, overwrite_enhanced):
         title = json_object.get('title')
