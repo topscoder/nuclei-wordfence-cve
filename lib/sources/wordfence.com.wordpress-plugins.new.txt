@@ -1,0 +1,1 @@
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zotpress/zotpress-733-reflected-cross-site-scripting

@@ -15651,3 +15651,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-secu
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-security-audit-log-premium/wp-activity-log-450-cross-site-request-forgery-via-ajax-run-cleanup
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-security-audit-log-premium/wp-activity-log-450-missing-capabilities-check-to-user-enumeration
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-sms/wp-sms-614-reflected-cross-site-scripting-via-delete-mobile
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/zotpress/zotpress-733-reflected-cross-site-scripting
