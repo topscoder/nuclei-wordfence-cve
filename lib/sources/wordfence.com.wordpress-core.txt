@@ -337,3 +337,4 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-directory-traversal
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-insufficient-sanitization-of-block-attributes
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-621-shortcode-execution-in-user-generated-content
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-622-shortcode-execution-in-user-generated-content
