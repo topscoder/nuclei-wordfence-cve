@@ -15676,3 +15676,15 @@ https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocomm
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-predictive-search/woocommerce-predictive-search-580-missing-authorization-via-multiple-ajax-actions
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-htaccess-control
 https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-htaccess-control/wp-htaccess-control-351-authenticated-administrator-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/elementor/elementor-3133-authenticatedcontributor-arbitrary-post-type-creation-via-save-item
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/go_pricing
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/go_pricing/go-pricing-wordpress-responsive-pricing-tables-3319-authenticated-contributor-stored-cross-site-scripting-via-shortcode
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/go_pricing/go-pricing-wordpress-responsive-pricing-tables-3319-improper-authorization-to-arbitrary-file-upload
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/go_pricing/go-pricing-wordpress-responsive-pricing-tables-3319-missing-authorization-to-limited-privilege-granting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/pricetable/price-table-022-authenticated-contributor-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/stop-referrer-spam/stop-referrer-spam-130-cross-site-request-forgery-via-processparameters
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-abandoned-cart/abandoned-cart-lite-for-woocommerce-5141-cross-site-request-forgery-via-delete-expired-used-coupon-code
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-abandoned-cart/abandoned-cart-lite-for-woocommerce-5141-cross-site-request-forgery-via-ts-reset-tracking-setting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-services
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/woocommerce-services/woocommerce-shipping-tax-224-stored-cross-site-scripting
+https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/yikes-inc-easy-mailchimp-extender/easy-forms-for-mailchimp-688-unauthenticated-cross-site-scripting
