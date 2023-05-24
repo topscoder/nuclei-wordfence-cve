@@ -26,34 +26,38 @@ class WordfenceAPIParser(ParserInterface):
         Returns:
             bool: Template generated
         """
-        if url is None or url.strip() == "":
-            return False
+        local_json_testing_mode = True
 
-        url = url.strip()
+        if local_json_testing_mode is False:
+            if url is None or url.strip() == "":
+                return False
 
-        # try:
-        response = requests.get(url)
+            url = url.strip()
 
-        # Check the response status code
-        if response.status_code == 200:
-            # The request was successful, so parse the JSON response
-            vulnerabilities = response.json()
-    
-            # Print the vulnerabilities
-            for vulnerability_id, vulnerability in vulnerabilities.items():
-                self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
+            # try:
+            response = requests.get(url)
+
+            # Check the response status code
+            if response.status_code == 200:
+                # The request was successful, so parse the JSON response
+                vulnerabilities = response.json()
         
-        if response.status_code > 400:
-            logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
-            return False
-
-        # file_path = "./vulnerabilities.production.json"
-        # with open(file_path, "r") as file:
-        #     vulnerabilities = json.load(file)
+                # Print the vulnerabilities
+                for vulnerability_id, vulnerability in vulnerabilities.items():
+                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
             
-        #     # Print the vulnerabilities
-        #     for vulnerability_id, vulnerability in vulnerabilities.items():
-        #         self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
+            if response.status_code > 400:
+                logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
+                return False
+
+        if local_json_testing_mode is True:
+            file_path = "./vulnerabilities.production.json"
+            with open(file_path, "r") as file:
+                vulnerabilities = json.load(file)
+                
+                # Print the vulnerabilities
+                for vulnerability_id, vulnerability in vulnerabilities.items():
+                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
         
     def process_item(self, json_object, overwrite, force, overwrite_enhanced):
         title = json_object.get('title')
@@ -103,6 +107,7 @@ class WordfenceAPIParser(ParserInterface):
                         return False
                 
                  # Manually enhanced templates can be marked with "# Enhanced" in last line of the template.
+                
                 # This ensures the template is overwritten only after using the --overwrite-enhanced flag.
                 if os.path.isfile(f"{filepath}"):
                     with open(f"{filepath}", "r") as fp:
@@ -131,7 +136,12 @@ class WordfenceAPIParser(ParserInterface):
                 if cvss_rating == "":
                     cvss_rating = self.determine_severity(title)
 
-                reference_list = item.get('references', [])
+                reference_list = item.get('references', {})
+                # for _, reference in reference_list.items():
+                #     print(reference)
+                
+                # continue
+                
                 object_category_tag = self.get_object_category_tag(software_type)
                 find_file = self.target_version_file(software_type, item)
                 version_regex = self.get_version_regex(software_type)

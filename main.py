@@ -30,7 +30,7 @@ def main():
         logger.info(yellow('API mode'))
         
         parser = WordfenceAPIParser()
-        parser.run(args.api_endpoint, overwrite=False, force=False, overwrite_enhanced=False)
+        parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced)
 
     logger.info('Done. Took %s', time.strftime("%H:%M:%S", time.gmtime(time.time() - ts)))
 
