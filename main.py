@@ -22,15 +22,14 @@ def main():
     ts = time.time()
 
     if args.api_endpoint is None:
-        logger.warning("Please pass a API endpoint URL (--api_endpoint) to process.")
+        logger.warning("Please pass an API endpoint URL (--api_endpoint) to process.")
         exit(1)
         
-    # Input file (multi URL) mode
-    if args.api_endpoint is not None:
-        logger.info(yellow('API mode'))
-        
-        parser = WordfenceAPIParser()
-        parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced)
+    
+    logger.info(yellow('API mode'))
+    
+    parser = WordfenceAPIParser()
+    parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced)
 
     logger.info('Done. Took %s', time.strftime("%H:%M:%S", time.gmtime(time.time() - ts)))
 
