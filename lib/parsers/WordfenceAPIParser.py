@@ -26,7 +26,16 @@ class WordfenceAPIParser(ParserInterface):
         Returns:
             bool: Template generated
         """
-        local_json_testing_mode = True
+        local_json_testing_mode = False
+
+        if local_json_testing_mode is True:
+            file_path = "./vulnerabilities.production.json"
+            with open(file_path, "r") as file:
+                vulnerabilities = json.load(file)
+                
+                # Print the vulnerabilities
+                for vulnerability_id, vulnerability in vulnerabilities.items():
+                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
 
         if local_json_testing_mode is False:
             if url is None or url.strip() == "":
@@ -49,15 +58,6 @@ class WordfenceAPIParser(ParserInterface):
             if response.status_code > 400:
                 logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
                 return False
-
-        if local_json_testing_mode is True:
-            file_path = "./vulnerabilities.production.json"
-            with open(file_path, "r") as file:
-                vulnerabilities = json.load(file)
-                
-                # Print the vulnerabilities
-                for vulnerability_id, vulnerability in vulnerabilities.items():
-                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
         
     def process_item(self, json_object, overwrite, force, overwrite_enhanced):
         title = json_object.get('title')
@@ -125,9 +125,9 @@ class WordfenceAPIParser(ParserInterface):
                     return False
 
                 try:
-                    cvss_score = item.get('cvss').score
-                    cvss_rating = item.get('cvss').rating
-                    cvss_vector = item.get('cvss').vector
+                    cvss_score = json_object.get('cvss')['score']
+                    cvss_rating = json_object.get('cvss')['rating']
+                    cvss_vector = json_object.get('cvss')['vector']
                 except:
                     cvss_score = ""
                     cvss_rating = ""
@@ -136,11 +136,7 @@ class WordfenceAPIParser(ParserInterface):
                 if cvss_rating == "":
                     cvss_rating = self.determine_severity(title)
 
-                reference_list = item.get('references', {})
-                # for _, reference in reference_list.items():
-                #     print(reference)
-                
-                # continue
+                reference_list = json_object.get('references', {})
                 
                 object_category_tag = self.get_object_category_tag(software_type)
                 find_file = self.target_version_file(software_type, item)
@@ -148,7 +144,7 @@ class WordfenceAPIParser(ParserInterface):
 
                 affected_versions = item.get('affected_versions')
                 for version_range, version_data in affected_versions.items():
-                    affected_version = self.get_affected_version(version_range)
+                    affected_version = self.get_affected_version(version_data)
                 
                 # Parse template
                 tpl = self.get_template_filename(software_type)
@@ -159,7 +155,7 @@ class WordfenceAPIParser(ParserInterface):
                     template_content = template_content.replace('__CVE_NAME__', title.strip())
                     template_content = template_content.replace('__CVE_SEVERITY__', cvss_rating.strip().lower())
                     template_content = template_content.replace('__CVE_DESCRIPTION__', description.strip())
-                    template_content = template_content.replace('__CVE_REFERENCES__', "\n    ".join(reference_list))
+                    template_content = template_content.replace('__CVE_REFERENCES__', "\n    - ".join(reference_list))
                     template_content = template_content.replace('__CVSS_VECTOR__', cvss_vector.strip())
                     template_content = template_content.replace('__CVSS_SCORE__', str(cvss_score))
                     template_content = template_content.replace('__OBJECT_CATEGORY_SLUG__', object_category_slug)
@@ -277,25 +273,17 @@ class WordfenceAPIParser(ParserInterface):
         return md5.hexdigest()
     
     def get_affected_version(self, affected_version) -> str:
-        # Read "AFFECTED_VERSION"
-        # <= 0.2.35
-        # < 0.2.35
-        # 0.2.35
-        # 0.2.35 - 0.4.3
-        # all
-        # *
-        m = re.match("(.*?)([0-9.-]+)(\s?-\s?)([0-9.-]+)(.*?)", affected_version)
-        if m and m.groups():
-            affected_version = f"'>= {m.group(2)}', '<= {m.group(4)}'"
-        else:
-            if str(affected_version).lower().find("all") > -1:
-                affected_version = f"'>0'"
-            else:
-                affected_version = f"'{affected_version}'"
+        """ Turns the affected version string out of the API into nuclei readable format"""
 
         logger.debug(f"[ ] Affected version: {affected_version}")
 
-        return affected_version
+        if affected_version['from_version'] == "*":
+            return f"'<= {affected_version['to_version']}'"
+
+        if affected_version['from_version'] == affected_version['to_version']:
+            return f"'{affected_version['to_version']}'"
+
+        return f"'>= {affected_version['from_version']}', '<= {affected_version['to_version']}"
 
     def get_template_filename(self, software_type):
         if software_type == "core":
