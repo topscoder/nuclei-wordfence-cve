@@ -24,56 +24,10 @@ jobs:
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Setup Golang
-        uses: actions/setup-go@v3
-        with:
-          go-version: 'stable'
-
-      - name: Install Go packages
+      # run main.py for API if there are new vulns found
+      - name: Process vulnerabilities of Wordfence API source
         run: |
-          go install github.com/projectdiscovery/katana/cmd/katana@latest
-          go install github.com/tomnomnom/unfurl@latest
-          go install -v github.com/tomnomnom/anew@latest
-
-      - name: Run crawler
-        run: sh scripts/crawl.wordfence.sh
-
-      - name: Commit crawled URL logfiles
-        run: |
-          git add lib/sources/*.txt -f
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Auto Updated URL logfiles [$(date)] :robot:" -a
-
-      # run main.py for plugins if there are new plugins found
-      - name: Count newly found plugin vulnerabilities
-        id: new_plugins
-        run: cat lib/sources/wordfence.com.wordpress-plugins.new.txt | wc -l | xargs -I {} echo NEW_PLUGINS={} >> $GITHUB_OUTPUT
-
-      - name: Process newly found plugin vulnerabilities
-        if: steps.new_plugins.outputs.NEW_PLUGINS > 0
-        run: |
-          python main.py --inputfile lib/sources/wordfence.com.wordpress-plugins.new.txt
-
-      # run main.py for themes if there are new plugins found
-      - name: Count newly found theme vulnerabilities
-        id: new_themes
-        run: cat lib/sources/wordfence.com.wordpress-themes.new.txt | wc -l | xargs -I {} echo NEW_THEMES={} >> $GITHUB_OUTPUT
-
-      - name: Process newly found theme vulnerabilities
-        if: steps.new_themes.outputs.NEW_THEMES > 0
-        run: |
-          python main.py --inputfile lib/sources/wordfence.com.wordpress-themes.new.txt
-
-      # run main.py for core if there are new core vulnerabilities found
-      - name: Count newly found core vulnerabilities
-        id: new_core
-        run: cat lib/sources/wordfence.com.wordpress-core.new.txt | wc -l | xargs -I {} echo NEW_CORE={} >> $GITHUB_OUTPUT
-
-      - name: Process newly found core vulnerabilities
-        if: steps.new_core.outputs.NEW_CORE > 0
-        run: |
-          python main.py --inputfile lib/sources/wordfence.com.wordpress-core.new.txt
+          python main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production
 
       - name: Commit new vulnerability templates
         run: |
