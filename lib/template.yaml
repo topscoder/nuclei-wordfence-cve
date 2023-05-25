@@ -6,7 +6,7 @@ info:
   severity: __CVE_SEVERITY__
   description: "__CVE_DESCRIPTION__"
   reference:
-    __CVE_REFERENCES__
+    - __CVE_REFERENCES__
   classification:
     cvss-metrics: __CVSS_VECTOR__
     cvss-score: __CVSS_SCORE__

@@ -283,7 +283,7 @@ class WordfenceAPIParser(ParserInterface):
         if affected_version['from_version'] == affected_version['to_version']:
             return f"'{affected_version['to_version']}'"
 
-        return f"'>= {affected_version['from_version']}', '<= {affected_version['to_version']}"
+        return f"'>= {affected_version['from_version']}', '<= {affected_version['to_version']}'"
 
     def get_template_filename(self, software_type):
         if software_type == "core":
