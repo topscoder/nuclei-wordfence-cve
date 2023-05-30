@@ -17,7 +17,7 @@ info:
     shodan-query: 'vuln:__CVE_ID__'
   tags: cve,wordpress,__OBJECT_CATEGORY_TAG__,__OBJECT_SLUG__,__CVE_SEVERITY__
 
-requests:
+http:
   - method: GET
     redirects: true
     max-redirects: 3
