@@ -4,7 +4,7 @@ info:
   author: sharath,topscoder
   severity: info
   description: Scans all open urls of kubelet
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/pods"
@@ -43,7 +43,7 @@ requests:
           - 200
       - type: regex
         part: header
-        regex:          
+        regex:
           - "content-type: text/plain"
   - method: GET
     path:
@@ -69,7 +69,7 @@ requests:
           - 200
       - type: regex
         part: header
-        regex:          
+        regex:
           - "content-type: text/html"
   - method: GET
     path:
@@ -81,11 +81,11 @@ requests:
           - 200
       - type: regex
         part: header
-        regex:          
+        regex:
           - "content-type: text/plain"
       - type: word
         part: header
-        words:          
+        words:
           - "ok"
 
 # Enhanced by topscoder 31.march.2023

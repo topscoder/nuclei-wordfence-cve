@@ -8,7 +8,7 @@ info:
     - https://github.com/1in9e/my-nuclei-templates/blob/main/api_endpoints.yaml
   tags: info,api,apis,misc
 
-requests:
+http:
   - method: GET
     headers:
       Accept: application/json
@@ -63,13 +63,13 @@ requests:
       - "{{BaseURL}}/rest/api/orders"
       - "{{BaseURL}}/rest/api/webhooks"
       - "{{BaseURL}}/docs"
-    
+
     matchers-condition: and
     matchers:
       - type: status
         status:
           - 200
-          
+
       - type: word
         words:
           - "Content-Type: application/json"

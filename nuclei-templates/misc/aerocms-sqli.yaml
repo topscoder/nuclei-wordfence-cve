@@ -3,9 +3,9 @@ info:
   name: Aerocms SQL injection
   author: topscoder
   severity: critical
-  description: 
+  description:
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/author_posts.php?author_post=1'"
@@ -20,4 +20,4 @@ requests:
       - type: word
         part: body
         words:
-          - "Query failed"          
+          - "Query failed"

@@ -10,7 +10,7 @@ info:
     - https://www.redtimmy.com/critical-information-disclosure-on-wp-courses-plugin-exposes-private-course-videos-and-materials/
   tags: wordpress-misc,wordpress,plugin
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/wp-json/wp/v2/lesson/1"
@@ -22,12 +22,12 @@ requests:
           - "rest_post_invalid_id"
           - "\"(guid|title|content|excerpt)\":{\"rendered\":"
         part: body
-      
+
       - type: word
         words:
           - "application/json"
         part: header
-      
+
       - type: status
         status:
           - 200

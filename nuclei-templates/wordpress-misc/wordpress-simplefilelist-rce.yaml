@@ -4,11 +4,11 @@ info:
   name: WordPress SimpleFilelist Unauthenticated Arbitrary File Upload RCE
   author: princechaddha
   severity: critical
-  reference: 
+  reference:
     - https://wpscan.com/vulnerability/10192
   tags: wordpress-misc,wordpress,wp-plugin,rce
 
-requests:
+http:
   - raw:
       - |
         POST /wp-content/plugins/simple-file-list/ee-upload-engine.php HTTP/1.1

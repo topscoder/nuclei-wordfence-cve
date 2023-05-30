@@ -14,11 +14,11 @@ info:
     - https://twitter.com/ninadmishra5/status/1637476773129785345
   tags: info,form,upload,misc,xss
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}"
-    
+
     matchers-condition: and
     matchers:
       - type: status

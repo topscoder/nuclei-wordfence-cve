@@ -4,11 +4,11 @@ info:
   name: "WordPress WP Time Capsule Authentication Bypass"
   author: princechaddha
   severity: critical
-  reference: 
+  reference:
     - https://github.com/SECFORCE/WPTimeCapsulePOC
   tags: wordpress-misc,wordpress,wp-plugin,critical
 
-requests:
+http:
   - raw:
       - |
         POST / HTTP/1.1

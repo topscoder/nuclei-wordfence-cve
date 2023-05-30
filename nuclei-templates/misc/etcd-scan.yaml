@@ -5,7 +5,7 @@ info:
   severity: info
   description: Scans all open urls of etcd
 
-requests:
+http:
   - method: GET
     headers:
       Accept: application/json
@@ -23,7 +23,7 @@ requests:
       - type: word
         part: body
         words:
-          - "etcdserver"          
+          - "etcdserver"
 
   - method: GET
     headers:
@@ -42,8 +42,8 @@ requests:
       - type: word
         part: body
         words:
-          - "node" 
-          - "key" 
+          - "node"
+          - "key"
 
   - method: GET
     headers:
@@ -62,7 +62,7 @@ requests:
       - type: word
         part: body
         words:
-          - "node" 
-          - "key"  
+          - "node"
+          - "key"
 
 # Enhanced
