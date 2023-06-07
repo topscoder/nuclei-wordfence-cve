@@ -16,6 +16,7 @@ __If you found this project helpful, please consider giving it a star on GitHub.
 * The templates are based on the vulnerability reports of Wordfence.com.
 * The templates are updated regularly to ensure that they are always up-to-date with the latest vulnerabilities.
 * The templates are open source, so you can modify them to fit your specific needs.
+* Manually enhanced templates can be marked to avoid overwriting them.
 
 ### What's in it?!
 
@@ -112,6 +113,10 @@ nuclei -t github/nuclei-wordfence-cve -template-condition "contains(to_upper(nam
 ## Contributing
 
 If you would like to contribute to this project, please feel free to fork the repository and submit a pull request.
+
+## Manually Enhanced
+
+Manually enhanced templates can be marked with `# Enhanced` in last line of the template to avoid the template to be overwritten by accident.
 
 ## License
 
