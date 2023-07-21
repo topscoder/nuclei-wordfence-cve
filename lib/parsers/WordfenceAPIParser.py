@@ -155,7 +155,7 @@ class WordfenceAPIParser(ParserInterface):
                 # Prepare description to be YAML proof
                 #
                 lines = description.strip().splitlines()
-                description = '    \n'.join(lines)
+                description = '\n    '.join(lines)
 
                 with open(tpl) as template:
                     template_content = template.read()

@@ -1,7 +1,8 @@
 id: __TEMPLATE_ID__
 
 info:
-  name: __CVE_NAME__
+  name: >
+    __CVE_NAME__
   author: topscoder
   severity: __CVE_SEVERITY__
   description: >
