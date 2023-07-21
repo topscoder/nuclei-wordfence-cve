@@ -1,0 +1,55 @@
+id: __TEMPLATE_ID__
+
+info:
+  name: __CVE_NAME__
+  author: topscoder
+  severity: __CVE_SEVERITY__
+  description: >
+    __CVE_DESCRIPTION__
+  classification:
+    cvss-metrics: __CVSS_VECTOR__
+    cvss-score: __CVSS_SCORE__
+    cve-id: __CVE_ID__
+  metadata:
+    fofa-query: "wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
+    google-query: inurl:"/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
+    shodan-query: 'vuln:__CVE_ID__'
+  tags: cve,wordpress,__OBJECT_CATEGORY_TAG__,__OBJECT_SLUG__,__CVE_SEVERITY__
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/__FIND_FILE__"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        internal: true
+        regex:
+          - "__VERSION_REGEX__"
+
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "__VERSION_REGEX__"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "__OBJECT_SLUG__"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, __VERSION_COMPARE__)
