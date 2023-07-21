@@ -152,13 +152,18 @@ class WordfenceAPIParser(ParserInterface):
                 else:
                     tpl = self.get_template_filename(software_type, False)
 
+                # Prepare description to be YAML proof
+                #
+                lines = description.strip().splitlines()
+                description = '    \n'.join(lines)
+
                 with open(tpl) as template:
                     template_content = template.read()
                     template_content = template_content.replace('__TEMPLATE_ID__', str(template_id))
                     template_content = template_content.replace('__CVE_ID__', cve_id.strip())
                     template_content = template_content.replace('__CVE_NAME__', title.strip())
                     template_content = template_content.replace('__CVE_SEVERITY__', cvss_rating.strip().lower())
-                    template_content = template_content.replace('__CVE_DESCRIPTION__', description.strip())
+                    template_content = template_content.replace('__CVE_DESCRIPTION__', description)
                     template_content = template_content.replace('__CVE_REFERENCES__', "\n    - ".join(reference_list))
                     template_content = template_content.replace('__CVSS_VECTOR__', cvss_vector.strip())
                     template_content = template_content.replace('__CVSS_SCORE__', str(cvss_score))
