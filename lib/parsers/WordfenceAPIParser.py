@@ -311,12 +311,12 @@ class WordfenceAPIParser(ParserInterface):
         Whether it has references or not and depending on software_type.
         """
         if has_references is False and software_type == "core":
-            return 'lib/template-wp-core-without-references.yaml'
+            return 'lib/template-wp-core-without-references.yaml.template'
 
         if software_type == "core":
-            return 'lib/template-wp-core.yaml'
+            return 'lib/template-wp-core.yaml.template'
 
         if has_references is False:
-            return 'lib/template-main-without-references.yaml'
+            return 'lib/template-main-without-references.yaml.template'
 
-        return 'lib/template-main.yaml'
+        return 'lib/template-main.yaml.template'
