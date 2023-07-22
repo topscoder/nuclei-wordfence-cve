@@ -72,10 +72,15 @@ class WordfenceAPIParser(ParserInterface):
                 software_type = item.get('type')
                 software_slug = item.get('slug')
 
-                object_category_slug = "plugins" \
-                    if software_type == 'plugin' else 'unknown'
+                object_category_slug = "unknown"
 
-                template_id = self.get_template_id(cve_id, item)
+                if software_type == 'plugin':
+                    object_category_slug = "plugins"
+
+                if software_type == 'theme':
+                    object_category_slug = "themes"
+
+                template_id = self.get_template_id(cve_id, item, software_type)
 
                 target_filename = template_id + ".yaml"
                 logger.info(f"[ ] Target filename: {target_filename}")
@@ -252,17 +257,16 @@ class WordfenceAPIParser(ParserInterface):
             else "wp-core" if software_type == "core" \
             else "wp-plugin"
 
-    def get_template_id(self, cve_id, vuln):
+    def get_template_id(self, cve_id, vuln, software_type):
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
             return cve_id
 
         unique_id = self.get_uniq_id(vuln.get('id', ''))
-
         object_slug = vuln.get('slug')
 
         logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
-        return f"{object_slug}-{unique_id}"
+        return f"{object_slug}-{software_type}-{unique_id}"
 
     def target_version_file(self, software_type, vuln):
         object_slug = vuln.get('slug')
