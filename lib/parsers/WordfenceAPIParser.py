@@ -145,7 +145,7 @@ class WordfenceAPIParser(ParserInterface):
 
                 object_category_tag = self.get_object_category_tag(software_type)
                 find_file = self.target_version_file(software_type, item)
-                version_regex = self.get_version_regex(software_type)
+                version_regex = self.get_version_regex(software_type, item)
 
                 affected_versions = item.get('affected_versions')
                 for version_range, version_data in affected_versions.items():
@@ -270,7 +270,10 @@ class WordfenceAPIParser(ParserInterface):
 
     def target_version_file(self, software_type, vuln):
         object_slug = vuln.get('slug')
-        if software_type == "theme":
+
+        if object_slug == "fusion-builder":
+            filepath = f"wp-content/plugins/fusion-builder/languages/fusion-builder.pot"
+        elif software_type == "theme":
             filepath = f"wp-content/themes/{object_slug}/style.css"
         elif software_type == "core":
             filepath = "index.php"
@@ -279,8 +282,12 @@ class WordfenceAPIParser(ParserInterface):
 
         return filepath
 
-    def get_version_regex(self, software_type):
-        if software_type == "theme":
+    def get_version_regex(self, software_type, vuln):
+        object_slug = vuln.get('slug')
+
+        if object_slug == "fusion-builder":
+            regex = "(?mi)Project-Id-Version: Avada Builder ([0-9.]+)"
+        elif software_type == "theme":
             regex = "(?mi)Version: ([0-9.]+)"
         elif software_type == "core":
             regex = "(?mi)\?v=([0-9.]+)"

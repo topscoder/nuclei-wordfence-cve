@@ -18,16 +18,16 @@ parser.add_argument('--overwrite_enhanced', required=False, help='ignore if ther
 parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
 args = parser.parse_args()
 
+
 def main():
     ts = time.time()
 
     if args.api_endpoint is None:
         logger.warning("Please pass an API endpoint URL (--api_endpoint) to process.")
         exit(1)
-        
-    
+
     logger.info(yellow('API mode'))
-    
+
     parser = WordfenceAPIParser()
     parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced)
 
@@ -36,4 +36,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
