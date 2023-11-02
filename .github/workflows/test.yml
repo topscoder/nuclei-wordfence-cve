@@ -36,4 +36,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=20 --max-line-length=160 --statistics --exclude ./venv --ignore W605,E501
     - name: Unittest
       run: |
-        python -m unittest -v tests/
+        python -m unittest -v tests/*.py
