@@ -309,7 +309,10 @@ class WordfenceAPIParser(ParserInterface):
         logger.debug(f"[ ] Affected version: {affected_version}")
 
         if affected_version['from_version'] == "*":
-            return f"'<= {affected_version['to_version']}'"
+            if affected_version['to_inclusive'] == "true":
+                return f"'<= {affected_version['to_version']}'"
+            else:
+                return f"'< {affected_version['to_version']}'"
 
         if affected_version['from_version'] == affected_version['to_version']:
             return f"'{affected_version['to_version']}'"
