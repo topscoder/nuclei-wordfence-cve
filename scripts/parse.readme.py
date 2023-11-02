@@ -19,28 +19,28 @@ for file in glob.glob("./nuclei-templates/**/*.yaml"):
         content = f.read()
 
         if re.search("wp-plugin", content):
-            plugins+=1
-        
+            plugins += 1
+
         if re.search("wp-theme", content):
-            themes+=1
+            themes += 1
 
         if re.search("wp-core", content):
-            core+=1
+            core += 1
 
         if re.search("severity: info", content):
-            info+=1
+            info += 1
 
         if re.search("severity: low", content):
-            low+=1
+            low += 1
 
         if re.search("severity: medium", content):
-            medium+=1
+            medium += 1
 
         if re.search("severity: high", content):
-            high+=1
+            high += 1
 
         if re.search("severity: critical", content):
-            critical+=1
+            critical += 1
 
 
 misc = len(glob.glob("./nuclei-templates/misc/*.yaml"))
@@ -78,7 +78,7 @@ def write_list_to_file(file_list, target_file, marker_start, marker_end):
         content += f"| [{os.path.basename(f)}]({f}) |\n"
 
     content += f"{marker_end}\n"
-    
+
     return write_string_to_file(content, target_file, marker_start, marker_end)
 
 
@@ -87,13 +87,9 @@ def write_string_to_file(string, target_file, marker_start, marker_end):
     with open(target_file, "r") as f:
         content = f.read()
         content = re.sub(marker, string, content, 0, re.S)
-        
+
         with open(target_file, "w") as f2:
             f2.write(content)
 
 
-write_string_to_file(
-    table, 
-    "README.md", 
-    "<!-- START: __STATISTICS_TABLE -->",
-    "<!-- END: __STATISTICS_TABLE -->")
+write_string_to_file(table, "README.md", "<!-- START: __STATISTICS_TABLE -->", "<!-- END: __STATISTICS_TABLE -->")

@@ -10,11 +10,11 @@ from lib.parsers.ParserInterface import ParserInterface
 
 
 class WordfenceParser(ParserInterface):
-    
+
     url = None
     html_content = None
 
-    def run(self, url, outputfile = None, overwrite = False, force = False, overwrite_enhanced = False) -> bool:
+    def run(self, url, outputfile=None, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
         """Execute the Wordfence Parser.
 
         Args:
@@ -34,29 +34,29 @@ class WordfenceParser(ParserInterface):
 
         try:
             page = requests.get(url)
-        except:
+        except Exception:
             logger.warning(red(f"[*] Whoops, Failed to open URL: {url}"))
             return False
 
         if page.status_code > 400:
             logger.warning(red(f"[*] [HTTP {page.status_code}] Could not read URL: ${url}$"))
             return False
-        
+
         self.html_content = html.fromstring(page.content)
         title = self.read_title(self.html_content)
         description = self.read_description(self.html_content)
         cve_id = self.read_cve_id(self.html_content)
-        
+
         software_type = self.get_software_type(self.html_content)
         if software_type is False:
             return False
-        
+
         object_slug = self.get_object_slug(self.html_content)
         if object_slug is False:
             return False
-        
+
         object_category_slug = self.get_object_category_slug(software_type)
-        
+
         target_filename = self.get_target_filename(cve_id, outputfile, object_slug)
         logger.debug(f"[ ] Target filename: {target_filename}")
 
@@ -75,7 +75,7 @@ class WordfenceParser(ParserInterface):
         if overwrite is False:
             if os.path.isfile(f"{filepath}"):
                 logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo: {filepath}"))
-                logger.info(yellow(f"[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
+                logger.info(yellow("[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
                 return False
 
         # Check to see if there is already a template for this cve in the nuclei-templates repo
@@ -84,9 +84,9 @@ class WordfenceParser(ParserInterface):
                 f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}")
 
             if check_page.status_code == 200:
-                logger.info(yellow(f"[*] Note: There is already a template for this cve in the nuclei-templates repo."))
+                logger.info(yellow("[*] Note: There is already a template for this cve in the nuclei-templates repo."))
                 logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}"))
-                logger.info(yellow(f"[*] Skipping. Use --force if you want to ignore this and create a new template."))
+                logger.info(yellow("[*] Skipping. Use --force if you want to ignore this and create a new template."))
                 return False
 
         # Manually enhanced templates can be marked with "# Enhanced" in last line of the template.
@@ -97,7 +97,7 @@ class WordfenceParser(ParserInterface):
                 for line in lines:
                     if line.find("# Enhanced") == 0:
                         logger.info(yellow(f"[*] Note: There is already an **enhanced** template in our local nuclei-templates repo: {filepath}"))
-                        logger.info(yellow(f"[*] Skipping. Use --overwrite-enhanced if you want to ignore this and overwrite the template."))
+                        logger.info(yellow("[*] Skipping. Use --overwrite-enhanced if you want to ignore this and overwrite the template."))
                         return False
 
         # Validate "SOFTWARE_TYPE"
@@ -121,7 +121,7 @@ class WordfenceParser(ParserInterface):
         except Exception as e:
             logger.warning(e)
             return False
-        
+
         # Parse template
         tpl = self.get_template_filename(software_type)
         with open(tpl) as template:
@@ -147,7 +147,7 @@ class WordfenceParser(ParserInterface):
             with open(filepath, 'w+') as target:
                 target.write(template_content)
                 logger.info(green("[>] " + filepath))
-        
+
         return True
 
     def read_title(self, content):
@@ -173,7 +173,7 @@ class WordfenceParser(ParserInterface):
         cve_ids = content.xpath('//table/tbody/tr/td/a[contains(@href, "cve")]/text()')
         cve_id = cve_ids[0].strip() if len(cve_ids) > 0 else ""
         return cve_id
-    
+
     def get_uniq_id(self, url):
         md5 = hashlib.md5(url.encode())
         return md5.hexdigest()
@@ -183,13 +183,13 @@ class WordfenceParser(ParserInterface):
 
     def get_template_id(self, cve_id, outputfile, object_slug):
         # Create "TEMPLATE_ID"
-        if outputfile != "" and outputfile != "None":
+        if outputfile != "" and outputfile is not None and outputfile != "None":
             return outputfile.replace(".yaml", "")
-        
+
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
             return cve_id
-        
+
         unique_id = self.get_uniq_id(self.url)
 
         logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
@@ -205,7 +205,7 @@ class WordfenceParser(ParserInterface):
                 raise
 
             cvss_vector = cvss_vector_xp[0].strip()
-        except:
+        except Exception:
             cvss_vector = ""
 
         logger.debug(f"[ ] CVSS Vector: {cvss_vector}")
@@ -222,7 +222,7 @@ class WordfenceParser(ParserInterface):
                 raise
 
             cvss_score = float(cvss_score_xp[0].strip())
-        except:
+        except Exception:
             cvss_score = ""
 
         logger.debug(f"[ ] CVSS Score: {cvss_score}")
@@ -244,12 +244,12 @@ class WordfenceParser(ParserInterface):
         return cvss_rating
 
     def get_software_type(self, content):
-            # Read "SOFTWARE_TYPE"
+        # Read "SOFTWARE_TYPE"
         software_type = content.xpath(
             '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[1]/td/text()')
 
         if len(software_type) == 0:
-            logger.warning(red(f"[*] Skipping. No software type was found."))
+            logger.warning(red("[*] Skipping. No software type was found."))
             return False
 
         software_type = software_type[0].strip()
@@ -257,12 +257,12 @@ class WordfenceParser(ParserInterface):
         return software_type
 
     def get_object_slug(self, content):
-         # Read "OBJECT_SLUG"
+        # Read "OBJECT_SLUG"
         object_slug_xp = content.xpath(
             '/html/body/div[1]/section[5]/div/div[1]/div/div/div[2]/table/tbody/tr[2]/td/text()')
 
         if len(object_slug_xp) == 0:
-            logger.warning(red(f"[*] Skipping. No object slug found."))
+            logger.warning(red("[*] Skipping. No object slug found."))
             return False
 
         object_slug = object_slug_xp[0].strip()
@@ -275,10 +275,10 @@ class WordfenceParser(ParserInterface):
         return "themes" if software_type == "Theme" else "core" if software_type == "Core" else "plugins"
 
     def get_object_category_tag(self, software_type):
-        return  "wp-theme" if software_type == "Theme" else "wp-core" if software_type == "Core" else "wp-plugin"
-    
+        return "wp-theme" if software_type == "Theme" else "wp-core" if software_type == "Core" else "wp-plugin"
+
     def get_references(self, content):
-         # Read "REFERENCES"
+        # Read "REFERENCES"
         references = content.xpath('//*[@id="app-wrapper"]//h4[text()="References"]/following-sibling::ul/li/a')
 
         reference_list = []
@@ -286,7 +286,7 @@ class WordfenceParser(ParserInterface):
             reference_list.append("- " + ref.attrib['href'])
 
         # logger.debug(reference_list)
-        
+
         return reference_list
 
     def get_affected_version(self, content) -> str:
@@ -298,7 +298,7 @@ class WordfenceParser(ParserInterface):
         if len(affected_version_xp) == 0:
             affected_version_xp = content.xpath('//*[@id="app-wrapper"]//th[text()="Affected Versions"]/following-sibling::td//li/text()')
             logger.debug(f'affected_versions={affected_version_xp}')
-        
+
         if len(affected_version_xp) == 0:
             affected_version = ""
         else:
@@ -314,7 +314,7 @@ class WordfenceParser(ParserInterface):
                 affected_version = f"'>= {m.group(2)}', '<= {m.group(4)}'"
             else:
                 if str(affected_version).lower().find("all") > -1:
-                    affected_version = f"'>0'"
+                    affected_version = "'>0'"
                 else:
                     affected_version = f"'{affected_version}'"
 
@@ -327,24 +327,24 @@ class WordfenceParser(ParserInterface):
         if software_type == "Theme":
             filepath = f"wp-content/themes/{object_slug}/style.css"
         elif software_type == "Core":
-            filepath = f"index.php"
+            filepath = "index.php"
         else:
             filepath = f"wp-content/plugins/{object_slug}/readme.txt"
 
         return filepath
-    
+
     def get_version_regex(self, software_type):
         if software_type == "Theme":
-            regex = f"(?mi)Version: ([0-9.]+)"
+            regex = "(?mi)Version: ([0-9.]+)"
         elif software_type == "Core":
-            regex = f"(?mi)\?v=([0-9.]+)"
+            regex = "(?mi)\?v=([0-9.]+)"
         else:
-            regex = f"(?mi)Stable tag: ([0-9.]+)"
+            regex = "(?mi)Stable tag: ([0-9.]+)"
 
         return regex
 
     def get_template_filename(self, software_type):
-        if software_type == "Core":
-            return 'lib/template-wp-core.yaml'
+        if software_type == "core":
+            return 'lib/template-wp-core.yaml.template'
 
-        return 'lib/template.yaml'
+        return 'lib/template-main.yaml.template'

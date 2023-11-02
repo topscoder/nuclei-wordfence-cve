@@ -1,11 +1,9 @@
 from lib.colors import red, green, yellow
 from lib.logger import logger
-from lxml import html
 import hashlib
 import json
 import os
 import requests
-import re
 
 from lib.parsers.ParserInterface import ParserInterface
 
@@ -98,7 +96,7 @@ class WordfenceAPIParser(ParserInterface):
                 if overwrite is False:
                     if os.path.isfile(f"{filepath}"):
                         logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo: {filepath}"))
-                        logger.info(yellow(f"[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
+                        logger.info(yellow("[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
                         return False
 
                 # Check to see if there is already a template for this cve in the nuclei-templates repo
@@ -107,9 +105,9 @@ class WordfenceAPIParser(ParserInterface):
                         f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}")
 
                     if check_page.status_code == 200:
-                        logger.info(yellow(f"[*] Note: There is already an official template for this CVE in the nuclei-templates repo."))
+                        logger.info(yellow("[*] Note: There is already an official template for this CVE in the nuclei-templates repo."))
                         logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}"))
-                        logger.info(yellow(f"[*] Skipping. Use --force if you want to ignore this and create a new template."))
+                        logger.info(yellow("[*] Skipping. Use --force if you want to ignore this and create a new template."))
                         return False
 
                 # Manually enhanced templates can be marked with "# Enhanced" in last line of the template.
@@ -120,20 +118,20 @@ class WordfenceAPIParser(ParserInterface):
                         for line in lines:
                             if line.find("# Enhanced") == 0:
                                 logger.info(yellow(f"[*] Note: There is already an **enhanced** template in our local nuclei-templates repo: {filepath}"))
-                                logger.info(yellow(f"[*] Skipping. Use --overwrite-enhanced if you want to ignore this and overwrite the template."))
+                                logger.info(yellow("[*] Skipping. Use --overwrite-enhanced if you want to ignore this and overwrite the template."))
                                 return False
 
                 if self.type_is_supported(software_type) is False:
                     logger.warning(red(f"[*] Skipping. Software type {software_type} is not supported."))
                     # TODO could be a page with a vuln which affects more plugins/themes
-                    # like https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/fuse-social-floating-sidebar/appsero-121-missing-authorization
+                    # https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/fuse-social-floating-sidebar/appsero-121-missing-authorization
                     return False
 
                 try:
                     cvss_score = json_object.get('cvss')['score']
                     cvss_rating = json_object.get('cvss')['rating']
                     cvss_vector = json_object.get('cvss')['vector']
-                except:
+                except Exception:
                     cvss_score = ""
                     cvss_rating = ""
                     cvss_vector = ""
@@ -272,7 +270,7 @@ class WordfenceAPIParser(ParserInterface):
         object_slug = vuln.get('slug')
 
         if object_slug == "fusion-builder":
-            filepath = f"wp-content/plugins/fusion-builder/languages/fusion-builder.pot"
+            filepath = "wp-content/plugins/fusion-builder/languages/fusion-builder.pot"
         elif software_type == "theme":
             filepath = f"wp-content/themes/{object_slug}/style.css"
         elif software_type == "core":

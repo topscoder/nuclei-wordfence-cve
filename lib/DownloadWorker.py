@@ -1,6 +1,7 @@
 from threading import Thread
 from lib.parsers.WordfenceParser import WordfenceParser
 
+
 class DownloadWorker(Thread):
     def __init__(self, queue):
         Thread.__init__(self)
