@@ -8,7 +8,9 @@ This project provides a massive up-to-date collection of Nuclei templates that c
 
 This project is a valuable resource for anyone who wants to scan for vulnerabilities in WordPress-based websites. The templates are easy to use and up-to-date, and they are open source so you can modify them to fit your specific needs. If you are responsible for the security of a website that uses WordPress, I highly recommend using this project to scan for vulnerabilities.
 
-__If you found this project helpful, please consider giving it a star on GitHub. Your support helps to make this project even better.__
+> [!TIP]
+> If you found this project helpful, please consider giving it a star on GitHub.
+> Your support helps to make this project even better. 🌟
 
 ## Features
 
