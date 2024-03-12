@@ -42,7 +42,7 @@ This project is a valuable resource for anyone who wants to scan for vulnerabili
 
 ## Usage
 
-To use the templates, you will need to install Nuclei and this `nuclei-wordfence-cve` repository. Once you have installed Nuclei, you can run the following command to scan for vulnerabilities:
+To use the templates, you will need to install [Nuclei](https://github.com/projectdiscovery/nuclei) and this `nuclei-wordfence-cve` repository. Once you have installed Nuclei, you can run the following command to scan for vulnerabilities:
 
 ```bash
 nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
@@ -59,7 +59,7 @@ nuclei -update-templates
 
 ## Examples
 
-Here are some examples of how to use the templates:
+Here are some examples how to use the templates:
 
 * To scan for **all known vulnerabilities** in WordPress, you can run the following command:
 
