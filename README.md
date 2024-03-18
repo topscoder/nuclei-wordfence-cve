@@ -45,7 +45,7 @@ This project is a valuable resource for anyone who wants to scan for vulnerabili
 To use the templates, you will need to install [Nuclei](https://github.com/projectdiscovery/nuclei) and this `nuclei-wordfence-cve` repository. Once you have installed Nuclei, you can run the following command to scan for vulnerabilities:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -u https://target.com
 ```
 
 ## Installation
@@ -64,52 +64,52 @@ Here are some examples how to use the templates:
 * To scan for **all known vulnerabilities** in WordPress, you can run the following command:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -u https://target.com
 ```
 
 * To scan for a **CVE specific vulnerability**, you can run the following command:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -template-id cve-2023-32961 -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -template-id cve-2023-32961 -u https://target.com
 ```
 
 * To scan only for **critical vulnerabilities**, you can run the following command:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -severity critical -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -severity critical -u https://target.com
 ```
 
 * To scan only for **WordPress core vulnerabilities**, you can run the following command:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -tags wp-core -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -tags wp-core -u https://target.com
 ```
 
 * To scan only for **WordPress plugin vulnerabilities**, you can run the following command:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -tags wp-plugin -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -tags wp-plugin -u https://target.com
 ```
 
 * To scan only for **WordPress theme vulnerabilities**, you can run the following command:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -tags wp-theme -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -tags wp-theme -u https://target.com
 ```
 
 * To go wild, you can combine and combine and combine:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -tags wp-plugin,wp-theme -severity critical,high
+nuclei -t github/nuclei-wordfence-cve-topscoder -tags wp-plugin,wp-theme -severity critical,high
 ```
 
 * To go even wilder, you can use the template condition flag (`-tc`) that allows complex expressions like the following ones:
 
 ```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to_lower(name),'cross-site scripting') || contains(to_upper(name),'XSS')" -u https://target.com
-nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to_lower(name),'sql injection') || contains(to_lower(description),'sql injection')" -u https://target.com
-nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to_lower(name),'file inclusion') || contains(to_lower(description),'file inclusion')" -u https://target.com
-nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to_upper(name),'CSRF') || contains(to_upper(description),'CSRF')" -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -template-condition "contains(to_lower(name),'cross-site scripting') || contains(to_upper(name),'XSS')" -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -template-condition "contains(to_lower(name),'sql injection') || contains(to_lower(description),'sql injection')" -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -template-condition "contains(to_lower(name),'file inclusion') || contains(to_lower(description),'file inclusion')" -u https://target.com
+nuclei -t github/nuclei-wordfence-cve-topscoder -template-condition "contains(to_upper(name),'CSRF') || contains(to_upper(description),'CSRF')" -u https://target.com
 ```
 
 ## Contributing
