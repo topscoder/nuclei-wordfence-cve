@@ -142,17 +142,6 @@ class WordfenceAPIParser(ParserInterface):
                         logger.info(yellow("[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
                         return False
 
-                # Check to see if there is already a template for this vulnerability in the nuclei-templates repo
-                if force is False and year != "":
-                    check_page = requests.get(
-                        f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}")
-
-                    if check_page.status_code == 200:
-                        logger.info(yellow("[*] Note: There is already an official template for this vulnerability in the nuclei-templates repo."))
-                        logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}"))
-                        logger.info(yellow("[*] Skipping. Use --force if you want to ignore this and create a new template."))
-                        return False
-
                 # Manually enhanced templates can be marked with "# Enhanced" in last line of the template.
                 # This ensures the template is overwritten only after using the --overwrite-enhanced flag.
                 if os.path.isfile(f"{filepath}"):
@@ -192,7 +181,8 @@ class WordfenceAPIParser(ParserInterface):
                 for version_range, version_data in affected_versions.items():
                     affected_version = self.get_affected_version(version_data)
 
-                # Determine which base template should be used to parse content into
+                # Determine which base template we should use to parse content into
+                # The template files are already read and stored into RAM
                 if len(reference_list) > 0:
                     if software_type == "core":
                         template_content = self.tpl_wp_core
