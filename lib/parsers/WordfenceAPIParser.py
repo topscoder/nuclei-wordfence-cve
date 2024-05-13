@@ -153,8 +153,7 @@ class WordfenceAPIParser(ParserInterface):
                     cvss_rating = ""
                     cvss_vector = ""
 
-                if cvss_rating == "":
-                    cvss_rating = self.determine_severity(title)
+                cvss_rating = self.determine_severity(title, cvss_rating)
 
                 reference_list = json_object.get('references', {})
 
@@ -206,14 +205,21 @@ class WordfenceAPIParser(ParserInterface):
         else:
             logger.warning("nothing to do")
 
-    def determine_severity(self, title) -> str:
-        # Severity scores
+    def determine_severity(self, title, initial_rating) -> str:
         SEVERITY_LOW = 1
         SEVERITY_MEDIUM = 2
         SEVERITY_HIGH = 3
         SEVERITY_CRITICAL = 4
 
         score = 0
+        if initial_rating == "Critical":
+            score = SEVERITY_CRITICAL
+        elif initial_rating == "High":
+            score = SEVERITY_HIGH
+        elif initial_rating == "Medium":
+            score = SEVERITY_MEDIUM
+        elif initial_rating == "Low":
+            score = SEVERITY_LOW
 
         if "Arbitrary File Upload" in title:
             score = SEVERITY_CRITICAL
@@ -251,14 +257,14 @@ class WordfenceAPIParser(ParserInterface):
         if "Reflected Cross-Site Scripting" in title:
             score = SEVERITY_MEDIUM
 
-        if "Authenticated" in title:
+        if "Authenticated" in title or "authenticated" in title:
             # Downsize the score to Low if it's an "Authenticated" vulnerability
             score = SEVERITY_LOW
 
         return "Critical" \
-            if score == 4 \
-            else "High" if score == 3 \
-            else "Medium" if score == 2 \
+            if score == SEVERITY_CRITICAL \
+            else "High" if score == SEVERITY_HIGH \
+            else "Medium" if score == SEVERITY_MEDIUM \
             else "Low"
 
     def type_is_supported(self, software_type) -> bool:
