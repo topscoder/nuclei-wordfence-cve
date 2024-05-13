@@ -93,20 +93,20 @@ class WordfenceAPIParser(ParserInterface):
                 else:
                     filepath = f'nuclei-templates/cve-less/{object_category_slug}/{target_filename}'
 
-                # Check to see if there is already a template for this cve in our local templates repo
+                # Check to see if there is already a template for this vulnerability in our local templates repo
                 if overwrite is False:
                     if os.path.isfile(f"{filepath}"):
-                        logger.info(yellow(f"[*] Note: There is already a template for this cve in our local nuclei-templates repo: {filepath}"))
+                        logger.info(yellow(f"[*] Note: There is already a template for this vulnerability in our local nuclei-templates repo: {filepath}"))
                         logger.info(yellow("[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
                         return False
 
-                # Check to see if there is already a template for this cve in the nuclei-templates repo
+                # Check to see if there is already a template for this vulnerability in the nuclei-templates repo
                 if force is False and year != "":
                     check_page = requests.get(
                         f"https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}")
 
                     if check_page.status_code == 200:
-                        logger.info(yellow("[*] Note: There is already an official template for this CVE in the nuclei-templates repo."))
+                        logger.info(yellow("[*] Note: There is already an official template for this vulnerability in the nuclei-templates repo."))
                         logger.info(yellow(f"[*] https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/cves/{year}/{target_filename}"))
                         logger.info(yellow("[*] Skipping. Use --force if you want to ignore this and create a new template."))
                         return False

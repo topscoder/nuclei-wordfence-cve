@@ -50,6 +50,18 @@ wordpress_misc = len(glob.glob("./nuclei-templates/wordpress-misc/*.yaml"))
 
 other = misc + apis + url_params + wordpress_misc
 
+# Thousands separator formatting
+plugins = '{:,}'.format(plugins)
+themes = '{:,}'.format(themes)
+core = '{:,}'.format(core)
+other = '{:,}'.format(other)
+
+info = '{:,}'.format(info)
+low = '{:,}'.format(low)
+medium = '{:,}'.format(medium)
+high = '{:,}'.format(high)
+critical = '{:,}'.format(critical)
+
 table = "<!-- START: __STATISTICS_TABLE -->\n"
 table += "| category | total |\n"
 table += "|---|---|\n"
