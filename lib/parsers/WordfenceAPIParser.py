@@ -192,7 +192,7 @@ class WordfenceAPIParser(ParserInterface):
 
     def determine_severity(self, title) -> str:
         # Severity scores
-        # SEVERITY_LOW = 1
+        SEVERITY_LOW = 1
         SEVERITY_MEDIUM = 2
         SEVERITY_HIGH = 3
         SEVERITY_CRITICAL = 4
@@ -236,8 +236,8 @@ class WordfenceAPIParser(ParserInterface):
             score = SEVERITY_MEDIUM
 
         if "Authenticated" in title:
-            """ Downsize the score if it's an "Authenticated" vulnerability """
-            score = score - 1
+            # Downsize the score to Low if it's an "Authenticated" vulnerability
+            score = SEVERITY_LOW
 
         return "Critical" \
             if score == 4 \
@@ -311,7 +311,7 @@ class WordfenceAPIParser(ParserInterface):
         logger.debug(f"[ ] Affected version: {affected_version}")
 
         if affected_version['from_version'] == "*":
-            if affected_version['to_inclusive'] == "true":
+            if affected_version['to_inclusive'] == True:
                 return f"'<= {affected_version['to_version']}'"
             else:
                 return f"'< {affected_version['to_version']}'"
@@ -319,7 +319,10 @@ class WordfenceAPIParser(ParserInterface):
         if affected_version['from_version'] == affected_version['to_version']:
             return f"'{affected_version['to_version']}'"
 
-        return f"'>= {affected_version['from_version']}', '<= {affected_version['to_version']}'"
+        from_comparator = ">=" if affected_version['from_inclusive'] == True else ">"
+        to_comparator = "<=" if affected_version['to_inclusive'] == True else "<"
+
+        return f"'{from_comparator} {affected_version['from_version']}', '{to_comparator} {affected_version['to_version']}'"
 
     def get_template_filename(self, software_type, has_references=True):
         """
