@@ -162,7 +162,8 @@ class WordfenceAPIParser(ParserInterface):
                     cvss_rating = ""
                     cvss_vector = ""
 
-                cvss_rating = self.determine_severity(title, cvss_rating)
+                if cvss_rating == "" or "authenticated" in title.lower() or "authenticated" in description.lower():
+                    cvss_rating = self.determine_severity(title, cvss_rating, description)
 
                 reference_list = json_object.get('references', {})
 
@@ -214,7 +215,7 @@ class WordfenceAPIParser(ParserInterface):
         else:
             logger.warning("nothing to do")
 
-    def determine_severity(self, title, initial_rating) -> str:
+    def determine_severity(self, title, initial_rating, description) -> str:
         SEVERITY_LOW = 1
         SEVERITY_MEDIUM = 2
         SEVERITY_HIGH = 3
@@ -268,8 +269,12 @@ class WordfenceAPIParser(ParserInterface):
 
         if "Authenticated" in title or "authenticated" in title:
             if not "Unauthenticated" in title and not "unauthenticated" in title:
-                # Downsize the score to Low if it's an "Authenticated" vulnerability
+                # Down-scale the score to Low if it's an "Authenticated" vulnerability
                 score = SEVERITY_LOW
+
+        if " Authenticated " in description or " authenticated " in description:
+            # Down-scale the score to Low if it's an "Authenticated" vulnerability
+            score = SEVERITY_LOW
 
         return "Critical" \
             if score == SEVERITY_CRITICAL \
