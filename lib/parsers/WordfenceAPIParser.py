@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import requests
+import re
 
 from lib.parsers.ParserInterface import ParserInterface
 
@@ -61,6 +62,8 @@ class WordfenceAPIParser(ParserInterface):
         title = json_object.get('title')
         id = json_object.get('id')
         description = json_object.get('description')
+
+        # CVE detection
         cve_id = json_object.get('cve')
         if cve_id is None:
             cve_id = ""
@@ -70,6 +73,19 @@ class WordfenceAPIParser(ParserInterface):
             for item in software:
                 software_type = item.get('type')
                 software_slug = item.get('slug')
+
+                # Try a fallback to find the CVE in the slug
+                if cve_id == "":
+                    # example: "slug": "UNKNOWN-CVE-2021-24916-1",
+                    cve_pattern = r"CVE-\d{1,}-\d{1,}"
+                    match = re.search(cve_pattern, item.get('slug'))
+
+                    if match:
+                        cve_number = match.group(0)
+                        cve_id = cve_number
+                        print("CVE number found:", cve_number)
+                    else:
+                        cve_id = ""
 
                 object_category_slug = "unknown"
 
@@ -260,11 +276,19 @@ class WordfenceAPIParser(ParserInterface):
             else "wp-plugin"
 
     def get_template_id(self, cve_id, vuln, id):
+        """
+        Creates a template id based on CVE or object slug and Wordfence ID
+        Either:
+            CVE-2024-1337-abcdef01234567hash
+        Or:
+            wordpress-abcdef01234567hash
+        """
+        unique_id = self.get_uniq_id(id)
+
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
-            return cve_id
+            return f"{cve_id}-{unique_id}"
 
-        unique_id = self.get_uniq_id(id)
         object_slug = vuln.get('slug').lower()
 
         logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
