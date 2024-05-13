@@ -5,6 +5,7 @@ import json
 import os
 import requests
 import re
+from yaml import safe_load
 
 from lib.parsers.ParserInterface import ParserInterface
 
@@ -13,6 +14,7 @@ class WordfenceAPIParser(ParserInterface):
 
     url = None
     html_content = None
+    edge_cases = None
 
     def run(self, url, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
         """Execute the Wordfence API Parser.
@@ -26,6 +28,13 @@ class WordfenceAPIParser(ParserInterface):
             bool: Template generated
         """
         local_json_testing_mode = False
+
+        parser_dir = os.path.dirname(os.path.realpath(__file__))
+        yaml_file_path = os.path.join(parser_dir, "edge-cases.yaml")
+
+        # Read the YAML file with edge cases and store in ram
+        with open(yaml_file_path, "r") as yaml_file:
+            self.edge_cases = safe_load(yaml_file)
 
         if local_json_testing_mode is True:
             file_path = "./vulnerabilities.production.json"
@@ -258,8 +267,9 @@ class WordfenceAPIParser(ParserInterface):
             score = SEVERITY_MEDIUM
 
         if "Authenticated" in title or "authenticated" in title:
-            # Downsize the score to Low if it's an "Authenticated" vulnerability
-            score = SEVERITY_LOW
+            if not "Unauthenticated" in title and not "unauthenticated" in title:
+                # Downsize the score to Low if it's an "Authenticated" vulnerability
+                score = SEVERITY_LOW
 
         return "Critical" \
             if score == SEVERITY_CRITICAL \
@@ -303,8 +313,9 @@ class WordfenceAPIParser(ParserInterface):
     def target_version_file(self, software_type, vuln):
         object_slug = vuln.get('slug')
 
-        if object_slug == "fusion-builder":
-            filepath = "wp-content/plugins/fusion-builder/languages/fusion-builder.pot"
+        if object_slug in self.edge_cases:
+            obj = self.edge_cases.get(object_slug)
+            filepath = obj.get('target')
         elif software_type == "theme":
             filepath = f"wp-content/themes/{object_slug}/style.css"
         elif software_type == "core":
@@ -317,8 +328,9 @@ class WordfenceAPIParser(ParserInterface):
     def get_version_regex(self, software_type, vuln):
         object_slug = vuln.get('slug')
 
-        if object_slug == "fusion-builder":
-            regex = "(?mi)Project-Id-Version: Avada Builder ([0-9.]+)"
+        if object_slug in self.edge_cases:
+            obj = self.edge_cases.get(object_slug)
+            regex = obj.get('regex')
         elif software_type == "theme":
             regex = "(?mi)Version: ([0-9.]+)"
         elif software_type == "core":

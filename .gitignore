@@ -5,6 +5,7 @@ trash/
 output.log
 .DS_Store
 vulnerabilities.production.json
+vulnerabilities.scanner.json
 
 # Source: raw.githubusercontent.com/github/gitignore/main/Python.gitignore
 
