@@ -12,9 +12,11 @@ high = 0
 medium = 0
 low = 0
 info = 0
+total = 0
 
 
 for file in glob.glob("./nuclei-templates/**/*.yaml"):
+    total += 1
     with open(file) as f:
         content = f.read()
 
@@ -62,6 +64,8 @@ medium = '{:,}'.format(medium)
 high = '{:,}'.format(high)
 critical = '{:,}'.format(critical)
 
+total = '{:,}'.format(total)
+
 table = "<!-- START: __STATISTICS_TABLE -->\n"
 table += "| category | total |\n"
 table += "|---|---|\n"
@@ -82,18 +86,6 @@ table += f"| critical | [{critical}](https://github.com/search?q=severity%3A+cri
 table += "<!-- END: __STATISTICS_TABLE -->"
 
 
-def write_list_to_file(file_list, target_file, marker_start, marker_end):
-    content = f"{marker_start}\n"
-    content += "| |\n"
-    content += "|---|\n"
-    for f in file_list:
-        content += f"| [{os.path.basename(f)}]({f}) |\n"
-
-    content += f"{marker_end}\n"
-
-    return write_string_to_file(content, target_file, marker_start, marker_end)
-
-
 def write_string_to_file(string, target_file, marker_start, marker_end):
     marker = f"{marker_start}.*{marker_end}"
     with open(target_file, "r") as f:
@@ -103,5 +95,7 @@ def write_string_to_file(string, target_file, marker_start, marker_end):
         with open(target_file, "w") as f2:
             f2.write(content)
 
+total_marker = f"<!-- START: __TOTAL_NUM_TEMPLATES -->{total}<!-- END: __TOTAL_NUM_TEMPLATES -->"
 
+write_string_to_file(total_marker, "README.md", "<!-- START: __TOTAL_NUM_TEMPLATES -->", "<!-- END: __TOTAL_NUM_TEMPLATES -->")
 write_string_to_file(table, "README.md", "<!-- START: __STATISTICS_TABLE -->", "<!-- END: __STATISTICS_TABLE -->")

@@ -4,7 +4,7 @@
 
 # Nuclei + Wordfence = ♥
 
-This project provides a massive up-to-date collection of Nuclei templates that can be used to scan for vulnerabilities in WordPress. The templates are based on the vulnerability reports of Wordfence.com.
+This project provides a massive up-to-date collection of **<!-- START: __TOTAL_NUM_TEMPLATES -->13,264<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei templates** that can be used to scan for vulnerabilities in WordPress Core, WordPress Plugins and WordPress Themes. The templates are based on the vulnerability reports of [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
 
 This project is a valuable resource for anyone who wants to scan for vulnerabilities in WordPress-based websites. The templates are easy to use and up-to-date, and they are open source so you can modify them to fit your specific needs. If you are responsible for the security of a website that uses WordPress, I highly recommend using this project to scan for vulnerabilities.
 
@@ -25,7 +25,7 @@ This project is a valuable resource for anyone who wants to scan for vulnerabili
 <!-- START: __STATISTICS_TABLE -->
 | category | total |
 |---|---|
-| wp-plugins | [12566](https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| wp-plugins | [12,566](https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 | wp-themes | [357](https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 | wp-core | [332](https://github.com/search?q=%22wp-core%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 | other | [16](https://github.com/search?q=repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML++NOT+%22wp-plugin%22+NOT+%22wp-core%22+NOT+%22wp-theme%22+path%3A%2F%5Enuclei-templates%5C%2F%2F&type=code&ref=advsearch) |
@@ -35,9 +35,9 @@ This project is a valuable resource for anyone who wants to scan for vulnerabili
 |---|---|
 | info | [7](https://github.com/search?q=%22severity%3A+info%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 | low | [71](https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| medium | [9553](https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| high | [2623](https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| critical | [1009](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| medium | [9,553](https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| high | [2,623](https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| critical | [1,009](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 <!-- END: __STATISTICS_TABLE -->
 
 ## Usage
