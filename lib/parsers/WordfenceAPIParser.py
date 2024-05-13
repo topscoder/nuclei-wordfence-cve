@@ -88,6 +88,8 @@ class WordfenceAPIParser(ParserInterface):
         title = json_object.get('title')
         id = json_object.get('id')
         description = json_object.get('description')
+        if description is None:
+            description = ""
 
         # CVE detection
         cve_id = json_object.get('cve')
@@ -109,7 +111,6 @@ class WordfenceAPIParser(ParserInterface):
                     if match:
                         cve_number = match.group(0)
                         cve_id = cve_number
-                        print("CVE number found:", cve_number)
                     else:
                         cve_id = ""
 
