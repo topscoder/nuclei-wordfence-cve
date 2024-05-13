@@ -310,6 +310,20 @@ class WordfenceAPIParser(ParserInterface):
 
         logger.debug(f"[ ] Affected version: {affected_version}")
 
+        # Cast string to bool. In unit test it's a string, but in the API it's parsed to a boolean
+        if affected_version['from_inclusive'] == "true":
+            affected_version['from_inclusive'] = True
+
+        if affected_version['from_inclusive'] == "false":
+            affected_version['from_inclusive'] = False
+
+        if affected_version['to_inclusive'] == "true":
+            affected_version['to_inclusive'] = True
+
+        if affected_version['to_inclusive'] == "false":
+            affected_version['to_inclusive'] = False
+
+
         if affected_version['from_version'] == "*":
             if affected_version['to_inclusive'] == True:
                 return f"'<= {affected_version['to_version']}'"
