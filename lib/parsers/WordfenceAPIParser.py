@@ -15,6 +15,10 @@ class WordfenceAPIParser(ParserInterface):
     url = None
     html_content = None
     edge_cases = None
+    tpl_wp_core = None
+    tpl_wp_core_no_ref = None
+    tpl_main = None
+    tpl_main_no_ref = None
 
     def run(self, url, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
         """Execute the Wordfence API Parser.
@@ -35,6 +39,19 @@ class WordfenceAPIParser(ParserInterface):
         # Read the YAML file with edge cases and store in ram
         with open(yaml_file_path, "r") as yaml_file:
             self.edge_cases = safe_load(yaml_file)
+
+        # Read the base templates and store in ram
+        with open(self.get_template_filename('core')) as template:
+            self.tpl_wp_core = template.read()
+
+        with open(self.get_template_filename('core', False)) as template:
+            self.tpl_wp_core_no_ref = template.read()
+
+        with open(self.get_template_filename('main')) as template:
+            self.tpl_main = template.read()
+
+        with open(self.get_template_filename('main', False)) as template:
+            self.tpl_main_no_ref = template.read()
 
         if local_json_testing_mode is True:
             file_path = "./vulnerabilities.production.json"
@@ -175,43 +192,48 @@ class WordfenceAPIParser(ParserInterface):
                 for version_range, version_data in affected_versions.items():
                     affected_version = self.get_affected_version(version_data)
 
-                # Parse template
+                # Determine which base template should be used to parse content into
                 if len(reference_list) > 0:
-                    tpl = self.get_template_filename(software_type)
+                    if software_type == "core":
+                        template_content = self.tpl_wp_core
+                    else:
+                        template_content = self.tpl_main
                 else:
-                    tpl = self.get_template_filename(software_type, False)
+                    if software_type == "core":
+                        template_content = self.tpl_wp_core_no_ref
+                    else:
+                        template_content = self.tpl_main_no_ref
 
                 # Prepare description to be YAML proof
-                #
                 if description is not None:
                     lines = description.strip().splitlines()
                     description = '\n    '.join(lines)
                 else:
                     description = ""
 
-                with open(tpl) as template:
-                    template_content = template.read()
-                    template_content = template_content.replace('__TEMPLATE_ID__', str(template_id))
-                    template_content = template_content.replace('__CVE_ID__', cve_id.strip())
-                    template_content = template_content.replace('__CVE_NAME__', title.strip())
-                    template_content = template_content.replace('__CVE_SEVERITY__', cvss_rating.strip().lower())
-                    template_content = template_content.replace('__CVE_DESCRIPTION__', description)
-                    template_content = template_content.replace('__CVE_REFERENCES__', "\n    - ".join(reference_list))
-                    template_content = template_content.replace('__CVSS_VECTOR__', cvss_vector.strip())
-                    template_content = template_content.replace('__CVSS_SCORE__', str(cvss_score))
-                    template_content = template_content.replace('__OBJECT_CATEGORY_SLUG__', object_category_slug)
-                    template_content = template_content.replace('__OBJECT_CATEGORY_TAG__', object_category_tag)
-                    template_content = template_content.replace('__FIND_FILE__', find_file)
-                    template_content = template_content.replace('__VERSION_REGEX__', version_regex)
-                    template_content = template_content.replace('__OBJECT_SLUG__', software_slug.strip())
-                    template_content = template_content.replace('__VERSION_COMPARE__', f"{affected_version}")
+                # Parse contents into template and store to disk
+                template_content = template_content.replace('__TEMPLATE_ID__', str(template_id))
+                template_content = template_content.replace('__CVE_ID__', cve_id.strip())
+                template_content = template_content.replace('__CVE_NAME__', title.strip())
+                template_content = template_content.replace('__CVE_SEVERITY__', cvss_rating.strip().lower())
+                template_content = template_content.replace('__CVE_DESCRIPTION__', description)
+                template_content = template_content.replace('__CVE_REFERENCES__', "\n    - ".join(reference_list))
+                template_content = template_content.replace('__CVSS_VECTOR__', cvss_vector.strip())
+                template_content = template_content.replace('__CVSS_SCORE__', str(cvss_score))
+                template_content = template_content.replace('__OBJECT_CATEGORY_SLUG__', object_category_slug)
+                template_content = template_content.replace('__OBJECT_CATEGORY_TAG__', object_category_tag)
+                template_content = template_content.replace('__FIND_FILE__', find_file)
+                template_content = template_content.replace('__VERSION_REGEX__', version_regex)
+                template_content = template_content.replace('__OBJECT_SLUG__', software_slug.strip())
+                template_content = template_content.replace('__VERSION_COMPARE__', f"{affected_version}")
 
-                    logger.debug(f'target_filename={target_filename}')
+                logger.debug(f'target_filename={target_filename}')
 
-                    os.makedirs(os.path.dirname(filepath), exist_ok=True)
-                    with open(filepath, 'w+') as target:
-                        target.write(template_content)
-                        logger.info(green("[>] " + filepath))
+                os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+                with open(filepath, 'w') as target:
+                    target.write(template_content)
+                    logger.info(green("[>] " + filepath))
         else:
             logger.warning("nothing to do")
 
@@ -296,7 +318,7 @@ class WordfenceAPIParser(ParserInterface):
             else "wp-core" if software_type == "core" \
             else "wp-plugin"
 
-    def get_template_id(self, cve_id, vuln, id):
+    def get_template_id(self, cve_id, software_item, id):
         """
         Creates a template id based on CVE or object slug and Wordfence ID
         Either:
@@ -304,15 +326,21 @@ class WordfenceAPIParser(ParserInterface):
         Or:
             wordpress-abcdef01234567hash
         """
-        unique_id = self.get_uniq_id(id)
+
+        # Use remediation to generate a unique id per software item
+        # as there could be multiple software items for this specific plugin/theme
+        # The remediation points out the version which is often unique per software item
+        # and so is our unique id per software item
+        remediation = software_item.get('remediation')
+        unique_id = self.get_uniq_id(f"{id}-{remediation}")
 
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
             return f"{cve_id}-{unique_id}"
 
-        object_slug = vuln.get('slug').lower()
+        object_slug = software_item.get('slug').lower()
 
-        logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
+        logger.debug(f"[ ] No CVE ID. Using created ID: {unique_id}")
         return f"{object_slug}-{unique_id}"
 
     def target_version_file(self, software_type, vuln):
