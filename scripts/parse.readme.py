@@ -15,7 +15,7 @@ info = 0
 total = 0
 
 
-for file in glob.glob("./nuclei-templates/**/*.yaml"):
+for file in glob.glob("./nuclei-templates/**/*.yaml", recursive=True):
     total += 1
     with open(file) as f:
         content = f.read()
