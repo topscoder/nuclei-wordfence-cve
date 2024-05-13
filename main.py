@@ -1,6 +1,6 @@
 # Usage:
 # python3 main.py
-#   --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner\
+#   --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner
 
 import argparse
 import time

@@ -59,6 +59,7 @@ class WordfenceAPIParser(ParserInterface):
 
     def process_item(self, json_object, overwrite, force, overwrite_enhanced):
         title = json_object.get('title')
+        id = json_object.get('id')
         description = json_object.get('description')
         cve_id = json_object.get('cve')
         if cve_id is None:
@@ -78,7 +79,7 @@ class WordfenceAPIParser(ParserInterface):
                 if software_type == 'theme':
                     object_category_slug = "themes"
 
-                template_id = self.get_template_id(cve_id, item, software_type)
+                template_id = self.get_template_id(cve_id, item, id)
 
                 target_filename = template_id + ".yaml"
                 logger.info(f"[ ] Target filename: {target_filename}")
@@ -157,8 +158,11 @@ class WordfenceAPIParser(ParserInterface):
 
                 # Prepare description to be YAML proof
                 #
-                lines = description.strip().splitlines()
-                description = '\n    '.join(lines)
+                if description is not None:
+                    lines = description.strip().splitlines()
+                    description = '\n    '.join(lines)
+                else:
+                    description = ""
 
                 with open(tpl) as template:
                     template_content = template.read()
@@ -255,16 +259,16 @@ class WordfenceAPIParser(ParserInterface):
             else "wp-core" if software_type == "core" \
             else "wp-plugin"
 
-    def get_template_id(self, cve_id, vuln, software_type):
+    def get_template_id(self, cve_id, vuln, id):
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
             return cve_id
 
-        unique_id = self.get_uniq_id(vuln.get('id', ''))
-        object_slug = vuln.get('slug')
+        unique_id = self.get_uniq_id(id)
+        object_slug = vuln.get('slug').lower()
 
         logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
-        return f"{object_slug}-{software_type}-{unique_id}"
+        return f"{object_slug}-{unique_id}"
 
     def target_version_file(self, software_type, vuln):
         object_slug = vuln.get('slug')

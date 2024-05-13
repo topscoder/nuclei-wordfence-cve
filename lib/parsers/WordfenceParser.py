@@ -191,6 +191,7 @@ class WordfenceParser(ParserInterface):
             return cve_id
 
         unique_id = self.get_uniq_id(self.url)
+        object_slug = object_slug.lower()
 
         logger.debug(f"[ ] No CVE ID. Created new unique ID: {unique_id}")
         return f"{object_slug}-{unique_id}"
