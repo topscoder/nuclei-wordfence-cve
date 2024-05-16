@@ -10,8 +10,10 @@
     <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit">
   </a>
 <!-- Short description: -->
-  <h3>WordPress related Nuclei templates: <!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> 🥳</h3>
+  <h4>WordPress related Nuclei templates: <!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> 🥳</h4>
 </div>
+
+---
 
 This project provides a massive up-to-date collection of WordPress related Nuclei templates that can be used to scan for vulnerabilities in WordPress Core, WordPress Plugins and WordPress Themes. The templates are based on the vulnerability reports of [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
 
