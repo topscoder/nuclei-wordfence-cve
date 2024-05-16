@@ -5,7 +5,6 @@ import hashlib
 import os
 import requests
 import re
-
 from lib.parser_interface import ParserInterface
 
 

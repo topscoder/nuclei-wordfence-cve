@@ -8,6 +8,7 @@ info:
   description: >
     __CVE_DESCRIPTION__
   reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
     - __CVE_REFERENCES__
   classification:
     cvss-metrics: __CVSS_VECTOR__
