@@ -7,10 +7,8 @@ import requests
 import re
 from yaml import safe_load
 
-from lib.parsers.parser_interface import ParserInterface
 
-
-class WordfenceAPIParser(ParserInterface):
+class WordfenceAPIParser():
 
     url = None
     html_content = None
@@ -20,18 +18,24 @@ class WordfenceAPIParser(ParserInterface):
     tpl_main = None
     tpl_main_no_ref = None
 
+    def run_local(self, local_file, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
+        return self.execute(local_file, True, overwrite, force, overwrite_enhanced)
+
     def run(self, url, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
+        return self.execute(url, False, overwrite, force, overwrite_enhanced)
+
+    def execute(self, source, is_local=False, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
         """Execute the Wordfence API Parser.
 
         Args:
-            url (string): URL of the Wordfence page to parse.
+            source (string): URL of the Wordfence API or path to local file.
+            is_local (bool, optional): Whether or not the source file is a local file. Defaults to False.
             overwrite (bool, optional): Whether or not to overwrite the template if it already exists. Defaults to False.
             force (bool, optional): Whether or not to regenerate the template if it already exists. Defaults to False.
 
         Returns:
             bool: Template generated
         """
-        local_json_testing_mode = False
 
         parser_dir = os.path.dirname(os.path.realpath(__file__))
         yaml_file_path = os.path.join(parser_dir, "edge-cases.yaml")
@@ -53,8 +57,8 @@ class WordfenceAPIParser(ParserInterface):
         with open(self.get_template_filename('main', False)) as template:
             self.tpl_main_no_ref = template.read()
 
-        if local_json_testing_mode is True:
-            file_path = "./vulnerabilities.production.json"
+        if is_local is True:
+            file_path = source # "./vulnerabilities.production.json"
             with open(file_path, "r") as file:
                 vulnerabilities = json.load(file)
 
@@ -62,13 +66,12 @@ class WordfenceAPIParser(ParserInterface):
                 for vulnerability_id, vulnerability in vulnerabilities.items():
                     self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
 
-        if local_json_testing_mode is False:
-            if url is None or url.strip() == "":
+        if is_local is False:
+            if source is None or source.strip() == "":
                 return False
 
-            url = url.strip()
+            url = source.strip()
 
-            # try:
             response = requests.get(url)
 
             # Check the response status code
@@ -114,18 +117,22 @@ class WordfenceAPIParser(ParserInterface):
                     else:
                         cve_id = ""
 
+                # determine slug for object category (plugins, themes)
                 object_category_slug = "unknown"
 
                 if software_type == 'plugin':
                     object_category_slug = "plugins"
 
-                if software_type == 'theme':
+                elif software_type == 'theme':
                     object_category_slug = "themes"
 
-                template_id = self.get_template_id(cve_id, item, id)
+                elif software_type == 'core':
+                    object_category_slug = "wordpress-core"
 
+                # determine template filename
+                template_id = self.get_template_id(cve_id, item, id)
                 target_filename = template_id + ".yaml"
-                logger.info(f"[ ] Target filename: {target_filename}")
+                logger.info(f"Target filename: {target_filename}")
 
                 # determine file path
                 year = ""
@@ -410,12 +417,12 @@ class WordfenceAPIParser(ParserInterface):
         Whether it has references or not and depending on software_type.
         """
         if has_references is False and software_type == "core":
-            return 'lib/template-wp-core-without-references.yaml.template'
+            return 'src/base_templates/wp-core-without-references.yaml.template'
 
         if software_type == "core":
-            return 'lib/template-wp-core.yaml.template'
+            return 'src/base_templates/wp-core.yaml.template'
 
         if has_references is False:
-            return 'lib/template-main-without-references.yaml.template'
+            return 'src/base_templates/main-without-references.yaml.template'
 
-        return 'lib/template-main.yaml.template'
+        return 'src/base_templates/main.yaml.template'

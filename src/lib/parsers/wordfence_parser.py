@@ -6,7 +6,7 @@ import os
 import requests
 import re
 
-from lib.parsers.ParserInterface import ParserInterface
+from lib.parsers.parser_interface import ParserInterface
 
 
 class WordfenceParser(ParserInterface):
