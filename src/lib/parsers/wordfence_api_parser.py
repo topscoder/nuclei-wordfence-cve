@@ -7,7 +7,7 @@ import requests
 import re
 from yaml import safe_load
 
-from lib.parsers.ParserInterface import ParserInterface
+from lib.parsers.parser_interface import ParserInterface
 
 
 class WordfenceAPIParser(ParserInterface):
@@ -281,7 +281,7 @@ class WordfenceAPIParser(ParserInterface):
             score = SEVERITY_MEDIUM
 
         if "Authenticated" in title or "authenticated" in title:
-            if not "Unauthenticated" in title and not "unauthenticated" in title:
+            if "Unauthenticated" not in title and "unauthenticated" not in title:
                 # Down-scale the score to Low if it's an "Authenticated" vulnerability
                 score = SEVERITY_LOW
 

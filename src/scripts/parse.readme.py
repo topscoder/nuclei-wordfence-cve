@@ -1,7 +1,6 @@
-import glob
 import re
+import glob
 
-import os
 
 plugins = 0
 themes = 0
