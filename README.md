@@ -1,5 +1,5 @@
 <p align="center">
-<img width="250" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
+<img width="100" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
 </p>
 
 # Nuclei + Wordfence = ♥
