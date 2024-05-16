@@ -1,10 +1,19 @@
-<p align="center">
-<img width="100" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
-</p>
+<div align="center">
+  <a href="https://github.com/topscoder/nuclei-wordfence-cve">
+    <img width="100" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
+  </a>
+  <h1>Nuclei + Wordfence = ♥</h1>
+  <a href="https://github.com/topscoder/nuclei-wordfence-cve/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status">
+  </a>
+  <a href="https://github.com/pre-commit/pre-commit">
+    <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit">
+  </a>
+<!-- Short description: -->
+  <h3>WordPress related Nuclei templates: <!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> 🥳</h3>
+</div>
 
-# Nuclei + Wordfence = ♥
-
-This project provides a massive up-to-date collection of **<!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei templates** that can be used to scan for vulnerabilities in WordPress Core, WordPress Plugins and WordPress Themes. The templates are based on the vulnerability reports of [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
+This project provides a massive up-to-date collection of WordPress related Nuclei templates that can be used to scan for vulnerabilities in WordPress Core, WordPress Plugins and WordPress Themes. The templates are based on the vulnerability reports of [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
 
 This project is a valuable resource for anyone who wants to scan for vulnerabilities in WordPress-based websites. The templates are easy to use and up-to-date, and they are open source so you can modify them to fit your specific needs. If you are responsible for the security of a website that uses WordPress, I highly recommend using this project to scan for vulnerabilities.
 
