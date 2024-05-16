@@ -49,21 +49,21 @@ This project is a valuable resource for anyone who wants to scan for vulnerabili
 | critical | [2,841](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 <!-- END: __STATISTICS_TABLE -->
 
-## Usage
-
-To use the templates, you will need to install [Nuclei](https://github.com/projectdiscovery/nuclei) and this `nuclei-wordfence-cve` repository. Once you have installed Nuclei, you can run the following command to scan for vulnerabilities:
-
-```bash
-nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
-```
-
 ## Installation
 
-To install this `nuclei-wordfence-cve` repository, you can use the following command:
+To install this `nuclei-wordfence-cve` repository for use with Nuclei, you can use the following commands:
 
 ```bash
 export GITHUB_TEMPLATE_REPO=topscoder/nuclei-wordfence-cve
 nuclei -update-templates
+```
+
+## Usage
+
+Once you have installed this template repo using the commands above, you can run the following command to scan for vulnerabilities using Nuclei:
+
+```bash
+nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
 ```
 
 ## Examples
