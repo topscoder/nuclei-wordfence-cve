@@ -58,7 +58,7 @@ export GITHUB_TEMPLATE_REPO=topscoder/nuclei-wordfence-cve
 nuclei -update-templates
 ```
 
-## Usage
+### Usage
 
 Once you have installed this template repo using the commands above, you can run the following command to scan for vulnerabilities using Nuclei:
 
@@ -66,7 +66,7 @@ Once you have installed this template repo using the commands above, you can run
 nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
 ```
 
-## Examples
+### Examples
 
 Here are some examples how to use the templates:
 
