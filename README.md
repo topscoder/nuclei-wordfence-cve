@@ -13,21 +13,21 @@
 
 ---
 
-This project provides a massive up-to-date collection of WordPress related Nuclei templates that can be used to scan for vulnerabilities in WordPress Core, WordPress Plugins and WordPress Themes. The templates are based on the vulnerability reports of [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
+Level up your WordPress security game! This project's got a treasure trove of fresh Nuclei templates for WordPress. Scan for weaknesses in Core, plugins, and themes – all based on the latest intel from [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
 
-This project is a valuable resource for anyone who wants to scan for vulnerabilities in WordPress-based websites. The templates are easy to use and up-to-date, and they are open source so you can modify them to fit your specific needs. If you are responsible for the security of a website that uses WordPress, I highly recommend using this project to scan for vulnerabilities.
+Here's why this is your new best friend:
+
+* **Massive collection**: No more hunting for individual templates, you've got a whole arsenal at your fingertips.
+* **Always on point**: These templates stay updated with the freshest threats, so you're never behind the curve.
+* **Open source magic**: Need to tweak a template for a specific situation? No problem, you've got full control.
+
+If you're guarding a WordPress site, this project is your secret weapon to identify vulnerabilities before the bad guys do.  Stop wasting time and secure your sites like a pro!
+
+---
 
 > [!TIP]
 > If you found this project helpful, please consider giving it a star on GitHub.
 > Your support helps to make this project even better. 🌟
-
-## Features
-
-* The templates are easy to use and can be run with a single command.
-* The templates are based on the vulnerability reports of Wordfence.com.
-* The templates are updated regularly to ensure that they are always up-to-date with the latest vulnerabilities.
-* The templates are open source, so you can modify them to fit your specific needs.
-* Manually enhanced templates can be marked to avoid overwriting them.
 
 ### What's in it?!
 
@@ -125,9 +125,9 @@ nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to
 
 If you would like to contribute to this project, please feel free to fork the repository and submit a pull request.
 
-## Manually Enhanced
+## Protecting Customized Templates
 
-Manually enhanced templates can be marked with `# Enhanced` in last line of the template to avoid the template to be overwritten by accident.
+To prevent accidental overwrites, you can mark templates you've manually customized with a comment at the end. Add the line `# Enhanced` as the last line of the template file.
 
 ## License
 
