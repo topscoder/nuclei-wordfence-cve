@@ -1,5 +1,5 @@
-from lib.colors import red, green, yellow
-from lib.logger import logger
+from src.lib.colors import red, green, yellow
+from src.lib.logger import logger
 import hashlib
 import json
 import os
