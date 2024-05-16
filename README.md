@@ -3,12 +3,14 @@
     <img width="100" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
   </a>
   <h1>Nuclei + Wordfence = ♥</h1>
+
+  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --><br>
+  Nuclei Templates for WordPress Security Scanning 🥳</h4>
   
   <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status"> 
   <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit"> 
   <img src="https://img.shields.io/github/last-commit/topscoder/nuclei-wordfence-cve/main?style=flat-square&label=templates%20added" height="20" alt="Templates added"> 
-<!-- Short description: -->
-  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>
+
 </div>
 
 ---
