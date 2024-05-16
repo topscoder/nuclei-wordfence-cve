@@ -8,12 +8,12 @@
   <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit"> 
   <img src="https://img.shields.io/github/last-commit/topscoder/nuclei-wordfence-cve/main?style=flat-square&label=templates%20added" height="20" alt="Templates added"> 
 <!-- Short description: -->
-  <h4>WordPress related Nuclei templates: <!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> 🥳</h4>
+  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>
 </div>
 
 ---
 
-Level up your WordPress security game! This project's got a treasure trove of fresh Nuclei templates for WordPress. Scan for weaknesses in Core, plugins, and themes – all based on the latest intel from [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
+Level up your WordPress security game! This project's got a treasure trove of fresh [Nuclei](https://github.com/projectdiscovery/nuclei) templates for WordPress. Scan for weaknesses in Core, plugins, and themes – all based on the latest intel from [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
 
 Here's why this is your new best friend:
 
