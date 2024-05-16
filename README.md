@@ -3,15 +3,10 @@
     <img width="100" align=center src="https://user-images.githubusercontent.com/86197446/225912783-bb6c5fa9-ce45-488b-a1fd-5af705b7cced.jpg">
   </a>
   <h1>Nuclei + Wordfence = ♥</h1>
-  <a href="https://github.com/topscoder/nuclei-wordfence-cve/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status">
-  </a>
-  <a href="https://github.com/pre-commit/pre-commit">
-    <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit">
-  </a>
-  <a href="https://github.com/topscoder/nuclei-wordfence-cve">
-    <img src="https://img.shields.io/github/last-commit/topscoder/nuclei-wordfence-cve/main?style=flat-square&label=templates%20added" height="20" alt="Templates added">
-  </a>
+  
+  <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status"> 
+  <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit"> 
+  <img src="https://img.shields.io/github/last-commit/topscoder/nuclei-wordfence-cve/main?style=flat-square&label=templates%20added" height="20" alt="Templates added"> 
 <!-- Short description: -->
   <h4>WordPress related Nuclei templates: <!-- START: __TOTAL_NUM_TEMPLATES -->36,359<!-- END: __TOTAL_NUM_TEMPLATES --> 🥳</h4>
 </div>
