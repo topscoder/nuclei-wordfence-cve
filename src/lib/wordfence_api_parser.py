@@ -1,5 +1,5 @@
-from src.lib.colors import red, green, yellow
-from src.lib.logger import logger
+from .colors import red, green, yellow
+from .logger import logger
 import hashlib
 import json
 import os
@@ -58,8 +58,13 @@ class WordfenceAPIParser():
             self.tpl_main_no_ref = template.read()
 
         if is_local is True:
-            file_path = source # "./vulnerabilities.production.json"
-            with open(file_path, "r") as file:
+            if not source.lower().endswith(".json"):
+                return False
+
+            if not os.path.exists(source):
+                return False
+
+            with open(source, "r") as file:
                 vulnerabilities = json.load(file)
 
                 # Print the vulnerabilities

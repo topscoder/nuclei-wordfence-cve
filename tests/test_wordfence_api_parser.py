@@ -1,5 +1,5 @@
 import unittest
-from src.lib.parsers.wordfence_api_parser import WordfenceAPIParser
+from src.lib.wordfence_api_parser import WordfenceAPIParser
 
 
 class TestWordfenceAPIParser(unittest.TestCase):

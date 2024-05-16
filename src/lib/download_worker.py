@@ -1,5 +1,5 @@
 from threading import Thread
-from lib.parsers.WordfenceParser import WordfenceParser
+from lib.wordfence_parser import WordfenceParser
 
 
 class DownloadWorker(Thread):
