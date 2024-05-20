@@ -246,7 +246,7 @@ class WordfenceAPIParser():
         SEVERITY_HIGH = 3
         SEVERITY_CRITICAL = 4
 
-        score = 0
+        score = SEVERITY_LOW
         if initial_rating == "Critical":
             score = SEVERITY_CRITICAL
         elif initial_rating == "High":
@@ -256,48 +256,48 @@ class WordfenceAPIParser():
         elif initial_rating == "Low":
             score = SEVERITY_LOW
 
-        if "Arbitrary File Upload" in title:
+        if "arbitrary file upload" in title.lower():
             score = SEVERITY_CRITICAL
 
-        if "File Inclusion" in title:
+        if "file inclusion" in title.lower():
             score = SEVERITY_CRITICAL
 
-        if "SQL Injection" in title:
+        if "sql injection" in title.lower():
             score = SEVERITY_CRITICAL
 
-        if "Unauthenticated PHP Object Injection" in title:
+        if "unauthenticated php object injection" in title.lower():
             score = SEVERITY_CRITICAL
 
-        if "Remote Code Execution" in title:
+        if "remote code execution" in title.lower():
             score = SEVERITY_CRITICAL
 
-        if "Authentication Bypass" in title:
+        if "authentication bypass" in title.lower():
             score = SEVERITY_CRITICAL
 
-        if "Cross-Site Scripting" in title:
+        if "cross-site scripting" in title.lower():
             score = SEVERITY_HIGH
 
-        if "Authorization Bypass" in title:
+        if "authorization bypass" in title.lower():
             score = SEVERITY_HIGH
 
-        if "Missing Authorization" in title:
+        if "missing authorization" in title.lower():
             score = SEVERITY_HIGH
 
-        if "Username Enumeration" in title:
+        if "username enumeration" in title.lower():
             score = SEVERITY_MEDIUM
 
-        if "Cross-Site Request Forgery" in title:
+        if "cross-site request forgery" in title.lower():
             score = SEVERITY_MEDIUM
 
-        if "Reflected Cross-Site Scripting" in title:
+        if "reflected cross-site scripting" in title.lower():
             score = SEVERITY_MEDIUM
 
-        if "Authenticated" in title or "authenticated" in title:
-            if "Unauthenticated" not in title and "unauthenticated" not in title:
+        if "authenticated" in title.lower():
+            if "unauthenticated" not in title.lower():
                 # Down-scale the score to Low if it's an "Authenticated" vulnerability
                 score = SEVERITY_LOW
 
-        if " Authenticated " in description or " authenticated " in description:
+        if " authenticated " in description.lower():
             # Down-scale the score to Low if it's an "Authenticated" vulnerability
             score = SEVERITY_LOW
 
