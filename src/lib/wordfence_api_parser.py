@@ -323,11 +323,24 @@ class WordfenceAPIParser():
 
     def get_template_id(self, cve_id, software_item, id):
         """
-        Creates a template id based on CVE or object slug and Wordfence ID
-        Either:
-            CVE-2024-1337-abcdef01234567hash
-        Or:
-            wordpress-abcdef01234567hash
+        Generates a template ID based on CVE ID or object slug and Wordfence ID.
+
+        The template ID can be in one of the following formats:
+            - CVE-<CVE_ID>-<unique_id>
+            - <object_slug>-<unique_id>
+
+        Args:
+            cve_id (str): The CVE ID associated with the software item.
+            software_item (dict): A dictionary containing details about the software item.
+            id (str): The Wordfence ID.
+
+        Returns:
+            str: The generated template ID.
+
+        Notes:
+            - If `cve_id` is provided, the template ID will be based on the CVE ID.
+            - If `cve_id` is not provided, the template ID will be based on the object slug.
+            - The `unique_id` is generated using the Wordfence ID and the remediation information from the software item.
         """
 
         # Use remediation to generate a unique id per software item
@@ -337,11 +350,17 @@ class WordfenceAPIParser():
         remediation = software_item.get('remediation')
         unique_id = self.get_uniq_id(f"{id}-{remediation}")
 
+        # Sanitize unique_id to remove invalid characters
+        unique_id = re.sub(r'[^a-zA-Z0-9_-]', '_', unique_id)
+
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
             return f"{cve_id}-{unique_id}"
 
         object_slug = software_item.get('slug').lower()
+
+        # Sanitize object_slug to remove invalid characters
+        object_slug = re.sub(r'[^a-zA-Z0-9_-]', '_', object_slug)
 
         logger.debug(f"[ ] No CVE ID. Using created ID: {unique_id}")
         return f"{object_slug}-{unique_id}"
