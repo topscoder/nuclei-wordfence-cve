@@ -2,11 +2,11 @@ id: event-registration-46cbfbe299d8429cfe4f2478288f8f02
 
 info:
   name: >
-    Event Registration <= 6.02.02 - Stored Cross-Site Scripting
+    Event Registration <= 6.02.02 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
-    The Event Registration plugin for WordPress is vulnerable to Stored Cross-Site Scripting via attendees first and last name parameters in versions up to, and including, [up to affected version] due to insufficient input sanitization and output escaping. This makes it possible for [authentication-level] attackers [inject user-level requirements if available and authentication is required] to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page.
+    The Event Registration plugin for WordPress is vulnerable to Stored Cross-Site Scripting via attendees first and last name parameters in versions up to, and including, 6.02.02 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page.
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
     - https://www.wordfence.com/threat-intel/vulnerabilities/id/adb87ef2-8741-4144-b414-56e82dd35c89?source=api-prod

@@ -6,7 +6,7 @@ info:
   author: topscoder
   severity: high
   description: >
-    The Agency Toolkit plugin for WordPress is vulnerable to unauthorized modification of data that can lead to privilege escalation due to a missing capability check on the 'agency_toolkit_import' action in all versions up to, and including, 1.0.23. This makes it possible for unauthenticated attackers to update arbitrary options on the WordPress site. This can be leveraged to update the default role for registration to administrator and enable user registration for attackers to gain administrative user access to a vulnerable site.
+    The Agency Toolkit plugin for WordPress is vulnerable to unauthorized modification of data that can lead to privilege escalation due to a missing capability check on the 'agency_toolkit_import' action in all versions up to, and including, 1.0.23. This makes it possible for unauthenticated attackers to update arbitrary options on the WordPress site. This can be leveraged to update the default role for registration to administrator and enable user registration for attackers to gain administrative user access to a vulnerable site. CVE-2024-56066 is a duplicate of this.
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
     - https://www.wordfence.com/threat-intel/vulnerabilities/id/9f5cdb47-205a-4c03-a8a9-f39d1b4fc769?source=api-prod
