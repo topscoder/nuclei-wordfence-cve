@@ -4,7 +4,7 @@
   </a>
   <h1>Nuclei + Wordfence = ♥</h1>
 
-  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->58,798<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>
+  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->58,859<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>
   
   <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status"> 
   <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit"> 
@@ -35,8 +35,8 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
 <!-- START: __STATISTICS_TABLE -->
 | category | total |
 |---|---|
-| wp-plugins | [55,224](https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| wp-themes | [2,822](https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| wp-plugins | [55,280](https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| wp-themes | [2,827](https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 | wp-core | [745](https://github.com/search?q=%22wp-core%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 | other | [16](https://github.com/search?q=repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML++NOT+%22wp-plugin%22+NOT+%22wp-core%22+NOT+%22wp-theme%22+path%3A%2F%5Enuclei-templates%5C%2F%2F&type=code&ref=advsearch) |
 
@@ -44,10 +44,10 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
 | severity | total |
 |---|---|
 | info | [7](https://github.com/search?q=%22severity%3A+info%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| low | [25,467](https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| medium | [19,567](https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| high | [9,376](https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| critical | [4,380](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| low | [25,516](https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| medium | [19,570](https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| high | [9,377](https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+| critical | [4,388](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 <!-- END: __STATISTICS_TABLE -->
 
 ## Installation
