@@ -7,7 +7,6 @@ import time
 from lib.colors import yellow
 from lib.logger import logger
 from lib.wordfence_api_parser import WordfenceAPIParser
-from lib.wordfence_parser import WordfenceParser
 
 
 def main():
