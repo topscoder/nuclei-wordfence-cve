@@ -378,6 +378,8 @@ class WordfenceAPIParser():
 
         # Sanitize object_slug to remove invalid characters
         object_slug = re.sub(r'[^a-zA-Z0-9_-]', '_', object_slug)
+        object_slug = re.sub(r'[_-]+', '_', object_slug)
+        object_slug = object_slug.strip('_')
 
         if cve_id != "":
             logger.debug(f"[ ] CVE ID: {cve_id}")
