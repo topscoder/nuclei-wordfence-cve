@@ -18,7 +18,7 @@ info:
     fofa-query: "wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
     google-query: inurl:"/wp-content/__OBJECT_CATEGORY_SLUG__/__OBJECT_SLUG__/"
     shodan-query: 'vuln:__CVE_ID__'
-  tags: cve,wordpress,__OBJECT_CATEGORY_TAG__,__OBJECT_SLUG__,__CVE_SEVERITY__
+  tags: cve,wordpress,__OBJECT_CATEGORY_TAG__,__OBJECT_SLUG__,__CVE_SEVERITY__,__ADDITIONAL_TAG__
 
 http:
   - method: GET

@@ -13,7 +13,7 @@ info:
     cve-id: __CVE_ID__
   metadata:
     shodan-query: 'vuln:__CVE_ID__'
-  tags: cve,wordpress,__OBJECT_CATEGORY_TAG__,__CVE_SEVERITY__
+  tags: cve,wordpress,__OBJECT_CATEGORY_TAG__,__CVE_SEVERITY__,__ADDITIONAL_TAG__
 
 http:
   - method: GET

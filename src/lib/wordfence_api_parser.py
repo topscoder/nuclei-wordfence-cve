@@ -5,6 +5,7 @@ import json
 import os
 import requests
 import re
+import shutil
 from yaml import safe_load
 
 
@@ -18,13 +19,33 @@ class WordfenceAPIParser():
     tpl_main = None
     tpl_main_no_ref = None
 
-    def run_local(self, local_file, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
-        return self.execute(local_file, True, overwrite, force, overwrite_enhanced)
+    def run_local(self, local_file, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
+        return self.execute(local_file, True, overwrite, force, overwrite_enhanced, clean, tag)
 
-    def run(self, url, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
-        return self.execute(url, False, overwrite, force, overwrite_enhanced)
+    def run(self, url, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
+        return self.execute(url, False, overwrite, force, overwrite_enhanced, clean, tag)
 
-    def execute(self, source, is_local=False, overwrite=False, force=False, overwrite_enhanced=False) -> bool:
+    def clear_cve_less_folder(self):
+        """
+        Clear the contents of the 'cve-less' folder efficiently.
+        The folder itself will remain, but all files and subdirectories inside it are removed.
+        
+        Approach:
+        - Remove the entire folder (including all contents) using shutil.rmtree.
+        - Recreate the folder so it exists as an empty directory.
+        """
+        dir_path = 'nuclei-templates/cve-less'
+
+        try:
+            if os.path.exists(dir_path):
+                shutil.rmtree(dir_path)  # Remove the folder and everything inside
+                logger.info(f"[>] Removed existing folder and its contents: {dir_path}")
+            os.makedirs(dir_path, exist_ok=True)  # Recreate the empty folder
+            logger.info(f"[>] Created empty folder: {dir_path}")
+        except Exception as e:
+            logger.error(f"[!] Could not clear {dir_path}. Error: {e}")
+            
+    def execute(self, source, is_local=False, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
         """Execute the Wordfence API Parser.
 
         Args:
@@ -32,7 +53,7 @@ class WordfenceAPIParser():
             is_local (bool, optional): Whether or not the source file is a local file. Defaults to False.
             overwrite (bool, optional): Whether or not to overwrite the template if it already exists. Defaults to False.
             force (bool, optional): Whether or not to regenerate the template if it already exists. Defaults to False.
-
+            
         Returns:
             bool: Template generated
         """
@@ -64,12 +85,15 @@ class WordfenceAPIParser():
             if not os.path.exists(source):
                 return False
 
+            if clean is True:
+                self.clear_cve_less_folder()
+
             with open(source, "r") as file:
                 vulnerabilities = json.load(file)
 
                 # Print the vulnerabilities
                 for vulnerability_id, vulnerability in vulnerabilities.items():
-                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
+                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced, tag)
 
         if is_local is False:
             if source is None or source.strip() == "":
@@ -81,18 +105,22 @@ class WordfenceAPIParser():
 
             # Check the response status code
             if response.status_code == 200:
+
+                if clean is True:
+                    self.clear_cve_less_folder()
+
                 # The request was successful, so parse the JSON response
                 vulnerabilities = response.json()
 
                 # Print the vulnerabilities
                 for vulnerability_id, vulnerability in vulnerabilities.items():
-                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced)
+                    self.process_item(vulnerability, overwrite, force, overwrite_enhanced, tag)
 
             if response.status_code > 400:
                 logger.warning(red(f"[*] [HTTP {response.status_code}] Could not read URL: ${url}$"))
                 return False
 
-    def process_item(self, json_object, overwrite, force, overwrite_enhanced):
+    def process_item(self, json_object, overwrite, force, overwrite_enhanced, tag):
         title = json_object.get('title')
         id = json_object.get('id')
         description = json_object.get('description')
@@ -229,6 +257,7 @@ class WordfenceAPIParser():
                 template_content = template_content.replace('__VERSION_REGEX__', version_regex)
                 template_content = template_content.replace('__OBJECT_SLUG__', software_slug.strip())
                 template_content = template_content.replace('__VERSION_COMPARE__', f"{affected_version}")
+                template_content = template_content.replace('__ADDITIONAL_TAG__', tag)
 
                 logger.debug(f'target_filename={target_filename}')
 
@@ -326,7 +355,7 @@ class WordfenceAPIParser():
         Generates a template ID based on CVE ID or object slug and Wordfence ID.
 
         The template ID can be in one of the following formats:
-            - CVE-<CVE_ID>-<unique_id>
+            - CVE-<CVE_ID>-<object_slug>-<unique_id>
             - <object_slug>-<unique_id>
 
         Args:
@@ -340,29 +369,21 @@ class WordfenceAPIParser():
         Notes:
             - If `cve_id` is provided, the template ID will be based on the CVE ID.
             - If `cve_id` is not provided, the template ID will be based on the object slug.
-            - The `unique_id` is generated using the Wordfence ID and the remediation information from the software item.
+            - The `unique_id` is the unique ID which is assigned by Wordfence to this item.
         """
 
-        # Use remediation to generate a unique id per software item
-        # as there could be multiple software items for this specific plugin/theme
-        # The remediation points out the version which is often unique per software item
-        # and so is our unique id per software item
-        remediation = software_item.get('remediation')
-        unique_id = self.get_uniq_id(f"{id}-{remediation}")
-
-        # Sanitize unique_id to remove invalid characters
-        unique_id = re.sub(r'[^a-zA-Z0-9_-]', '_', unique_id)
-
-        if cve_id != "":
-            logger.debug(f"[ ] CVE ID: {cve_id}")
-            return f"{cve_id}-{unique_id}"
+        unique_id = id
 
         object_slug = software_item.get('slug').lower()
 
         # Sanitize object_slug to remove invalid characters
         object_slug = re.sub(r'[^a-zA-Z0-9_-]', '_', object_slug)
 
-        logger.debug(f"[ ] No CVE ID. Using created ID: {unique_id}")
+        if cve_id != "":
+            logger.debug(f"[ ] CVE ID: {cve_id}")
+            return f"{cve_id}-{object_slug}-{unique_id}"
+
+        logger.debug(f"[ ] No CVE ID. Using Wordfence ID: {unique_id}")
         return f"{object_slug}-{unique_id}"
 
     def target_version_file(self, software_type, vuln):

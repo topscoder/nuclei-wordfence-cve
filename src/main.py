@@ -1,6 +1,6 @@
 # Usage:
 # python3 main.py
-#   --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner
+#   --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --clean
 
 import argparse
 import time
@@ -17,32 +17,27 @@ def main():
 
     required_group = parser.add_mutually_exclusive_group(required=True)
     required_group.add_argument('--api_endpoint', required=False, help='API endpoint containing Wordfence CVE reports')
-    required_group.add_argument('--single_url', required=False, help='Single URL containing Wordfence CVE report')
     required_group.add_argument('--local_file', required=False, help='Local file containing the vulnerabilities in JSON format (probably the output of Wordfence API)')
 
     parser.add_argument('--force', required=False, help='ignore if there is already a template in the official nuclei-templates repo', default=False, action='store_true')
     parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
     parser.add_argument('--overwrite_enhanced', required=False, help='ignore if there is already an **enhanced** template in our local nuclei-templates repo', default=False, action='store_true')
     parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
+    parser.add_argument('--clean', required=False, help='clean the cve-less folder before processing', default=False, action='store_true')
+    parser.add_argument('--tag', required=False, help='additional tag that should be added to the templates')
     args = parser.parse_args()
 
     if args.api_endpoint is not None:
         logger.info(yellow('API mode'))
 
         parser = WordfenceAPIParser()
-        parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced)
+        parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced, args.clean, args.tag)
 
     elif args.local_file is not None:
         logger.info(yellow('Local file mode'))
 
         parser = WordfenceAPIParser()
-        parser.run_local(args.local_file, args.overwrite, args.force, args.overwrite_enhanced)
-
-    elif args.single_url is not None:
-        logger.info(yellow('Single page mode'))
-
-        parser = WordfenceParser()
-        parser.run(args.single_url, None, args.overwrite, args.force, args.overwrite_enhanced)
+        parser.run_local(args.local_file, args.overwrite, args.force, args.overwrite_enhanced, args.clean, args.tag)
 
     logger.info('Done. Took %s', time.strftime("%H:%M:%S", time.gmtime(time.time() - ts)))
 
