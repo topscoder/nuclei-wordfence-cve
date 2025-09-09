@@ -12,6 +12,10 @@
 
 </div>
 
+<div align="center">
+<img src=".github/screenshot.png" alt="Project Demo" width="1000">
+</div>
+
 ---
 
 Level up your WordPress security game! This project's got a treasure trove of fresh [Nuclei](https://github.com/projectdiscovery/nuclei) templates for WordPress. Scan for weaknesses in Core, plugins, and themes – all based on the latest intel from [Wordfence.com](https://www.wordfence.com/threat-intel/vulnerabilities/).
@@ -30,7 +34,7 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
 > If you found this project helpful, please consider giving it a star on GitHub.
 > Your support helps to make this project even better. 🌟
 
-### What's in it?!
+### ✨ What's in it?!
 
 <!-- START: __STATISTICS_TABLE -->
 | category | total |
@@ -50,7 +54,7 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
 | critical | [4,692](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
 <!-- END: __STATISTICS_TABLE -->
 
-## Installation
+## 🚀 Quick Start
 
 To install this `nuclei-wordfence-cve` repository for use with Nuclei, you can use the following commands:
 
@@ -58,8 +62,6 @@ To install this `nuclei-wordfence-cve` repository for use with Nuclei, you can u
 export GITHUB_TEMPLATE_REPO=topscoder/nuclei-wordfence-cve
 nuclei -update-templates
 ```
-
-### Usage
 
 Once you have installed this template repo using the commands above, you can run the following command to scan for vulnerabilities using Nuclei:
 
@@ -79,7 +81,7 @@ _Include only candidate templates:_
 nuclei -t github/topscoder/nuclei-wordfence-cve -tags candidate -u https://target.com
 ```
 
-### Examples
+### 💻 Examples
 
 Here are some examples how to use the templates:
 
@@ -137,20 +139,17 @@ nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to
 nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to_upper(name),'CSRF') || contains(to_upper(description),'CSRF')" -u https://target.com
 ```
 
-## Contributing
+## 👥 Contributing
 
 If you would like to contribute to this project, please feel free to fork the repository and submit a pull request.
 
-## Protecting Customized Templates
+## 🔒 Protecting Customized Templates
 
 To prevent accidental overwrites, you can mark templates you've manually customized with a comment at the end. Add the line `# Enhanced` as the last line of the template file.
 
-## License
+## 📚 License
 
 This project is licensed under the MIT License.
 
-## Contact
-
-If you have any questions or feedback, please feel free to contact the project maintainers.
-
-~~ Please use it responsibly!
+> [!NOTE]
+> ~~ Please use it responsibly!
