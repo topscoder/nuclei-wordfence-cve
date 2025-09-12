@@ -2,7 +2,7 @@ id: publitio-9eb7fc3a-6575-42ed-9304-d8ce02a849c2
 
 info:
   name: >
-    Publitio <= 2.1.8 - Authenticated (Contributor+) Arbitrary File Read
+    Publitio <= 2.2.1 - Authenticated (Contributor+) Arbitrary File Read
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1.8')
+          - compare_versions(version, '<= 2.2.1')
