@@ -2,7 +2,7 @@ id: onoffice_for_wp_websites-115a63bd-65ca-4ccb-affd-c14119d6b9a3
 
 info:
   name: >
-    onOffice for WP-Websites <= 6.0 - Authenticated (Administrator+) SQL Injection
+    onOffice for WP-Websites <= 6.5 - Authenticated (Administrator+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.0')
+          - compare_versions(version, '<= 6.5')
