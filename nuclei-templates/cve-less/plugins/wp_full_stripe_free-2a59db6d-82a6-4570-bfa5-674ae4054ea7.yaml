@@ -2,7 +2,7 @@ id: wp_full_stripe_free-2a59db6d-82a6-4570-bfa5-674ae4054ea7
 
 info:
   name: >
-    WP Full Stripe Free <= 8.3.0 - Authenticated (Administrator+) SQL Injection
+    WP Full Stripe Free <= 8.2.5 - Authenticated (Administrator+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 8.3.0')
+          - compare_versions(version, '<= 8.2.5')
