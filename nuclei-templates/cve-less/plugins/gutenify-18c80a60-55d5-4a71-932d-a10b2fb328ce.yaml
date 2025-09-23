@@ -2,7 +2,7 @@ id: gutenify-18c80a60-55d5-4a71-932d-a10b2fb328ce
 
 info:
   name: >
-    Gutenify <= 1.5.6 - Unauthenticated Local File Inclusion
+    Gutenify <= 1.5.4 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.6')
+          - compare_versions(version, '<= 1.5.4')
