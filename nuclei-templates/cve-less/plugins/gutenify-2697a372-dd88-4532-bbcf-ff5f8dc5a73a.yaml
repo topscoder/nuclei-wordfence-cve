@@ -2,7 +2,7 @@ id: gutenify-2697a372-dd88-4532-bbcf-ff5f8dc5a73a
 
 info:
   name: >
-    Gutenify <= 1.5.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Gutenify <= 1.5.7 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.1')
+          - compare_versions(version, '<= 1.5.7')
