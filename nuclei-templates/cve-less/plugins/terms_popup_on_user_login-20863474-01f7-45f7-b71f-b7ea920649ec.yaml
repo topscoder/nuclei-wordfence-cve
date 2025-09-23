@@ -2,7 +2,7 @@ id: terms_popup_on_user_login-20863474-01f7-45f7-b71f-b7ea920649ec
 
 info:
   name: >
-    Legal Terms and Conditions Popup for User Login and WooCommerce Checkout – TPUL <= 2.0.3 - Authenticated (Administrator+) Stored Cross-Site Scripting
+    Legal Terms and Conditions Popup for User Login and WooCommerce Checkout – TPUL <= 2.0.8 - Authenticated (Administrator+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.3')
+          - compare_versions(version, '<= 2.0.8')
