@@ -2,7 +2,7 @@ id: recaptcha_wp-fdf102bb-66ed-4c4d-b9b0-906f58ec9253
 
 info:
   name: >
-    Recaptcha &#8211; wp <= 0.2.6 - Authenticated (Administrator+) Stored Cross-Site Scripting
+    Recaptcha – wp <= 0.2.6 - Authenticated (Administrator+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
