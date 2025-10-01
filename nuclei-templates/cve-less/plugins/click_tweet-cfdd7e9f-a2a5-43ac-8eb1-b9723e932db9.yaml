@@ -2,7 +2,7 @@ id: click_tweet-cfdd7e9f-a2a5-43ac-8eb1-b9723e932db9
 
 info:
   name: >
-    Click &amp; Tweet <= 0.8.9 - Authenticated (Administrator+) Stored Cross-Site Scripting
+    Click & Tweet <= 0.8.9 - Authenticated (Administrator+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
