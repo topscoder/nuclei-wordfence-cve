@@ -2,7 +2,7 @@ id: wp_jobsearch-5a093bd0-f8c5-47f2-943a-d4ce2aa8e402
 
 info:
   name: >
-    JobSearch <= 2.9.0 - Reflected Cross-Site Scripting
+    JobSearch < 3.0.6 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.9.0')
+          - compare_versions(version, '< 3.0.6')
