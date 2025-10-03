@@ -2,7 +2,7 @@ id: skyboot_portfolio_gallery-52a094b0-acee-412a-ad15-38c9f4510c48
 
 info:
   name: >
-    Elementor Image Gallery Plugin <= 1.0.3 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Elementor Image Gallery Plugin <= 1.0.5 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.3')
+          - compare_versions(version, '<= 1.0.5')
