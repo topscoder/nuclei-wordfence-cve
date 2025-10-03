@@ -2,7 +2,7 @@ id: maintenance_switch-a81d3b09-b8dd-4697-ab43-c863e8d1e1d5
 
 info:
   name: >
-    Maintenance Switch <= 1.5.2 - Reflected Cross-Site Scripting
+    Maintenance Switch <= 1.6.2 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.2')
+          - compare_versions(version, '<= 1.6.2')
