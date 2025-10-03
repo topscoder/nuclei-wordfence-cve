@@ -2,7 +2,7 @@ id: gianism-a2121e1a-88f4-41b9-9a72-fe263b4739ef
 
 info:
   name: >
-    Gianism <= 5.1.0 - Authenticated (Admin+) Stored Cross-Site Scripting
+    Gianism <= 5.2.0 - Authenticated (Admin+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.1.0')
+          - compare_versions(version, '<= 5.2.0')
