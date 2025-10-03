@@ -2,7 +2,7 @@ id: mihdan_no_external_links-f6893498-5cd0-4649-893c-a204508cfd04
 
 info:
   name: >
-    Mihdan: No External Links <= 5.1.4 - Cross-Site Request Forgery
+    No External Links <= 5.1.6.2 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.1.4')
+          - compare_versions(version, '<= 5.1.6.2')
