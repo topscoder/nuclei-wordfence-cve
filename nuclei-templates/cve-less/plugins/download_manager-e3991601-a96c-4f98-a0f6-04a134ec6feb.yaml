@@ -2,7 +2,7 @@ id: download_manager-e3991601-a96c-4f98-a0f6-04a134ec6feb
 
 info:
   name: >
-    Download Manager <= 3.3.24 - Unauthenticated Sensitive Information Exposure
+    Download Manager <= 3.3.25 - Unauthenticated Sensitive Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.3.24')
+          - compare_versions(version, '<= 3.3.25')
