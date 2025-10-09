@@ -2,7 +2,7 @@ id: contact_form_7_mailchimp_extension-f9f5be49-e099-4862-af9d-4ddbb6decfc5
 
 info:
   name: >
-    Contact Form 7 Extension For Mailchimp <= 0.5.70 - Cross-Site Request Forgery
+    Contact Form 7 Extension For Mailchimp <= 0.5.73 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 0.5.70')
+          - compare_versions(version, '<= 0.5.73')
