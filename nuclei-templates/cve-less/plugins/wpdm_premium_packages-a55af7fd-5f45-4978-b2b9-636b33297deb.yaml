@@ -2,7 +2,7 @@ id: wpdm_premium_packages-a55af7fd-5f45-4978-b2b9-636b33297deb
 
 info:
   name: >
-    Premium Packages <= 6.0.1 - Authenticated (Administrator+) SQL Injection
+    Premium Packages <= 6.0.5 - Authenticated (Administrator+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.0.1')
+          - compare_versions(version, '<= 6.0.5')
