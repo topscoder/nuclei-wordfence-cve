@@ -2,7 +2,7 @@ id: bizcalendar_web-0640538c-b076-453c-a32e-f33b4e1c77ae
 
 info:
   name: >
-    BizCalendar Web <= 1.1.0.50 - Authenticated (Contributor+) Local File Inclusion
+    BizCalendar Web <= 1.1.0.53 - Authenticated (Contributor+) Local File Inclusion
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.0.50')
+          - compare_versions(version, '<= 1.1.0.53')
