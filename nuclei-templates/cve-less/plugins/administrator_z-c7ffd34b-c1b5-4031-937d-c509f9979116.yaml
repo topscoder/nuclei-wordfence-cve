@@ -2,7 +2,7 @@ id: administrator_z-c7ffd34b-c1b5-4031-937d-c509f9979116
 
 info:
   name: >
-    Administrator Z <= 2025.04.19 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Administrator Z <= 2025.09.27 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -56,4 +56,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2025.04.19')
+          - compare_versions(version, '<= 2025.09.27')
