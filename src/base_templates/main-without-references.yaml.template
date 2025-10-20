@@ -29,14 +29,6 @@ http:
         name: version
         part: body
         group: 1
-        internal: true
-        regex:
-          - "__VERSION_REGEX__"
-
-      - type: regex
-        name: version
-        part: body
-        group: 1
         regex:
           - "__VERSION_REGEX__"
 
