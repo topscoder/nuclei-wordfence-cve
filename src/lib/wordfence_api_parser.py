@@ -410,11 +410,11 @@ class WordfenceAPIParser():
             obj = self.edge_cases.get(object_slug)
             regex = obj.get('regex')
         elif software_type == "theme":
-            regex = "(?mi)Version: ([0-9.]+)"
+            regex = "(?mi)Version:\\s*([0-9.]+)"
         elif software_type == "core":
             regex = "(?mi)\?v=([0-9.]+)"
         else:
-            regex = "(?mi)Stable tag: ([0-9.]+)"
+            regex = "(?mi)Stable tag:\\s*([0-9.]+)"
 
         return regex
 
