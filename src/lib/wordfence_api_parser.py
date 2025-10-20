@@ -126,6 +126,9 @@ class WordfenceAPIParser():
         description = json_object.get('description')
         if description is None:
             description = ""
+            
+        if tag is None:
+            tag = ""
 
         # CVE detection
         cve_id = json_object.get('cve')
