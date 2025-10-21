@@ -1,3 +1,4 @@
+import sys
 from .colors import red, green, yellow
 from .logger import logger
 import hashlib
@@ -25,25 +26,48 @@ class WordfenceAPIParser():
     def run(self, url, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
         return self.execute(url, False, overwrite, force, overwrite_enhanced, clean, tag)
 
-    def clear_cve_less_folder(self):
+    def reset_nuclei_templates_folder(self):
         """
-        Clear the contents of the 'cve-less' folder efficiently.
-        The folder itself will remain, but all files and subdirectories inside it are removed.
+        Remove only files (not directories) within all subfolders under 'nuclei-templates'.
+        Hidden files starting with '.' will be preserved.
+        Ensures a subfolder exists for the current year under 'nuclei-templates'.
+        """
+        from datetime import datetime
         
-        Approach:
-        - Remove the entire folder (including all contents) using shutil.rmtree.
-        - Recreate the folder so it exists as an empty directory.
-        """
-        dir_path = 'nuclei-templates/cve-less'
+        base_dir = 'nuclei-templates'
 
         try:
-            if os.path.exists(dir_path):
-                shutil.rmtree(dir_path)  # Remove the folder and everything inside
-                logger.info(f"[>] Removed existing folder and its contents: {dir_path}")
-            os.makedirs(dir_path, exist_ok=True)  # Recreate the empty folder
-            logger.info(f"[>] Created empty folder: {dir_path}")
+            # Ensure the base directory exists
+            if not os.path.exists(base_dir):
+                os.makedirs(base_dir, exist_ok=True)
+                logger.info(f"[>] Created base directory: {base_dir}")
+
+            # Traverse all directories and remove only non-hidden files
+            for root, dirs, files in os.walk(base_dir):
+                for file_name in files:
+                    if file_name.startswith('.'):
+                        continue  # skip hidden files
+                    file_path = os.path.join(root, file_name)
+                    try:
+                        os.remove(file_path)
+                        logger.info(f"[>] Removed file: {file_path}")
+                    except Exception as e:
+                        logger.error(f"[!] Could not remove {file_path}. Error: {e}")
+
+            # Ensure the 'cve-less' folder exists
+            cve_less_path = os.path.join(base_dir, 'cve-less')
+            os.makedirs(cve_less_path, exist_ok=True)
+            logger.info(f"[>] Ensured 'cve-less' folder: {cve_less_path}")
+
+            # Ensure a subfolder for the current year exists
+            current_year = str(datetime.now().year)
+            year_path = os.path.join(base_dir, current_year)
+            os.makedirs(year_path, exist_ok=True)
+            logger.info(f"[>] Ensured '{current_year}' folder: {year_path}")
+
         except Exception as e:
-            logger.error(f"[!] Could not clear {dir_path}. Error: {e}")
+            logger.error(f"[!] Could not clear {base_dir}. Error: {e}")
+
             
     def execute(self, source, is_local=False, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
         """Execute the Wordfence API Parser.
@@ -86,7 +110,7 @@ class WordfenceAPIParser():
                 return False
 
             if clean is True:
-                self.clear_cve_less_folder()
+                self.reset_nuclei_templates_folder()
 
             with open(source, "r") as file:
                 vulnerabilities = json.load(file)
@@ -107,7 +131,7 @@ class WordfenceAPIParser():
             if response.status_code == 200:
 
                 if clean is True:
-                    self.clear_cve_less_folder()
+                    self.reset_nuclei_templates_folder()
 
                 # The request was successful, so parse the JSON response
                 vulnerabilities = response.json()
@@ -185,17 +209,6 @@ class WordfenceAPIParser():
                         logger.info(yellow(f"[*] Note: There is already a template for this vulnerability in our local nuclei-templates repo: {filepath}"))
                         logger.info(yellow("[*] Skipping. Use --overwrite if you want to ignore this and overwrite the template."))
                         return False
-
-                # Manually enhanced templates can be marked with "# Enhanced" in last line of the template.
-                # This ensures the template is overwritten only after using the --overwrite-enhanced flag.
-                if os.path.isfile(f"{filepath}"):
-                    with open(f"{filepath}", "r") as fp:
-                        lines = fp.readlines()
-                        for line in lines:
-                            if line.find("# Enhanced") == 0:
-                                logger.info(yellow(f"[*] Note: There is already an **enhanced** template in our local nuclei-templates repo: {filepath}"))
-                                logger.info(yellow("[*] Skipping. Use --overwrite-enhanced if you want to ignore this and overwrite the template."))
-                                return False
 
                 if self.type_is_supported(software_type) is False:
                     logger.warning(red(f"[*] Skipping. Software type {software_type} is not supported."))

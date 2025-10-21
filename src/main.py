@@ -22,7 +22,7 @@ def main():
     parser.add_argument('--overwrite', required=False, help='ignore if there is already a template in our local nuclei-templates repo', default=False, action='store_true')
     parser.add_argument('--overwrite_enhanced', required=False, help='ignore if there is already an **enhanced** template in our local nuclei-templates repo', default=False, action='store_true')
     parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
-    parser.add_argument('--clean', required=False, help='clean the cve-less folder before processing', default=False, action='store_true')
+    parser.add_argument('--clean', required=False, help='clean the nuclei-templates folder before processing', default=False, action='store_true')
     parser.add_argument('--tag', required=False, help='additional tag that should be added to the templates')
     args = parser.parse_args()
 
