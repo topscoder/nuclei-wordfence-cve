@@ -27,11 +27,11 @@ jobs:
 
       - name: Process vulnerabilities from Wordfence API (production)
         run: |
-          python src/main.py --clean --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production --tag production
+          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production --tag production --overwrite --clean
 
       - name: Process vulnerabilities from Wordfence API (scanner)
         run: |
-          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate
+          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate --overwrite
 
       - name: Commit new, updated and deleted templates individually
         run: |
@@ -41,19 +41,19 @@ jobs:
           echo "Processing deleted files..."
           for file in $(git ls-files --deleted); do
             git rm "$file" >/dev/null 2>&1 || true
-            git commit -m "chore(remove): deleted $(basename "$file")"
+            git commit -m "Deleted Nuclei template: $(basename "$file") 🤖"
           done
 
           echo "Processing new files..."
           for file in $(git ls-files --others --exclude-standard | grep '\.yaml$'); do
             git add "$file"
-            git commit -m "feat(new): added $(basename "$file")"
+            git commit -m "Added new Nuclei template: $(basename "$file") 🤖"
           done
 
           echo "Processing modified files..."
           for file in $(git diff --name-only --diff-filter=M | grep '\.yaml$'); do
             git add "$file"
-            git commit -m "fix(update): updated $(basename "$file")"
+            git commit -m "Updated Nuclei template: $(basename "$file") 🤖"
           done
 
       - name: Push all commits
