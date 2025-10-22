@@ -4,7 +4,7 @@
   </a>
   <h1>Nuclei + Wordfence = ♥</h1>
 
-  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->62,379<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>  
+  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->62,380<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>  
   <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status"> 
   <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit"> 
   <img src="https://img.shields.io/github/last-commit/topscoder/nuclei-wordfence-cve/main?style=flat-square&label=templates%20added" height="20" alt="Templates added"> 
