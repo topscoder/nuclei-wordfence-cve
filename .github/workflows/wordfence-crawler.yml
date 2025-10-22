@@ -1,4 +1,4 @@
-name: 🕷 Wordfence crawler (debug)
+name: 🕷 Wordfence crawler
 
 on:
   schedule:
