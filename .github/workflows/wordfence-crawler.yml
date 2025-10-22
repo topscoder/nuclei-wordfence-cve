@@ -27,11 +27,11 @@ jobs:
 
       - name: Process vulnerabilities from Wordfence API (production)
         run: |
-          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production --tag production --overwrite --clean
+          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production --tag production --clean
 
       - name: Process vulnerabilities from Wordfence API (scanner)
         run: |
-          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate --overwrite
+          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate
 
       - name: Commit new, updated and deleted templates individually with strict content checks
         shell: bash
