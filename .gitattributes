@@ -1,0 +1,43 @@
+# Normalize line endings repo-wide to LF and auto-detect text
+* text=auto eol=lf
+
+# Explicitly enforce LF for YAML templates and sources
+*.yaml text eol=lf
+*.yml  text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+
+# Source code files (ensure LF)
+*.py   text eol=lf
+*.sh   text eol=lf
+*.js   text eol=lf
+*.ts   text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+
+# Prevent normalization for binary or archives
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.svg  text eol=lf
+*.pdf  binary
+*.zip  binary
+*.gz   binary
+*.tar  binary
+*.tgz  binary
+*.xz   binary
+
+# Keep executable flags only where intended (Git still tracks +x via filemode)
+# If some scripts must be executable, add them explicitly:
+# scripts/*.sh text eol=lf
+
+# Avoid diff noise for lockfiles or generated indexes (treat as text with LF)
+package-lock.json text eol=lf
+yarn.lock        text eol=lf
+
+# Optional: YAML diff driver hint (still text, but helps some tools)
+#*.yaml diff
+#*.yml  diff
