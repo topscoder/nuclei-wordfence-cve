@@ -3,7 +3,6 @@ name: 🕷 Wordfence crawler
 on:
   schedule:
     - cron: '25 3 * * *'
-
   workflow_dispatch:
 
 jobs:
@@ -12,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
@@ -24,31 +25,38 @@ jobs:
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # run src/main.py for API if there are new vulns found
-      - name: Process vulnerabilities of Wordfence API source (production)
+      - name: Process vulnerabilities from Wordfence API (production)
         run: |
           python src/main.py --clean --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production --tag production
 
-      - name: Process vulnerabilities of Wordfence API source (scanner aka fresh/unfinished issues)
+      - name: Process vulnerabilities from Wordfence API (scanner)
         run: |
           python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate
 
-      - name: Commit new vulnerability templates
+      - name: Commit new, updated and deleted templates individually
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          # Commit changed, new of deleted yaml-files
-          CHANGED_FILES="$(git status --porcelain | awk '{print $2}' | grep "yaml" || true)"
-          if [ -n "$CHANGED_FILES" ]; then
-            for file in $CHANGED_FILES; do
-              git add "$file"
-              git commit -m "New Nuclei template for $(basename $file) [$(date)] :robot:" --allow-empty || true
-            done
-          else
-            echo "No YAML files to commit"
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Push changes
+          echo "Processing deleted files..."
+          for file in $(git ls-files --deleted); do
+            git rm "$file" >/dev/null 2>&1 || true
+            git commit -m "chore(remove): deleted $(basename "$file")"
+          done
+
+          echo "Processing new files..."
+          for file in $(git ls-files --others --exclude-standard | grep '\.yaml$'); do
+            git add "$file"
+            git commit -m "feat(new): added $(basename "$file")"
+          done
+
+          echo "Processing modified files..."
+          for file in $(git diff --name-only --diff-filter=M | grep '\.yaml$'); do
+            git add "$file"
+            git commit -m "fix(update): updated $(basename "$file")"
+          done
+
+      - name: Push all commits
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.SECRET_TOKEN }}
