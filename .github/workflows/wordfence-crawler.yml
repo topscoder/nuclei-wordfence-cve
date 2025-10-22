@@ -33,36 +33,52 @@ jobs:
         run: |
           python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate --overwrite
 
-      - name: Commit new, updated and deleted templates individually with content check
+      - name: Commit new, updated and deleted templates individually with strict content checks
+        shell: bash
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          echo "Processing deleted files..."
-          for file in $(git ls-files --deleted); do
-            git rm "$file" >/dev/null 2>&1 || true
-            git commit -m "Deleted Nuclei template: $(basename "$file") 🤖"
-          done
+          # Ensure consistent diff behavior across platforms
+          git config core.filemode false
 
-          echo "Processing new and modified files..."
-          # Combine new and modified yaml files
-          files=$(git ls-files --others --exclude-standard | grep '\.yaml$'; git diff --name-only --diff-filter=M | grep '\.yaml$' | sort -u)
-          for file in $files; do
-            # Stage file
-            git add "$file"
-            # Commit only if content differs from HEAD
+          echo "Processing deleted YAML files (commit per file)..."
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            git rm -q -- "$file" || true
+            # Deletion is a content change by definition, but guard anyway
             if ! git diff --cached --quiet -- "$file"; then
-              # Determine if file is new or modified for commit message
-              if git ls-files --others --exclude-standard | grep -q "^$file$"; then
-                git commit -m "Added new Nuclei template: $(basename "$file") 🤖"
-              else
-                git commit -m "Updated Nuclei template: $(basename "$file") 🤖"
-              fi
+              git commit -m "Deleted Nuclei template: $(basename "$file") 🤖"
             else
-              # Unstage if no changes to avoid empty commits
-              git reset HEAD "$file"
+              git reset -q HEAD -- "$file" || true
             fi
-          done
+          done < <(git ls-files --deleted | grep '\.yaml$' || true)
+
+          echo "Processing new YAML files (commit per file, only if different from HEAD)..."
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            # Stage and compare staged blob vs HEAD
+            git add --intent-to-add -- "$file"
+            git add -- "$file"
+            if ! git diff --cached --quiet -- "$file"; then
+              git commit -m "Added new Nuclei template: $(basename "$file") 🤖"
+            else
+              git reset -q HEAD -- "$file"
+            fi
+          done < <(git ls-files --others --exclude-standard | grep '\.yaml$' || true)
+
+          echo "Processing modified YAML files (commit per file, only real content changes)..."
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            git add -- "$file"
+            if ! git diff --cached --quiet -- "$file"; then
+              git commit -m "Updated Nuclei template: $(basename "$file") 🤖"
+            else
+              git reset -q HEAD -- "$file"
+            fi
+          done < <(git diff --name-only --diff-filter=M | grep '\.yaml$' || true)
 
       - name: Push all commits
         uses: ad-m/github-push-action@master
