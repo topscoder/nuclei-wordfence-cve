@@ -1,0 +1,129 @@
+name: 🐞 Wordfence crawler debug
+
+on:
+  workflow_dispatch:
+    inputs:
+      sample_glob:
+        description: 'Glob of YAMLs to sample (e.g., nuclei-templates/2025/*.yaml)'
+        required: false
+        default: 'nuclei-templates/**/*.yaml'
+      sample_count:
+        description: 'How many files to sample for deep diff'
+        required: false
+        default: '50'
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Git env
+        run: |
+          git --version
+          git config --list --show-origin
+          echo "Runner OS: $RUNNER_OS"
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Pre-run status (baseline)
+        run: |
+          echo "=== BEFORE RUN ==="
+          git status
+          git diff --name-status | head -n 100
+          echo "Tracked YAML count:" $(git ls-files '*.yaml' | wc -l)
+
+      - name: Run generator (no push)
+        run: |
+          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/production --tag production --overwrite --clean
+          python src/main.py --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --tag candidate --overwrite
+
+      - name: Post-run status (raw)
+        run: |
+          echo "=== AFTER RUN (RAW) ==="
+          git status
+          echo "Deleted:"
+          git ls-files --deleted | wc -l
+          echo "Untracked:"
+          git ls-files --others --exclude-standard | wc -l
+          echo "Modified:"
+          git diff --name-only --diff-filter=M | wc -l
+
+      - name: Show examples of changed paths
+        run: |
+          echo "=== Examples of deleted ==="
+          git ls-files --deleted | head -n 20
+          echo "=== Examples of untracked ==="
+          git ls-files --others --exclude-standard | head -n 20
+          echo "=== Examples of modified ==="
+          git diff --name-only --diff-filter=M | head -n 20
+
+      - name: Deep byte-compare sample set vs HEAD
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config core.filemode false
+
+          differs_from_head() {
+            local f="$1"
+            if ! git cat-file -e "HEAD:$f" 2>/dev/null; then
+              echo "NEW: $f"
+              return 0
+            fi
+            if ! git show "HEAD:$f" | cmp -s - "$f"; then
+              echo "DIFF: $f"
+              return 0
+            fi
+            echo "SAME: $f"
+            return 1
+          }
+
+          echo "=== Sampling ${ { github.event.inputs.sample_count } } files from glob: ${ { github.event.inputs.sample_glob } } ==="
+          mapfile -t SAMPLE < <(ls -1 ${ { github.event.inputs.sample_glob } } 2>/dev/null | head -n ${ { github.event.inputs.sample_count } } || true)
+          echo "Sample size: ${#SAMPLE[@]}"
+          DIFFS=0; SAMES=0; NEWS=0; MISSING=0
+
+          for f in "${SAMPLE[@]}"; do
+            if [ -f "$f" ]; then
+              if out=$(differs_from_head "$f"); then
+                # differs
+                if [[ "$out" == DIFF:* ]]; then DIFFS=$((DIFFS+1)); fi
+                if [[ "$out" == NEW:* ]]; then NEWS=$((NEWS+1)); fi
+                echo "$out"
+              else
+                SAMES=$((SAMES+1))
+                echo "$out"
+              fi
+            else
+              MISSING=$((MISSING+1))
+              echo "MISSING: $f"
+            fi
+          done
+
+          echo "=== Byte compare summary ==="
+          echo "SAME: $SAMES"
+          echo "DIFF: $DIFFS"
+          echo "NEW:  $NEWS"
+          echo "MISSING: $MISSING"
+
+      - name: Check for non-determinism signatures
+        run: |
+          echo "=== Grep generator for nondeterministic patterns ==="
+          # Timestamps, UUIDs, random, datetime usage
+          grep -RInE 'datetime|time\.|uuid|random|time\(|now\(|utcnow\(|strftime|dateutil' src || true
+          echo "=== Check YAML trailing whitespace or EOF newlines ==="
+          awk 'FNR==1{if(NR>1)print ""} {print} END{print ""}' $(git ls-files '*.yaml' | head -n 50) >/dev/null 2>&1 || true
+
+      - name: DO NOT PUSH
+        run: echo "Debug complete; no push in debug workflow."
