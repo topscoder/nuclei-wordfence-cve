@@ -68,7 +68,7 @@ jobs:
             [ -z "$file" ] && continue
             [[ "$file" == *.yaml || "$file" == *.yml ]] || continue
             git rm -q -- "$file" || true
-            git commit -m "Deleted Nuclei template: $(basename "$file") 🤖"
+            git commit -m "Delete template: $(basename "$file") 🤖"
           done < <(git ls-files --deleted || true)
 
           echo "Commit new YAML files..."
@@ -76,7 +76,7 @@ jobs:
             [ -z "$file" ] && continue
             [[ "$file" == *.yaml || "$file" == *.yml ]] || continue
             git add -- "$file"
-            git commit -m "Added new Nuclei template: $(basename "$file") 🤖"
+            git commit -m "Add template: $(basename "$file") 🤖"
           done < <(git ls-files --others --exclude-standard || true)
 
           echo "Commit modified YAML files (only real changes remain)..."
@@ -85,7 +85,7 @@ jobs:
             [[ "$file" == *.yaml || "$file" == *.yml ]] || continue
             [ -f "$file" ] || continue
             git add -- "$file"
-            git commit -m "Updated Nuclei template: $(basename "$file") 🤖"
+            git commit -m "Update template: $(basename "$file") 🤖"
           done < <(git diff --cached --name-only --diff-filter=M || true)
 
       - name: Push all commits
