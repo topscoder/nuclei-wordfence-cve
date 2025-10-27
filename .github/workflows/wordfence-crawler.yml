@@ -64,29 +64,29 @@ jobs:
           git config core.filemode false
 
           echo "Commit deleted YAML files (one commit each)..."
-          while IFS= read -r file; do
+          git ls-files --deleted | while IFS= read -r file; do
             [ -z "$file" ] && continue
             [[ "$file" == *.yaml || "$file" == *.yml ]] || continue
             git rm -q -- "$file" || true
-            git commit -m "Delete template: $(basename "$file") 🤖"
-          done < <(git ls-files --deleted || true)
+            git commit -m "Delete template: $(basename "$file") 🤖" || true
+          done
 
           echo "Commit new YAML files..."
-          while IFS= read -r file; do
+          git ls-files --others --exclude-standard | while IFS= read -r file; do
             [ -z "$file" ] && continue
             [[ "$file" == *.yaml || "$file" == *.yml ]] || continue
             git add -- "$file"
-            git commit -m "Add template: $(basename "$file") 🤖"
-          done < <(git ls-files --others --exclude-standard || true)
+            git commit -m "Add template: $(basename "$file") 🤖" || true
+          done
 
           echo "Commit modified YAML files (only real changes remain)..."
-          while IFS= read -r file; do
-            [ -z "$file" ] && continue
+          for file in $(git diff --name-only --diff-filter=M); do
             [[ "$file" == *.yaml || "$file" == *.yml ]] || continue
             [ -f "$file" ] || continue
+            echo "Processing modified file: $file"
             git add -- "$file"
-            git commit -m "Update template: $(basename "$file") 🤖"
-          done < <(git diff --cached --name-only --diff-filter=M || true)
+            git commit -m "Update template: $(basename "$file") 🤖" || true
+          done
 
       - name: Push all commits
         uses: ad-m/github-push-action@master
