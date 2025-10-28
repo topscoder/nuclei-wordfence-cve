@@ -2,7 +2,7 @@ id: library_management_system-ee792903-3b55-4f1d-bba1-59ea3f1826a1
 
 info:
   name: >
-    Library Management System <= 3.0.0 - Authenticated (Admin+) SQL Injection
+    Library Management System <= 3.1 - Authenticated (Admin+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.0.0')
+          - compare_versions(version, '<= 3.1')
