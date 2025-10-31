@@ -2,7 +2,7 @@ id: wholesale_pricing_woocommerce-210fa57c-7cf7-4ff1-84c4-5b3b6bd87a28
 
 info:
   name: >
-    Quantity Dynamic Pricing & Bulk Discounts for WooCommerce <= 4.0.2 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Quantity Dynamic Pricing & Bulk Discounts for WooCommerce <= 4.0.3 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
