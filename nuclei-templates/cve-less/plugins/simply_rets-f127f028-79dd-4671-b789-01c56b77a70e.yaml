@@ -2,7 +2,7 @@ id: simply_rets-f127f028-79dd-4671-b789-01c56b77a70e
 
 info:
   name: >
-    SimplyRETS Real Estate IDX <= 3.0.3 - Reflected Cross-Site Scripting
+    SimplyRETS Real Estate IDX <= 3.1.0 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.0.3')
+          - compare_versions(version, '<= 3.1.0')
