@@ -2,7 +2,7 @@ id: superstorefinder_wp-5cd5d6f9-3011-4da8-a914-1e3e8075fdff
 
 info:
   name: >
-    Super Store Finder <= 6.9.7 - Unauthenticated Local File Inclusion
+    Super Store Finder < 6.8 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.9.7')
+          - compare_versions(version, '< 7.8')
