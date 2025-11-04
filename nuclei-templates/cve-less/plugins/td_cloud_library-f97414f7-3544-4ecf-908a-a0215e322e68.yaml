@@ -2,7 +2,7 @@ id: td_cloud_library-f97414f7-3544-4ecf-908a-a0215e322e68
 
 info:
   name: >
-    tagDiv Cloud Library <= 3.9 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    tagDiv Cloud Library < 3.9.2 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.9')
+          - compare_versions(version, '< 3.9.2')
