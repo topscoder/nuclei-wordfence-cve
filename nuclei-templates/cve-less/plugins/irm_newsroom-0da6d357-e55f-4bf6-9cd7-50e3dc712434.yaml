@@ -2,7 +2,7 @@ id: irm_newsroom-0da6d357-e55f-4bf6-9cd7-50e3dc712434
 
 info:
   name: >
-    IRM Newsroom <= 1.2.17 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'irmflat' Shortcode
+    IRM Newsroom <= 1.2.19 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'irmflat' Shortcode
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.17')
+          - compare_versions(version, '<= 1.2.19')
