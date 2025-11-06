@@ -2,7 +2,7 @@ id: ai_scribe_the_chatgpt_powered_seo_content_creation_wizard-79125ac2-f3ed-40c9
 
 info:
   name: >
-    AI Scribe – SEO AI Writer, Content Generator, Humanizer, Blog Writer, SEO Optimizer, DALLE-3, AI WordPress Plugin ChatGPT (GPT-4o 128K) <= 2.3 - Authenticated (Contributor+) SQL Injection
+    AI Scribe – SEO AI Writer, Content Generator, Humanizer, Blog Writer, SEO Optimizer, DALLE-3, AI WordPress Plugin ChatGPT (GPT-4o 128K) <= 2.5 - Authenticated (Contributor+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3')
+          - compare_versions(version, '<= 2.5')
