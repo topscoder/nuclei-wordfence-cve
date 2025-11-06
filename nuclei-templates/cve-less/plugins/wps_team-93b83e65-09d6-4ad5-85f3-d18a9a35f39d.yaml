@@ -2,7 +2,7 @@ id: wps_team-93b83e65-09d6-4ad5-85f3-d18a9a35f39d
 
 info:
   name: >
-    Team Members – Best WordPress Team Plugin with Team Slider, Team Showcase & Team Builder <= 3.4.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Team Members – Best WordPress Team Plugin with Team Slider, Team Showcase & Team Builder <= 3.4.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.4.0')
+          - compare_versions(version, '<= 3.4.1')
