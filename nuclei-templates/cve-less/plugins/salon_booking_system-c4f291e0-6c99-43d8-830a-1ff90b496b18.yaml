@@ -2,7 +2,7 @@ id: salon_booking_system-c4f291e0-6c99-43d8-830a-1ff90b496b18
 
 info:
   name: >
-    Salon booking system <= 10.18 - Missing Authorization
+    Salon booking system <= 10.29.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 10.18')
+          - compare_versions(version, '<= 10.29.6')
