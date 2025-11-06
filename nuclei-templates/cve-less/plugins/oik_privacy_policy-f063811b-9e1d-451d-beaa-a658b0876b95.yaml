@@ -2,7 +2,7 @@ id: oik_privacy_policy-f063811b-9e1d-451d-beaa-a658b0876b95
 
 info:
   name: >
-    oik-privacy-policy <= 1.4.9 - Reflected Cross-Site Scripting
+    oik-privacy-policy <= 1.4.10 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.9')
+          - compare_versions(version, '<= 1.4.10')
