@@ -2,7 +2,7 @@ id: wpschoolpress-b7413d90-aed1-4f78-a17c-bed76efb48f8
 
 info:
   name: >
-    School Management System – WPSchoolPress <= 2.2.16 - Authenticated (Teacher+) SQL Injection
+    School Management System – WPSchoolPress <= 2.2.17 - Authenticated (Teacher+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.16')
+          - compare_versions(version, '<= 2.2.17')
