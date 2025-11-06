@@ -2,7 +2,7 @@ id: ai_scribe_the_chatgpt_powered_seo_content_creation_wizard-4bc4a765-719e-4e99
 
 info:
   name: >
-    AI Scribe – SEO AI Writer, Content Generator, Humanizer, Blog Writer, SEO Optimizer, DALLE-3, AI WordPress Plugin ChatGPT (GPT-4o 128K) <= 2.3 - Missing Authorization to Authenticated (Subscriber+) Settings Update
+    AI Scribe – SEO AI Writer, Content Generator, Humanizer, Blog Writer, SEO Optimizer, DALLE-3, AI WordPress Plugin ChatGPT (GPT-4o 128K) <= 2.5 - Missing Authorization to Authenticated (Subscriber+) Settings Update
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3')
+          - compare_versions(version, '<= 2.5')
