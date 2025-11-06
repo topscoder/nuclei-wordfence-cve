@@ -2,7 +2,7 @@ id: erp-97964ebd-be0b-4187-b393-17edf4ba5caf
 
 info:
   name: >
-    WP ERP | Complete HR solution with recruitment & job listings | WooCommerce CRM & Accounting <= 1.12.9 - Unauthenticated Stored Cross-Site Scripting
+    WP ERP | Complete HR solution with recruitment & job listings | WooCommerce CRM & Accounting <= 1.13.1 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.12.9')
+          - compare_versions(version, '<= 1.13.1')
