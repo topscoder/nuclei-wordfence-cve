@@ -2,7 +2,7 @@ id: viewmedica-646ba700-28d5-455f-88de-2864ef8f202c
 
 info:
   name: >
-    ViewMedica 9 <= 1.4.15 - Cross-Site Request Forgery to Reflected Cross-Site Scripting
+    ViewMedica 9 <= 1.4.17 - Cross-Site Request Forgery to Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.15')
+          - compare_versions(version, '<= 1.4.17')
