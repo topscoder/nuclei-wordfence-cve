@@ -2,7 +2,7 @@ id: integrate_contact_form_7_and_aweber-bb1f7b09-9159-429b-be5b-8f1244d85a7b
 
 info:
   name: >
-    Contact Form 7 AWeber Extension <= 0.1.38 - Missing Authorization
+    Contact Form 7 AWeber Extension <= 0.1.42 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 0.1.38')
+          - compare_versions(version, '<= 0.1.42')
