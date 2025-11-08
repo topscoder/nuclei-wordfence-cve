@@ -2,7 +2,7 @@ id: wp_action_network-c90dadc9-0109-4ebd-8135-3efd26682ad9
 
 info:
   name: >
-    Action Network <= 1.4.4 - Cross-Site Request Forgery to Reflected Cross-Site Scripting
+    Action Network <= 1.4.4 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
