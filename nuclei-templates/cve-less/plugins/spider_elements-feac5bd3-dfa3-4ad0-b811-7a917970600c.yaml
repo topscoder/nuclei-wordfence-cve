@@ -2,7 +2,7 @@ id: spider_elements-feac5bd3-dfa3-4ad0-b811-7a917970600c
 
 info:
   name: >
-    Spider Elements – Addons for Elementor <= 1.6.3 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Spider Elements – Addons for Elementor <= 1.6.5 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.6.3')
+          - compare_versions(version, '<= 1.6.5')
