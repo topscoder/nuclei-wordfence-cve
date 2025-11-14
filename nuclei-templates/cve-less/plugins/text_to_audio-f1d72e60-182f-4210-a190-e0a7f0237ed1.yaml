@@ -2,7 +2,7 @@ id: text_to_audio-f1d72e60-182f-4210-a190-e0a7f0237ed1
 
 info:
   name: >
-    Text To Speech TTS Accessibility <= 1.9.24 - Missing Authorization
+    Text To Speech TTS Accessibility <= 1.9.30 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.9.24')
+          - compare_versions(version, '<= 1.9.30')
