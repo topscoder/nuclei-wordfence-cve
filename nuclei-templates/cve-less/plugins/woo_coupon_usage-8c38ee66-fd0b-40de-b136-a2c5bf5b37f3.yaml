@@ -2,7 +2,7 @@ id: woo_coupon_usage-8c38ee66-fd0b-40de-b136-a2c5bf5b37f3
 
 info:
   name: >
-    Coupon Affiliates <= 7.1.0 - Missing Authorization
+    Coupon Affiliates <= 7.2.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.1.0')
+          - compare_versions(version, '<= 7.2.0')
