@@ -2,7 +2,7 @@ id: leadfox-0a60ed96-a2c9-45a5-a294-a48c0155683e
 
 info:
   name: >
-    Leadfox for WordPress <= 2.1.8 - Cross-Site Request Forgery to Stored Cross-Site Scripting
+    Leadfox for WordPress <= 2.1.9 - Cross-Site Request Forgery to Stored Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1.8')
+          - compare_versions(version, '<= 2.1.9')
