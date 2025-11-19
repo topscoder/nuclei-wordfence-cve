@@ -2,7 +2,7 @@ id: my_auctions_allegro_free_edition-8c52c496-2f77-4faa-9a73-dafe4a66905d
 
 info:
   name: >
-    My auctions allegro <= 3.6.24 - Cross-Site Request Forgery
+    My auctions allegro <= 3.6.32 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.6.24')
+          - compare_versions(version, '<= 3.6.32')
