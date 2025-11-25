@@ -2,7 +2,7 @@ id: jannah-84e25621-6535-43d7-a762-1dd4ffe87ee0
 
 info:
   name: >
-    Jannah <= 7.4.1 - Unauthenticated Local File Inclusion
+    Jannah < 7.5.1 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.4.1')
+          - compare_versions(version, '< 7.5.1')
