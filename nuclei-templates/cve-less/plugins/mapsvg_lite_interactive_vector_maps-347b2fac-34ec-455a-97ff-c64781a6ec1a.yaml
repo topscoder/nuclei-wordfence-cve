@@ -2,7 +2,7 @@ id: mapsvg_lite_interactive_vector_maps-347b2fac-34ec-455a-97ff-c64781a6ec1a
 
 info:
   name: >
-    MapSVG <= 8.7.15 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    MapSVG <= 8.7.23 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 8.7.15')
+          - compare_versions(version, '<= 8.7.23')
