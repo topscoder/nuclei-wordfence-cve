@@ -154,11 +154,7 @@ nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to
 nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to_upper(name),'CSRF') || contains(to_upper(description),'CSRF')" -u https://target.com
 ```
 
-## 👥 Contributing
-
-If you would like to contribute to this project, please feel free to fork the repository and submit a pull request.
-
-## Severity recalculation
+## 🤖 Severity recalculation
 
 Template severity is adjusted by the parser to better reflect real-world impact. The `determine_severity` function in `src/lib/wordfence_api_parser.py` inspects the vulnerability title and description and will downscale issues that are limited to authenticated users (e.g., require login or elevated roles).
 
@@ -168,6 +164,10 @@ Example (simplified):
 
 This helps avoid assigning `Medium`/`High` severities to vulnerabilities that only affect logged-in users, which reduces noise when scanning publicly accessible sites.
 
+
+## 👥 Contributing
+
+If you would like to contribute to this project, please feel free to fork the repository and submit a pull request.
 ## 📚 License
 
 This project is licensed under the MIT License.
