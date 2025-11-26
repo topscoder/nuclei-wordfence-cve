@@ -36,21 +36,37 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
 ### ✨ What's in it?!
 
 <!-- START: __STATISTICS_TABLE -->
-| category | total |
-|---|---|
-| wp-plugins | [60,120](https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| wp-themes | [3,640](https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| wp-core | [724](https://github.com/search?q=%22wp-core%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| other | [0](https://github.com/search?q=repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML++NOT+%22wp-plugin%22+NOT+%22wp-core%22+NOT+%22wp-theme%22+path%3A%2F%5Enuclei-templates%5C%2F%2F&type=code&ref=advsearch) |
-
-
-| severity | total |
-|---|---|
-| info | [0](https://github.com/search?q=%22severity%3A+info%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| low | [29,441](https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| medium | [20,457](https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| high | [9,381](https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
-| critical | [5,199](https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch) |
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <table>
+        <thead>
+          <tr><th align="left">category</th><th align="left">total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>wp-plugins</td><td><a href="https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">60,120</a></td></tr>
+          <tr><td>wp-themes</td><td><a href="https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">3,640</a></td></tr>
+          <tr><td>wp-core</td><td><a href="https://github.com/search?q=%22wp-core%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">724</a></td></tr>
+          <tr><td>other</td><td><a href="https://github.com/search?q=repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML++NOT+%22wp-plugin%22+NOT+%22wp-core%22+NOT+%22wp-theme%22+path%3A%2F%5Enuclei-templates%5C%2F%2F&type=code&ref=advsearch">0</a></td></tr>
+        </tbody>
+      </table>
+    </td>
+    <td width="50%" valign="top">
+      <table>
+        <thead>
+          <tr><th align="left">severity</th><th align="left">total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>critical</td><td><a href="https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">5,199</a></td></tr>
+          <tr><td>high</td><td><a href="https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">9,381</a></td></tr>
+          <tr><td>medium</td><td><a href="https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">20,457</a></td></tr>
+          <tr><td>low</td><td><a href="https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">29,441</a></td></tr>
+          <tr><td>info</td><td><a href="https://github.com/search?q=%22severity%3A+info%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">0</a></td></tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
 <!-- END: __STATISTICS_TABLE -->
 
 ## 🚀 Quick Start
