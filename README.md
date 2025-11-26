@@ -142,6 +142,16 @@ nuclei -t github/topscoder/nuclei-wordfence-cve -template-condition "contains(to
 
 If you would like to contribute to this project, please feel free to fork the repository and submit a pull request.
 
+## Severity recalculation
+
+Template severity is adjusted by the parser to better reflect real-world impact. The `determine_severity` function in `src/lib/wordfence_api_parser.py` inspects the vulnerability title and description and will downscale issues that are limited to authenticated users (e.g., require login or elevated roles).
+
+Example (simplified):
+
+- If the title or description contains the word `authenticated` (and not `unauthenticated`), the function treats the issue as lower risk and returns `Low` instead of a higher CVSS label.
+
+This helps avoid assigning `Medium`/`High` severities to vulnerabilities that only affect logged-in users, which reduces noise when scanning publicly accessible sites.
+
 ## 📚 License
 
 This project is licensed under the MIT License.
