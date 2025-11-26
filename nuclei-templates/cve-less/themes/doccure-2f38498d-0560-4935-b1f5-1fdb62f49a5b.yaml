@@ -2,7 +2,7 @@ id: doccure-2f38498d-0560-4935-b1f5-1fdb62f49a5b
 
 info:
   name: >
-    Doccure <= 1.4.9 - Authenticated (Subscriber+) Arbitrary File Upload
+    Doccure <= 1.5.0 - Authenticated (Subscriber+) Arbitrary File Upload
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.9')
+          - compare_versions(version, '<= 1.5.0')
