@@ -4,7 +4,7 @@
   </a>
   <h1>Nuclei + Wordfence = ♥</h1>
 
-  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->64,536<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>  
+  <h4><!-- START: __TOTAL_NUM_TEMPLATES -->64,538<!-- END: __TOTAL_NUM_TEMPLATES --> Nuclei Templates for WordPress Security Scanning 🥳</h4>  
   <img src="https://img.shields.io/github/actions/workflow/status/topscoder/nuclei-wordfence-cve/test.yml?label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status"> 
   <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit"> 
   <img src="https://img.shields.io/github/last-commit/topscoder/nuclei-wordfence-cve/main?style=flat-square&label=templates%20added" height="20" alt="Templates added"> 
@@ -44,7 +44,7 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
           <tr><th align="left">category</th><th align="left">total</th></tr>
         </thead>
         <tbody>
-          <tr><td>wp-plugins</td><td><a href="https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">60,174</a></td></tr>
+          <tr><td>wp-plugins</td><td><a href="https://github.com/search?q=%22wp-plugin%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">60,176</a></td></tr>
           <tr><td>wp-themes</td><td><a href="https://github.com/search?q=%22wp-theme%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">3,644</a></td></tr>
           <tr><td>wp-core</td><td><a href="https://github.com/search?q=%22wp-core%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">724</a></td></tr>
           <tr><td>other</td><td><a href="https://github.com/search?q=repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML++NOT+%22wp-plugin%22+NOT+%22wp-core%22+NOT+%22wp-theme%22+path%3A%2F%5Enuclei-templates%5C%2F%2F&type=code&ref=advsearch">0</a></td></tr>
@@ -57,10 +57,10 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
           <tr><th align="left">severity</th><th align="left">total</th></tr>
         </thead>
         <tbody>
-          <tr><td>critical</td><td><a href="https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">5,204</a></td></tr>
+          <tr><td>critical</td><td><a href="https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">5,205</a></td></tr>
           <tr><td>high</td><td><a href="https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">9,392</a></td></tr>
           <tr><td>medium</td><td><a href="https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">20,470</a></td></tr>
-          <tr><td>low</td><td><a href="https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">29,470</a></td></tr>
+          <tr><td>low</td><td><a href="https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">29,471</a></td></tr>
           <tr><td>info</td><td><a href="https://github.com/search?q=%22severity%3A+info%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">0</a></td></tr>
         </tbody>
       </table>
