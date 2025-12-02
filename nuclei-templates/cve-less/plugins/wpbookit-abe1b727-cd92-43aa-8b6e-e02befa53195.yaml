@@ -2,7 +2,7 @@ id: wpbookit-abe1b727-cd92-43aa-8b6e-e02befa53195
 
 info:
   name: >
-    WPBookit <= 1.0.2 - Missing Authorization
+    WPBookit <= 1.0.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.2')
+          - compare_versions(version, '<= 1.0.7')
