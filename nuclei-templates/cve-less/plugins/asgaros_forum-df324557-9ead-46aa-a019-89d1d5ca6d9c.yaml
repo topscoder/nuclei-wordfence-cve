@@ -2,7 +2,7 @@ id: asgaros_forum-df324557-9ead-46aa-a019-89d1d5ca6d9c
 
 info:
   name: >
-    Asgaros Forum <= 3.1.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Asgaros Forum <= 3.2.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.1.0')
+          - compare_versions(version, '<= 3.2.1')
