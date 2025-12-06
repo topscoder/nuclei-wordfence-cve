@@ -2,7 +2,7 @@ id: woocommerce_ultimate_gift_card-80f8dd28-f01d-457d-986c-58e38d266202
 
 info:
   name: >
-    WooCommerce Ultimate Gift Card - Create, Sell and Manage Gift Cards with Customized Email Templates <= 2.8.10 - Unauthenticated SQL Injection
+    WooCommerce Ultimate Gift Card - Create, Sell and Manage Gift Cards with Customized Email Templates <= 2.9.6 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.8.10')
+          - compare_versions(version, '<= 2.9.6')
