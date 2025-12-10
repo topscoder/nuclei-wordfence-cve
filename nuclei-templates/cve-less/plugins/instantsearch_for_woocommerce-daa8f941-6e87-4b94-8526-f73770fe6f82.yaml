@@ -2,7 +2,7 @@ id: instantsearch_for_woocommerce-daa8f941-6e87-4b94-8526-f73770fe6f82
 
 info:
   name: >
-    Search, Filters & Merchandising for WooCommerce <= 3.0.63 - Missing Authorization to Authenticated (Subscriber+) Plugin Deactivation
+    Search, Filters & Merchandising for WooCommerce <= 3.0.67 - Missing Authorization to Authenticated (Subscriber+) Plugin Deactivation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.0.63')
+          - compare_versions(version, '<= 3.0.67')
