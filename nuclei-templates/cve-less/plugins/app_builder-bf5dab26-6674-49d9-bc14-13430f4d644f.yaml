@@ -2,7 +2,7 @@ id: app_builder-bf5dab26-6674-49d9-bc14-13430f4d644f
 
 info:
   name: >
-    App Builder <= 5.5.3 - Missing Authorization
+    App Builder <= 5.5.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.5.3')
+          - compare_versions(version, '<= 5.5.7')
