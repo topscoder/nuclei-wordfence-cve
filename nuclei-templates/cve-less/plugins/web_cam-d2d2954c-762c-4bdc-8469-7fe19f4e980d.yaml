@@ -2,7 +2,7 @@ id: web_cam-d2d2954c-762c-4bdc-8469-7fe19f4e980d
 
 info:
   name: >
-    web-cam <= 1.0 - Authenticated (Contributor+) Stored Cross-Site Scripting via slug Parameter
+    web-cam <= 3.0 - Authenticated (Contributor+) Stored Cross-Site Scripting via slug Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0')
+          - compare_versions(version, '<= 3.0')
