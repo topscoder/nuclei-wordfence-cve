@@ -2,7 +2,7 @@ id: enhanced_e_commerce_for_woocommerce_store-0901533b-1be7-4c94-8f9e-dc63e3e441
 
 info:
   name: >
-    Conversios.io <= 7.2.12 - Missing Authorization
+    Conversios.io <= 7.2.13 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.2.12')
+          - compare_versions(version, '<= 7.2.13')
