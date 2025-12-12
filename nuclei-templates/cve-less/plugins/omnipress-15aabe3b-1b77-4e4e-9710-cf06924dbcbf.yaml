@@ -2,7 +2,7 @@ id: omnipress-15aabe3b-1b77-4e4e-9710-cf06924dbcbf
 
 info:
   name: >
-    Omnipress <= 1.6.3 - Authenticated (Author+) Stored Cross-Site Scripting
+    Omnipress <= 1.6.5 - Authenticated (Author+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.6.3')
+          - compare_versions(version, '<= 1.6.5')
