@@ -2,7 +2,7 @@ id: apus_framework-dda2c437-8f41-480a-8816-2c07ab0eafa7
 
 info:
   name: >
-    Apus Framework <= 2.3 - Authenticated (Subscriber+) Arbitrary Options Update in import_page_options
+    Apus Framework <= 2.4 - Authenticated (Subscriber+) Arbitrary Options Update in import_page_options
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3')
+          - compare_versions(version, '<= 2.4')
