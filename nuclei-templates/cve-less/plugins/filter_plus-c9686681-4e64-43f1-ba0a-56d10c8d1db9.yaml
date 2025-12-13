@@ -2,7 +2,7 @@ id: filter_plus-c9686681-4e64-43f1-ba0a-56d10c8d1db9
 
 info:
   name: >
-    Product Filtering by Categories, Tags, Price Range for WooCommerce <= 1.1.5 - Missing Authorization to Unauthenticated Plugin Settings Modification
+    Product Filtering by Categories, Tags, Price Range for WooCommerce <= 1.1.6 - Missing Authorization to Unauthenticated Plugin Settings Modification
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.5')
+          - compare_versions(version, '<= 1.1.6')
