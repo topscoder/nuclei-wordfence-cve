@@ -2,7 +2,7 @@ id: email_tracker-ec4be524-a763-4f2b-8a1d-6189014b4d86
 
 info:
   name: >
-    Email Tracker <= 5.3.12 - Authenticated (Admin+) SQL Injection
+    Email Tracker <= 5.3.15 - Authenticated (Admin+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.3.12')
+          - compare_versions(version, '<= 5.3.15')
