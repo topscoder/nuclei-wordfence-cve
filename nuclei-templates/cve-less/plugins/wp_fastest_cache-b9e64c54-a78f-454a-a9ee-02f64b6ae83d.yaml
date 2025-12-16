@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.4')
+          - compare_versions(version, '>= 1.6.0', '<= 1.7.4')
