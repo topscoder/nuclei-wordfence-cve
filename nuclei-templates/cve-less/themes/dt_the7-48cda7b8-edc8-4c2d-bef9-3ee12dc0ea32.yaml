@@ -2,7 +2,7 @@ id: dt_the7-48cda7b8-edc8-4c2d-bef9-3ee12dc0ea32
 
 info:
   name: >
-    The7 <= 12.8.0.2 - Authenticated (Contributor+) Local File Inclusion
+    The7 < 12.8.1.1 - Authenticated (Contributor+) Local File Inclusion
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 12.8.0.2')
+          - compare_versions(version, '< 12.8.1.1')
