@@ -2,7 +2,7 @@ id: rsvpmaker-86d8ea64-39a7-46c1-bc21-39814c2ac869
 
 info:
   name: >
-    RSVPMarker  <= 11.6.2 - Unauthenticated SQL Injection
+    RSVPMarker  <= 11.6.7 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 11.6.2')
+          - compare_versions(version, '<= 11.6.7')
