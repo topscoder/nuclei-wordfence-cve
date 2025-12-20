@@ -1,0 +1,51 @@
+id: neptunus-03c2d0d4-e33e-4b12-9e84-ae6b7b6c3fe2
+
+info:
+  name: >
+    Neptunus <= 1.0.11 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/03c2d0d4-e33e-4b12-9e84-ae6b7b6c3fe2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/neptunus/"
+    google-query: inurl:"/wp-content/themes/neptunus/"
+    shodan-query: 'http.html:"wp-content/themes/neptunus/"'
+  tags: cve,wordpress,wp-theme,neptunus,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/neptunus/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "neptunus"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.11')
