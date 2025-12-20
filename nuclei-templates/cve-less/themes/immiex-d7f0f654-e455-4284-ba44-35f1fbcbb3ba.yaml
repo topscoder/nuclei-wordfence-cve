@@ -1,0 +1,51 @@
+id: immiex-d7f0f654-e455-4284-ba44-35f1fbcbb3ba
+
+info:
+  name: >
+    Sale! Immigration law, Visa services support, Migration Agent Consulting <= 1.5.8 - Authenticated (Subscriber+) Privilege Escalation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d7f0f654-e455-4284-ba44-35f1fbcbb3ba?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/immiex/"
+    google-query: inurl:"/wp-content/themes/immiex/"
+    shodan-query: 'http.html:"wp-content/themes/immiex/"'
+  tags: cve,wordpress,wp-theme,immiex,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/immiex/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "immiex"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.8')
