@@ -2,7 +2,7 @@ id: themesflat_addons_for_elementor-68277e73-9ef8-42b9-8f21-8b3a9cd0cb95
 
 info:
   name: >
-    Themesflat Addons For Elementor <= 2.2.7 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Themesflat Addons For Elementor <= 2.3.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.7')
+          - compare_versions(version, '<= 2.3.1')
