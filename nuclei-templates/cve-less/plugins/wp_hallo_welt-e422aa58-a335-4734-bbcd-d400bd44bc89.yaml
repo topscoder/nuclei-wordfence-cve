@@ -1,0 +1,51 @@
+id: wp_hallo_welt-e422aa58-a335-4734-bbcd-d400bd44bc89
+
+info:
+  name: >
+    WP Hallo Welt <= 1.4. - Cross-Site Request Forgery to Stored Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e422aa58-a335-4734-bbcd-d400bd44bc89?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-hallo-welt/"
+    google-query: inurl:"/wp-content/plugins/wp-hallo-welt/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-hallo-welt/"'
+  tags: cve,wordpress,wp-plugin,wp-hallo-welt,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-hallo-welt/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-hallo-welt"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.')
