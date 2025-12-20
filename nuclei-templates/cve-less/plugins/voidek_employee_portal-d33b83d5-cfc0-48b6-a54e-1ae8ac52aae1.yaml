@@ -2,7 +2,7 @@ id: voidek_employee_portal-d33b83d5-cfc0-48b6-a54e-1ae8ac52aae1
 
 info:
   name: >
-    Voidek Employee Portal <= 1.0.6 - Missing Authorization
+    Voidek Employee Portal <= 1.0.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.6')
+          - compare_versions(version, '<= 1.0.7')
