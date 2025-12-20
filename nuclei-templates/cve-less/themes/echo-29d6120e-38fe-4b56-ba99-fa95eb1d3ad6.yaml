@@ -1,0 +1,51 @@
+id: echo-29d6120e-38fe-4b56-ba99-fa95eb1d3ad6
+
+info:
+  name: >
+    Echo <= 1.15.0 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/29d6120e-38fe-4b56-ba99-fa95eb1d3ad6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/echo/"
+    google-query: inurl:"/wp-content/themes/echo/"
+    shodan-query: 'http.html:"wp-content/themes/echo/"'
+  tags: cve,wordpress,wp-theme,echo,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/echo/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "echo"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.15.0')
