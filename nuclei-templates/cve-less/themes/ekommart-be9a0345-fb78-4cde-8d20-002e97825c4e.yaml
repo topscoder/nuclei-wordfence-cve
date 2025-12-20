@@ -1,0 +1,51 @@
+id: ekommart-be9a0345-fb78-4cde-8d20-002e97825c4e
+
+info:
+  name: >
+    ekommart < 4.3.1 - Authenticated (Contributor+) Local File Inclusion
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/be9a0345-fb78-4cde-8d20-002e97825c4e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/ekommart/"
+    google-query: inurl:"/wp-content/themes/ekommart/"
+    shodan-query: 'http.html:"wp-content/themes/ekommart/"'
+  tags: cve,wordpress,wp-theme,ekommart,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/ekommart/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ekommart"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 4.3.1')
