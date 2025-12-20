@@ -1,0 +1,51 @@
+id: gardis-61a196b5-bad9-481b-8bec-9e902dc52bae
+
+info:
+  name: >
+    Gardis <= 1.2.13 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/61a196b5-bad9-481b-8bec-9e902dc52bae?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/gardis/"
+    google-query: inurl:"/wp-content/themes/gardis/"
+    shodan-query: 'http.html:"wp-content/themes/gardis/"'
+  tags: cve,wordpress,wp-theme,gardis,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/gardis/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gardis"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.13')
