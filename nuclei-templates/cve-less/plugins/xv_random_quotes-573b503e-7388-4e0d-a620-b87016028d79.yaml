@@ -2,7 +2,7 @@ id: xv_random_quotes-573b503e-7388-4e0d-a620-b87016028d79
 
 info:
   name: >
-    XV Random Quotes <= 1.37 - Reflected Cross-Site Scripting
+    XV Random Quotes <= 1.41 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.37')
+          - compare_versions(version, '<= 1.41')
