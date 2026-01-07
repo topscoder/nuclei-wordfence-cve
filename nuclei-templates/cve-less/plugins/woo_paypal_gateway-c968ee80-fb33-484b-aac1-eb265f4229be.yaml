@@ -2,7 +2,7 @@ id: woo_paypal_gateway-c968ee80-fb33-484b-aac1-eb265f4229be
 
 info:
   name: >
-    Payment Gateway for PayPal on WooCommerce <= 9.0.52 - Missing Authorization
+    Payment Gateway for PayPal on WooCommerce <= 9.0.53 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 9.0.52')
+          - compare_versions(version, '<= 9.0.53')
