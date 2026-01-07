@@ -2,7 +2,7 @@ id: wp_job_portal-0c347b9f-d297-4cb5-9c4a-1001d845ed5a
 
 info:
   name: >
-    WP Job Portal <= 2.3.9 - Authenticated (Editor+) Stored Cross-Site Scripting via Job Description Field
+    WP Job Portal <= 2.4.4 - Authenticated (Editor+) Stored Cross-Site Scripting via Job Description Field
   author: topscoder
   severity: low
   description: >
