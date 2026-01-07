@@ -2,7 +2,7 @@ id: nota_fiscal_eletronica_woocommerce-484ffb38-584e-4239-a9db-2d6d9dfb250a
 
 info:
   name: >
-    Nota Fiscal Eletrônica WooCommerce <= 3.4.0.6 - Missing Authorization
+    Nota Fiscal Eletrônica WooCommerce <= 3.4.0.9 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.4.0.6')
+          - compare_versions(version, '<= 3.4.0.9')
