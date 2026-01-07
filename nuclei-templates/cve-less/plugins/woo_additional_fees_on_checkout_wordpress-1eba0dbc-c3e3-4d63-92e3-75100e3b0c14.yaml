@@ -2,7 +2,7 @@ id: woo_additional_fees_on_checkout_wordpress-1eba0dbc-c3e3-4d63-92e3-75100e3b0c
 
 info:
   name: >
-    WooCommerce Additional Fees On Checkout (Free) <= 1.5.0 - Authenticated (Administrator+) Stored Cross-Site Scripting
+    WooCommerce Additional Fees On Checkout (Free) <= 1.5.2 - Authenticated (Administrator+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.0')
+          - compare_versions(version, '<= 1.5.2')
