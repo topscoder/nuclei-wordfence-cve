@@ -6,26 +6,26 @@ info:
   author: topscoder
   severity: high
   description: >
-    The WP Cost Estimation plugin for WordPress is vulnerable to arbitrary file uploads and deletion due to missing file type validation in the lfb_upload_form and lfb_removeFile AJAX actions in versions up to, and including, 9.642. This makes it possible for unauthenticated attackers to upload arbitrary files on the affected sites server which may make remote code execution possible. Additionally, the attacker can also delete files on the server such as database configuration files, subsequently uploading their own database files.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ae50aa5d-95e3-4650-9dbf-118b4ba3abda?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ae50aa5d-95e3-4650-9dbf-118b4ba3abda?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
-    cvss-score: 9.8
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
-    fofa-query: "wp-content/plugins/WP_Estimation_Form/"
-    google-query: inurl:"/wp-content/plugins/WP_Estimation_Form/"
-    shodan-query: 'http.html:"wp-content/plugins/WP_Estimation_Form/"'
-  tags: cve,wordpress,wp-plugin,WP_Estimation_Form,high,production
+    fofa-query: "wp-content/plugins/wp-estimation-form/"
+    google-query: inurl:"/wp-content/plugins/wp-estimation-form/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-estimation-form/"'
+  tags: cve,wordpress,wp-plugin,wp-estimation-form,high,candidate
 
 http:
   - method: GET
     redirects: true
     max-redirects: 3
     path:
-      - "{{BaseURL}}/wp-content/plugins/WP_Estimation_Form/readme.txt"
+      - "{{BaseURL}}/wp-content/plugins/wp-estimation-form/readme.txt"
 
     extractors:
       - type: regex
@@ -43,7 +43,7 @@ http:
 
       - type: word
         words:
-          - "WP_Estimation_Form"
+          - "wp-estimation-form"
         part: body
 
       - type: dsl
