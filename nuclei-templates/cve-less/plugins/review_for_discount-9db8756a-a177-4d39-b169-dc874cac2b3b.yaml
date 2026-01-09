@@ -2,7 +2,7 @@ id: review_for_discount-9db8756a-a177-4d39-b169-dc874cac2b3b
 
 info:
   name: >
-    Reviewify <= 1.0.6 - Missing Authorization to Authenticated (Contributor+) Arbitrary WooCommerce Coupon Creation
+    Reviewify <= 1.0.7 - Missing Authorization to Authenticated (Contributor+) Arbitrary WooCommerce Coupon Creation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.6')
+          - compare_versions(version, '<= 1.0.7')
