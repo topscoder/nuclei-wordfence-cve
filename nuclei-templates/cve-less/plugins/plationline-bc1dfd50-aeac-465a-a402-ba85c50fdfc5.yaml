@@ -2,7 +2,7 @@ id: plationline-bc1dfd50-aeac-465a-a402-ba85c50fdfc5
 
 info:
   name: >
-    PlatiOnline Payments <= 6.3.2 - Missing Authorization
+    PlatiOnline Payments <= 7.0.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.3.2')
+          - compare_versions(version, '<= 7.0.0')
