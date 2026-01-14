@@ -2,7 +2,7 @@ id: awesome_hotel_booking-4fe0a08e-eee2-4d48-bb38-dd58bff79118
 
 info:
   name: >
-    Awesome Hotel Booking <= 1.0 - Incorrect Authorization to Unauthenticated Arbitrary Booking Modification
+    Awesome Hotel Booking <= 1.0.3 - Incorrect Authorization to Unauthenticated Arbitrary Booking Modification
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0')
+          - compare_versions(version, '<= 1.0.3')
