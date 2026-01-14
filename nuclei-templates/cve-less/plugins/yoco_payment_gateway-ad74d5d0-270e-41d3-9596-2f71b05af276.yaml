@@ -2,7 +2,7 @@ id: yoco_payment_gateway-ad74d5d0-270e-41d3-9596-2f71b05af276
 
 info:
   name: >
-    Yoco Payments <= 3.8.8 - Unauthenticated Arbitrary File Read
+    Yoco Payments <= 3.9.0 - Unauthenticated Arbitrary File Read
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.8')
+          - compare_versions(version, '<= 3.9.0')
