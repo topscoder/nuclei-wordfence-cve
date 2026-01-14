@@ -1,0 +1,51 @@
+id: wellspring-ab25bc80-60b9-4ca8-93ef-49c8731e8128
+
+info:
+  name: >
+    Wellspring < 2.8 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ab25bc80-60b9-4ca8-93ef-49c8731e8128?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/wellspring/"
+    google-query: inurl:"/wp-content/themes/wellspring/"
+    shodan-query: 'http.html:"wp-content/themes/wellspring/"'
+  tags: cve,wordpress,wp-theme,wellspring,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/wellspring/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wellspring"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.8')
