@@ -1,0 +1,51 @@
+id: videopro-f048b2ca-bd20-4af7-8f44-a5c9cbca95ed
+
+info:
+  name: >
+    VideoPro <= 2.3.8.1 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f048b2ca-bd20-4af7-8f44-a5c9cbca95ed?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/videopro/"
+    google-query: inurl:"/wp-content/themes/videopro/"
+    shodan-query: 'http.html:"wp-content/themes/videopro/"'
+  tags: cve,wordpress,wp-theme,videopro,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/videopro/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "videopro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3.8.1')
