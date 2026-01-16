@@ -2,7 +2,7 @@ id: cooked-3dde3216-e0a9-463f-87e8-b71552d2f3b2
 
 info:
   name: >
-    Cooked <= 1.11.2 - Authenticated (Administrator+) Stored Cross-Site Scripting
+    Cooked <= 1.11.3 - Authenticated (Administrator+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.11.2')
+          - compare_versions(version, '<= 1.11.3')
