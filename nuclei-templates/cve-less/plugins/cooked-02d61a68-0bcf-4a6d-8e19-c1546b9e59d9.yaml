@@ -2,7 +2,7 @@ id: cooked-02d61a68-0bcf-4a6d-8e19-c1546b9e59d9
 
 info:
   name: >
-    Cooked <= 1.11.2 - Missing Authorization
+    Cooked <= 1.11.3 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.11.2')
+          - compare_versions(version, '<= 1.11.3')
