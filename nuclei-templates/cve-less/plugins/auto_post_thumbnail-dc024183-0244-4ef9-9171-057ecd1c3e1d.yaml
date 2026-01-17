@@ -2,7 +2,7 @@ id: auto_post_thumbnail-dc024183-0244-4ef9-9171-057ecd1c3e1d
 
 info:
   name: >
-    Auto Featured Image (Auto Post Thumbnail) <= 4.0.0 - Authenticated (Author+) Server-Side Request Forgery
+    Auto Featured Image (Auto Post Thumbnail) <= 4.1.7 - Authenticated (Author+) Server-Side Request Forgery
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.0.0')
+          - compare_versions(version, '<= 4.1.7')
