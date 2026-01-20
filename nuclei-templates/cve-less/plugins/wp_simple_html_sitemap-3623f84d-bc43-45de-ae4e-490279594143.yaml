@@ -2,7 +2,7 @@ id: wp_simple_html_sitemap-3623f84d-bc43-45de-ae4e-490279594143
 
 info:
   name: >
-    WP Simple HTML Sitemap <= 3.3 - Missing Authorization
+    WP Simple HTML Sitemap <= 3.5 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.3')
+          - compare_versions(version, '<= 3.5')
