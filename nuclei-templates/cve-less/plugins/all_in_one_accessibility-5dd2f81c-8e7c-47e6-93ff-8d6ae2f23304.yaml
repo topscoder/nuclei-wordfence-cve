@@ -2,7 +2,7 @@ id: all_in_one_accessibility-5dd2f81c-8e7c-47e6-93ff-8d6ae2f23304
 
 info:
   name: >
-    All in One Accessibility <= 1.14 - Missing Authorization
+    All in One Accessibility <= 1.15 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.14')
+          - compare_versions(version, '<= 1.15')
