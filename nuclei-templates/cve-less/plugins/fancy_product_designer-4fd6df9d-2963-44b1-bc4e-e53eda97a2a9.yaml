@@ -2,7 +2,7 @@ id: fancy_product_designer-4fd6df9d-2963-44b1-bc4e-e53eda97a2a9
 
 info:
   name: >
-    Fancy Product Designer | WooCommerce WordPress <= 6.4.8 - Unauthenticated Information Disclosure via 'url' Parameter
+    Fancy Product Designer | WooCommerce WordPress <= 6.4.8 - Unauthenticated Information Disclosure and PHAR Deserialization via 'url' Parameter
   author: topscoder
   severity: low
   description: >
