@@ -2,7 +2,7 @@ id: wp_clone_any_post_type-ff1e4da0-916c-4d0e-a68b-16b6851b99a0
 
 info:
   name: >
-    WP Clone any post type <= 3.5 - Missing Authorization
+    WP Clone any post type <= 3.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.5')
+          - compare_versions(version, '<= 3.6')
