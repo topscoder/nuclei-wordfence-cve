@@ -2,7 +2,7 @@ id: multilevel_referral_plugin_for_woocommerce-4389ddc9-de69-4316-9bfa-ff3bd3346
 
 info:
   name: >
-    Multilevel Referral Affiliate Plugin for WooCommerce <= 2.27 - Authenticated (Subscriber+) SQL Injection
+    Multilevel Referral Affiliate Plugin for WooCommerce <= 2.28 - Authenticated (Subscriber+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.27')
+          - compare_versions(version, '<= 2.28')
