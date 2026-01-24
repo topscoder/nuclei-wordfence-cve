@@ -2,7 +2,7 @@ id: woo_payment_gateway_paysera-1c8e615a-a1fc-428d-93bc-27c5d6d758eb
 
 info:
   name: >
-    WooCommerce Payment Gateway – Paysera <= 3.9.0 - Missing Authorization
+    WooCommerce Payment Gateway – Paysera <= 3.10.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.9.0')
+          - compare_versions(version, '<= 3.10.0')
