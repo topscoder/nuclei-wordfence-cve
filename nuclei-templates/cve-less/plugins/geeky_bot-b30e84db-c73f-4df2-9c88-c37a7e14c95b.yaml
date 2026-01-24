@@ -2,7 +2,7 @@ id: geeky_bot-b30e84db-c73f-4df2-9c88-c37a7e14c95b
 
 info:
   name: >
-    GeekyBot — Generate AI Content Without Prompt, Chatbot and Lead Generation <= 1.1.7 - Unauthenticated Stored Cross-Site Scripting
+    GeekyBot — Generate AI Content Without Prompt, Chatbot and Lead Generation <= 1.1.8 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.7')
+          - compare_versions(version, '<= 1.1.8')
