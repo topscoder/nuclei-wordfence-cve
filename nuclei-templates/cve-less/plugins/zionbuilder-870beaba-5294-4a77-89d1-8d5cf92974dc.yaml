@@ -2,7 +2,7 @@ id: zionbuilder-870beaba-5294-4a77-89d1-8d5cf92974dc
 
 info:
   name: >
-    WordPress Page Builder – Zion Builder <= 3.6.14 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    WordPress Page Builder – Zion Builder <= 3.6.16 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.6.14')
+          - compare_versions(version, '<= 3.6.16')
