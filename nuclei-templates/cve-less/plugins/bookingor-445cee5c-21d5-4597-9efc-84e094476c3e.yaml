@@ -2,7 +2,7 @@ id: bookingor-445cee5c-21d5-4597-9efc-84e094476c3e
 
 info:
   name: >
-    Bookingor <= 1.0.8 - Missing Authorization
+    Bookingor <= 2.0.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.8')
+          - compare_versions(version, '<= 2.0.1')
