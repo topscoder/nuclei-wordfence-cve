@@ -2,7 +2,7 @@ id: rafflepress-efe7c5d6-80ee-4214-b179-805df79ce1fc
 
 info:
   name: >
-    Giveaways and Contests by RafflePress <= 1.12.17 - Missing Authorization
+    Giveaways and Contests by RafflePress <= 1.12.18 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.12.17')
+          - compare_versions(version, '<= 1.12.18')
