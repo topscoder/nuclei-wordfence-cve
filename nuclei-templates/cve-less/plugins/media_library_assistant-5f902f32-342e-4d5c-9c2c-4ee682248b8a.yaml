@@ -2,7 +2,7 @@ id: media_library_assistant-5f902f32-342e-4d5c-9c2c-4ee682248b8a
 
 info:
   name: >
-    Media Library Assistant <= 3.30 - Missing Authorization
+    Media Library Assistant <= 3.29 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.30')
+          - compare_versions(version, '<= 3.29')
