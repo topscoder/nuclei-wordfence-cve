@@ -2,7 +2,7 @@ id: cognito_forms-80b1d728-b5aa-4811-b92a-9ce36abc2b80
 
 info:
   name: >
-    Cognito Forms <= 2.0.6 - Authenticated (Contributor+) Stored Cross-Site Scripting via id Parameter
+    Cognito Forms <= 2.0.7 - Authenticated (Contributor+) Stored Cross-Site Scripting via id Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.6')
+          - compare_versions(version, '<= 2.0.7')
