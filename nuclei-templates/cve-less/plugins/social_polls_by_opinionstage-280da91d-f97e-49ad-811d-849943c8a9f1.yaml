@@ -2,7 +2,7 @@ id: social_polls_by_opinionstage-280da91d-f97e-49ad-811d-849943c8a9f1
 
 info:
   name: >
-    Poll, Survey & Quiz Maker Plugin by Opinion Stage <= 19.12.2 - Missing Authorization
+    Poll, Survey & Quiz Maker Plugin by Opinion Stage <= 19.12.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 19.12.2')
+          - compare_versions(version, '<= 19.12.0')
