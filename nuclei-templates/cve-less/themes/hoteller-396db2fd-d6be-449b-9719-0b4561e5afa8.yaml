@@ -1,0 +1,51 @@
+id: hoteller-396db2fd-d6be-449b-9719-0b4561e5afa8
+
+info:
+  name: >
+    Hoteller < 6.8.9 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/396db2fd-d6be-449b-9719-0b4561e5afa8?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/hoteller/"
+    google-query: inurl:"/wp-content/themes/hoteller/"
+    shodan-query: 'http.html:"wp-content/themes/hoteller/"'
+  tags: cve,wordpress,wp-theme,hoteller,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/hoteller/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "hoteller"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 6.8.9')
