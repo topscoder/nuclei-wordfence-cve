@@ -2,7 +2,7 @@ id: wp_registration-169d06e1-055b-422a-a466-155ec43e0dbb
 
 info:
   name: >
-    Simple User Registration <= 6.4 - Missing Authorization to Account Takeover
+    Simple User Registration <= 6.7 - Missing Authorization to Account Takeover
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.4')
+          - compare_versions(version, '<= 6.7')
