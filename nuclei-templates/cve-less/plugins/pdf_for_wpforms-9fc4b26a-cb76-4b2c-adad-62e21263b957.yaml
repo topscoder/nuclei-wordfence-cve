@@ -2,7 +2,7 @@ id: pdf_for_wpforms-9fc4b26a-cb76-4b2c-adad-62e21263b957
 
 info:
   name: >
-    PDF for WPForms <= 6.3.1 - Authenticated (Subscriber+) PHP Object Injection
+    PDF for WPForms <= 6.5.0 - Authenticated (Subscriber+) PHP Object Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.3.1')
+          - compare_versions(version, '<= 6.5.0')
