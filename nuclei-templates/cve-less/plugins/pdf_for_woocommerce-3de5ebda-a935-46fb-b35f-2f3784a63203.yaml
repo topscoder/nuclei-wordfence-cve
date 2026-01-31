@@ -2,7 +2,7 @@ id: pdf_for_woocommerce-3de5ebda-a935-46fb-b35f-2f3784a63203
 
 info:
   name: >
-    PDF Invoice Builder for WooCommerce <= 6.3.2 - Authenticated (Subscriber+) PHP Object Injection
+    PDF Invoice Builder for WooCommerce <= 6.5.0 - Authenticated (Subscriber+) PHP Object Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.3.2')
+          - compare_versions(version, '<= 6.5.0')
