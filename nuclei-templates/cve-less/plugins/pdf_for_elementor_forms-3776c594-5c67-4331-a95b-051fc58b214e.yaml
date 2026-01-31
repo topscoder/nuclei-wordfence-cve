@@ -2,7 +2,7 @@ id: pdf_for_elementor_forms-3776c594-5c67-4331-a95b-051fc58b214e
 
 info:
   name: >
-    PDF for Elementor Forms + Drag And Drop Template Builder <= 6.3.1 - Authenticated (Subscriber+) PHP Object Injection
+    PDF for Elementor Forms + Drag And Drop Template Builder <= 6.5.0 - Authenticated (Subscriber+) PHP Object Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.3.1')
+          - compare_versions(version, '<= 6.5.0')
