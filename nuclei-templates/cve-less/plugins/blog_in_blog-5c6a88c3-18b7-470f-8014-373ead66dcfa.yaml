@@ -2,7 +2,7 @@ id: blog_in_blog-5c6a88c3-18b7-470f-8014-373ead66dcfa
 
 info:
   name: >
-    Blog-in-Blog <= 1.1.1 - Authenticated (Editor+) Stored Cross-Site Scripting via Shortcode
+    Blog-in-Blog <= 2.0.0 - Authenticated (Editor+) Stored Cross-Site Scripting via Shortcode
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.1')
+          - compare_versions(version, '<= 2.0.0')
