@@ -2,7 +2,7 @@ id: vk_google_job_posting_manager-4e0fd492-19ee-430e-a495-99ad28043bf9
 
 info:
   name: >
-    VK Google Job Posting Manager <= 1.2.20 - Authenticated (Author+) Stored Cross-Site Scripting via Job Description Field
+    VK Google Job Posting Manager <= 1.2.23 - Authenticated (Author+) Stored Cross-Site Scripting via Job Description Field
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.20')
+          - compare_versions(version, '<= 1.2.23')
