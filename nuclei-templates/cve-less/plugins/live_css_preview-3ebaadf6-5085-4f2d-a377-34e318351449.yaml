@@ -2,7 +2,7 @@ id: live_css_preview-3ebaadf6-5085-4f2d-a377-34e318351449
 
 info:
   name: >
-    Live CSS Preview <= 2.0.0 - Missing Authorization to Authenticated (Subscriber+) Settings Update
+    Live CSS Preview <= 2.1.4 - Missing Authorization to Authenticated (Subscriber+) Settings Update
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.0')
+          - compare_versions(version, '<= 2.1.4')
