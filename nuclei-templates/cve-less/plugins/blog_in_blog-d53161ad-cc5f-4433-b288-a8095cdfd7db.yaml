@@ -2,7 +2,7 @@ id: blog_in_blog-d53161ad-cc5f-4433-b288-a8095cdfd7db
 
 info:
   name: >
-    Blog-in-Blog <= 1.1.1 - Authenticated (Editor+) Local File Inclusion via Shortcode
+    Blog-in-Blog <= 2.0.0 - Authenticated (Editor+) Local File Inclusion via Shortcode
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.1')
+          - compare_versions(version, '<= 2.0.0')
