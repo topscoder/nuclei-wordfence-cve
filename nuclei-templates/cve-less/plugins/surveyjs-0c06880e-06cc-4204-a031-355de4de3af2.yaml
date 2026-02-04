@@ -2,7 +2,7 @@ id: surveyjs-0c06880e-06cc-4204-a031-355de4de3af2
 
 info:
   name: >
-    SurveyJS: Drag & Drop WordPress Form Builder <= 1.12.20 - Cross-Site Request Forgery to Survey Creation
+    SurveyJS: Drag & Drop WordPress Form Builder <= 2.5.2 - Cross-Site Request Forgery to Survey Creation
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.12.20')
+          - compare_versions(version, '<= 2.5.2')
