@@ -2,7 +2,7 @@ id: surveyjs-ab88f0cf-971f-43e1-b6b7-4eb55188ecc8
 
 info:
   name: >
-    SurveyJS: Drag & Drop WordPress Form Builder to create, style and embed multiple forms of any complexity <= 1.12.20 - Cross-Site Request Forgery to Survey Renaming
+    SurveyJS: Drag & Drop WordPress Form Builder to create, style and embed multiple forms of any complexity <= 2.5.2 - Cross-Site Request Forgery to Survey Renaming
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.12.20')
+          - compare_versions(version, '<= 2.5.2')
