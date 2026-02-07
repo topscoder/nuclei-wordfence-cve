@@ -2,7 +2,7 @@ id: netgsm-422b127f-aa52-40ab-a1c0-9d8b70aafe94
 
 info:
   name: >
-    Netgsm <= 2.9.62 - Reflected Cross-Site Scripting
+    Netgsm <= 2.9.63 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.9.62')
+          - compare_versions(version, '<= 2.9.63')
