@@ -2,7 +2,7 @@ id: conveythis_translate-391f76a1-098b-4b88-be71-4270d9942c66
 
 info:
   name: >
-    Language Translate Widget for WordPress – ConveyThis <= 268.8 - Authenticated (Administrator+) PHP Object Injection
+    Language Translate Widget for WordPress – ConveyThis <= 269.1 - Authenticated (Administrator+) PHP Object Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 268.8')
+          - compare_versions(version, '<= 269.1')
