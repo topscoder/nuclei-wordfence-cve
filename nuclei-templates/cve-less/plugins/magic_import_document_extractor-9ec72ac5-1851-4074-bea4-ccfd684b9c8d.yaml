@@ -2,7 +2,7 @@ id: magic_import_document_extractor-9ec72ac5-1851-4074-bea4-ccfd684b9c8d
 
 info:
   name: >
-    Magic Import Document Extractor <= 1.0.4 - Unauthenticated Sensitive Information Exposure
+    Magic Import Document Extractor <= 1.0.6 - Unauthenticated Sensitive Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.4')
+          - compare_versions(version, '<= 1.0.6')
