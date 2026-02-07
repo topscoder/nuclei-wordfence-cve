@@ -2,7 +2,7 @@ id: magic_import_document_extractor-6854e470-26ac-4747-b72c-164e79e1a1b1
 
 info:
   name: >
-    Magic Import Document Extractor <= 1.0.4 - Missing Authorization to Unauthenticated Plugin License Status Modification
+    Magic Import Document Extractor <= 1.0.5 - Missing Authorization to Unauthenticated Plugin License Status Modification
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.4')
+          - compare_versions(version, '<= 1.0.5')
