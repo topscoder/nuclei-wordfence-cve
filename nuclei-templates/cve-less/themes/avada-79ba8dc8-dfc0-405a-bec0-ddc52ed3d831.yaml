@@ -2,7 +2,7 @@ id: avada-79ba8dc8-dfc0-405a-bec0-ddc52ed3d831
 
 info:
   name: >
-    Avada <= 7.13.1 - Missing Authorization
+    Avada <= 7.13.2 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.13.1')
+          - compare_versions(version, '<= 7.13.2')
