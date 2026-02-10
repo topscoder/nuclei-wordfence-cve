@@ -2,7 +2,7 @@ id: google_sitemap_generator-2ea32997-9fe3-4f31-9c3a-28bc14af3713
 
 info:
   name: >
-    Google XML Sitemaps <= 4.1.21 - Missing Authorization
+    Google XML Sitemaps <= 4.1.22 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.1.21')
+          - compare_versions(version, '<= 4.1.22')
