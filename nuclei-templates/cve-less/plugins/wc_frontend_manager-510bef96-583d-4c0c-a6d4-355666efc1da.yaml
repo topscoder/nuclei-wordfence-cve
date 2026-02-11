@@ -2,7 +2,7 @@ id: wc_frontend_manager-510bef96-583d-4c0c-a6d4-355666efc1da
 
 info:
   name: >
-    WCFM – Frontend Manager for WooCommerce <= 6.7.21 - Missing Authorization
+    WCFM – Frontend Manager for WooCommerce <= 6.7.24 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.7.21')
+          - compare_versions(version, '<= 6.7.24')
