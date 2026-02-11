@@ -2,7 +2,7 @@ id: kalender_digital-c8e1bc48-98ff-48f0-b3b3-4032dc3ac3f1
 
 info:
   name: >
-    Calendar.online / Kalender.digital <= 1.0.11 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Calendar.online / Kalender.digital <= 1.0.13 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.11')
+          - compare_versions(version, '<= 1.0.13')
