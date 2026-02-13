@@ -2,7 +2,7 @@ id: event_tickets_with_ticket_scanner-030b26ac-344f-4919-9d2d-b85e5e1599f6
 
 info:
   name: >
-    Event Tickets with Ticket Scanner <= 2.7.10 - Unauthenticated Remote Code Execution
+    Event Tickets with Ticket Scanner <= 2.8.5 - Unauthenticated Remote Code Execution
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.7.10')
+          - compare_versions(version, '<= 2.8.5')
