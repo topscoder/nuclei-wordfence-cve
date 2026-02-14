@@ -2,7 +2,7 @@ id: tokenico_cryptocurrency_token_launchpad_presale_ico_ido_airdrop-e02597b1-eea
 
 info:
   name: >
-    Cryptocurrency (Token), Launchpad (Presale), ICO & IDO, Airdrop by TokenICO <= 2.4.6 - Missing Authorization to Authenticated (Subscriber+) Contract Address Update
+    Cryptocurrency (Token), Launchpad (Presale), ICO & IDO, Airdrop by TokenICO <= 2.4.7 - Missing Authorization to Authenticated (Subscriber+) Contract Address Update
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.4.6')
+          - compare_versions(version, '<= 2.4.7')
