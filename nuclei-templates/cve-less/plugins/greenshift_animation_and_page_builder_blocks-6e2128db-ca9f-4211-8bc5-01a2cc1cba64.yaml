@@ -2,7 +2,7 @@ id: greenshift_animation_and_page_builder_blocks-6e2128db-ca9f-4211-8bc5-01a2cc1
 
 info:
   name: >
-    GreenShift - Animation and Page Builder Blocks <= 12.5.7 - Authenticated (Subscriber+) Information Disclosure of AI API Keys
+    GreenShift - Animation and Page Builder Blocks <= 12.6 - Missing Authorization to Authenticated (Subscriber+) Information Disclosure of AI API Keys and Stored Cross-Site Scripting via custom_css
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 12.5.7')
+          - compare_versions(version, '<= 12.6')
