@@ -2,7 +2,7 @@ id: woocommerce_wholesale_prices-2942644d-c330-4ec0-ab1d-64b3044d5a87
 
 info:
   name: >
-    Wholesale Suite <= 2.2.1 - Authenticated (Shop Manager) Privilege Escalation
+    Wholesale Suite <= 2.2.6 - Authenticated (Shop Manager) Privilege Escalation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.1')
+          - compare_versions(version, '<= 2.2.6')
