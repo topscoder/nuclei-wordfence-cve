@@ -2,7 +2,7 @@ id: simply_gallery_block-9ebd4586-bddc-4669-957b-2bab7a35adee
 
 info:
   name: >
-    SimpLy Gallery <= 3.3.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    SimpLy Gallery <= 3.3.2.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.3.0')
+          - compare_versions(version, '<= 3.3.2.1')
