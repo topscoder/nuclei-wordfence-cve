@@ -84,7 +84,11 @@ Once you have installed this template repo using the commands above, you can run
 nuclei -t github/topscoder/nuclei-wordfence-cve -u https://target.com
 ```
 
-Wordfence provides two separate feeds for vulnerabilities. The first feed includes only production vulnerabilities, each with an assigned CVE. The second feed contains candidate vulnerabilities, which do not yet have a CVE assigned and may or may not be promoted to the production feed. To differentiate templates generated from these feeds, a tag is assigned to each template—either production or candidate—allowing you to target them using a tag filter. Read more about the feeds at https://www.wordfence.com/help/wordfence-intelligence/v2-accessing-and-consuming-the-vulnerability-data-feed/
+Wordfence provides two separate feeds for vulnerabilities. The first feed includes only production vulnerabilities, each with an assigned CVE. The second feed contains candidate vulnerabilities, which do not yet have a CVE assigned and may or may not be promoted to the production feed. To differentiate templates generated from these feeds, a tag is assigned to each template—either production or candidate—allowing you to target them using a tag filter.
+
+> [!IMPORTANT]
+> The Wordfence Intelligence `production` and `scanner` feeds now require a **bearer token**.
+> Set `WORDFENCE_BEARER_TOKEN` in your environment (recommended) or pass `--bearer_token` when running the crawler.
 
 _Include only production templates:_
 ```bash

@@ -1,6 +1,6 @@
 # Usage:
 # python3 main.py
-#   --api_endpoint https://www.wordfence.com/api/intelligence/v2/vulnerabilities/scanner --clean
+#   --api_endpoint https://www.wordfence.com/api/intelligence/v3/vulnerabilities/scanner --clean
 
 import argparse
 import time
@@ -24,13 +24,14 @@ def main():
     parser.add_argument('--threads', required=False, help='boost by increasing the default worker threads (default 2)', default=2, type=int)
     parser.add_argument('--clean', required=False, help='clean the nuclei-templates folder before processing', default=False, action='store_true')
     parser.add_argument('--tag', required=False, help='additional tag that should be added to the templates')
+    parser.add_argument('--bearer_token', required=False, help='Wordfence API bearer token (or set WORDFENCE_BEARER_TOKEN env var)')
     args = parser.parse_args()
 
     if args.api_endpoint is not None:
         logger.info(yellow('API mode'))
 
         parser = WordfenceAPIParser()
-        parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced, args.clean, args.tag)
+        parser.run(args.api_endpoint, args.overwrite, args.force, args.overwrite_enhanced, args.clean, args.tag, bearer_token=args.bearer_token)
 
     elif args.local_file is not None:
         logger.info(yellow('Local file mode'))

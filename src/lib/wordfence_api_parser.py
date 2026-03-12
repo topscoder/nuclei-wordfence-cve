@@ -8,6 +8,7 @@ import requests
 import re
 import shutil
 from yaml import safe_load
+from typing import Optional
 
 
 class WordfenceAPIParser():
@@ -20,11 +21,19 @@ class WordfenceAPIParser():
     tpl_main = None
     tpl_main_no_ref = None
 
+    def _get_bearer_token(self, bearer_token: Optional[str]) -> Optional[str]:
+        if bearer_token is not None and bearer_token.strip() != "":
+            return bearer_token.strip()
+        env_token = os.getenv("WORDFENCE_BEARER_TOKEN")
+        if env_token is not None and env_token.strip() != "":
+            return env_token.strip()
+        return None
+
     def run_local(self, local_file, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
         return self.execute(local_file, True, overwrite, force, overwrite_enhanced, clean, tag)
 
-    def run(self, url, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
-        return self.execute(url, False, overwrite, force, overwrite_enhanced, clean, tag)
+    def run(self, url, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="", bearer_token: Optional[str] = None) -> bool:
+        return self.execute(url, False, overwrite, force, overwrite_enhanced, clean, tag, bearer_token=bearer_token)
 
     def reset_nuclei_templates_folder(self):
         """
@@ -69,7 +78,7 @@ class WordfenceAPIParser():
             logger.error(f"[!] Could not clear {base_dir}. Error: {e}")
 
             
-    def execute(self, source, is_local=False, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="") -> bool:
+    def execute(self, source, is_local=False, overwrite=False, force=False, overwrite_enhanced=False, clean=False, tag="", bearer_token: Optional[str] = None) -> bool:
         """Execute the Wordfence API Parser.
 
         Args:
@@ -125,7 +134,16 @@ class WordfenceAPIParser():
 
             url = source.strip()
 
-            response = requests.get(url)
+            token = self._get_bearer_token(bearer_token)
+            if token is None and "wordfence.com/api/intelligence/v3/" in url.lower():
+                logger.warning(red("[*] Missing Wordfence bearer token. Set WORDFENCE_BEARER_TOKEN or pass --bearer_token."))
+                return False
+
+            headers = {}
+            if token is not None:
+                headers["Authorization"] = f"Bearer {token}"
+
+            response = requests.get(url, headers=headers, timeout=60)
 
             # Check the response status code
             if response.status_code == 200:
