@@ -1,0 +1,51 @@
+id: tourimo-4ff2088e-c7f8-47e8-8858-f6bf6a801812
+
+info:
+  name: >
+    Tourimo <= 1.2.3 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4ff2088e-c7f8-47e8-8858-f6bf6a801812?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/tourimo/"
+    google-query: inurl:"/wp-content/themes/tourimo/"
+    shodan-query: 'http.html:"wp-content/themes/tourimo/"'
+  tags: cve,wordpress,wp-theme,tourimo,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/tourimo/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tourimo"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.3')
