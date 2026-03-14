@@ -1,0 +1,51 @@
+id: faith_hope-0458282f-199f-4b1f-80e0-a17ac8811915
+
+info:
+  name: >
+    Faith & Hope <= 2.13.0 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0458282f-199f-4b1f-80e0-a17ac8811915?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/faith-hope/"
+    google-query: inurl:"/wp-content/themes/faith-hope/"
+    shodan-query: 'http.html:"wp-content/themes/faith-hope/"'
+  tags: cve,wordpress,wp-theme,faith-hope,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/faith-hope/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "faith-hope"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.13.0')
