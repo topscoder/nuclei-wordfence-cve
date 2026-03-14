@@ -1,0 +1,51 @@
+id: typify-7b82e8d1-c2f4-43ad-a645-63808ac1ded6
+
+info:
+  name: >
+    Typify <= 3.0.2 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7b82e8d1-c2f4-43ad-a645-63808ac1ded6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/typify/"
+    google-query: inurl:"/wp-content/themes/typify/"
+    shodan-query: 'http.html:"wp-content/themes/typify/"'
+  tags: cve,wordpress,wp-theme,typify,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/typify/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "typify"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.2')
