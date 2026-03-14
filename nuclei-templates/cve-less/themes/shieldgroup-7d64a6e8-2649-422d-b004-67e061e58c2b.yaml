@@ -1,0 +1,51 @@
+id: shieldgroup-7d64a6e8-2649-422d-b004-67e061e58c2b
+
+info:
+  name: >
+    ShieldGroup <= 2.13 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7d64a6e8-2649-422d-b004-67e061e58c2b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/shieldgroup/"
+    google-query: inurl:"/wp-content/themes/shieldgroup/"
+    shodan-query: 'http.html:"wp-content/themes/shieldgroup/"'
+  tags: cve,wordpress,wp-theme,shieldgroup,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/shieldgroup/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "shieldgroup"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.13')
