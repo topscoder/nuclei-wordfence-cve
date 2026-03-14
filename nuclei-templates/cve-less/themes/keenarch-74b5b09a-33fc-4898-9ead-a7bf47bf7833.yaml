@@ -1,0 +1,51 @@
+id: keenarch-74b5b09a-33fc-4898-9ead-a7bf47bf7833
+
+info:
+  name: >
+    Keenarch < 2.0.1 - Authenticated (Subscriber+) Arbitrary File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/74b5b09a-33fc-4898-9ead-a7bf47bf7833?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/keenarch/"
+    google-query: inurl:"/wp-content/themes/keenarch/"
+    shodan-query: 'http.html:"wp-content/themes/keenarch/"'
+  tags: cve,wordpress,wp-theme,keenarch,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/keenarch/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "keenarch"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.0.1')
