@@ -1,0 +1,51 @@
+id: mega_store_woocommerce-cbe3ce13-ce92-423f-b190-1b2c3dc74b82
+
+info:
+  name: >
+    Mega Store Woocommerce <= 5.9 - Missing Authorization to Authenticated (Subscriber+) Arbitrary Page Creation and Settings Change
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cbe3ce13-ce92-423f-b190-1b2c3dc74b82?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/mega-store-woocommerce/"
+    google-query: inurl:"/wp-content/themes/mega-store-woocommerce/"
+    shodan-query: 'http.html:"wp-content/themes/mega-store-woocommerce/"'
+  tags: cve,wordpress,wp-theme,mega-store-woocommerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/mega-store-woocommerce/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mega-store-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.9')
