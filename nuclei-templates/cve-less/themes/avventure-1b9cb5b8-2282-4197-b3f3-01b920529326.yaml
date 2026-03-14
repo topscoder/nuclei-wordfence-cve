@@ -1,0 +1,51 @@
+id: avventure-1b9cb5b8-2282-4197-b3f3-01b920529326
+
+info:
+  name: >
+    Avventure <= 1.1.12 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1b9cb5b8-2282-4197-b3f3-01b920529326?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/avventure/"
+    google-query: inurl:"/wp-content/themes/avventure/"
+    shodan-query: 'http.html:"wp-content/themes/avventure/"'
+  tags: cve,wordpress,wp-theme,avventure,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/avventure/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "avventure"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.12')
