@@ -1,0 +1,51 @@
+id: solaris-ef3f0b0d-e342-44c9-81bd-a7582802e8c7
+
+info:
+  name: >
+    Solaris <= 2.5 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ef3f0b0d-e342-44c9-81bd-a7582802e8c7?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/solaris/"
+    google-query: inurl:"/wp-content/themes/solaris/"
+    shodan-query: 'http.html:"wp-content/themes/solaris/"'
+  tags: cve,wordpress,wp-theme,solaris,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/solaris/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "solaris"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.5')
