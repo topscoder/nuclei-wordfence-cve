@@ -2,7 +2,7 @@ id: pressroom-2e62781e-4e35-479b-ad2f-617a679f180f
 
 info:
   name: >
-    Pressroom - News Magazine WordPress Theme <= 6.9 - Reflected Cross-Site Scripting
+    Pressroom - News Magazine WordPress Theme <= 7.0 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.9')
+          - compare_versions(version, '<= 7.0')
