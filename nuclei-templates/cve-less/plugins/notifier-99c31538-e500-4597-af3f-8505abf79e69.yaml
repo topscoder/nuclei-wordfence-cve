@@ -2,7 +2,7 @@ id: notifier-99c31538-e500-4597-af3f-8505abf79e69
 
 info:
   name: >
-    WANotifier <= 2.7.7 - Missing Authorization
+    WANotifier <= 2.7.12 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.7.7')
+          - compare_versions(version, '<= 2.7.12')
