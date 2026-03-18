@@ -2,7 +2,7 @@ id: wp_hotel_booking-2fcef7c3-25a5-44e1-96c1-68e67e59f18b
 
 info:
   name: >
-    WP Hotel Booking <= 2.2.2 - Authenticated (Contributor+) Local File Inclusion
+    WP Hotel Booking <= 2.2.9 - Authenticated (Contributor+) Local File Inclusion
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.2')
+          - compare_versions(version, '<= 2.2.9')
