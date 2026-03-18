@@ -2,7 +2,7 @@ id: portfolio_manager_powered_by_behance-25940775-2ff9-49cf-ab24-3e87f1ca8e42
 
 info:
   name: >
-    Behance Portfolio Manager <= 1.7.4 - Authenticated (Administrator+) SQL Injection
+    Behance Portfolio Manager <= 1.7.5 - Authenticated (Administrator+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.4')
+          - compare_versions(version, '<= 1.7.5')
