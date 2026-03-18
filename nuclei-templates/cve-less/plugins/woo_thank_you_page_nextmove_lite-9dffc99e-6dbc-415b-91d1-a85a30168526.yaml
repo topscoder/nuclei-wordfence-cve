@@ -2,7 +2,7 @@ id: woo_thank_you_page_nextmove_lite-9dffc99e-6dbc-415b-91d1-a85a30168526
 
 info:
   name: >
-    NextMove Lite <= 2.21.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    NextMove Lite <= 2.23.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.21.0')
+          - compare_versions(version, '<= 2.23.0')
