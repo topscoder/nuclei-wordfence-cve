@@ -2,7 +2,7 @@ id: learnpress_import_export-462d6d01-ce4c-4c76-932a-6466f9a8d807
 
 info:
   name: >
-    LearnPress Export Import <= 4.0.9 - Unauthenticated Local File Inclusion
+    LearnPress Export Import <= 4.1.2 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.0.9')
+          - compare_versions(version, '<= 4.1.2')
