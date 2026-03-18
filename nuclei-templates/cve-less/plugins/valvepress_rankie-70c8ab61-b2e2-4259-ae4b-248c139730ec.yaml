@@ -2,7 +2,7 @@ id: valvepress_rankie-70c8ab61-b2e2-4259-ae4b-248c139730ec
 
 info:
   name: >
-    Rankie <= 1.8.0 - Missing Authorization
+    Rankie < 1.8.2 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.8.0')
+          - compare_versions(version, '< 1.8.2')
