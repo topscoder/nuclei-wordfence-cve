@@ -2,7 +2,7 @@ id: majestic_support-b7d46e8e-0f90-4379-98d0-13d0bd1f2e66
 
 info:
   name: >
-    Majestic Support <= 1.1.1 - Authenticated (Contributor+) Local File Inclusion
+    Majestic Support <= 1.0.7 - Authenticated (Contributor+) Local File Inclusion
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.1')
+          - compare_versions(version, '<= 1.0.7')
