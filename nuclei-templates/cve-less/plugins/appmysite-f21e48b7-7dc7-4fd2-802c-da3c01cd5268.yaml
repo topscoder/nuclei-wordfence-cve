@@ -2,7 +2,7 @@ id: appmysite-f21e48b7-7dc7-4fd2-802c-da3c01cd5268
 
 info:
   name: >
-    AppMySite <= 3.14.0 - Missing Authorization
+    AppMySite <= 3.15.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.14.0')
+          - compare_versions(version, '<= 3.15.0')
