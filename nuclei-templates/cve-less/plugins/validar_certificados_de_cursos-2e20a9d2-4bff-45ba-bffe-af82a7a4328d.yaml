@@ -2,7 +2,7 @@ id: validar_certificados_de_cursos-2e20a9d2-4bff-45ba-bffe-af82a7a4328d
 
 info:
   name: >
-    ValidateCertify <= 1.6.2 - Cross-Site Request Forgery
+    ValidateCertify <= 1.6.4 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.6.2')
+          - compare_versions(version, '<= 1.6.4')
