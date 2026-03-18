@@ -2,7 +2,7 @@ id: restropress-6153489c-9e18-4446-8bd8-47745eb56cdf
 
 info:
   name: >
-    RestroPress <= 3.2.4.2 - Missing Authorization
+    RestroPress <= 3.2.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.2.4.2')
+          - compare_versions(version, '<= 3.2.7')
