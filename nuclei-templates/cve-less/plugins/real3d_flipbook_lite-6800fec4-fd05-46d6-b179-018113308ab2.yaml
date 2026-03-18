@@ -2,7 +2,7 @@ id: real3d_flipbook_lite-6800fec4-fd05-46d6-b179-018113308ab2
 
 info:
   name: >
-    Real 3D FlipBook <= 4.16.4 - Missing Authorization
+    Real 3D FlipBook <= 4.19.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.16.4')
+          - compare_versions(version, '<= 4.19.1')
