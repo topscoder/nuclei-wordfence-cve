@@ -2,7 +2,7 @@ id: easy_property_listings-2505860b-74e5-45c3-852c-3c6fabcb61d1
 
 info:
   name: >
-    Easy Property Listings <= 3.5.17 - Missing Authorization
+    Easy Property Listings <= 3.5.20 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.5.17')
+          - compare_versions(version, '<= 3.5.20')
