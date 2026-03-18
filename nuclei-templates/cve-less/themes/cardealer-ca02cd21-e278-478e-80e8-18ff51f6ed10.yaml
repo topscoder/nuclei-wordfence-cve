@@ -2,7 +2,7 @@ id: cardealer-ca02cd21-e278-478e-80e8-18ff51f6ed10
 
 info:
   name: >
-    Car Dealer <= 1.6.6 - Unauthenticated PHP Object Injection
+    Car Dealer < 1.6.7 - Unauthenticated PHP Object Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.6.6')
+          - compare_versions(version, '< 1.6.7')
