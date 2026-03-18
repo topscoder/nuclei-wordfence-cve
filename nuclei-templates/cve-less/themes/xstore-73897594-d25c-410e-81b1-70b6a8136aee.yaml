@@ -2,7 +2,7 @@ id: xstore-73897594-d25c-410e-81b1-70b6a8136aee
 
 info:
   name: >
-    XStore <= 9.5.3 - Unauthenticated Arbitrary Shortcode Execution
+    XStore < 9.6 - Unauthenticated Arbitrary Shortcode Execution
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 9.5.3')
+          - compare_versions(version, '< 9.6')
