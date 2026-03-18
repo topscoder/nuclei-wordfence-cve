@@ -2,7 +2,7 @@ id: the_moneytizer-4f0499db-009a-4c45-86c7-9bbb34d6373e
 
 info:
   name: >
-    The Moneytizer <= 10.0.6 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    The Moneytizer <= 10.0.9 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 10.0.6')
+          - compare_versions(version, '<= 10.0.9')
