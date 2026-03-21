@@ -1,0 +1,51 @@
+id: expire_users-d676700b-8c53-4e09-a654-767810b5a775
+
+info:
+  name: >
+    Expire Users <= 1.2.2 - Authenticated (Subscriber+) Privilege Escalation to Administrator via save_extra_user_profile_fields
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d676700b-8c53-4e09-a654-767810b5a775?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/expire-users/"
+    google-query: inurl:"/wp-content/plugins/expire-users/"
+    shodan-query: 'http.html:"wp-content/plugins/expire-users/"'
+  tags: cve,wordpress,wp-plugin,expire-users,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/expire-users/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "expire-users"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.2')
