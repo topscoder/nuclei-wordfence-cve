@@ -1,0 +1,51 @@
+id: comment_genius-a922c2ad-77ec-4fa8-b997-fa7e85d96590
+
+info:
+  name: >
+    Comment Genius <= 1.2.5 - Reflected Cross-Site Scripting via $_SERVER['PHP_SELF']
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a922c2ad-77ec-4fa8-b997-fa7e85d96590?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/comment-genius/"
+    google-query: inurl:"/wp-content/plugins/comment-genius/"
+    shodan-query: 'http.html:"wp-content/plugins/comment-genius/"'
+  tags: cve,wordpress,wp-plugin,comment-genius,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/comment-genius/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "comment-genius"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.5')
