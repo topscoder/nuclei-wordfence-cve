@@ -2,9 +2,9 @@ id: salon_booking_system-32c4cb55-855c-42ed-a9ac-90f92e8583e0
 
 info:
   name: >
-    Salon booking system <= 9.6.2 - Authenticated (Customer+) Stored Cross-Site Scripting via 'sms_prefix'
+    Salon booking system <= 9.6.2 - Unauthenticated Stored Cross-Site Scripting via 'sms_prefix'
   author: topscoder
-  severity: low
+  severity: high
   description: >
     
   reference:
@@ -18,7 +18,7 @@ info:
     fofa-query: "wp-content/plugins/salon-booking-system/"
     google-query: inurl:"/wp-content/plugins/salon-booking-system/"
     shodan-query: 'http.html:"wp-content/plugins/salon-booking-system/"'
-  tags: cve,wordpress,wp-plugin,salon-booking-system,low,candidate
+  tags: cve,wordpress,wp-plugin,salon-booking-system,high,candidate
 
 http:
   - method: GET
