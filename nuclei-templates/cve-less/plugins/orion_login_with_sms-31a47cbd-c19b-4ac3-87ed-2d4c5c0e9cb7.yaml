@@ -2,9 +2,9 @@ id: orion_login_with_sms-31a47cbd-c19b-4ac3-87ed-2d4c5c0e9cb7
 
 info:
   name: >
-    Orion Login with SMS <= 1.0.5 - Authenticated Bypass via Weak OTP
+    Orion Login with SMS <= 1.0.5 - Authentication Bypass via Weak OTP
   author: topscoder
-  severity: low
+  severity: critical
   description: >
     
   reference:
@@ -18,7 +18,7 @@ info:
     fofa-query: "wp-content/plugins/orion-login-with-sms/"
     google-query: inurl:"/wp-content/plugins/orion-login-with-sms/"
     shodan-query: 'http.html:"wp-content/plugins/orion-login-with-sms/"'
-  tags: cve,wordpress,wp-plugin,orion-login-with-sms,low,candidate
+  tags: cve,wordpress,wp-plugin,orion-login-with-sms,critical,candidate
 
 http:
   - method: GET
