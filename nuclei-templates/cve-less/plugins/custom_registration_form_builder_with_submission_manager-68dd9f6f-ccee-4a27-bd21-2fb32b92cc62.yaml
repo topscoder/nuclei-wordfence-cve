@@ -2,7 +2,7 @@ id: custom_registration_form_builder_with_submission_manager-68dd9f6f-ccee-4a27-
 
 info:
   name: >
-    RegistrationMagic <= 6.0.7.1 - Privilege Escalation via admin_order
+    RegistrationMagic <= 6.0.7.1 - Unauthenticated Privilege Escalation via admin_order
   author: topscoder
   severity: low
   description: >
