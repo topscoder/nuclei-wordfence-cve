@@ -2,7 +2,7 @@ id: ap_plugin_scripteo-90f40820-b854-4aaf-a17e-699fd06b2de9
 
 info:
   name: >
-    Ads Pro Plugin <= 4.88 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Ads Pro Plugin <= 5.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.88')
+          - compare_versions(version, '<= 5.0')
