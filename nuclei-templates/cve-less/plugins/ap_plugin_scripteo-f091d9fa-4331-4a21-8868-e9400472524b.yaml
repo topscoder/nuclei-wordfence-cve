@@ -2,7 +2,7 @@ id: ap_plugin_scripteo-f091d9fa-4331-4a21-8868-e9400472524b
 
 info:
   name: >
-    Ads Pro Plugin <= 4.88 - Unauthenticated Local File Inclusion
+    Ads Pro Plugin <= 4.89 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.88')
+          - compare_versions(version, '<= 4.89')
