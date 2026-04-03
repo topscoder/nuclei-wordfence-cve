@@ -1,0 +1,51 @@
+id: noo_jobmonster-3b712d05-3369-41b6-9e68-8f2a8c5b477b
+
+info:
+  name: >
+    Noo JobMonster < 4.8.4 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3b712d05-3369-41b6-9e68-8f2a8c5b477b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/noo-jobmonster/"
+    google-query: inurl:"/wp-content/themes/noo-jobmonster/"
+    shodan-query: 'http.html:"wp-content/themes/noo-jobmonster/"'
+  tags: cve,wordpress,wp-theme,noo-jobmonster,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/noo-jobmonster/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "noo-jobmonster"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 4.8.4')
