@@ -2,7 +2,7 @@ id: everest_forms_pro-4f060807-cd59-4558-a30b-00b4b947f3f7
 
 info:
   name: >
-    Everest Forms Pro <= 1.9.10 - Unauthenticated Stored Cross-Site Scripting
+    Everest Forms Pro <= 1.9.12 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.9.10')
+          - compare_versions(version, '<= 1.9.12')
