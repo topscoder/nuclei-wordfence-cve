@@ -2,7 +2,7 @@ id: directorist-c17b03b4-d503-4bee-a1cd-4d66d27f6f9e
 
 info:
   name: >
-    Directorist <= 8.5.6 - Unauthenticated Open Redirect
+    Directorist <= 8.6.6 - Unauthenticated Open Redirect
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 8.5.6')
+          - compare_versions(version, '<= 8.6.6')
