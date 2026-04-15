@@ -2,7 +2,7 @@ id: wp_stats_manager-307137e1-6ce0-4e7d-8134-6c938b6809cd
 
 info:
   name: >
-    WP Visitor Statistics (Real Time Traffic) <= 7.8 - Missing Authorization
+    WP Visitor Statistics (Real Time Traffic) <= 8.4 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.8')
+          - compare_versions(version, '<= 8.4')
