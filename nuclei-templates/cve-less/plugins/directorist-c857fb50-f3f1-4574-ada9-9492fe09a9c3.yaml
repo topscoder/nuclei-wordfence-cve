@@ -2,7 +2,7 @@ id: directorist-c857fb50-f3f1-4574-ada9-9492fe09a9c3
 
 info:
   name: >
-    Directorist <= 8.5.8 - Missing Authorization
+    Directorist <= 8.6.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 8.5.8')
+          - compare_versions(version, '<= 8.6.6')
