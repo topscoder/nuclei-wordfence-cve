@@ -2,7 +2,7 @@ id: royal_elementor_addons-be6db702-43bc-4d1f-a222-d323c70c6bb3
 
 info:
   name: >
-    Royal Addons for Elementor – Addons and Templates Kit for Elementor <= 1.7.1049 - Missing Authorization
+    Royal Addons for Elementor – Addons and Templates Kit for Elementor <= 1.7.1052 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.1049')
+          - compare_versions(version, '<= 1.7.1052')
