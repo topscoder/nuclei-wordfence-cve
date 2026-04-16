@@ -2,7 +2,7 @@ id: architecturer-b3ff4379-81f6-4c58-8658-2bd2a26883d1
 
 info:
   name: >
-    Architecturer <= 3.8.8 - Reflected Cross-Site Scripting
+    Architecturer < 3.9.5 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.8')
+          - compare_versions(version, '< 3.9.5')
