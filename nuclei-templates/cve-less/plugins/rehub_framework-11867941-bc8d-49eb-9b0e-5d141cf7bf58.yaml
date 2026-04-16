@@ -2,7 +2,7 @@ id: rehub_framework-11867941-bc8d-49eb-9b0e-5d141cf7bf58
 
 info:
   name: >
-    REHub Framework <= 19.9.8 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    REHub Framework < 19.9.9.7 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 19.9.8')
+          - compare_versions(version, '< 19.9.9.7')
