@@ -2,7 +2,7 @@ id: musico-dc19228f-c7a2-4600-a7b7-ba813b8035de
 
 info:
   name: >
-    Musico <= 3.2.4 - Reflected Cross-Site Scripting
+    Musico < 3.4.5 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.2.4')
+          - compare_versions(version, '< 3.4.5')
