@@ -2,7 +2,7 @@ id: poll_wp-2b732bce-29a5-4b1f-99a2-b3153c0e82ed
 
 info:
   name: >
-    TS Poll <= 2.5.3 - Missing Authorization
+    TS Poll <= 2.5.5 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.5.3')
+          - compare_versions(version, '<= 2.5.5')
