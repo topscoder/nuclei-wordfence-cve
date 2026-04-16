@@ -2,7 +2,7 @@ id: themehunk_megamenu_plus-5c86269a-7d04-4a5a-9d0f-3dcc79fd7d25
 
 info:
   name: >
-    ThemeHunk <= 1.1.1 - Missing Authorization
+    ThemeHunk <= 1.2.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.1')
+          - compare_versions(version, '<= 1.2.0')
