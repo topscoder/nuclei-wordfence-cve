@@ -2,7 +2,7 @@ id: atomchat-70c38363-4648-4668-bb32-14351ed7fd07
 
 info:
   name: >
-    AtomChat <= 1.1.6 - Missing Authorization
+    AtomChat <= 1.1.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.6')
+          - compare_versions(version, '<= 1.1.7')
