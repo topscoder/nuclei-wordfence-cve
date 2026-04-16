@@ -1,0 +1,51 @@
+id: vantage-fb7d4eee-fd81-4d9d-8d8d-a56870b27874
+
+info:
+  name: >
+    Vantage <= 1.20.32 - Authenticated (Contributor+) Stored Cross-Site Scripting via Gallery Block Text Content
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fb7d4eee-fd81-4d9d-8d8d-a56870b27874?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/vantage/"
+    google-query: inurl:"/wp-content/themes/vantage/"
+    shodan-query: 'http.html:"wp-content/themes/vantage/"'
+  tags: cve,wordpress,wp-theme,vantage,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/vantage/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "vantage"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.20.32')
