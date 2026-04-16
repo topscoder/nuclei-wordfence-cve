@@ -2,7 +2,7 @@ id: innovio-d3a04d92-1ce8-4405-9d26-0635384106b4
 
 info:
   name: >
-    Innovio - Multipurpose Landing Page WordPress Theme <= 1.7 - Unauthenticated Local File Inclusion
+    Innovio - Multipurpose Landing Page WordPress Theme <= 1.9 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7')
+          - compare_versions(version, '<= 1.9')
