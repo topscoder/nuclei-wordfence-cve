@@ -2,7 +2,7 @@ id: easy_post_submission-2e90f61b-a74b-4f9f-a8ba-ea9ba3fa9987
 
 info:
   name: >
-    Easy Post Submission – Frontend Posting, Guest Publishing & Submit Content for WordPress <= 2.2.0 - Missing Authorization
+    Easy Post Submission – Frontend Posting, Guest Publishing & Submit Content for WordPress <= 2.4.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.0')
+          - compare_versions(version, '<= 2.4.0')
