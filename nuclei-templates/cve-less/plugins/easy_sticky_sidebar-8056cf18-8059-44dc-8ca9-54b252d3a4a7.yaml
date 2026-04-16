@@ -2,7 +2,7 @@ id: easy_sticky_sidebar-8056cf18-8059-44dc-8ca9-54b252d3a4a7
 
 info:
   name: >
-    WP CTA – Sticky CTA Builder, Generate Leads, Promote Sales <= 1.7.4 - Missing Authorization
+    WP CTA – Sticky CTA Builder, Generate Leads, Promote Sales <= 2.1.2 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.4')
+          - compare_versions(version, '<= 2.1.2')
