@@ -2,7 +2,7 @@ id: profile_builder_pro-c89d9bfd-f14e-4299-ab25-a6856c1af95c
 
 info:
   name: >
-    Profile Builder Pro <= 3.13.9 - Unauthenticated SQL Injection
+    Profile Builder Pro < 3.14.0 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.13.9')
+          - compare_versions(version, '< 3.14.0')
