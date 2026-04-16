@@ -2,7 +2,7 @@ id: wpadverts-c39dc38c-1440-46f1-9b56-cc0711ae2b31
 
 info:
   name: >
-    WPAdverts – Classifieds Plugin <= 2.2.11 - Missing Authorization
+    WPAdverts – Classifieds Plugin <= 2.3.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.11')
+          - compare_versions(version, '<= 2.3.0')
