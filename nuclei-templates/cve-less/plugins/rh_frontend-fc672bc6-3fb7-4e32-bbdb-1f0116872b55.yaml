@@ -2,7 +2,7 @@ id: rh_frontend-fc672bc6-3fb7-4e32-bbdb-1f0116872b55
 
 info:
   name: >
-    RH Frontend Publishing Pro <= 4.3.2 - Reflected Cross-Site Scripting
+    RH Frontend Publishing Pro < 4.3.4 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.3.2')
+          - compare_versions(version, '< 4.3.4')
