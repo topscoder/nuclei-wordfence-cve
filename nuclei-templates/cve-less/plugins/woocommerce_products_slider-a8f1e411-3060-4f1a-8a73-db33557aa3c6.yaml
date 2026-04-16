@@ -2,7 +2,7 @@ id: woocommerce_products_slider-a8f1e411-3060-4f1a-8a73-db33557aa3c6
 
 info:
   name: >
-    Product Slider, Product Grid, Product Masonry <= 1.13.60 - Missing Authorization
+    Product Slider, Product Grid, Product Masonry <= 1.13.61 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.13.60')
+          - compare_versions(version, '<= 1.13.61')
