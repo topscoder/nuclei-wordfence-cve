@@ -2,7 +2,7 @@ id: pie_register-c4a1b869-42d2-4b6d-8e6a-853325e2afde
 
 info:
   name: >
-    Pie Register <= 3.8.4.7 - Missing Authorization
+    Pie Register <= 3.8.4.8 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.4.7')
+          - compare_versions(version, '<= 3.8.4.8')
