@@ -2,7 +2,7 @@ id: starto-75126f4e-bb9d-4edb-b792-5456f3de614d
 
 info:
   name: >
-    Starto <= 2.1.9 - Reflected Cross-Site Scripting
+    Starto < 2.2.5 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1.9')
+          - compare_versions(version, '< 2.2.5')
