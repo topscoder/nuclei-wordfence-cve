@@ -2,7 +2,7 @@ id: contact_form_by_supsystic-a1eed70b-d12e-4b7f-afc1-7037f5c406b8
 
 info:
   name: >
-    Contact Form by Supsystic <= 1.7.35 - Reflected Cross-Site Scripting
+    Contact Form by Supsystic <= 1.7.36 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.35')
+          - compare_versions(version, '<= 1.7.36')
