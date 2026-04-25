@@ -2,7 +2,7 @@ id: truebooker_appointment_booking-bc36c9e4-5f6d-4cb8-85b3-f02e00b6d3cb
 
 info:
   name: >
-    TrueBooker <= 1.1.5 - Missing Authorization
+    TrueBooker <= 1.1.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.5')
+          - compare_versions(version, '<= 1.1.6')
