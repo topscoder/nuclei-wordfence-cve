@@ -2,7 +2,7 @@ id: split_test_for_elementor-f6c4ec70-22b5-49e1-a00b-5b29aab5fc91
 
 info:
   name: >
-    Split Test For Elementor <= 1.8.3 - Authenticated (Administrator+) Stored Cross-Site Scripting
+    Split Test For Elementor <= 1.8.4 - Authenticated (Administrator+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.8.3')
+          - compare_versions(version, '<= 1.8.4')
