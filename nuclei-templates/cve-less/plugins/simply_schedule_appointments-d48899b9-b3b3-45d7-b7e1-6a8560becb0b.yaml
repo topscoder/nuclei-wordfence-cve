@@ -2,7 +2,7 @@ id: simply_schedule_appointments-d48899b9-b3b3-45d7-b7e1-6a8560becb0b
 
 info:
   name: >
-    Simply Schedule Appointments <= 1.6.10.4 - Missing Authorization
+    Simply Schedule Appointments <= 1.6.11.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.6.10.4')
+          - compare_versions(version, '<= 1.6.11.0')
