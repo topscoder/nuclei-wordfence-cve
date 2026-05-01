@@ -1,0 +1,51 @@
+id: restaurant_zone-d6d6391a-542a-41c1-8eec-07ad5e77abdd
+
+info:
+  name: >
+    Restaurant Zone <= 0.7.8 - Authenticated (Subscriber+) Arbitrary File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d6d6391a-542a-41c1-8eec-07ad5e77abdd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/restaurant-zone/"
+    google-query: inurl:"/wp-content/themes/restaurant-zone/"
+    shodan-query: 'http.html:"wp-content/themes/restaurant-zone/"'
+  tags: cve,wordpress,wp-theme,restaurant-zone,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/restaurant-zone/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "restaurant-zone"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 0.7.8')
