@@ -2,7 +2,7 @@ id: posts_table_filterable-ebe59b29-f8d4-4ea0-b4a8-d758ddb1c594
 
 info:
   name: >
-    TableOn – WordPress Posts Table Filterable <= 1.0.4 - Missing Authorization
+    TableOn – WordPress Posts Table Filterable <= 1.0.5.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.4')
+          - compare_versions(version, '<= 1.0.5.1')
