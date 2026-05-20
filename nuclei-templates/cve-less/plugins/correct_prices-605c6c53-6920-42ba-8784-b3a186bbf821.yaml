@@ -1,0 +1,51 @@
+id: correct_prices-605c6c53-6920-42ba-8784-b3a186bbf821
+
+info:
+  name: >
+    Correct Prices <= 1.0 - Reflected Cross-Site Scripting via PHP_SELF Parameter
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/605c6c53-6920-42ba-8784-b3a186bbf821?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/correct-prices/"
+    google-query: inurl:"/wp-content/plugins/correct-prices/"
+    shodan-query: 'http.html:"wp-content/plugins/correct-prices/"'
+  tags: cve,wordpress,wp-plugin,correct-prices,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/correct-prices/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "correct-prices"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0')
