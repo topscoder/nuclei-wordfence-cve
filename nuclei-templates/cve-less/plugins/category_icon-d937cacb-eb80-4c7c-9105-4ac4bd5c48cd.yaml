@@ -2,7 +2,7 @@ id: category_icon-d937cacb-eb80-4c7c-9105-4ac4bd5c48cd
 
 info:
   name: >
-    Category Icon <= 1.0.2 - Authenticated (Author+) XML External Entity Injection
+    Category Icon <= 1.0.1 - Authenticated (Author+) XML External Entity Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.2')
+          - compare_versions(version, '<= 1.0.1')
