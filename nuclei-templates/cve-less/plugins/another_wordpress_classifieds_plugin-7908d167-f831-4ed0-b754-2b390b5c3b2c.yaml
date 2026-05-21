@@ -2,7 +2,7 @@ id: another_wordpress_classifieds_plugin-7908d167-f831-4ed0-b754-2b390b5c3b2c
 
 info:
   name: >
-    AWP Classifieds <= 4.4.5 - Unauthenticated SQL Injection via 'regions'
+    AWP Classifieds <= 4.4.6 - Unauthenticated SQL Injection via 'regions'
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.4.5')
+          - compare_versions(version, '<= 4.4.6')
