@@ -1,0 +1,51 @@
+id: cbxscratingreview-9ee11e19-21a6-45df-a118-f6dec3b55bc1
+
+info:
+  name: >
+    CBX 5 Star Rating & Review <= 1.0.7 - Reflected Cross-Site Scripting via 'page' Parameter
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9ee11e19-21a6-45df-a118-f6dec3b55bc1?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/cbxscratingreview/"
+    google-query: inurl:"/wp-content/plugins/cbxscratingreview/"
+    shodan-query: 'http.html:"wp-content/plugins/cbxscratingreview/"'
+  tags: cve,wordpress,wp-plugin,cbxscratingreview,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/cbxscratingreview/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "cbxscratingreview"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.7')
