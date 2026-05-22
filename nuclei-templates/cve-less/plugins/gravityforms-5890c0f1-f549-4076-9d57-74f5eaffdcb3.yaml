@@ -2,7 +2,7 @@ id: gravityforms-5890c0f1-f549-4076-9d57-74f5eaffdcb3
 
 info:
   name: >
-    Gravity Forms <= 2.10.0 - Unauthenticated Stored Cross-Site Scripting via Consent Field Hidden Input
+    Gravity Forms <= 2.9.30 - Unauthenticated Stored Cross-Site Scripting via Consent Field Hidden Input
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.10.0')
+          - compare_versions(version, '<= 2.9.30')
