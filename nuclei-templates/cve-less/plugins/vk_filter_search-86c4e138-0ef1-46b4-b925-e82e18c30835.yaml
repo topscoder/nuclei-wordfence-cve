@@ -2,7 +2,7 @@ id: vk_filter_search-86c4e138-0ef1-46b4-b925-e82e18c30835
 
 info:
   name: >
-    VK Filter Search <= 2.15.0.3 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    VK Filter Search <= 2.20.3 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.15.0.3')
+          - compare_versions(version, '<= 2.20.3')
