@@ -2,7 +2,7 @@ id: netgsm-58804f7a-51af-4199-85c9-b75b91b5c59b
 
 info:
   name: >
-    Netgsm <= 2.9.58 - Missing Authorization
+    Netgsm <= 2.9.71 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.9.58')
+          - compare_versions(version, '<= 2.9.71')
