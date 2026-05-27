@@ -2,7 +2,7 @@ id: blogmarks-1b602526-3b79-45ed-bada-598e33b9106c
 
 info:
   name: >
-    BlogMarks <= 1.0.8 - Unauthenticated Local File Inclusion
+    BlogMarks < 1.1.2 - Unauthenticated Local File Inclusion
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.8')
+          - compare_versions(version, '< 1.1.2')
