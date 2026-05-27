@@ -2,7 +2,7 @@ id: variable_inspector-81ab48c6-6add-4eb8-89a4-681af833fa11
 
 info:
   name: >
-    Variable Inspector <= 2.6.3 - Missing Authorization
+    Variable Inspector < 2.7.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.6.3')
+          - compare_versions(version, '< 2.7.1')
