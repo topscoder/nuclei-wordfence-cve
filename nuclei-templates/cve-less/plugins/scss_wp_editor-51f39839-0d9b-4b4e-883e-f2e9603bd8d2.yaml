@@ -2,7 +2,7 @@ id: scss_wp_editor-51f39839-0d9b-4b4e-883e-f2e9603bd8d2
 
 info:
   name: >
-    SCSS WP Editor <= 1.1.8 - Cross-Site Request Forgery
+    SCSS WP Editor <= 1.2.1 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.8')
+          - compare_versions(version, '<= 1.2.1')
