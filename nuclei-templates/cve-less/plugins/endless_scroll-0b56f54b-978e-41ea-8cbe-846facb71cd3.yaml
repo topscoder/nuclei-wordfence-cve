@@ -1,0 +1,51 @@
+id: endless_scroll-0b56f54b-978e-41ea-8cbe-846facb71cd3
+
+info:
+  name: >
+    Endless Scroll <= 1.0.0 - [Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')]
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0b56f54b-978e-41ea-8cbe-846facb71cd3?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/endless-scroll/"
+    google-query: inurl:"/wp-content/plugins/endless-scroll/"
+    shodan-query: 'http.html:"wp-content/plugins/endless-scroll/"'
+  tags: cve,wordpress,wp-plugin,endless-scroll,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/endless-scroll/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "endless-scroll"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.0')
