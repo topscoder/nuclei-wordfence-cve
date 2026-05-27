@@ -2,7 +2,7 @@ id: abandoned_contact_form_7-8196e947-c3d1-46ba-aee2-25834c1a9c05
 
 info:
   name: >
-    Abandoned Contact Form 7 <= 2.0 - Missing Authorization
+    Abandoned Contact Form 7 < 2.9 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0')
+          - compare_versions(version, '< 2.9')
