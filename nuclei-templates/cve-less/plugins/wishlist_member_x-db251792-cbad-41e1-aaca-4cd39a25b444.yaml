@@ -2,7 +2,7 @@ id: wishlist_member_x-db251792-cbad-41e1-aaca-4cd39a25b444
 
 info:
   name: >
-    Wishlist Member <= 3.30.1 - Missing Authorization to Authenticated (Subscriber+) Arbitrary Plugin Options Update via 'wishlistmember_team_accounts_save_settings' AJAX action
+    Wishlist Member <= 3.32.0 - Missing Authorization to Authenticated (Subscriber+) Arbitrary Plugin Options Update via 'wishlistmember_team_accounts_save_settings' AJAX action
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.30.1')
+          - compare_versions(version, '<= 3.32.0')
