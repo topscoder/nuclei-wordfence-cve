@@ -2,7 +2,7 @@ id: checkout_upsell_and_order_bumps-ee6ffb62-0dfd-40c1-8fde-8705d99d4144
 
 info:
   name: >
-    UpsellWP <= 2.2.3 - Missing Authorization
+    UpsellWP <= 2.2.5 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.3')
+          - compare_versions(version, '<= 2.2.5')
