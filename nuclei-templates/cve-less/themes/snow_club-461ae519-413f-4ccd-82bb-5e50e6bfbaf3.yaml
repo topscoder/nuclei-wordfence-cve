@@ -1,0 +1,51 @@
+id: snow_club-461ae519-413f-4ccd-82bb-5e50e6bfbaf3
+
+info:
+  name: >
+    Snow Club <= 1.1 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/461ae519-413f-4ccd-82bb-5e50e6bfbaf3?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/snow-club/"
+    google-query: inurl:"/wp-content/themes/snow-club/"
+    shodan-query: 'http.html:"wp-content/themes/snow-club/"'
+  tags: cve,wordpress,wp-theme,snow-club,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/snow-club/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "snow-club"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1')
