@@ -30,8 +30,9 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
 ---
 
 > [!TIP]
-> If you found this project helpful, please consider giving it a star on GitHub.
-> Your support helps to make this project even better. 🌟
+> If you found this project helpful, please consider buying me a coffee.<br>
+> <br>
+> [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/topscoder)
 
 ### ✨ What's in it?!
 
