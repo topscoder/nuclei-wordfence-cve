@@ -2,7 +2,7 @@ id: 3d_flipbook_dflip_lite-b3146b41-27d5-465d-a9ec-af4c50a0d612
 
 info:
   name: >
-    DearFlip – PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer <= 2.4.28 - Missing Authorization
+    DearFlip – PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer <= 2.4.29 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.4.28')
+          - compare_versions(version, '<= 2.4.29')
