@@ -2,7 +2,7 @@ id: syncfields-9ec52096-27c8-4c42-bc89-4aef8239ec6e
 
 info:
   name: >
-    SyncFields <= 2.1 - Reflected Cross-Site Scripting
+    SyncFields < 4.1 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1')
+          - compare_versions(version, '< 4.1')
