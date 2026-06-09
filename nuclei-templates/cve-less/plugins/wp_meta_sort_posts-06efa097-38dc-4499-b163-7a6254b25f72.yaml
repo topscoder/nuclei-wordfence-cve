@@ -1,0 +1,51 @@
+id: wp_meta_sort_posts-06efa097-38dc-4499-b163-7a6254b25f72
+
+info:
+  name: >
+    WP Meta Sort Posts <= 0.9 - Cross-Site Request Forgery to Plugin Settings Update
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/06efa097-38dc-4499-b163-7a6254b25f72?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-meta-sort-posts/"
+    google-query: inurl:"/wp-content/plugins/wp-meta-sort-posts/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-meta-sort-posts/"'
+  tags: cve,wordpress,wp-plugin,wp-meta-sort-posts,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-meta-sort-posts/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-meta-sort-posts"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 0.9')
