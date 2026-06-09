@@ -2,7 +2,7 @@ id: woo_razorpay-4d722bf7-1caa-4637-b512-af6e09c2b21e
 
 info:
   name: >
-    Razorpay for WooCommerce <= 4.8.2 - Missing Authorization
+    Razorpay for WooCommerce <= 4.8.3 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.8.2')
+          - compare_versions(version, '<= 4.8.3')
