@@ -2,7 +2,7 @@ id: woolementor-3f635716-5748-48bf-bbfb-75d302a901e9
 
 info:
   name: >
-    CoDesigner <= 4.26 - Missing Authorization
+    CoDesigner <= 4.30 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.26')
+          - compare_versions(version, '<= 4.30')
