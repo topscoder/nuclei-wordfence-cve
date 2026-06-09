@@ -2,7 +2,7 @@ id: onepress-ea1d2448-76da-4992-98f6-9898697602ba
 
 info:
   name: >
-    OnePress <= 2.3.11 - Missing Authorization
+    OnePress <= 2.3.14 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3.11')
+          - compare_versions(version, '<= 2.3.14')
