@@ -2,7 +2,7 @@ id: optin-a6382ebd-f836-4f39-8113-1475163d6b81
 
 info:
   name: >
-    WowOptin <= 1.4.34 - Missing Authorization
+    WowOptin <= 1.4.37 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.34')
+          - compare_versions(version, '<= 1.4.37')
