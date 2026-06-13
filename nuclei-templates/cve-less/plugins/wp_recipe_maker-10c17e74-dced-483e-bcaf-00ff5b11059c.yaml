@@ -2,7 +2,7 @@ id: wp_recipe_maker-10c17e74-dced-483e-bcaf-00ff5b11059c
 
 info:
   name: >
-    WP Recipe Maker <= 10.2.4 - Missing Authorization to Authenticated (Subscriber+) Sensitive Information Exposure
+    WP Recipe Maker <= 10.6.0 - Missing Authorization to Authenticated (Subscriber+) Sensitive Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 10.2.4')
+          - compare_versions(version, '<= 10.6.0')
