@@ -2,7 +2,7 @@ id: wp_google_places_review_slider-37dc80d0-1834-40a7-9454-a8129d9b4cdd
 
 info:
   name: >
-    WP Google Review Slider <= 17.9 - Unauthenticated Stored Cross-Site Scripting
+    WP Google Review Slider <= 18.0 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 17.9')
+          - compare_versions(version, '<= 18.0')
