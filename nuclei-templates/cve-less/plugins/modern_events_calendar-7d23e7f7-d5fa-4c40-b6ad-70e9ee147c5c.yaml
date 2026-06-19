@@ -2,7 +2,7 @@ id: modern_events_calendar-7d23e7f7-d5fa-4c40-b6ad-70e9ee147c5c
 
 info:
   name: >
-    Modern Events Calendar <= 7.29.0 - Missing Authorization
+    Modern Events Calendar <= 7.32.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.29.0')
+          - compare_versions(version, '<= 7.32.0')
