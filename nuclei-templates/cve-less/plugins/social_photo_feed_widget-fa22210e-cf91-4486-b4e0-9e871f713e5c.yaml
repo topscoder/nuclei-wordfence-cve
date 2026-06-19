@@ -2,7 +2,7 @@ id: social_photo_feed_widget-fa22210e-cf91-4486-b4e0-9e871f713e5c
 
 info:
   name: >
-    Widgets for Social Photo Feed <= 1.7.7 - Missing Authorization
+    Widgets for Social Photo Feed <= 1.7.8 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.7')
+          - compare_versions(version, '<= 1.7.8')
