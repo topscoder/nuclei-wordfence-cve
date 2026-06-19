@@ -2,7 +2,7 @@ id: ravpage-caa23ec8-547b-425e-94bd-297d12702256
 
 info:
   name: >
-    Ravpage <= 2.33 - Reflected Cross-Site Scripting
+    Ravpage <= 2.40 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.33')
+          - compare_versions(version, '<= 2.40')
