@@ -2,7 +2,7 @@ id: booknetic-523c6436-6185-47cf-943e-d2f81c3f94b3
 
 info:
   name: >
-    Booknetic <= 4.1.4 - Cross-Site Request Forgery
+    Booknetic 4.0 - 4.1.4 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.1.4')
+          - compare_versions(version, '>= 4.0', '<= 4.1.4')
