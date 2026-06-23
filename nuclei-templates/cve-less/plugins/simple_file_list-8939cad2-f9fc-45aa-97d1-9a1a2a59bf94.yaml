@@ -2,7 +2,7 @@ id: simple_file_list-8939cad2-f9fc-45aa-97d1-9a1a2a59bf94
 
 info:
   name: >
-    Simple File List <= 6.1.16 - Missing Authorization
+    Simple File List <= 6.3.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.1.16')
+          - compare_versions(version, '<= 6.3.7')
