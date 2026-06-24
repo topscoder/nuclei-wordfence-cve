@@ -2,7 +2,7 @@ id: actionwear_products_sync-b2bb2d4c-eaba-45be-a86f-8acde02c946b
 
 info:
   name: >
-    Actionwear products sync <= 2.3.3 - Authenticated (Subscriber+) SQL Injection
+    Actionwear products sync < 3.1.13 - Authenticated (Subscriber+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3.3')
+          - compare_versions(version, '< 3.1.13')
