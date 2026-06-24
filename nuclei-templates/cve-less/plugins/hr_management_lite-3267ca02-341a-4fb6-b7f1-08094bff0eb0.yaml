@@ -2,7 +2,7 @@ id: hr_management_lite-3267ca02-341a-4fb6-b7f1-08094bff0eb0
 
 info:
   name: >
-    HR Management Lite <= 3.3 - Cross-Site Request Forgery
+    HR Management Lite <= 3.7 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.3')
+          - compare_versions(version, '<= 3.7')
