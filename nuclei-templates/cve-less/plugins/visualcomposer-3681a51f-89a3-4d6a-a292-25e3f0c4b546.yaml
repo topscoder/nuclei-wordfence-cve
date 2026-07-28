@@ -1,0 +1,51 @@
+id: visualcomposer-3681a51f-89a3-4d6a-a292-25e3f0c4b546
+
+info:
+  name: >
+    Visual Composer Website Builder <= 45.15.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3681a51f-89a3-4d6a-a292-25e3f0c4b546?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/visualcomposer/"
+    google-query: inurl:"/wp-content/plugins/visualcomposer/"
+    shodan-query: 'http.html:"wp-content/plugins/visualcomposer/"'
+  tags: cve,wordpress,wp-plugin,visualcomposer,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/visualcomposer/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "visualcomposer"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 45.15.0')
