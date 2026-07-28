@@ -1,0 +1,51 @@
+id: gallery_by_supsystic-3c5349da-90bd-44a8-a61e-acd2c67cca32
+
+info:
+  name: >
+    Photo Gallery – Responsive Image Galleries by Supsystic <= 1.16.3 - Authenticated (Administrator+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3c5349da-90bd-44a8-a61e-acd2c67cca32?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/gallery-by-supsystic/"
+    google-query: inurl:"/wp-content/plugins/gallery-by-supsystic/"
+    shodan-query: 'http.html:"wp-content/plugins/gallery-by-supsystic/"'
+  tags: cve,wordpress,wp-plugin,gallery-by-supsystic,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/gallery-by-supsystic/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gallery-by-supsystic"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.16.3')
