@@ -1,0 +1,51 @@
+id: wp_google_maps-daa5e6a7-91ff-4dd0-aec2-f9a13e38f309
+
+info:
+  name: >
+    WP Go Maps – Google Map, OpenStreetMap, Leaflet Map <= 10.1.05 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/daa5e6a7-91ff-4dd0-aec2-f9a13e38f309?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-google-maps/"
+    google-query: inurl:"/wp-content/plugins/wp-google-maps/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-google-maps/"'
+  tags: cve,wordpress,wp-plugin,wp-google-maps,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-google-maps/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-google-maps"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 10.1.05')
