@@ -1,0 +1,51 @@
+id: zarinpal_woocommerce_payment_gateway-d8afc698-b9dd-4da8-a3fe-1813a14f6acc
+
+info:
+  name: >
+    افزونه پرداخت امن زرین‌پال برای ووکامرس (ZarinPal for WooCommerce) <= 5.1.0 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d8afc698-b9dd-4da8-a3fe-1813a14f6acc?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/zarinpal-woocommerce-payment-gateway/"
+    google-query: inurl:"/wp-content/plugins/zarinpal-woocommerce-payment-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/zarinpal-woocommerce-payment-gateway/"'
+  tags: cve,wordpress,wp-plugin,zarinpal-woocommerce-payment-gateway,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/zarinpal-woocommerce-payment-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "zarinpal-woocommerce-payment-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.1.0')
