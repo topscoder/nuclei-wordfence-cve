@@ -2,7 +2,7 @@ id: shiptime_discount_shipping-1de10a71-3b73-451e-ad24-2038b37a52f8
 
 info:
   name: >
-    ShipTime: Discounted Shipping Rates <= 1.1.1 - Missing Authorization
+    ShipTime: Discounted Shipping Rates <= 1.1.4 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.1')
+          - compare_versions(version, '<= 1.1.4')
