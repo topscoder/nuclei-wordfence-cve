@@ -1,0 +1,51 @@
+id: survey_form_block-e98d4f04-74cd-486f-bb2f-fad76895f386
+
+info:
+  name: >
+    Survey Form Block <= 1.0.1 - Missing Authorization to Authenticated (Subscriber+) Survey Submission Data Export
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e98d4f04-74cd-486f-bb2f-fad76895f386?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/survey-form-block/"
+    google-query: inurl:"/wp-content/plugins/survey-form-block/"
+    shodan-query: 'http.html:"wp-content/plugins/survey-form-block/"'
+  tags: cve,wordpress,wp-plugin,survey-form-block,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/survey-form-block/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "survey-form-block"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.1')
