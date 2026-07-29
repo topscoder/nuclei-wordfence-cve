@@ -2,7 +2,7 @@ id: esselinknu_settings-8ec87dd1-9ff3-474d-a913-a31fa9747d0d
 
 info:
   name: >
-    Esselink.nu Settings <= 2.94 - Cross-Site Request Forgery
+    Esselink.nu Settings <= 4.6 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.94')
+          - compare_versions(version, '<= 4.6')
