@@ -2,7 +2,7 @@ id: jw_player_7_for_wp-8ee2e088-8206-4a97-98f0-167fef451925
 
 info:
   name: >
-    JW Player for WordPress <= 2.3.7 - Missing Authorization
+    JW Player for WordPress <= 2.3.8 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3.7')
+          - compare_versions(version, '<= 2.3.8')
