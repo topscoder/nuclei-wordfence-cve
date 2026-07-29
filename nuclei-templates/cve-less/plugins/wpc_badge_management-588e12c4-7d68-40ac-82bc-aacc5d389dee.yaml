@@ -1,0 +1,51 @@
+id: wpc_badge_management-588e12c4-7d68-40ac-82bc-aacc5d389dee
+
+info:
+  name: >
+    WPC Badge Management for WooCommerce <= 3.1.6 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'text' Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/588e12c4-7d68-40ac-82bc-aacc5d389dee?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wpc-badge-management/"
+    google-query: inurl:"/wp-content/plugins/wpc-badge-management/"
+    shodan-query: 'http.html:"wp-content/plugins/wpc-badge-management/"'
+  tags: cve,wordpress,wp-plugin,wpc-badge-management,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wpc-badge-management/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wpc-badge-management"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.1.6')
