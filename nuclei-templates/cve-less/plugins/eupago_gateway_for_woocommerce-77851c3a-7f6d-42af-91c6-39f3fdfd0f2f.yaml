@@ -2,7 +2,7 @@ id: eupago_gateway_for_woocommerce-77851c3a-7f6d-42af-91c6-39f3fdfd0f2f
 
 info:
   name: >
-    Eupago Gateway For Woocommerce <= 4.6.3 - Missing Authorization
+    Eupago Gateway For Woocommerce <= 4.7.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.6.3')
+          - compare_versions(version, '<= 4.7.1')
