@@ -1,0 +1,51 @@
+id: mailerpress-793a7ef0-8938-47a6-80ed-83f69fbbb27f
+
+info:
+  name: >
+    MailerPress <= 1.5.0 - Missing Authorization to Unauthenticated Arbitrary Modification via REST API Endpoint
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/793a7ef0-8938-47a6-80ed-83f69fbbb27f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mailerpress/"
+    google-query: inurl:"/wp-content/plugins/mailerpress/"
+    shodan-query: 'http.html:"wp-content/plugins/mailerpress/"'
+  tags: cve,wordpress,wp-plugin,mailerpress,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mailerpress/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mailerpress"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.0')
