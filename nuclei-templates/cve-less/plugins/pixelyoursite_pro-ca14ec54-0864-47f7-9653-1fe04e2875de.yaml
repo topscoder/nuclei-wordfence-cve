@@ -1,0 +1,51 @@
+id: pixelyoursite_pro-ca14ec54-0864-47f7-9653-1fe04e2875de
+
+info:
+  name: >
+    PixelYourSite <= 11.2.1 - Unauthenticated Sensitive Information Exposure via Order-Received Endpoint Missing Key Validation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ca14ec54-0864-47f7-9653-1fe04e2875de?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pixelyoursite-pro/"
+    google-query: inurl:"/wp-content/plugins/pixelyoursite-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/pixelyoursite-pro/"'
+  tags: cve,wordpress,wp-plugin,pixelyoursite-pro,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pixelyoursite-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pixelyoursite-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 12.6.1')
