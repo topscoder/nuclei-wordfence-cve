@@ -2,7 +2,7 @@ id: visualizer-65b54e53-ec14-4dae-bcc1-1ca9b4128324
 
 info:
   name: >
-    Visualizer – Tables & Charts Manager with Built-in AI Generator <= 4.0.6 - Authenticated (Contributor+) SQL Injection
+    Visualizer – Tables & Charts Manager with Built-in AI Generator <= 4.0.1 - Authenticated (Contributor+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.0.6')
+          - compare_versions(version, '<= 4.0.1')
