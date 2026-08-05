@@ -1,0 +1,51 @@
+id: super_progressive_web_apps-0332e106-1f97-4c52-b084-ea15d31dee72
+
+info:
+  name: >
+    Super Progressive Web Apps <= 2.2.43 - Authenticated (Administrator+) Stored Cross-Site Scripting via Offline Message Setting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0332e106-1f97-4c52-b084-ea15d31dee72?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/super-progressive-web-apps/"
+    google-query: inurl:"/wp-content/plugins/super-progressive-web-apps/"
+    shodan-query: 'http.html:"wp-content/plugins/super-progressive-web-apps/"'
+  tags: cve,wordpress,wp-plugin,super-progressive-web-apps,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/super-progressive-web-apps/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "super-progressive-web-apps"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.2.43')
