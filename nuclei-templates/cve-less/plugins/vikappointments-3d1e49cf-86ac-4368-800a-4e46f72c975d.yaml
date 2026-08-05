@@ -1,0 +1,51 @@
+id: vikappointments-3d1e49cf-86ac-4368-800a-4e46f72c975d
+
+info:
+  name: >
+    VikAppointments – Services Booking Calendar <= 1.2.19 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3d1e49cf-86ac-4368-800a-4e46f72c975d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/vikappointments/"
+    google-query: inurl:"/wp-content/plugins/vikappointments/"
+    shodan-query: 'http.html:"wp-content/plugins/vikappointments/"'
+  tags: cve,wordpress,wp-plugin,vikappointments,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/vikappointments/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "vikappointments"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.19')
