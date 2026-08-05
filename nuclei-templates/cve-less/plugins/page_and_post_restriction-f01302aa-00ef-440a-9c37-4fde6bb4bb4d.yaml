@@ -1,0 +1,51 @@
+id: page_and_post_restriction-f01302aa-00ef-440a-9c37-4fde6bb4bb4d
+
+info:
+  name: >
+    Page and Post Restriction <= 1.4.1 - Unauthenticated Missing Authorization to Sensitive Information Exposure via REST API
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f01302aa-00ef-440a-9c37-4fde6bb4bb4d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/page-and-post-restriction/"
+    google-query: inurl:"/wp-content/plugins/page-and-post-restriction/"
+    shodan-query: 'http.html:"wp-content/plugins/page-and-post-restriction/"'
+  tags: cve,wordpress,wp-plugin,page-and-post-restriction,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/page-and-post-restriction/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "page-and-post-restriction"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.1')
