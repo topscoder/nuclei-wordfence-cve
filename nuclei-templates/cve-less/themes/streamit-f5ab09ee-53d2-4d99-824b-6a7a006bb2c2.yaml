@@ -1,0 +1,51 @@
+id: streamit-f5ab09ee-53d2-4d99-824b-6a7a006bb2c2
+
+info:
+  name: >
+    Streamit <= 4.5.0 - Unauthenticated Remote Code Execution
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f5ab09ee-53d2-4d99-824b-6a7a006bb2c2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/streamit/"
+    google-query: inurl:"/wp-content/themes/streamit/"
+    shodan-query: 'http.html:"wp-content/themes/streamit/"'
+  tags: cve,wordpress,wp-theme,streamit,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/streamit/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "streamit"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.5.0')
