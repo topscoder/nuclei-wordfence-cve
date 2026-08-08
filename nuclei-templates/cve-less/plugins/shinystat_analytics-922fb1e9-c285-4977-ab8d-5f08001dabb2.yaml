@@ -1,0 +1,51 @@
+id: shinystat_analytics-922fb1e9-c285-4977-ab8d-5f08001dabb2
+
+info:
+  name: >
+    ShinyStat Analytics 1.0.12 - 1.0.17 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/922fb1e9-c285-4977-ab8d-5f08001dabb2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/shinystat-analytics/"
+    google-query: inurl:"/wp-content/plugins/shinystat-analytics/"
+    shodan-query: 'http.html:"wp-content/plugins/shinystat-analytics/"'
+  tags: cve,wordpress,wp-plugin,shinystat-analytics,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/shinystat-analytics/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "shinystat-analytics"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.0.12', '<= 1.0.17')
