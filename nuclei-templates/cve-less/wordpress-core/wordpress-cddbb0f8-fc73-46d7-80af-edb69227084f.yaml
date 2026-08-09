@@ -1,0 +1,61 @@
+id: wordpress-cddbb0f8-fc73-46d7-80af-edb69227084f
+
+info:
+  name: >
+    WordPress Core <= 7.0.2 - Unauthenticated Blind Server-Side Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    WordPress Core is vulnerable to Blind Server-Side Request Forgery in all versions up to, and including, 7.0.2 due to insufficient validation of the destination address, as not all reserved and internal IP address ranges are blocked. This makes it possible for unauthenticated attackers to make web requests to arbitrary locations originating from the web application, which can be used to enumerate and interact with internal hosts and services that are otherwise not reachable.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cddbb0f8-fc73-46d7-80af-edb69227084f?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N
+    cvss-score: 5.8
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,medium,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.0.0', '<= 7.0.2')
+          - compare_versions(version_by_js, '>= 7.0.0', '<= 7.0.2')
+          - compare_versions(version_by_css, '>= 7.0.0', '<= 7.0.2')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
