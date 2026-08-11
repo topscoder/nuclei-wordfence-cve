@@ -58,10 +58,10 @@ If you're guarding a WordPress site, this project is your secret weapon to ident
           <tr><th align="left">severity</th><th align="left">total</th></tr>
         </thead>
         <tbody>
-          <tr><td>critical</td><td><a href="https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">7,520</a></td></tr>
+          <tr><td>critical</td><td><a href="https://github.com/search?q=severity%3A+critical+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">7,518</a></td></tr>
           <tr><td>high</td><td><a href="https://github.com/search?q=severity%3A+high+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">12,982</a></td></tr>
           <tr><td>medium</td><td><a href="https://github.com/search?q=severity%3A+medium+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">22,545</a></td></tr>
-          <tr><td>low</td><td><a href="https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">36,404</a></td></tr>
+          <tr><td>low</td><td><a href="https://github.com/search?q=severity%3A+low+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">36,406</a></td></tr>
           <tr><td>info</td><td><a href="https://github.com/search?q=%22severity%3A+info%22+repo%3Atopscoder%2Fnuclei-wordfence-cve+language%3AYAML&type=code&ref=advsearch">0</a></td></tr>
         </tbody>
       </table>
