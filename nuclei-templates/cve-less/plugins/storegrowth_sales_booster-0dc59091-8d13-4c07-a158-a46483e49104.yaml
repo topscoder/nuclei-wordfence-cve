@@ -1,0 +1,51 @@
+id: storegrowth_sales_booster-0dc59091-8d13-4c07-a158-a46483e49104
+
+info:
+  name: >
+    StoreGrowth – Upsell, BOGO, Quick View, Direct Checkout & Side Cart for WooCommerce <= 2.1.1 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0dc59091-8d13-4c07-a158-a46483e49104?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/storegrowth-sales-booster/"
+    google-query: inurl:"/wp-content/plugins/storegrowth-sales-booster/"
+    shodan-query: 'http.html:"wp-content/plugins/storegrowth-sales-booster/"'
+  tags: cve,wordpress,wp-plugin,storegrowth-sales-booster,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/storegrowth-sales-booster/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "storegrowth-sales-booster"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.1.1')
