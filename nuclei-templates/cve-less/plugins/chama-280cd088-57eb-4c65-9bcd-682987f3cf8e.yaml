@@ -1,0 +1,51 @@
+id: chama-280cd088-57eb-4c65-9bcd-682987f3cf8e
+
+info:
+  name: >
+    ChamaWP – Monetize With Donations, Memberships, Crowdfunding, Commissions & Restricted Content < 1.0.13 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/280cd088-57eb-4c65-9bcd-682987f3cf8e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/chama/"
+    google-query: inurl:"/wp-content/plugins/chama/"
+    shodan-query: 'http.html:"wp-content/plugins/chama/"'
+  tags: cve,wordpress,wp-plugin,chama,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/chama/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "chama"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 1.0.13')
