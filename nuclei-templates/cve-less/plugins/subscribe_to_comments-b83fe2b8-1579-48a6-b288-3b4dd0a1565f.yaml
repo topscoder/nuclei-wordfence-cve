@@ -1,0 +1,51 @@
+id: subscribe_to_comments-b83fe2b8-1579-48a6-b288-3b4dd0a1565f
+
+info:
+  name: >
+    Subscribe to Comments <= 2.3.1 - Authenticated (Author+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b83fe2b8-1579-48a6-b288-3b4dd0a1565f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/subscribe-to-comments/"
+    google-query: inurl:"/wp-content/plugins/subscribe-to-comments/"
+    shodan-query: 'http.html:"wp-content/plugins/subscribe-to-comments/"'
+  tags: cve,wordpress,wp-plugin,subscribe-to-comments,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/subscribe-to-comments/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "subscribe-to-comments"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3.1')
