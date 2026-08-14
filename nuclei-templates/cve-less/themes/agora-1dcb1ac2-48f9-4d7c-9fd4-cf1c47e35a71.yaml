@@ -1,0 +1,51 @@
+id: agora-1dcb1ac2-48f9-4d7c-9fd4-cf1c47e35a71
+
+info:
+  name: >
+    Agora — Event & Conference WordPress Theme <= 1.9 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1dcb1ac2-48f9-4d7c-9fd4-cf1c47e35a71?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/agora/"
+    google-query: inurl:"/wp-content/themes/agora/"
+    shodan-query: 'http.html:"wp-content/themes/agora/"'
+  tags: cve,wordpress,wp-theme,agora,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/agora/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "agora"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.9')
