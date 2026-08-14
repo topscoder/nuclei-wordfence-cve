@@ -1,0 +1,51 @@
+id: advanced_nocaptcha_recaptcha-a7c10b81-bdbb-4089-8d89-42ad2a1fa78f
+
+info:
+  name: >
+    CAPTCHA 4WP – Antispam CAPTCHA solution for WordPress <= 7.6.0 - CAPTCHA Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a7c10b81-bdbb-4089-8d89-42ad2a1fa78f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/advanced-nocaptcha-recaptcha/"
+    google-query: inurl:"/wp-content/plugins/advanced-nocaptcha-recaptcha/"
+    shodan-query: 'http.html:"wp-content/plugins/advanced-nocaptcha-recaptcha/"'
+  tags: cve,wordpress,wp-plugin,advanced-nocaptcha-recaptcha,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/advanced-nocaptcha-recaptcha/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "advanced-nocaptcha-recaptcha"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.6.0')
