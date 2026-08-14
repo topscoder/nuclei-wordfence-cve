@@ -1,0 +1,51 @@
+id: wp_health-0d758977-2e78-4395-bd18-7f25aecf8a55
+
+info:
+  name: >
+    WP Umbrella: Security Backup Restore & Monitoring  2.24.2-2.26.2 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0d758977-2e78-4395-bd18-7f25aecf8a55?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-health/"
+    google-query: inurl:"/wp-content/plugins/wp-health/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-health/"'
+  tags: cve,wordpress,wp-plugin,wp-health,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-health/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-health"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.24.2', '<= 2.26.2')
