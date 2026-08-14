@@ -1,0 +1,51 @@
+id: login_social-054da118-b268-4dbf-80d3-5ff885f00500
+
+info:
+  name: >
+    Login Social <= 1.0.4 - Unauthenticated Privilege Escalation via Account Takeover
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/054da118-b268-4dbf-80d3-5ff885f00500?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/login-social/"
+    google-query: inurl:"/wp-content/plugins/login-social/"
+    shodan-query: 'http.html:"wp-content/plugins/login-social/"'
+  tags: cve,wordpress,wp-plugin,login-social,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/login-social/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "login-social"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.4')
