@@ -2,7 +2,7 @@ id: travelpayouts-d8f7b930-dad7-49ce-8826-8c8ab7b390ef
 
 info:
   name: >
-    Travelpayouts <= 1.2.1 - Missing Authorization
+    Travelpayouts <= 1.2.3 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.1')
+          - compare_versions(version, '<= 1.2.3')
