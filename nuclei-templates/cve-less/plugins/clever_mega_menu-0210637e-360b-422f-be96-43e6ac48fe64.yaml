@@ -1,0 +1,51 @@
+id: clever_mega_menu-0210637e-360b-422f-be96-43e6ac48fe64
+
+info:
+  name: >
+    Clever Mega Menu for Visual Composer <= 1.0.1 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0210637e-360b-422f-be96-43e6ac48fe64?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/clever-mega-menu/"
+    google-query: inurl:"/wp-content/plugins/clever-mega-menu/"
+    shodan-query: 'http.html:"wp-content/plugins/clever-mega-menu/"'
+  tags: cve,wordpress,wp-plugin,clever-mega-menu,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/clever-mega-menu/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "clever-mega-menu"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.1')
