@@ -1,0 +1,51 @@
+id: biagiotti_core-b1376596-571a-48d2-bbb7-e6bc69de00ac
+
+info:
+  name: >
+    Biagiotti Core <= 2.1.1 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b1376596-571a-48d2-bbb7-e6bc69de00ac?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/biagiotti-core/"
+    google-query: inurl:"/wp-content/plugins/biagiotti-core/"
+    shodan-query: 'http.html:"wp-content/plugins/biagiotti-core/"'
+  tags: cve,wordpress,wp-plugin,biagiotti-core,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/biagiotti-core/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "biagiotti-core"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.1.1')
