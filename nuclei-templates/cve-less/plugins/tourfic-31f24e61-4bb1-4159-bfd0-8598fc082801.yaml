@@ -1,0 +1,51 @@
+id: tourfic-31f24e61-4bb1-4159-bfd0-8598fc082801
+
+info:
+  name: >
+    Tourfic – AI Powered Travel Booking, Hotel Booking & Car Rental WordPress Plugin <= 2.23.1 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/31f24e61-4bb1-4159-bfd0-8598fc082801?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/tourfic/"
+    google-query: inurl:"/wp-content/plugins/tourfic/"
+    shodan-query: 'http.html:"wp-content/plugins/tourfic/"'
+  tags: cve,wordpress,wp-plugin,tourfic,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/tourfic/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tourfic"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.23.1')
