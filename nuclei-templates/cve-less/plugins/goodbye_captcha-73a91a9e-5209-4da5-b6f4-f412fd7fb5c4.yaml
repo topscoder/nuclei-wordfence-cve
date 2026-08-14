@@ -1,0 +1,51 @@
+id: goodbye_captcha-73a91a9e-5209-4da5-b6f4-f412fd7fb5c4
+
+info:
+  name: >
+    WPBruiser {no- Captcha anti-Spam} <= 3.1.43 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/73a91a9e-5209-4da5-b6f4-f412fd7fb5c4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/goodbye-captcha/"
+    google-query: inurl:"/wp-content/plugins/goodbye-captcha/"
+    shodan-query: 'http.html:"wp-content/plugins/goodbye-captcha/"'
+  tags: cve,wordpress,wp-plugin,goodbye-captcha,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/goodbye-captcha/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "goodbye-captcha"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.1.43')
