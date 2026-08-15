@@ -2,7 +2,7 @@ id: activello-d4c1add9-2141-4221-889b-f9b0efebd6c7
 
 info:
   name: >
-    Activello <= 1.4.4 - Reflected Cross-Site Scripting
+    Activello <= 1.4.6 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.4')
+          - compare_versions(version, '<= 1.4.6')
