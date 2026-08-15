@@ -1,0 +1,51 @@
+id: object_sync_for_salesforce-78f964a7-bed3-435e-94c5-750883a0c836
+
+info:
+  name: >
+    Object Sync for Salesforce <= 2.2.13 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/78f964a7-bed3-435e-94c5-750883a0c836?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/object-sync-for-salesforce/"
+    google-query: inurl:"/wp-content/plugins/object-sync-for-salesforce/"
+    shodan-query: 'http.html:"wp-content/plugins/object-sync-for-salesforce/"'
+  tags: cve,wordpress,wp-plugin,object-sync-for-salesforce,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/object-sync-for-salesforce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "object-sync-for-salesforce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.2.13')
