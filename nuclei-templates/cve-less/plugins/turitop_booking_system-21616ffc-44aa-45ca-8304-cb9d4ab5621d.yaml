@@ -2,7 +2,7 @@ id: turitop_booking_system-21616ffc-44aa-45ca-8304-cb9d4ab5621d
 
 info:
   name: >
-    TuriTop Booking System <= 1.0.10 - Missing Authorization
+    TuriTop Booking System <= 1.0.17 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.10')
+          - compare_versions(version, '<= 1.0.17')
