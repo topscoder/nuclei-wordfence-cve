@@ -1,0 +1,51 @@
+id: image_uploader_for_welcart-462da6ba-c558-4ce8-b26c-df69d086d592
+
+info:
+  name: >
+    Image Uploader for Welcart <= 1.4.6 - Authenticated (Author+) SQL Injection via Attachment 'post_title' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/462da6ba-c558-4ce8-b26c-df69d086d592?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/image-uploader-for-welcart/"
+    google-query: inurl:"/wp-content/plugins/image-uploader-for-welcart/"
+    shodan-query: 'http.html:"wp-content/plugins/image-uploader-for-welcart/"'
+  tags: cve,wordpress,wp-plugin,image-uploader-for-welcart,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/image-uploader-for-welcart/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "image-uploader-for-welcart"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.6')
