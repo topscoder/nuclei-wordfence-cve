@@ -2,7 +2,7 @@ id: ai_copilot_content_generator-74c71541-6706-43d2-af3d-0655e59f997c
 
 info:
   name: >
-    AI Chatbot & Workflow Automation by AIWU <= 1.4.17 - Unauthenticated SQL Injection in getListForTbl()
+    AI Chatbot & Workflow Automation by AIWU <= 1.5.6 - Unauthenticated SQL Injection in getListForTbl()
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.17')
+          - compare_versions(version, '<= 1.5.6')
