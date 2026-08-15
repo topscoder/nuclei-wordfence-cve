@@ -2,7 +2,7 @@ id: employee_directory-a32842ff-8d5c-4467-acd2-7beeb933fb0d
 
 info:
   name: >
-    Employee Directory – Staff Listing &amp; Team Directory Plugin for WordPress <= 4.5.3 - Unauthenticated PHP Object Injection
+    Employee Directory – Staff Listing &amp; Team Directory Plugin for WordPress <= 4.5.5 - Unauthenticated PHP Object Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.5.3')
+          - compare_versions(version, '<= 4.5.5')
