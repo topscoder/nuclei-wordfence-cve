@@ -2,7 +2,7 @@ id: squirrly_seo-afb58149-cff0-4911-8322-c608fc00adf4
 
 info:
   name: >
-    GEO Plugin by Squirrly SEO <= 14.1.1 - Reflected Cross-Site Scripting
+    GEO Plugin by Squirrly SEO <= 14.2.0 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 14.1.1')
+          - compare_versions(version, '<= 14.2.0')
