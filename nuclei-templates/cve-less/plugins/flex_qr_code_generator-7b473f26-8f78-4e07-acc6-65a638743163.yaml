@@ -2,7 +2,7 @@ id: flex_qr_code_generator-7b473f26-8f78-4e07-acc6-65a638743163
 
 info:
   name: >
-    Flex QR Code Generator <= 1.2.10 - Authenticated (Author+) Stored Cross-Site Scripting
+    Flex QR Code Generator <= 1.2.11 - Authenticated (Author+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.10')
+          - compare_versions(version, '<= 1.2.11')
