@@ -2,7 +2,7 @@ id: page_views_count-58c35a21-1416-4926-a4ea-9c4fa3363114
 
 info:
   name: >
-    Page View Count <= 2.8.7 - Missing Authorization to Authenticated (Subscriber+) Settings Update
+    Page View Count <= 2.9.1 - Missing Authorization to Authenticated (Subscriber+) Settings Update
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.8.7')
+          - compare_versions(version, '<= 2.9.1')
