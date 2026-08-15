@@ -1,0 +1,51 @@
+id: propovoice-6a39e4d4-890d-46f9-8bb9-0fc858e6f1e2
+
+info:
+  name: >
+    Propovoice: All-in-One Client Management System <= 1.7.8 - Authenticated (ndpv_manager+) Privilege Escalation via 'role' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6a39e4d4-890d-46f9-8bb9-0fc858e6f1e2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/propovoice/"
+    google-query: inurl:"/wp-content/plugins/propovoice/"
+    shodan-query: 'http.html:"wp-content/plugins/propovoice/"'
+  tags: cve,wordpress,wp-plugin,propovoice,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/propovoice/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "propovoice"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.8')
