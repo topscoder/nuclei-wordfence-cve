@@ -2,7 +2,7 @@ id: universam_demo-c0680c2e-5983-4866-ad53-b35bed384d00
 
 info:
   name: >
-    UNIVERSAM <= 8.72.34 - Unauthenticated PHP Object Injection
+    UNIVERSAM < 9.08 - Unauthenticated PHP Object Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 8.72.34')
+          - compare_versions(version, '< 9.08')
