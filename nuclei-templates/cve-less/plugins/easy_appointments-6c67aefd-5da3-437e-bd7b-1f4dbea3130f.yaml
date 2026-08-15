@@ -2,7 +2,7 @@ id: easy_appointments-6c67aefd-5da3-437e-bd7b-1f4dbea3130f
 
 info:
   name: >
-    Easy Appointments <= 3.12.26 - Missing Authorization
+    Easy Appointments < 3.12.28 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.12.26')
+          - compare_versions(version, '< 3.12.28')
