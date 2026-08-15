@@ -2,7 +2,7 @@ id: easy_appointments-19544e08-fa14-4251-bcc2-e46ebccca075
 
 info:
   name: >
-    Easy Appointments <= 3.12.26 - Authenticated (Subscriber+) Information Exposure
+    Easy Appointments < 3.12.28 - Authenticated (Subscriber+) Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.12.26')
+          - compare_versions(version, '< 3.12.28')
