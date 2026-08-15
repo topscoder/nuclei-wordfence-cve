@@ -2,7 +2,7 @@ id: seo_booster-4f169b22-8bfd-490b-9e2c-49c2a045f35b
 
 info:
   name: >
-    SEO Booster <= 6.1.8 - Missing Authorization
+    SEO Booster <= 7.3.2 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.1.8')
+          - compare_versions(version, '<= 7.3.2')
