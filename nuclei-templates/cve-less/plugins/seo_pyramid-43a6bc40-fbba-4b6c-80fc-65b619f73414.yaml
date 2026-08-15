@@ -2,7 +2,7 @@ id: seo_pyramid-43a6bc40-fbba-4b6c-80fc-65b619f73414
 
 info:
   name: >
-    SEO Pyramid <= 1.9.8 - Reflected Cross-Site Scripting
+    SEO Pyramid <= 1.10.0 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.9.8')
+          - compare_versions(version, '<= 1.10.0')
