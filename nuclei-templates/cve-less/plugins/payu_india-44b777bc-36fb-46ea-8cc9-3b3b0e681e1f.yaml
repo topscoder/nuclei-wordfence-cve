@@ -2,7 +2,7 @@ id: payu_india-44b777bc-36fb-46ea-8cc9-3b3b0e681e1f
 
 info:
   name: >
-    PayU CommercePro <= 3.8.9 - Missing Authorization
+    PayU CommercePro < 3.9.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.9')
+          - compare_versions(version, '< 3.9.0')
