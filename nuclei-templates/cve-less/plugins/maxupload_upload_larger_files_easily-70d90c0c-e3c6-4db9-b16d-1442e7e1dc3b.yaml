@@ -1,0 +1,51 @@
+id: maxupload_upload_larger_files_easily-70d90c0c-e3c6-4db9-b16d-1442e7e1dc3b
+
+info:
+  name: >
+    MaxUpload <= 1.4.0 - Unauthenticated Arbitrary File Upload via 'resumableFilename' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/70d90c0c-e3c6-4db9-b16d-1442e7e1dc3b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/maxupload-upload-larger-files-easily/"
+    google-query: inurl:"/wp-content/plugins/maxupload-upload-larger-files-easily/"
+    shodan-query: 'http.html:"wp-content/plugins/maxupload-upload-larger-files-easily/"'
+  tags: cve,wordpress,wp-plugin,maxupload-upload-larger-files-easily,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/maxupload-upload-larger-files-easily/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "maxupload-upload-larger-files-easily"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.0')
