@@ -2,7 +2,7 @@ id: kirki-7ff92bf8-371e-4d47-881c-a0f9eadc5061
 
 info:
   name: >
-    Kirki – Freeform Page Builder, Website Builder & Customizer <= 6.1.1 - Missing Authorization
+    Kirki – Freeform Page Builder, Website Builder & Customizer <= 6.2.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.1.1')
+          - compare_versions(version, '<= 6.2.0')
