@@ -2,7 +2,7 @@ id: user_management-ac23cd7d-193d-4fa1-8c1c-79ca92da98d7
 
 info:
   name: >
-    User Management <= 1.2 - Authenticated (Subscriber+) Privilege Escalation
+    User Management <= 1.1 - Authenticated (Subscriber+) Privilege Escalation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2')
+          - compare_versions(version, '<= 1.1')
