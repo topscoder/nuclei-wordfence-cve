@@ -2,7 +2,7 @@ id: bold_page_builder-64f30329-ecf2-4e30-bc23-9d447e239e08
 
 info:
   name: >
-    Bold Builder <= 5.5.1 - Authenticated (Contributor+) Stored Cross-Site Scripting via bt_bb_tabs Shortcode
+    Bold Builder <= 5.5.3 - Authenticated (Contributor+) Stored Cross-Site Scripting via bt_bb_tabs Shortcode
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.5.1')
+          - compare_versions(version, '<= 5.5.3')
