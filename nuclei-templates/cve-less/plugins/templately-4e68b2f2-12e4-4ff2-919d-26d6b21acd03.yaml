@@ -1,0 +1,51 @@
+id: templately-4e68b2f2-12e4-4ff2-919d-26d6b21acd03
+
+info:
+  name: >
+    Templately <= 3.7.1 - Authenticated (Contributor+) Arbitrary File Upload to Remote Code Execution via Gutenberg Cloud Import Attachment Filename Mismatch
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4e68b2f2-12e4-4ff2-919d-26d6b21acd03?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/templately/"
+    google-query: inurl:"/wp-content/plugins/templately/"
+    shodan-query: 'http.html:"wp-content/plugins/templately/"'
+  tags: cve,wordpress,wp-plugin,templately,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/templately/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "templately"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.7.1')
