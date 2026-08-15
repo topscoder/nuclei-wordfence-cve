@@ -2,7 +2,7 @@ id: maio_the_new_ai_geo_seo_tool-dacbf63f-a68d-405e-ae98-a6800b0880c7
 
 info:
   name: >
-    MAIO – The new AI GEO / SEO tool <= 6.5.2 - Missing Authorization
+    MAIO – The new AI GEO / SEO tool <= 7.0.11 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.5.2')
+          - compare_versions(version, '<= 7.0.11')
