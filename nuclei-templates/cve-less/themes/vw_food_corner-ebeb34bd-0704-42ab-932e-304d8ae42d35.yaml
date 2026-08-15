@@ -2,7 +2,7 @@ id: vw_food_corner-ebeb34bd-0704-42ab-932e-304d8ae42d35
 
 info:
   name: >
-    VW Food Corner <= 1.1.0 - Missing Authorization
+    VW Food Corner <= 1.0.4 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.0')
+          - compare_versions(version, '<= 1.0.4')
