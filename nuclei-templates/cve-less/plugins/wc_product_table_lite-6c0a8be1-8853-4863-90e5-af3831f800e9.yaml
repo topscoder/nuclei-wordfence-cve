@@ -1,0 +1,51 @@
+id: wc_product_table_lite-6c0a8be1-8853-4863-90e5-af3831f800e9
+
+info:
+  name: >
+    Product Table & List Builder For WooCommerce <= 5.6.0 - Unauthenticated CSS Injection via 'laptop_scroll_offset' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6c0a8be1-8853-4863-90e5-af3831f800e9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wc-product-table-lite/"
+    google-query: inurl:"/wp-content/plugins/wc-product-table-lite/"
+    shodan-query: 'http.html:"wp-content/plugins/wc-product-table-lite/"'
+  tags: cve,wordpress,wp-plugin,wc-product-table-lite,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wc-product-table-lite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wc-product-table-lite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.6.0')
