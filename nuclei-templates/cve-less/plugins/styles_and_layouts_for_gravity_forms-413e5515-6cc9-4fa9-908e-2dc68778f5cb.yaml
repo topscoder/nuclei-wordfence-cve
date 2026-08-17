@@ -1,0 +1,51 @@
+id: styles_and_layouts_for_gravity_forms-413e5515-6cc9-4fa9-908e-2dc68778f5cb
+
+info:
+  name: >
+    Gravity Booster <= 5.26 - Authenticated (Editor+) Stored Cross-Site Scripting via 'stylerSettings' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/413e5515-6cc9-4fa9-908e-2dc68778f5cb?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/styles-and-layouts-for-gravity-forms/"
+    google-query: inurl:"/wp-content/plugins/styles-and-layouts-for-gravity-forms/"
+    shodan-query: 'http.html:"wp-content/plugins/styles-and-layouts-for-gravity-forms/"'
+  tags: cve,wordpress,wp-plugin,styles-and-layouts-for-gravity-forms,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/styles-and-layouts-for-gravity-forms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "styles-and-layouts-for-gravity-forms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.26')
