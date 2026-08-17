@@ -2,7 +2,7 @@ id: wp_lister_for_ebay-cec0d64e-7b31-4484-8237-2ab4d730ab86
 
 info:
   name: >
-    WP-Lister Lite for eBay <= 3.8.8 - Authenticated (Administrator+) SQL Injection via 'orderby' Parameter
+    WP-Lister Lite for eBay <= 3.8.8 - Authenticated (Shop Manager+) SQL Injection via 'orderby' Parameter
   author: topscoder
   severity: low
   description: >
