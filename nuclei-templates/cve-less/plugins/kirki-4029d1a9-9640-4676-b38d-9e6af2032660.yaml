@@ -1,0 +1,51 @@
+id: kirki-4029d1a9-9640-4676-b38d-9e6af2032660
+
+info:
+  name: >
+    Kirki <= 6.0.12 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4029d1a9-9640-4676-b38d-9e6af2032660?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/kirki/"
+    google-query: inurl:"/wp-content/plugins/kirki/"
+    shodan-query: 'http.html:"wp-content/plugins/kirki/"'
+  tags: cve,wordpress,wp-plugin,kirki,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/kirki/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "kirki"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.0.12')
