@@ -1,0 +1,51 @@
+id: fullscreen_galleria-48d6cd72-6a38-403b-9a8f-960e99d8801f
+
+info:
+  name: >
+    Fullscreen Galleria <= 1.6.12 - Authenticated (Contributor+) SQL Injection via 'href' Attribute in Post Content
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/48d6cd72-6a38-403b-9a8f-960e99d8801f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fullscreen-galleria/"
+    google-query: inurl:"/wp-content/plugins/fullscreen-galleria/"
+    shodan-query: 'http.html:"wp-content/plugins/fullscreen-galleria/"'
+  tags: cve,wordpress,wp-plugin,fullscreen-galleria,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fullscreen-galleria/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fullscreen-galleria"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.6.12')
