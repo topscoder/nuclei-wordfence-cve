@@ -1,0 +1,51 @@
+id: lightbox_photoswipe-22a79d2b-44f8-406d-baea-8bfba291b462
+
+info:
+  name: >
+    Lightbox with PhotoSwipe <= 5.8.0 - Authenticated (Author+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/22a79d2b-44f8-406d-baea-8bfba291b462?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/lightbox-photoswipe/"
+    google-query: inurl:"/wp-content/plugins/lightbox-photoswipe/"
+    shodan-query: 'http.html:"wp-content/plugins/lightbox-photoswipe/"'
+  tags: cve,wordpress,wp-plugin,lightbox-photoswipe,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/lightbox-photoswipe/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "lightbox-photoswipe"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.8.0')
