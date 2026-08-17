@@ -2,7 +2,7 @@ id: simple_urls-ba67cfbc-8bdf-4ca1-acee-0d1bb0348c60
 
 info:
   name: >
-    Simple URLs – Link Cloaking, Product Displays, and Affiliate Link Management <= 151 - Authenticated (Author+) Stored Cross-Site Scripting
+    Simple URLs – Link Cloaking, Product Displays, and Affiliate Link Management <= 152 - Authenticated (Author+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 151')
+          - compare_versions(version, '<= 152')
