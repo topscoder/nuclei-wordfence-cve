@@ -1,0 +1,51 @@
+id: chama-d3f3fc78-0255-4c0a-8ee0-c2ccea28929f
+
+info:
+  name: >
+    Chama <= 1.0.12 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d3f3fc78-0255-4c0a-8ee0-c2ccea28929f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/chama/"
+    google-query: inurl:"/wp-content/plugins/chama/"
+    shodan-query: 'http.html:"wp-content/plugins/chama/"'
+  tags: cve,wordpress,wp-plugin,chama,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/chama/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "chama"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.12')
