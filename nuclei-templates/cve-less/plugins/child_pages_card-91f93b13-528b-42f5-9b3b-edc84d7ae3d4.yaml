@@ -1,0 +1,51 @@
+id: child_pages_card-91f93b13-528b-42f5-9b3b-edc84d7ae3d4
+
+info:
+  name: >
+    Child Pages Card <= 1.8 - Authenticated (Contributor+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/91f93b13-528b-42f5-9b3b-edc84d7ae3d4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/child-pages-card/"
+    google-query: inurl:"/wp-content/plugins/child-pages-card/"
+    shodan-query: 'http.html:"wp-content/plugins/child-pages-card/"'
+  tags: cve,wordpress,wp-plugin,child-pages-card,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/child-pages-card/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "child-pages-card"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.8')
