@@ -2,7 +2,7 @@ id: armember-ac106300-c351-483d-8877-502a4b02941c
 
 info:
   name: >
-    ARMember Premium – Membership Plugin, Content Restriction, Member Levels, User Profile & User signup <= 7.0 - Authenticated (Contributor+) PHP Object Injection
+    ARMember Premium – Membership Plugin, Content Restriction, Member Levels, User Profile & User signup <= 7.5 - Authenticated (Contributor+) PHP Object Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.0')
+          - compare_versions(version, '<= 7.5')
