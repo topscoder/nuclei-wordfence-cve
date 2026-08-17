@@ -1,0 +1,51 @@
+id: query_wrangler-2f9faa56-c550-465f-b0b0-8bf58f5e8d7a
+
+info:
+  name: >
+    Query Wrangler <= 1.5.57 - Authenticated (Subscriber+) Remote Code Execution via 'options' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2f9faa56-c550-465f-b0b0-8bf58f5e8d7a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/query-wrangler/"
+    google-query: inurl:"/wp-content/plugins/query-wrangler/"
+    shodan-query: 'http.html:"wp-content/plugins/query-wrangler/"'
+  tags: cve,wordpress,wp-plugin,query-wrangler,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/query-wrangler/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "query-wrangler"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.57')
