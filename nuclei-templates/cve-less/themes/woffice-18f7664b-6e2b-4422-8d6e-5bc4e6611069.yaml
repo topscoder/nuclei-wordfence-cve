@@ -2,7 +2,7 @@ id: woffice-18f7664b-6e2b-4422-8d6e-5bc4e6611069
 
 info:
   name: >
-    Woffice CRM <= 5.4.31 - Missing Authorization
+    Woffice CRM <= 5.4.32 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.4.31')
+          - compare_versions(version, '<= 5.4.32')
