@@ -2,7 +2,7 @@ id: mega_store_woocommerce-cbe3ce13-ce92-423f-b190-1b2c3dc74b82
 
 info:
   name: >
-    Mega Store Woocommerce <= 5.9 - Missing Authorization to Authenticated (Subscriber+) Arbitrary Page Creation and Settings Change
+    Mega Store Woocommerce <= 6.4.2 - Missing Authorization to Authenticated (Subscriber+) Arbitrary Page Creation and Settings Change
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.9')
+          - compare_versions(version, '<= 6.4.2')
