@@ -2,7 +2,7 @@ id: wishlist_member_x-961b9872-e602-49a7-a11a-566f3cd4bd0a
 
 info:
   name: >
-    WishList Member X <= 3.29.0 - Missing Authorization
+    WishList Member X <= 3.32.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.29.0')
+          - compare_versions(version, '<= 3.32.0')
