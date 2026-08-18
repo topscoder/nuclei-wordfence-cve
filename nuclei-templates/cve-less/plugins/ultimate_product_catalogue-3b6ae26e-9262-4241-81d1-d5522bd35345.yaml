@@ -2,7 +2,7 @@ id: ultimate_product_catalogue-3b6ae26e-9262-4241-81d1-d5522bd35345
 
 info:
   name: >
-    Ultimate Product Catalog <= 3.8.6 - Authenticated (Contributor+) Arbitrary File Upload
+    Ultimate Product Catalog <= 4.4.48 - Authenticated (Contributor+) Arbitrary File Upload
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.6')
+          - compare_versions(version, '<= 4.4.48')
