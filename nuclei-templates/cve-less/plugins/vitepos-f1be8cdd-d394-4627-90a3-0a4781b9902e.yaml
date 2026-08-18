@@ -1,0 +1,51 @@
+id: vitepos-f1be8cdd-d394-4627-90a3-0a4781b9902e
+
+info:
+  name: >
+    Vitepos <= 3.5.0 - Authenticated (Administrator+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f1be8cdd-d394-4627-90a3-0a4781b9902e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/vitepos/"
+    google-query: inurl:"/wp-content/plugins/vitepos/"
+    shodan-query: 'http.html:"wp-content/plugins/vitepos/"'
+  tags: cve,wordpress,wp-plugin,vitepos,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/vitepos/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "vitepos"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.5.0')
