@@ -2,7 +2,7 @@ id: eventer-bc656765-1eac-4a96-99e9-c22d64984923
 
 info:
   name: >
-    Eventer <= 4.4.2 - Insecure Password Reset Mechanism to Unauthenticated Privilege Escalation
+    Eventer <= 4.4.4 - Insecure Password Reset Mechanism to Unauthenticated Privilege Escalation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.4.2')
+          - compare_versions(version, '<= 4.4.4')
