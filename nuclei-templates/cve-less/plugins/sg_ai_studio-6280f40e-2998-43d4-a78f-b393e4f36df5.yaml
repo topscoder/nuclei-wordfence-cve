@@ -1,0 +1,51 @@
+id: sg_ai_studio-6280f40e-2998-43d4-a78f-b393e4f36df5
+
+info:
+  name: >
+    AI Agent by SiteGround <= 1.2.7 - Missing Authorization to Authenticated (Contributor+) Arbitrary Media Upload via /generate-content REST Endpoint
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6280f40e-2998-43d4-a78f-b393e4f36df5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/sg-ai-studio/"
+    google-query: inurl:"/wp-content/plugins/sg-ai-studio/"
+    shodan-query: 'http.html:"wp-content/plugins/sg-ai-studio/"'
+  tags: cve,wordpress,wp-plugin,sg-ai-studio,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/sg-ai-studio/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "sg-ai-studio"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.7')
