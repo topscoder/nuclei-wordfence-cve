@@ -1,0 +1,51 @@
+id: elementor_pro-0a32b02f-db40-42fe-b46c-4a5f2bc9ba09
+
+info:
+  name: >
+    Elementor Pro <= 4.2.1 - Unauthenticated Arbitrary File Upload via Upload Field Array Validation Bypass
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0a32b02f-db40-42fe-b46c-4a5f2bc9ba09?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/elementor-pro/"
+    google-query: inurl:"/wp-content/plugins/elementor-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/elementor-pro/"'
+  tags: cve,wordpress,wp-plugin,elementor-pro,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/elementor-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "elementor-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.2.1')
