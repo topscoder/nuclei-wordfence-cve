@@ -1,0 +1,51 @@
+id: woo_paypal_gateway-2c1292c2-88be-40f8-8c4f-58a212d5d588
+
+info:
+  name: >
+    Payment Gateway for PayPal on WooCommerce < 9.2.1 - Unauthenticated Payment Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2c1292c2-88be-40f8-8c4f-58a212d5d588?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-paypal-gateway/"
+    google-query: inurl:"/wp-content/plugins/woo-paypal-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-paypal-gateway/"'
+  tags: cve,wordpress,wp-plugin,woo-paypal-gateway,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-paypal-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-paypal-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 9.2.1')
