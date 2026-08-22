@@ -1,0 +1,51 @@
+id: content_protector-fbd74378-ce7b-4438-81d4-fc164005a832
+
+info:
+  name: >
+    Content Protector (Passster) <= 4.3.5 - Unauthenticated Category-Locked Content Disclosure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fbd74378-ce7b-4438-81d4-fc164005a832?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/content-protector/"
+    google-query: inurl:"/wp-content/plugins/content-protector/"
+    shodan-query: 'http.html:"wp-content/plugins/content-protector/"'
+  tags: cve,wordpress,wp-plugin,content-protector,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/content-protector/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "content-protector"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.3.5')
