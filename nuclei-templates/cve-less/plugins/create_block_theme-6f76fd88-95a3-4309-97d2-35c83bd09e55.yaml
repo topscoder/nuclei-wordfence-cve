@@ -1,0 +1,51 @@
+id: create_block_theme-6f76fd88-95a3-4309-97d2-35c83bd09e55
+
+info:
+  name: >
+    Create Block <= 2.9.0 - Code Injection to Authenticated (Admin+) PHP Code Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6f76fd88-95a3-4309-97d2-35c83bd09e55?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/create-block-theme/"
+    google-query: inurl:"/wp-content/plugins/create-block-theme/"
+    shodan-query: 'http.html:"wp-content/plugins/create-block-theme/"'
+  tags: cve,wordpress,wp-plugin,create-block-theme,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/create-block-theme/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "create-block-theme"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.9.0')
