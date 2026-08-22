@@ -1,0 +1,51 @@
+id: wp_easy_pay-ec3e7a3b-a9c9-48d4-b2f5-e4090a15ef1f
+
+info:
+  name: >
+    EasyPay <= 4.3.0 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ec3e7a3b-a9c9-48d4-b2f5-e4090a15ef1f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-easy-pay/"
+    google-query: inurl:"/wp-content/plugins/wp-easy-pay/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-easy-pay/"'
+  tags: cve,wordpress,wp-plugin,wp-easy-pay,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-easy-pay/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-easy-pay"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.3.0')
