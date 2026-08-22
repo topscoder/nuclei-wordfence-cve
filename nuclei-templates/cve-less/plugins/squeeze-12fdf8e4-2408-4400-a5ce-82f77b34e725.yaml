@@ -1,0 +1,51 @@
+id: squeeze-12fdf8e4-2408-4400-a5ce-82f77b34e725
+
+info:
+  name: >
+    Squeeze <= 1.7.11 - Authenticated (Author+) Arbitrary File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/12fdf8e4-2408-4400-a5ce-82f77b34e725?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/squeeze/"
+    google-query: inurl:"/wp-content/plugins/squeeze/"
+    shodan-query: 'http.html:"wp-content/plugins/squeeze/"'
+  tags: cve,wordpress,wp-plugin,squeeze,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/squeeze/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "squeeze"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.11')
