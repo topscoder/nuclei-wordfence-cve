@@ -1,0 +1,51 @@
+id: capella-5913ad4d-ef24-44e5-8e4a-f740efadeeb4
+
+info:
+  name: >
+    Capella | Restaurant WordPress <= 2.5.5 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5913ad4d-ef24-44e5-8e4a-f740efadeeb4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/capella/"
+    google-query: inurl:"/wp-content/themes/capella/"
+    shodan-query: 'http.html:"wp-content/themes/capella/"'
+  tags: cve,wordpress,wp-theme,capella,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/capella/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "capella"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.5.5')
