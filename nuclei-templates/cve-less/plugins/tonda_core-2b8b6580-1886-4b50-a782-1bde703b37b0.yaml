@@ -1,0 +1,51 @@
+id: tonda_core-2b8b6580-1886-4b50-a782-1bde703b37b0
+
+info:
+  name: >
+    Tonda Core < 2.6 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2b8b6580-1886-4b50-a782-1bde703b37b0?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/tonda-core/"
+    google-query: inurl:"/wp-content/plugins/tonda-core/"
+    shodan-query: 'http.html:"wp-content/plugins/tonda-core/"'
+  tags: cve,wordpress,wp-plugin,tonda-core,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/tonda-core/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tonda-core"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.6')
