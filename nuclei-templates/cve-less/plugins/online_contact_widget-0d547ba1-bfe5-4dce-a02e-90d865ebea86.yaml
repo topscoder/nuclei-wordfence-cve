@@ -1,0 +1,51 @@
+id: online_contact_widget-0d547ba1-bfe5-4dce-a02e-90d865ebea86
+
+info:
+  name: >
+    Online Contact Widget-多合一在线客服插件 <= 1.3.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0d547ba1-bfe5-4dce-a02e-90d865ebea86?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/online-contact-widget/"
+    google-query: inurl:"/wp-content/plugins/online-contact-widget/"
+    shodan-query: 'http.html:"wp-content/plugins/online-contact-widget/"'
+  tags: cve,wordpress,wp-plugin,online-contact-widget,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/online-contact-widget/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "online-contact-widget"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.0')
