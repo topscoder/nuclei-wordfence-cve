@@ -1,0 +1,51 @@
+id: media_sweep-c42139fc-34a2-47ae-b172-d2cd4f1cf098
+
+info:
+  name: >
+    Media Sweep <= 1.1.3 - Authenticated (Administrator+) SQL Injection via 'fields' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c42139fc-34a2-47ae-b172-d2cd4f1cf098?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/media-sweep/"
+    google-query: inurl:"/wp-content/plugins/media-sweep/"
+    shodan-query: 'http.html:"wp-content/plugins/media-sweep/"'
+  tags: cve,wordpress,wp-plugin,media-sweep,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/media-sweep/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "media-sweep"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.3')
