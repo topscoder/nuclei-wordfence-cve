@@ -1,0 +1,51 @@
+id: tonda-d58fd738-44a5-4f92-b9de-8213fc4d2db0
+
+info:
+  name: >
+    Tonda - Elegant Shop WordPress Theme < 2.6 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d58fd738-44a5-4f92-b9de-8213fc4d2db0?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/tonda/"
+    google-query: inurl:"/wp-content/themes/tonda/"
+    shodan-query: 'http.html:"wp-content/themes/tonda/"'
+  tags: cve,wordpress,wp-theme,tonda,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/tonda/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tonda"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.6')
