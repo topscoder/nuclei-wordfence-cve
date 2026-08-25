@@ -1,0 +1,51 @@
+id: pdf_smart_viewer_for_elementor-725c7fb0-68db-4716-b7a3-150ffe5610ca
+
+info:
+  name: >
+    PDF Smart Viewer for Elementor <= 1.0.4 - Unauthenticated Server-Side Request Forgery
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/725c7fb0-68db-4716-b7a3-150ffe5610ca?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pdf-smart-viewer-for-elementor/"
+    google-query: inurl:"/wp-content/plugins/pdf-smart-viewer-for-elementor/"
+    shodan-query: 'http.html:"wp-content/plugins/pdf-smart-viewer-for-elementor/"'
+  tags: cve,wordpress,wp-plugin,pdf-smart-viewer-for-elementor,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pdf-smart-viewer-for-elementor/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pdf-smart-viewer-for-elementor"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.4')
