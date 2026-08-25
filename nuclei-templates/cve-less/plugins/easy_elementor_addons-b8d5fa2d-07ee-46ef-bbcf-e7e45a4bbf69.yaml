@@ -1,0 +1,51 @@
+id: easy_elementor_addons-b8d5fa2d-07ee-46ef-bbcf-e7e45a4bbf69
+
+info:
+  name: >
+    Easy Elementor Addons – Addons Pack for Elementor Page Builder <= 2.3.7 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b8d5fa2d-07ee-46ef-bbcf-e7e45a4bbf69?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/easy-elementor-addons/"
+    google-query: inurl:"/wp-content/plugins/easy-elementor-addons/"
+    shodan-query: 'http.html:"wp-content/plugins/easy-elementor-addons/"'
+  tags: cve,wordpress,wp-plugin,easy-elementor-addons,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/easy-elementor-addons/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "easy-elementor-addons"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3.7')
