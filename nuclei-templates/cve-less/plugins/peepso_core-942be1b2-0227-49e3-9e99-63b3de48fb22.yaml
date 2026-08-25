@@ -1,0 +1,51 @@
+id: peepso_core-942be1b2-0227-49e3-9e99-63b3de48fb22
+
+info:
+  name: >
+    Community by PeepSo – Download from PeepSo.com <= 9.0.5.2 - Authenticated (Subscriber+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/942be1b2-0227-49e3-9e99-63b3de48fb22?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/peepso-core/"
+    google-query: inurl:"/wp-content/plugins/peepso-core/"
+    shodan-query: 'http.html:"wp-content/plugins/peepso-core/"'
+  tags: cve,wordpress,wp-plugin,peepso-core,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/peepso-core/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "peepso-core"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 9.0.5.2')
