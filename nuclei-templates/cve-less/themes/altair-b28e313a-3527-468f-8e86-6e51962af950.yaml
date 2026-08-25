@@ -1,0 +1,51 @@
+id: altair-b28e313a-3527-468f-8e86-6e51962af950
+
+info:
+  name: >
+    Altair <= 5.2.2 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b28e313a-3527-468f-8e86-6e51962af950?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/altair/"
+    google-query: inurl:"/wp-content/themes/altair/"
+    shodan-query: 'http.html:"wp-content/themes/altair/"'
+  tags: cve,wordpress,wp-theme,altair,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/altair/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "altair"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.2.2')
