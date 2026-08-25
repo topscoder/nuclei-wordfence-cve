@@ -1,0 +1,51 @@
+id: catfolders_document_gallery-c12cca1e-2d6a-4946-bff7-bb71e570e9d5
+
+info:
+  name: >
+    CatFolders Document Gallery & PDF Library < 2.0.7 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c12cca1e-2d6a-4946-bff7-bb71e570e9d5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/catfolders-document-gallery/"
+    google-query: inurl:"/wp-content/plugins/catfolders-document-gallery/"
+    shodan-query: 'http.html:"wp-content/plugins/catfolders-document-gallery/"'
+  tags: cve,wordpress,wp-plugin,catfolders-document-gallery,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/catfolders-document-gallery/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "catfolders-document-gallery"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.0.7')
