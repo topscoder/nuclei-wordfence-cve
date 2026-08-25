@@ -1,0 +1,51 @@
+id: outranking-51df33a7-d04d-4c47-aba8-d174e2a40170
+
+info:
+  name: >
+    Outranking Plugin Options <= 1.1.3 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/51df33a7-d04d-4c47-aba8-d174e2a40170?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/outranking/"
+    google-query: inurl:"/wp-content/plugins/outranking/"
+    shodan-query: 'http.html:"wp-content/plugins/outranking/"'
+  tags: cve,wordpress,wp-plugin,outranking,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/outranking/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "outranking"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.3')
