@@ -1,0 +1,51 @@
+id: bp_better_messages-b7034792-4e5e-4745-a873-3c4ef854a65e
+
+info:
+  name: >
+    Better Messages – Chat Rooms, Group Chat, Private Messages & AI Chat Bots <= 2.15.22 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b7034792-4e5e-4745-a873-3c4ef854a65e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bp-better-messages/"
+    google-query: inurl:"/wp-content/plugins/bp-better-messages/"
+    shodan-query: 'http.html:"wp-content/plugins/bp-better-messages/"'
+  tags: cve,wordpress,wp-plugin,bp-better-messages,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bp-better-messages/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bp-better-messages"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.15.22')
