@@ -1,0 +1,51 @@
+id: events_manager-a56d1a9e-7564-41b0-af03-c272ffbbbb97
+
+info:
+  name: >
+    Events Manager <= 7.4.0.1 - Reflected Cross-Site Scripting via 'header_format' Parameter
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a56d1a9e-7564-41b0-af03-c272ffbbbb97?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/events-manager/"
+    google-query: inurl:"/wp-content/plugins/events-manager/"
+    shodan-query: 'http.html:"wp-content/plugins/events-manager/"'
+  tags: cve,wordpress,wp-plugin,events-manager,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/events-manager/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "events-manager"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.4.0.1')
