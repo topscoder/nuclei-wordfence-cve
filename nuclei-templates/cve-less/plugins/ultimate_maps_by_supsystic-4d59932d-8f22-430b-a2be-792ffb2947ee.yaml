@@ -1,0 +1,51 @@
+id: ultimate_maps_by_supsystic-4d59932d-8f22-430b-a2be-792ffb2947ee
+
+info:
+  name: >
+    Ultimate Maps by Supsystic < 1.5.0 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4d59932d-8f22-430b-a2be-792ffb2947ee?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ultimate-maps-by-supsystic/"
+    google-query: inurl:"/wp-content/plugins/ultimate-maps-by-supsystic/"
+    shodan-query: 'http.html:"wp-content/plugins/ultimate-maps-by-supsystic/"'
+  tags: cve,wordpress,wp-plugin,ultimate-maps-by-supsystic,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ultimate-maps-by-supsystic/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ultimate-maps-by-supsystic"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 1.5.0')
