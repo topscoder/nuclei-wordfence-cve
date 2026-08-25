@@ -1,0 +1,51 @@
+id: eshipper_commerce-50bbda9c-e41e-48f5-9127-e938c9219a14
+
+info:
+  name: >
+    eShipper Commerce <= 2.16.13 - Authenticated (Subscriber+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/50bbda9c-e41e-48f5-9127-e938c9219a14?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/eshipper-commerce/"
+    google-query: inurl:"/wp-content/plugins/eshipper-commerce/"
+    shodan-query: 'http.html:"wp-content/plugins/eshipper-commerce/"'
+  tags: cve,wordpress,wp-plugin,eshipper-commerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/eshipper-commerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "eshipper-commerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.16.13')
