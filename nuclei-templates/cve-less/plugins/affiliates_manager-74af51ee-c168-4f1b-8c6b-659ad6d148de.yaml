@@ -1,0 +1,51 @@
+id: affiliates_manager-74af51ee-c168-4f1b-8c6b-659ad6d148de
+
+info:
+  name: >
+    Affiliates Manager <= 2.9.53 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/74af51ee-c168-4f1b-8c6b-659ad6d148de?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/affiliates-manager/"
+    google-query: inurl:"/wp-content/plugins/affiliates-manager/"
+    shodan-query: 'http.html:"wp-content/plugins/affiliates-manager/"'
+  tags: cve,wordpress,wp-plugin,affiliates-manager,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/affiliates-manager/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "affiliates-manager"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.9.53')
