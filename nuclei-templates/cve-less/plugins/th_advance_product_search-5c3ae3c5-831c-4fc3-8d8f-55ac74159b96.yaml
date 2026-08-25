@@ -1,0 +1,51 @@
+id: th_advance_product_search-5c3ae3c5-831c-4fc3-8d8f-55ac74159b96
+
+info:
+  name: >
+    Advance Product Search- Voice & Ajax Search for WooCommerce <= 1.4.8 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5c3ae3c5-831c-4fc3-8d8f-55ac74159b96?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/th-advance-product-search/"
+    google-query: inurl:"/wp-content/plugins/th-advance-product-search/"
+    shodan-query: 'http.html:"wp-content/plugins/th-advance-product-search/"'
+  tags: cve,wordpress,wp-plugin,th-advance-product-search,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/th-advance-product-search/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "th-advance-product-search"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.8')
