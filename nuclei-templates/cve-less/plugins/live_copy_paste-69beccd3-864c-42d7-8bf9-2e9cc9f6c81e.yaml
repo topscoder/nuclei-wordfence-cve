@@ -2,7 +2,7 @@ id: live_copy_paste-69beccd3-864c-42d7-8bf9-2e9cc9f6c81e
 
 info:
   name: >
-    Live Copy Paste for Elementor – Cross Domain Copy Paste & Page Duplicator <= 1.5.3 - Missing Authorization
+    Live Copy Paste for Elementor – Cross Domain Copy Paste & Page Duplicator <= 1.5.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.3')
+          - compare_versions(version, '<= 1.5.6')
