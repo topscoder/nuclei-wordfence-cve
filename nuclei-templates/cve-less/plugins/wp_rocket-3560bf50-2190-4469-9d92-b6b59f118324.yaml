@@ -1,0 +1,51 @@
+id: wp_rocket-3560bf50-2190-4469-9d92-b6b59f118324
+
+info:
+  name: >
+    WP Rocket <= 3.21.0.1 - Unauthenticated Stored Cross-Site Scripting via Picture Source Attributes in rocket_beacon Endpoint
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3560bf50-2190-4469-9d92-b6b59f118324?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-rocket/"
+    google-query: inurl:"/wp-content/plugins/wp-rocket/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-rocket/"'
+  tags: cve,wordpress,wp-plugin,wp-rocket,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-rocket/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-rocket"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.21.0.1')
