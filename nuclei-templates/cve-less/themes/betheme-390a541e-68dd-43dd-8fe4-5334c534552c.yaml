@@ -2,7 +2,7 @@ id: betheme-390a541e-68dd-43dd-8fe4-5334c534552c
 
 info:
   name: >
-    Betheme <= 28.4.2 - Authenticated (Contributor+) Remote Code Execution
+    Betheme <= 28.5.7 - Authenticated (Contributor+) Remote Code Execution
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 28.4.2')
+          - compare_versions(version, '<= 28.5.7')
