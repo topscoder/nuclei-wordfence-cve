@@ -2,7 +2,7 @@ id: dc_woocommerce_multi_vendor-41a2d4db-3032-476f-91d0-c4b6dcbc61e7
 
 info:
   name: >
-    MultiVendorX – WooCommerce Multivendor Marketplace AI Powered Solutions <= 5.0.14 - Missing Authorization
+    MultiVendorX – WooCommerce Multivendor Marketplace AI Powered Solutions <= 5.0.15 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.0.14')
+          - compare_versions(version, '<= 5.0.15')
