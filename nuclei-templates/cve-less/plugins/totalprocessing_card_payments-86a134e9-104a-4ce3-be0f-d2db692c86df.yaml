@@ -1,0 +1,51 @@
+id: totalprocessing_card_payments-86a134e9-104a-4ce3-be0f-d2db692c86df
+
+info:
+  name: >
+    Total processing card payments for WooCommerce <= 7.3 - Unauthenticated Server-Side Request Forgery
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/86a134e9-104a-4ce3-be0f-d2db692c86df?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/totalprocessing-card-payments/"
+    google-query: inurl:"/wp-content/plugins/totalprocessing-card-payments/"
+    shodan-query: 'http.html:"wp-content/plugins/totalprocessing-card-payments/"'
+  tags: cve,wordpress,wp-plugin,totalprocessing-card-payments,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/totalprocessing-card-payments/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "totalprocessing-card-payments"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.3')
