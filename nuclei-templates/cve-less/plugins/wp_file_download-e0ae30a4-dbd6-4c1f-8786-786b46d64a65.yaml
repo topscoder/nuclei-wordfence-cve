@@ -1,0 +1,51 @@
+id: wp_file_download-e0ae30a4-dbd6-4c1f-8786-786b46d64a65
+
+info:
+  name: >
+    WP File Download <= 6.3.4 - Authenticated (Subscriber+) Arbitrary File Deletion via 'remoteurl' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e0ae30a4-dbd6-4c1f-8786-786b46d64a65?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-file-download/"
+    google-query: inurl:"/wp-content/plugins/wp-file-download/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-file-download/"'
+  tags: cve,wordpress,wp-plugin,wp-file-download,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-file-download/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-file-download"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.3.4')
