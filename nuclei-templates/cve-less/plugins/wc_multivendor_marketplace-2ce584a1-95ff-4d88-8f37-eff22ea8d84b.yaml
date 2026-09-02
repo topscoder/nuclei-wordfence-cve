@@ -1,0 +1,51 @@
+id: wc_multivendor_marketplace-2ce584a1-95ff-4d88-8f37-eff22ea8d84b
+
+info:
+  name: >
+    WCFM Marketplace – Multivendor Marketplace for WooCommerce <= 3.8.2 - Authenticated (Contributor+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2ce584a1-95ff-4d88-8f37-eff22ea8d84b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wc-multivendor-marketplace/"
+    google-query: inurl:"/wp-content/plugins/wc-multivendor-marketplace/"
+    shodan-query: 'http.html:"wp-content/plugins/wc-multivendor-marketplace/"'
+  tags: cve,wordpress,wp-plugin,wc-multivendor-marketplace,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wc-multivendor-marketplace/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wc-multivendor-marketplace"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.8.2')
