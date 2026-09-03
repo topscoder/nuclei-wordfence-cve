@@ -1,0 +1,51 @@
+id: social_login_sharing_buttons_with_analytics_by_soclever-c1233f6c-102e-42a7-9c73-9dec712743d6
+
+info:
+  name: >
+    Social Login & Sharing buttons with Analytics By SoClever <= 1.2.0 - Authentication Bypass to Administrator
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c1233f6c-102e-42a7-9c73-9dec712743d6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/social-login-sharing-buttons-with-analytics-by-soclever/"
+    google-query: inurl:"/wp-content/plugins/social-login-sharing-buttons-with-analytics-by-soclever/"
+    shodan-query: 'http.html:"wp-content/plugins/social-login-sharing-buttons-with-analytics-by-soclever/"'
+  tags: cve,wordpress,wp-plugin,social-login-sharing-buttons-with-analytics-by-soclever,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/social-login-sharing-buttons-with-analytics-by-soclever/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "social-login-sharing-buttons-with-analytics-by-soclever"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.0')
