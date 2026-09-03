@@ -2,7 +2,7 @@ id: 6storage_rentals-94e987be-bdfc-4691-b250-2b7d7249df0a
 
 info:
   name: >
-    6Storage Rentals <= 2.27.0 - Unauthenticated Account Takeover via 'email' Parameter
+    6Storage Rentals <= 2.28.0 - Unauthenticated Account Takeover via 'email' Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.27.0')
+          - compare_versions(version, '<= 2.28.0')
