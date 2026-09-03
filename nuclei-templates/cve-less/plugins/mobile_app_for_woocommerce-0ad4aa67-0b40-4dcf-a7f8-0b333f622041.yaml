@@ -1,0 +1,51 @@
+id: mobile_app_for_woocommerce-0ad4aa67-0b40-4dcf-a7f8-0b333f622041
+
+info:
+  name: >
+    Mobile App for WooCommerce: ShopApper Mobile App Builder Service for WooCommerce <= 0.4.69 - Missing Authorization to Authenticated (Subscriber+) Stock Update
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0ad4aa67-0b40-4dcf-a7f8-0b333f622041?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mobile-app-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/mobile-app-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/mobile-app-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,mobile-app-for-woocommerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mobile-app-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mobile-app-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 0.4.69')
