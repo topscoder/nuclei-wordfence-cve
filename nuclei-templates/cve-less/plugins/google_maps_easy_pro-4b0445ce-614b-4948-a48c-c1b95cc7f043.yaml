@@ -1,0 +1,51 @@
+id: google_maps_easy_pro-4b0445ce-614b-4948-a48c-c1b95cc7f043
+
+info:
+  name: >
+    Multiple Supsystic Pro Plugins <= 1.6.0 - Backdoored Software via Compromised Vendor Software
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4b0445ce-614b-4948-a48c-c1b95cc7f043?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/google-maps-easy-pro/"
+    google-query: inurl:"/wp-content/plugins/google-maps-easy-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/google-maps-easy-pro/"'
+  tags: cve,wordpress,wp-plugin,google-maps-easy-pro,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/google-maps-easy-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "google-maps-easy-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '1.6.0')
