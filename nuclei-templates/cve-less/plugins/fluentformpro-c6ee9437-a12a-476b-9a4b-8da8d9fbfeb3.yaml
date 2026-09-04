@@ -6,19 +6,19 @@ info:
   author: topscoder
   severity: critical
   description: >
-    The Fluent Forms Pro in version 6.2.7 and the Ninja Tables Pro in version 5.2.13 plugins for WordPress are vulnerable to Remote Code Execution via Backdoor. This is due to threat actors compromised the vendor's system and embedded a backdoor into the plugin's code. This makes it possible for unauthenticated attackers to execute code on the server.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c6ee9437-a12a-476b-9a4b-8da8d9fbfeb3?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c6ee9437-a12a-476b-9a4b-8da8d9fbfeb3?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
-    cvss-score: 9.8
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/fluentformpro/"
     google-query: inurl:"/wp-content/plugins/fluentformpro/"
     shodan-query: 'http.html:"wp-content/plugins/fluentformpro/"'
-  tags: cve,wordpress,wp-plugin,fluentformpro,critical,production
+  tags: cve,wordpress,wp-plugin,fluentformpro,critical,candidate
 
 http:
   - method: GET
