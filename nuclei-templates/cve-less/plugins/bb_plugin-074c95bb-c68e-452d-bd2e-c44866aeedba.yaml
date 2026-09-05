@@ -1,0 +1,51 @@
+id: bb_plugin-074c95bb-c68e-452d-bd2e-c44866aeedba
+
+info:
+  name: >
+    Beaver Builder Plugin (Pro Version) <= 2.11.0.1 - Reflected Cross-Site Scripting via 'no_results_message' node_preview Parameter
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/074c95bb-c68e-452d-bd2e-c44866aeedba?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bb-plugin/"
+    google-query: inurl:"/wp-content/plugins/bb-plugin/"
+    shodan-query: 'http.html:"wp-content/plugins/bb-plugin/"'
+  tags: cve,wordpress,wp-plugin,bb-plugin,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bb-plugin/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bb-plugin"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.11.0.1')
