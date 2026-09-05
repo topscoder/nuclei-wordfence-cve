@@ -1,0 +1,51 @@
+id: jetpack-eda9ae01-cdc4-43e0-8a4c-1ec365939fa8
+
+info:
+  name: >
+    Jetpack 14.5 - 16.1.2 - Reflected to Stored Cross-Site Scripting via Reader Repost Parameters
+  author: topscoder
+  severity: high
+  description: >
+    The Jetpack – WP Security, Backup, Speed, & Growth plugin for WordPress is vulnerable to Cross-Site Scripting in versions 14.5 through 16.1.2 via the Reader repost initializer in the block editor bundles. The initializer reads the url, title, text, comment_content, and comment_author query parameters and interpolates them into block attributes without escaping or sanitization before calling resetEditorBlocks(). On WordPress 7.1, only title and url were demonstrated to persist into live executable markup; the other parameters did not produce a stored executable sink. This makes it possible for unauthenticated attackers to inject arbitrary web scripts into a post via a crafted link that, when opened and saved by a user with the unfiltered_html capability (administrator or editor by default), stores the payload in post_content where it executes in the browser of every subsequent visitor to the published post. The Blocks module must be active and the site must be Jetpack-connected or in offline mode for the vulnerable bundle to be enqueued.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/eda9ae01-cdc4-43e0-8a4c-1ec365939fa8?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N
+    cvss-score: 6.1
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/jetpack/"
+    google-query: inurl:"/wp-content/plugins/jetpack/"
+    shodan-query: 'http.html:"wp-content/plugins/jetpack/"'
+  tags: cve,wordpress,wp-plugin,jetpack,high,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/jetpack/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "jetpack"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 16.1', '<= 16.1.2')
