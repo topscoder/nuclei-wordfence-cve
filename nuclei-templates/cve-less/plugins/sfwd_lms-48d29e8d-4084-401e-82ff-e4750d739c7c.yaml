@@ -1,0 +1,51 @@
+id: sfwd_lms-48d29e8d-4084-401e-82ff-e4750d739c7c
+
+info:
+  name: >
+    LearnDash LMS 4.25.0 - 5.1.6 - Unauthenticated Arbitrary Course Enrollment via REST Endpoint
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/48d29e8d-4084-401e-82ff-e4750d739c7c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/sfwd-lms/"
+    google-query: inurl:"/wp-content/plugins/sfwd-lms/"
+    shodan-query: 'http.html:"wp-content/plugins/sfwd-lms/"'
+  tags: cve,wordpress,wp-plugin,sfwd-lms,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)learndash_quiz_front.min.css\\?ver=([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "sfwd-lms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 4.25.0', '<= 5.1.6')
