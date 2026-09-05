@@ -1,0 +1,51 @@
+id: events_manager-a1985eb5-bfb5-4220-a4f8-fcfa84beae6a
+
+info:
+  name: >
+    Events Manager - Calendar, Bookings, Tickets, and more! <= 7.3.3 - Unauthenticated Stored Cross-Site Scripting via Event Attributes
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a1985eb5-bfb5-4220-a4f8-fcfa84beae6a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/events-manager/"
+    google-query: inurl:"/wp-content/plugins/events-manager/"
+    shodan-query: 'http.html:"wp-content/plugins/events-manager/"'
+  tags: cve,wordpress,wp-plugin,events-manager,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/events-manager/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "events-manager"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.3.3')
