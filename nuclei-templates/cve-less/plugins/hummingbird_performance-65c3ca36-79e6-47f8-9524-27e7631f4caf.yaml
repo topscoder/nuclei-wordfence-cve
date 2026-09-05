@@ -1,0 +1,51 @@
+id: hummingbird_performance-65c3ca36-79e6-47f8-9524-27e7631f4caf
+
+info:
+  name: >
+    Hummingbird – Speed Optimization, Caching, Minify, Compress & CDN <= 3.21.0 - Unauthenticated Remote Code Execution via Cookie Name in Page Cache Debug Log
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/65c3ca36-79e6-47f8-9524-27e7631f4caf?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/hummingbird-performance/"
+    google-query: inurl:"/wp-content/plugins/hummingbird-performance/"
+    shodan-query: 'http.html:"wp-content/plugins/hummingbird-performance/"'
+  tags: cve,wordpress,wp-plugin,hummingbird-performance,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/hummingbird-performance/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "hummingbird-performance"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.21.0')
