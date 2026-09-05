@@ -1,0 +1,51 @@
+id: jetpack-72f4776f-5450-4022-92dd-47ddaa91a5cd
+
+info:
+  name: >
+    Jetpack 12.0 - 16.1.2 - Authenticated (Administrator+) PHP Object Injection
+  author: topscoder
+  severity: low
+  description: >
+    The Jetpack – WP Security, Backup, Speed, & Growth plugin for WordPress is vulnerable to PHP Object Injection in versions 12.0 through 16.1.2 via deserialization of untrusted post metadata in the Jetpack Import REST API. This makes it possible for authenticated attackers with the import capability, which is granted to administrators by default, to inject a PHP object. The direct impact is attacker-controlled object instantiation; confidentiality, integrity, and availability impact requires a compatible POP chain in Jetpack or another installed component.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/72f4776f-5450-4022-92dd-47ddaa91a5cd?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 7.2
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/jetpack/"
+    google-query: inurl:"/wp-content/plugins/jetpack/"
+    shodan-query: 'http.html:"wp-content/plugins/jetpack/"'
+  tags: cve,wordpress,wp-plugin,jetpack,low,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/jetpack/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "jetpack"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 16.1', '<= 16.1.2')
