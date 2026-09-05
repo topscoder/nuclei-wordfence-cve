@@ -1,0 +1,51 @@
+id: jetpack-f72c0a27-9602-4465-a14a-15c2a34e578b
+
+info:
+  name: >
+    Jetpack 3.2 - 16.1.2 - Missing Authorization on WPCOM Media API Attachment Parent
+  author: topscoder
+  severity: low
+  description: >
+    The Jetpack – WP Security, Backup, Speed, & Growth plugin for WordPress is vulnerable to Missing Authorization in versions 3.2 through 16.1.2 via the WPCOM JSON API media upload and update endpoints. Early releases accepted the destination as post_ID, while later releases used parent_id; both values were written to an attachment’s post_parent without checking whether the caller could edit the destination post. Authorization was limited to upload_files and, in later update implementations, permission to edit the media item itself. This makes it possible for authenticated attackers with an account linked to the Jetpack connection and the upload_files capability, which is Author and above by default, to attach an arbitrary media item to a post they do not own. Where the target post uses a bare [gallery] shortcode or a theme that calls get_attached_media()/get_children(), the attacker's media then renders inside the victim's post. The endpoints are reached only through the WordPress.com HMAC-signed jetpack.jsonAPI XML-RPC proxy, not via a /wp-json route.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f72c0a27-9602-4465-a14a-15c2a34e578b?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N
+    cvss-score: 4.3
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/jetpack/"
+    google-query: inurl:"/wp-content/plugins/jetpack/"
+    shodan-query: 'http.html:"wp-content/plugins/jetpack/"'
+  tags: cve,wordpress,wp-plugin,jetpack,low,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/jetpack/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "jetpack"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 3.2', '<= 16.1.2')
