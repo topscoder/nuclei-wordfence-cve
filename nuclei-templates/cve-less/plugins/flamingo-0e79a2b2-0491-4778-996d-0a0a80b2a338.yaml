@@ -1,0 +1,51 @@
+id: flamingo-0e79a2b2-0491-4778-996d-0a0a80b2a338
+
+info:
+  name: >
+    Flamingo <= 2.6.2 - Authenticated (Contributor+) Missing Authorization to Unauthorized Tag Information Disclosure via wp.getTerms and ajax-tag-search
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0e79a2b2-0491-4778-996d-0a0a80b2a338?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/flamingo/"
+    google-query: inurl:"/wp-content/plugins/flamingo/"
+    shodan-query: 'http.html:"wp-content/plugins/flamingo/"'
+  tags: cve,wordpress,wp-plugin,flamingo,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/flamingo/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "flamingo"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.6.2')
