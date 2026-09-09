@@ -1,0 +1,51 @@
+id: wp_plugin_hostgator-3ee369c0-0d7c-4142-b3ba-a518288647ba
+
+info:
+  name: >
+    Various Newfold Plugins Various Versions - Unauthenticated Authentication Bypass via Bearer Token Validation with Empty Secret
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3ee369c0-0d7c-4142-b3ba-a518288647ba?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-plugin-hostgator/"
+    google-query: inurl:"/wp-content/plugins/wp-plugin-hostgator/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-plugin-hostgator/"'
+  tags: cve,wordpress,wp-plugin,wp-plugin-hostgator,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-plugin-hostgator/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-plugin-hostgator"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.2.0')
