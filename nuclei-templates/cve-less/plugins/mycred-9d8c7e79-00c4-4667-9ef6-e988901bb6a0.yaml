@@ -1,0 +1,51 @@
+id: mycred-9d8c7e79-00c4-4667-9ef6-e988901bb6a0
+
+info:
+  name: >
+    myCred – Points Management System For Gamification, Ranks, Badges, and Loyalty Rewards Program <= 3.2.4 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'wrapper' Shortcode Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9d8c7e79-00c4-4667-9ef6-e988901bb6a0?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mycred/"
+    google-query: inurl:"/wp-content/plugins/mycred/"
+    shodan-query: 'http.html:"wp-content/plugins/mycred/"'
+  tags: cve,wordpress,wp-plugin,mycred,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mycred/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mycred"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.2.4')
