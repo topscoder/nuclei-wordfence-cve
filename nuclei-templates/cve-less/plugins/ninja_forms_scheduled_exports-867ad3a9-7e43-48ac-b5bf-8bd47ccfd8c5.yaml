@@ -6,19 +6,19 @@ info:
   author: topscoder
   severity: low
   description: >
-    The Ninja Forms - Scheduled Exports plugin for WordPress is vulnerable to Stored Cross-Site Scripting via REST API Parameters (interval, format, emailTo) in all versions up to, and including, 3.0.3 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with subscriber-level privileges and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. The REST endpoint is registered without a permission_callback and only validates a nonce without checking user capabilities.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/867ad3a9-7e43-48ac-b5bf-8bd47ccfd8c5?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/867ad3a9-7e43-48ac-b5bf-8bd47ccfd8c5?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N
-    cvss-score: 6.4
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/ninja-forms-scheduled-exports/"
     google-query: inurl:"/wp-content/plugins/ninja-forms-scheduled-exports/"
     shodan-query: 'http.html:"wp-content/plugins/ninja-forms-scheduled-exports/"'
-  tags: cve,wordpress,wp-plugin,ninja-forms-scheduled-exports,low,production
+  tags: cve,wordpress,wp-plugin,ninja-forms-scheduled-exports,low,candidate
 
 http:
   - method: GET
