@@ -1,0 +1,51 @@
+id: sidebar_manager_light-9f376b14-bdb4-4c4d-b464-328d269c9654
+
+info:
+  name: >
+    Sidebar Manager Light <= 1.18 - Unauthenticated Stored Cross-Site Scripting via 'sbm_description' Parameter
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9f376b14-bdb4-4c4d-b464-328d269c9654?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/sidebar-manager-light/"
+    google-query: inurl:"/wp-content/plugins/sidebar-manager-light/"
+    shodan-query: 'http.html:"wp-content/plugins/sidebar-manager-light/"'
+  tags: cve,wordpress,wp-plugin,sidebar-manager-light,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/sidebar-manager-light/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "sidebar-manager-light"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.18')
