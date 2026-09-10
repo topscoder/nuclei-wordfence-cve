@@ -2,7 +2,7 @@ id: woc_open_close-fbeb146e-6b3e-4b84-80a6-9e1c507b5337
 
 info:
   name: >
-    Open Close WooCommerce Store <= 4.9.8 - Missing Authorization
+    Open Close WooCommerce Store <= 5.0.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.9.8')
+          - compare_versions(version, '<= 5.0.1')
