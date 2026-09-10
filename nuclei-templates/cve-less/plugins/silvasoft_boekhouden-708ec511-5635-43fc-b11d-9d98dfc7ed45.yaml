@@ -2,7 +2,7 @@ id: silvasoft_boekhouden-708ec511-5635-43fc-b11d-9d98dfc7ed45
 
 info:
   name: >
-    Silvasoft boekhouden <= 3.0.1 - Authenticated (Administrator+) SQL Injection
+    Silvasoft boekhouden <= 3.0.6 - Authenticated (Administrator+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.0.1')
+          - compare_versions(version, '<= 3.0.6')
