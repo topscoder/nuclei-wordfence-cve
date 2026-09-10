@@ -2,7 +2,7 @@ id: meetinghub-664187f0-d49c-4876-bed0-ce169a2ec89a
 
 info:
   name: >
-    MeetingHub – Webinar & Meeting Plugin for Zoom, Google Meet, Webex, Microsoft Teams, & Jitsi Meet <= 1.25.10 - Missing Authorization
+    MeetingHub – Webinar & Meeting Plugin for Zoom, Google Meet, Webex, Microsoft Teams, & Jitsi Meet <= 1.26.4 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.25.10')
+          - compare_versions(version, '<= 1.26.4')
