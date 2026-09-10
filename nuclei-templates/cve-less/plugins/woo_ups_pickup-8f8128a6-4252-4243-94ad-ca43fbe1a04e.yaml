@@ -2,7 +2,7 @@ id: woo_ups_pickup-8f8128a6-4252-4243-94ad-ca43fbe1a04e
 
 info:
   name: >
-    OPSI Israel Domestic Shipments <= 2.6.8 - Missing Authorization
+    OPSI Israel Domestic Shipments <= 2.9.1.2 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.6.8')
+          - compare_versions(version, '<= 2.9.1.2')
