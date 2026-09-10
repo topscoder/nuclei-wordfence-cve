@@ -2,7 +2,7 @@ id: mobile_app_for_woocommerce-94426ff8-55e2-4c8e-86dc-aca306075f89
 
 info:
   name: >
-    ShopApper <= 0.4.53 - Unauthenticated Stored Cross-Site Scripting
+    ShopApper <= 0.4.62 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 0.4.53')
+          - compare_versions(version, '<= 0.4.62')
