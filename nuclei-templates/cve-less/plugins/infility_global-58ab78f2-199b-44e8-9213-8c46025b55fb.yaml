@@ -2,7 +2,7 @@ id: infility_global-58ab78f2-199b-44e8-9213-8c46025b55fb
 
 info:
   name: >
-    Infility Global <= 2.14.49 - Unauthenticated Stored Cross-Site Scripting
+    Infility Global <= 2.15.36 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.14.49')
+          - compare_versions(version, '<= 2.15.36')
