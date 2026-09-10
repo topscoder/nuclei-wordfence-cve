@@ -2,7 +2,7 @@ id: add_product_frontend_for_woocommerce-27c728eb-db40-41e1-b73b-243661b15970
 
 info:
   name: >
-    Add Product Frontend for WooCommerce <= 1.0.6 - Missing Authorization to Unauthenticated Arbitrary Content Deletion
+    Add Product Frontend for WooCommerce <= 1.0.8 - Missing Authorization to Unauthenticated Arbitrary Content Deletion
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.6')
+          - compare_versions(version, '<= 1.0.8')
