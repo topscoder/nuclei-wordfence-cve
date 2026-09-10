@@ -2,7 +2,7 @@ id: infility_global-befc411f-8c50-44a2-b1af-10a507230df9
 
 info:
   name: >
-    Infility Global <= 2.14.49 - Unauthenticated SQL Injection
+    Infility Global <= 2.15.36 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.14.49')
+          - compare_versions(version, '<= 2.15.36')
