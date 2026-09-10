@@ -1,0 +1,51 @@
+id: grandtour-8f50a1ab-c51c-46e2-837c-340c796d875c
+
+info:
+  name: >
+    Grand Tour | Travel Agency WordPress <= 5.5.1 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8f50a1ab-c51c-46e2-837c-340c796d875c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/grandtour/"
+    google-query: inurl:"/wp-content/themes/grandtour/"
+    shodan-query: 'http.html:"wp-content/themes/grandtour/"'
+  tags: cve,wordpress,wp-theme,grandtour,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/grandtour/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "grandtour"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.5.1')
