@@ -1,0 +1,51 @@
+id: wpcf7_redirect-61bfd639-7472-4d86-a0f5-c18e3cbe65bd
+
+info:
+  name: >
+    Redirection for Contact Form 7 2.2.7 - 3.2.10 - Unauthenticated Arbitrary Shortcode Execution
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/61bfd639-7472-4d86-a0f5-c18e3cbe65bd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wpcf7-redirect/"
+    google-query: inurl:"/wp-content/plugins/wpcf7-redirect/"
+    shodan-query: 'http.html:"wp-content/plugins/wpcf7-redirect/"'
+  tags: cve,wordpress,wp-plugin,wpcf7-redirect,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wpcf7-redirect/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wpcf7-redirect"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.2.7', '<= 3.2.10')
