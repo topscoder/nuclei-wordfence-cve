@@ -2,7 +2,7 @@ id: orders_chat_for_woocommerce-7598e56d-a60f-4caa-86de-db731079f538
 
 info:
   name: >
-    Orders Chat for WooCommerce <= 1.2.0 - Missing Authorization
+    Orders Chat for WooCommerce <= 2.0.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.0')
+          - compare_versions(version, '<= 2.0.0')
