@@ -2,7 +2,7 @@ id: post_grid-8d7b6ae4-8cf7-4576-ad17-f05f01490e74
 
 info:
   name: >
-    Post Grid and Gutenberg Blocks <= 2.3.21 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Post Grid and Gutenberg Blocks <= 2.3.23 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3.21')
+          - compare_versions(version, '<= 2.3.23')
