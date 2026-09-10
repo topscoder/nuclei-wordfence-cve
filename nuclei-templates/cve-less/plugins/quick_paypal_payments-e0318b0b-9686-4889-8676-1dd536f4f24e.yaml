@@ -2,7 +2,7 @@ id: quick_paypal_payments-e0318b0b-9686-4889-8676-1dd536f4f24e
 
 info:
   name: >
-    Quick Paypal Payments <= 5.7.50 - Unauthenticated Payment Bypass
+    Quick Paypal Payments < 5.7.51 - Unauthenticated Payment Bypass
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.7.50')
+          - compare_versions(version, '< 5.7.51')
