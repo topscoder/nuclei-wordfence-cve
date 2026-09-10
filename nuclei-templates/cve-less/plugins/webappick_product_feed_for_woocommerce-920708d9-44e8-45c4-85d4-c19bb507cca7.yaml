@@ -2,7 +2,7 @@ id: webappick_product_feed_for_woocommerce-920708d9-44e8-45c4-85d4-c19bb507cca7
 
 info:
   name: >
-    Product Feed Manager for WooCommerce – CTX Feed – Support 220+ Shopping & Social Channels <= 6.6.46 - Authenticated (Shop Manager+) Arbitrary File Downloaf
+    Product Feed Manager for WooCommerce – CTX Feed – Support 220+ Shopping & Social Channels <= 6.6.47 - Authenticated (Shop Manager+) Arbitrary File Downloaf
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.6.46')
+          - compare_versions(version, '<= 6.6.47')
