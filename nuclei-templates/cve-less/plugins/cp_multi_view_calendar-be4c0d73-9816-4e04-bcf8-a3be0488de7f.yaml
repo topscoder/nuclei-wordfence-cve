@@ -2,7 +2,7 @@ id: cp_multi_view_calendar-be4c0d73-9816-4e04-bcf8-a3be0488de7f
 
 info:
   name: >
-    CP Multi View Events Calendar <= 1.4.34 - Authenticated (Subscriber+) Stored Cross-Site Scripting
+    CP Multi View Events Calendar <= 1.4.39 - Authenticated (Subscriber+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.34')
+          - compare_versions(version, '<= 1.4.39')
