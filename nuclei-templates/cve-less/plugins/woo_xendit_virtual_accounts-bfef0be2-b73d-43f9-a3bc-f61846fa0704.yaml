@@ -2,7 +2,7 @@ id: woo_xendit_virtual_accounts-bfef0be2-b73d-43f9-a3bc-f61846fa0704
 
 info:
   name: >
-    Xendit Payment <= 7.1.0 - Missing Authorization
+    Xendit Payment <= 7.2.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.1.0')
+          - compare_versions(version, '<= 7.2.0')
