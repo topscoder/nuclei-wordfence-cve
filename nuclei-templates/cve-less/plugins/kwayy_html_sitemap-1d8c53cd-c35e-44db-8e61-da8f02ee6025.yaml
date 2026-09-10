@@ -2,7 +2,7 @@ id: kwayy_html_sitemap-1d8c53cd-c35e-44db-8e61-da8f02ee6025
 
 info:
   name: >
-    Kwayy HTML Sitemap <= 4.0 - Cross-Site Request Forgery
+    Kwayy HTML Sitemap <= 5.0 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.0')
+          - compare_versions(version, '<= 5.0')
