@@ -1,0 +1,51 @@
+id: media_library_assistant-6e45dc8a-b777-4a49-b1b1-c59ffa75f5b4
+
+info:
+  name: >
+    Media Library Assistant <= 3.35 - Authenticated (Author+) Stored Cross-Site Scripting via Bulk Edit Preset Export/Import
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6e45dc8a-b777-4a49-b1b1-c59ffa75f5b4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/media-library-assistant/"
+    google-query: inurl:"/wp-content/plugins/media-library-assistant/"
+    shodan-query: 'http.html:"wp-content/plugins/media-library-assistant/"'
+  tags: cve,wordpress,wp-plugin,media-library-assistant,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/media-library-assistant/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "media-library-assistant"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.35')
