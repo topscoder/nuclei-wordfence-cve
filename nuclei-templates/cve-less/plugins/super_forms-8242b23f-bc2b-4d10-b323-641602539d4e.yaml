@@ -1,0 +1,51 @@
+id: super_forms-8242b23f-bc2b-4d10-b323-641602539d4e
+
+info:
+  name: >
+    Super Forms – Drag & Drop Form Builder <= 6.3.315 - Unauthenticated Arbitrary File Read
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8242b23f-bc2b-4d10-b323-641602539d4e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/super-forms/"
+    google-query: inurl:"/wp-content/plugins/super-forms/"
+    shodan-query: 'http.html:"wp-content/plugins/super-forms/"'
+  tags: cve,wordpress,wp-plugin,super-forms,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/super-forms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "super-forms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.3.315')
