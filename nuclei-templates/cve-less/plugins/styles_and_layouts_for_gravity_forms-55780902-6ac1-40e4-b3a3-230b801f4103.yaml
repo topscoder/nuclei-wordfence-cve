@@ -1,0 +1,51 @@
+id: styles_and_layouts_for_gravity_forms-55780902-6ac1-40e4-b3a3-230b801f4103
+
+info:
+  name: >
+    Gravity Booster – Styles & Layouts for Gravity Forms <= 6.1 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/55780902-6ac1-40e4-b3a3-230b801f4103?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/styles-and-layouts-for-gravity-forms/"
+    google-query: inurl:"/wp-content/plugins/styles-and-layouts-for-gravity-forms/"
+    shodan-query: 'http.html:"wp-content/plugins/styles-and-layouts-for-gravity-forms/"'
+  tags: cve,wordpress,wp-plugin,styles-and-layouts-for-gravity-forms,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/styles-and-layouts-for-gravity-forms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "styles-and-layouts-for-gravity-forms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.1')
