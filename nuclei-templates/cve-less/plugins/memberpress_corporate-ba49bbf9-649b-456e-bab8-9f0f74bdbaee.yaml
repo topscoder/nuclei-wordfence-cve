@@ -1,0 +1,51 @@
+id: memberpress_corporate-ba49bbf9-649b-456e-bab8-9f0f74bdbaee
+
+info:
+  name: >
+    MemberPress Corporate Accounts <= 1.5.39 - Authenticated (Subscriber+) Privilege Escalation via Mass Assignment in Sub-Account Creation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ba49bbf9-649b-456e-bab8-9f0f74bdbaee?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/memberpress-corporate/"
+    google-query: inurl:"/wp-content/plugins/memberpress-corporate/"
+    shodan-query: 'http.html:"wp-content/plugins/memberpress-corporate/"'
+  tags: cve,wordpress,wp-plugin,memberpress-corporate,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/memberpress-corporate/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "memberpress-corporate"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.39')
