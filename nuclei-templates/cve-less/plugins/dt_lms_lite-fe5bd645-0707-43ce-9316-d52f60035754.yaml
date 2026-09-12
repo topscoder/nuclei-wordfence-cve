@@ -1,0 +1,51 @@
+id: dt_lms_lite-fe5bd645-0707-43ce-9316-d52f60035754
+
+info:
+  name: >
+    DT LMS <= 1.1 - Missing Authorization to Unauthenticated Arbitrary Plugin Settings Modification via Multiple AJAX Actions
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fe5bd645-0707-43ce-9316-d52f60035754?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/dt-lms-lite/"
+    google-query: inurl:"/wp-content/plugins/dt-lms-lite/"
+    shodan-query: 'http.html:"wp-content/plugins/dt-lms-lite/"'
+  tags: cve,wordpress,wp-plugin,dt-lms-lite,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/dt-lms-lite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "dt-lms-lite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1')
