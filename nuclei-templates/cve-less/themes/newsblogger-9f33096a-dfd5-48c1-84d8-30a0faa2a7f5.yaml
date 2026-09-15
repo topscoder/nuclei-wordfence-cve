@@ -2,7 +2,7 @@ id: newsblogger-9f33096a-dfd5-48c1-84d8-30a0faa2a7f5
 
 info:
   name: >
-    NewsBlogger <= 0.2.5.6 - 0.2.6.1 - Cross-Site Request Forgery to Arbitrary Plugin Installation
+    NewsBlogger <= 0.2.5.6 - 0.2.5.9 - Cross-Site Request Forgery to Arbitrary Plugin Installation
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '>= 0.2.5.6', '<= 0.2.6.1')
+          - compare_versions(version, '>= 0.2.5.6', '<= 0.2.5.9')
