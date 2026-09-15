@@ -2,7 +2,7 @@ id: factura_electronica_cr-644e2267-c90b-4517-8ded-f2b7c7ec3d27
 
 info:
   name: >
-    Facturación Electrónica Costa Rica <= 2.0.2 - Cross-Site Request Forgery to Plugin Settings Update
+    Facturación Electrónica Costa Rica <= 2.0.4 - Cross-Site Request Forgery to Plugin Settings Update
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.2')
+          - compare_versions(version, '<= 2.0.4')
