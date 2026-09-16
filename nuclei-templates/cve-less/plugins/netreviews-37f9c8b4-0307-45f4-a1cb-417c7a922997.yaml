@@ -1,0 +1,51 @@
+id: netreviews-37f9c8b4-0307-45f4-a1cb-417c7a922997
+
+info:
+  name: >
+    Verified Reviews (Avis Vérifiés) <= 2.4.6 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/37f9c8b4-0307-45f4-a1cb-417c7a922997?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/netreviews/"
+    google-query: inurl:"/wp-content/plugins/netreviews/"
+    shodan-query: 'http.html:"wp-content/plugins/netreviews/"'
+  tags: cve,wordpress,wp-plugin,netreviews,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/netreviews/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "netreviews"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.4.6')
