@@ -1,0 +1,51 @@
+id: geniewords-cdde21b6-a5d9-4d47-9ff1-eda050822990
+
+info:
+  name: >
+    GenieWords 1.5.27 - 1.5.34 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cdde21b6-a5d9-4d47-9ff1-eda050822990?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/geniewords/"
+    google-query: inurl:"/wp-content/plugins/geniewords/"
+    shodan-query: 'http.html:"wp-content/plugins/geniewords/"'
+  tags: cve,wordpress,wp-plugin,geniewords,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/geniewords/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "geniewords"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.5.27', '<= 1.5.34')
