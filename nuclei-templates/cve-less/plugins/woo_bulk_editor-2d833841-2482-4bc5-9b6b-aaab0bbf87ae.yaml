@@ -1,0 +1,51 @@
+id: woo_bulk_editor-2d833841-2482-4bc5-9b6b-aaab0bbf87ae
+
+info:
+  name: >
+    BEAR – Bulk Editor for WooCommerce Professional. AI assistant on board (MCP Server) < 1.2.2 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2d833841-2482-4bc5-9b6b-aaab0bbf87ae?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-bulk-editor/"
+    google-query: inurl:"/wp-content/plugins/woo-bulk-editor/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-bulk-editor/"'
+  tags: cve,wordpress,wp-plugin,woo-bulk-editor,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-bulk-editor/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-bulk-editor"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 1.2.2')
