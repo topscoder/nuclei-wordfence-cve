@@ -1,0 +1,51 @@
+id: bbpress-a5bc4cad-d227-47f8-a739-d64410f8c05e
+
+info:
+  name: >
+    bbPress <= 2.6.14 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a5bc4cad-d227-47f8-a739-d64410f8c05e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bbpress/"
+    google-query: inurl:"/wp-content/plugins/bbpress/"
+    shodan-query: 'http.html:"wp-content/plugins/bbpress/"'
+  tags: cve,wordpress,wp-plugin,bbpress,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bbpress/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bbpress"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.6.14')
