@@ -1,0 +1,51 @@
+id: gatographql-1fb9cf14-e016-42b9-9a09-e762fcdbcee6
+
+info:
+  name: >
+    Gato GraphQL <= 19.2.3 - Authenticated (Subscriber+) Privilege Escalation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1fb9cf14-e016-42b9-9a09-e762fcdbcee6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/gatographql/"
+    google-query: inurl:"/wp-content/plugins/gatographql/"
+    shodan-query: 'http.html:"wp-content/plugins/gatographql/"'
+  tags: cve,wordpress,wp-plugin,gatographql,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/gatographql/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gatographql"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 19.2.3')
