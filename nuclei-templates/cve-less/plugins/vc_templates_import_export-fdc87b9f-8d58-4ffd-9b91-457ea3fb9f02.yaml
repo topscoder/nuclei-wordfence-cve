@@ -1,0 +1,51 @@
+id: vc_templates_import_export-fdc87b9f-8d58-4ffd-9b91-457ea3fb9f02
+
+info:
+  name: >
+    Export & Import WPBakery Page Builder <= 1.0.2 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fdc87b9f-8d58-4ffd-9b91-457ea3fb9f02?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/vc-templates-import-export/"
+    google-query: inurl:"/wp-content/plugins/vc-templates-import-export/"
+    shodan-query: 'http.html:"wp-content/plugins/vc-templates-import-export/"'
+  tags: cve,wordpress,wp-plugin,vc-templates-import-export,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/vc-templates-import-export/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "vc-templates-import-export"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.2')
