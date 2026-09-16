@@ -1,0 +1,51 @@
+id: buddyforms-02487c67-9073-47ea-bf72-e33cc4184c7c
+
+info:
+  name: >
+    Post Form – Registration Form – Profile Form for User Profiles – Frontend Content Forms for User Submissions (UGC) <= 2.9.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/02487c67-9073-47ea-bf72-e33cc4184c7c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/buddyforms/"
+    google-query: inurl:"/wp-content/plugins/buddyforms/"
+    shodan-query: 'http.html:"wp-content/plugins/buddyforms/"'
+  tags: cve,wordpress,wp-plugin,buddyforms,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/buddyforms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "buddyforms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.9.0')
