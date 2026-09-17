@@ -1,0 +1,51 @@
+id: admin_menu_editor_pro-8898bae3-067c-4505-9a96-05b7a08d90c6
+
+info:
+  name: >
+    Admin Menu Editor Pro 2.35 - 2.36 - Backdoored Software
+  author: topscoder
+  severity: critical
+  description: >
+    The Admin Menu Editor Pro plugin for WordPress contains a backdoor in versions 2.35 to 2.36. This is due to their infrastructure getting compromised. This makes it possible for unauthenticated attackers to gain backdoored access to sites running the software.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8898bae3-067c-4505-9a96-05b7a08d90c6?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/admin-menu-editor-pro/"
+    google-query: inurl:"/wp-content/plugins/admin-menu-editor-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/admin-menu-editor-pro/"'
+  tags: cve,wordpress,wp-plugin,admin-menu-editor-pro,critical,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/admin-menu-editor-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "admin-menu-editor-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.35', '<= 2.36')
