@@ -2,7 +2,7 @@ id: social_networks_auto_poster_facebook_twitter_g-8ea59532-e1c2-4dad-b2a8-01f40
 
 info:
   name: >
-    NextScripts <= 4.4.6 - Reflected Cross-Site Scripting
+    NextScripts <= 4.4.7 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.4.6')
+          - compare_versions(version, '<= 4.4.7')
