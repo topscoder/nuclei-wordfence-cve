@@ -1,0 +1,51 @@
+id: social_contact_form-3e70126f-8869-4e17-99a1-5d5c8790229e
+
+info:
+  name: >
+    Social Contact Form (FormyChat) <= 2.15.7 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3e70126f-8869-4e17-99a1-5d5c8790229e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/social-contact-form/"
+    google-query: inurl:"/wp-content/plugins/social-contact-form/"
+    shodan-query: 'http.html:"wp-content/plugins/social-contact-form/"'
+  tags: cve,wordpress,wp-plugin,social-contact-form,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/social-contact-form/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "social-contact-form"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.15.7')
