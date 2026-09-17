@@ -2,7 +2,7 @@ id: appointment_hour_booking-89bd0f8f-45c7-4b54-bc89-e1ba4f867eb9
 
 info:
   name: >
-    Appointment Hour Booking – Booking Calendar <= 1.5.91 - Missing Authorization
+    Appointment Hour Booking – Booking Calendar <= 1.5.94 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.91')
+          - compare_versions(version, '<= 1.5.94')
