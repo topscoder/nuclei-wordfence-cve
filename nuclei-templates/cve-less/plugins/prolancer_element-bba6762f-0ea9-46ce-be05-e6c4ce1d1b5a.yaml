@@ -1,0 +1,51 @@
+id: prolancer_element-bba6762f-0ea9-46ce-be05-e6c4ce1d1b5a
+
+info:
+  name: >
+    ProLancer Element <= 1.4.8 - Authenticated (Subscriber+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bba6762f-0ea9-46ce-be05-e6c4ce1d1b5a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/prolancer-element/"
+    google-query: inurl:"/wp-content/plugins/prolancer-element/"
+    shodan-query: 'http.html:"wp-content/plugins/prolancer-element/"'
+  tags: cve,wordpress,wp-plugin,prolancer-element,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/prolancer-element/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "prolancer-element"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.8')
