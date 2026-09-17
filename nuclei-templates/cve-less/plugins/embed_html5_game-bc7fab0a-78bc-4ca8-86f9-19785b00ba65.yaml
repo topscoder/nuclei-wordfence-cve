@@ -1,0 +1,51 @@
+id: embed_html5_game-bc7fab0a-78bc-4ca8-86f9-19785b00ba65
+
+info:
+  name: >
+    Embed HTML5 Game <= 1.3 - Unauthenticated Arbitrary File Upload
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bc7fab0a-78bc-4ca8-86f9-19785b00ba65?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/embed-html5-game/"
+    google-query: inurl:"/wp-content/plugins/embed-html5-game/"
+    shodan-query: 'http.html:"wp-content/plugins/embed-html5-game/"'
+  tags: cve,wordpress,wp-plugin,embed-html5-game,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/embed-html5-game/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "embed-html5-game"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3')
