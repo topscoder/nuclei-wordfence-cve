@@ -2,7 +2,7 @@ id: portfolio_manager_powered_by_behance-f01071a6-4188-4cb4-9aa5-731b32c6960e
 
 info:
   name: >
-    Behance Portfolio Manager <= 1.7.4 - Missing Authorization
+    Behance Portfolio Manager <= 1.7.5 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.4')
+          - compare_versions(version, '<= 1.7.5')
