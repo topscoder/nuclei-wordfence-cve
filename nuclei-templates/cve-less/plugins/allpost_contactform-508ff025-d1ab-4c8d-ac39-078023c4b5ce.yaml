@@ -2,7 +2,7 @@ id: allpost_contactform-508ff025-d1ab-4c8d-ac39-078023c4b5ce
 
 info:
   name: >
-    All Post Contact Form <= 1.8.0 - Unauthenticated Arbitrary File Upload
+    All Post Contact Form <= 1.6.7 - Unauthenticated Arbitrary File Upload
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.8.0')
+          - compare_versions(version, '<= 1.6.7')
