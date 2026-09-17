@@ -2,7 +2,7 @@ id: epeken_all_kurir-7a2f1cc7-f3f6-4a69-8b15-dfa13b136334
 
 info:
   name: >
-    Epeken All Kurir <= 1.4.6.2 -  Cross-Site Request Forgery to Stored Cross-Site Scripting
+    Epeken All Kurir <= 2.1.1 -  Cross-Site Request Forgery to Stored Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.6.2')
+          - compare_versions(version, '<= 2.1.1')
