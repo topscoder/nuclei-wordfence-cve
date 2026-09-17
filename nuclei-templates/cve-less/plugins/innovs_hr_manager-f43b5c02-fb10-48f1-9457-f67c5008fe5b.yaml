@@ -2,7 +2,7 @@ id: innovs_hr_manager-f43b5c02-fb10-48f1-9457-f67c5008fe5b
 
 info:
   name: >
-    Innovs HR <= 1.0.3.4 - Reflected Cross-Site Scripting
+    Innovs HR <= 1.0.3.6 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.3.4')
+          - compare_versions(version, '<= 1.0.3.6')
