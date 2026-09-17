@@ -1,0 +1,51 @@
+id: wc_paypay_gateway-65d4350e-54b9-4b53-86c6-1486f7ddc5c1
+
+info:
+  name: >
+    Payment Gateway PayPay for WooCommerce 0.5 - 0.9.3 - Unauthenticated Payment Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/65d4350e-54b9-4b53-86c6-1486f7ddc5c1?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wc-paypay-gateway/"
+    google-query: inurl:"/wp-content/plugins/wc-paypay-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/wc-paypay-gateway/"'
+  tags: cve,wordpress,wp-plugin,wc-paypay-gateway,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wc-paypay-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wc-paypay-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 0.5', '<= 0.9.3')
