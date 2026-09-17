@@ -1,0 +1,51 @@
+id: simple_membership_mailchimp_integration-531d88eb-36a8-46be-a837-b385fcd42b00
+
+info:
+  name: >
+    Simple Membership MailChimp Integration <= 1.9.7 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/531d88eb-36a8-46be-a837-b385fcd42b00?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/simple-membership-mailchimp-integration/"
+    google-query: inurl:"/wp-content/plugins/simple-membership-mailchimp-integration/"
+    shodan-query: 'http.html:"wp-content/plugins/simple-membership-mailchimp-integration/"'
+  tags: cve,wordpress,wp-plugin,simple-membership-mailchimp-integration,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/simple-membership-mailchimp-integration/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "simple-membership-mailchimp-integration"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.9.7')
