@@ -2,7 +2,7 @@ id: paymob_for_woocommerce-3a6221e3-e26b-46b2-8e67-b2afe65bc3d9
 
 info:
   name: >
-    Paymob for WooCommerce <= 4.1.2 - Missing Authorization
+    Paymob for WooCommerce <= 4.1.10 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.1.2')
+          - compare_versions(version, '<= 4.1.10')
