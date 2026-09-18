@@ -1,0 +1,51 @@
+id: rt_mega_menu-024d5962-0e8f-43cb-90dc-c282a5e436f2
+
+info:
+  name: >
+    RT Mega Menu <= 1.5.2 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'pointer_menu_item' Block Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/024d5962-0e8f-43cb-90dc-c282a5e436f2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/rt-mega-menu/"
+    google-query: inurl:"/wp-content/plugins/rt-mega-menu/"
+    shodan-query: 'http.html:"wp-content/plugins/rt-mega-menu/"'
+  tags: cve,wordpress,wp-plugin,rt-mega-menu,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/rt-mega-menu/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "rt-mega-menu"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.2')
