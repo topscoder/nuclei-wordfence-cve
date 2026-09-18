@@ -2,7 +2,7 @@ id: video_conferencing_with_zoom_api-d9172789-8527-4862-a93d-6e89bf599424
 
 info:
   name: >
-    Video Conferencing with Zoom <= 4.6.8 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Video Conferencing with Zoom <= 4.6.9 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.6.8')
+          - compare_versions(version, '<= 4.6.9')
