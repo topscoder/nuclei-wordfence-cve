@@ -1,0 +1,51 @@
+id: woocommerce_easy_booking_system-f87f0e42-e116-4441-8cd7-229d213b1d3a
+
+info:
+  name: >
+    Easy Booking <= 3.4.0 - Unauthenticated Minimum Booking Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f87f0e42-e116-4441-8cd7-229d213b1d3a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-easy-booking-system/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-easy-booking-system/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-easy-booking-system/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-easy-booking-system,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-easy-booking-system/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-easy-booking-system"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.4.0')
