@@ -1,0 +1,61 @@
+id: wordpress-28747e2e-9012-470c-a891-0fe97fd1ddba
+
+info:
+  name: >
+    WordPress Core <= 7.1 - Missing Authorization to customize_changeset Write via XML-RPC (Multisite/Custom Role edit_css Bypass)
+  author: topscoder
+  severity: medium
+  description: >
+    WordPress Core is vulnerable to an authorization bypass via the XML-RPC _insert_post() handler in various versions up to, and including, 7.1 due to internal-only builtin post types such as customize_changeset being writable through the generic post API, bypassing the customizer's per-setting capability enforcement (notably edit_css/unfiltered_css). A user who can create changesets but lacks edit_css can write changeset values including Additional CSS.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/28747e2e-9012-470c-a891-0fe97fd1ddba?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 5.5
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,medium,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '7.1')
+          - compare_versions(version_by_js, '7.1')
+          - compare_versions(version_by_css, '7.1')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
