@@ -1,0 +1,61 @@
+id: wordpress-64453a11-e0dd-40f8-99c3-f05ef640b42b
+
+info:
+  name: >
+    WordPress Core <= 7.1 - Authenticated (Contributor+) Path Traversal via REST Templates Controller
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to Path Traversal via the _get_block_template_file() function used by the REST templates controller (/wp/v2/templates/<id>?source=theme) in various versions up to, and including, 7.1 due to the template slug being resolved into a file path without directory containment. Because the route regex forbids '.' but the sanitize callback urldecodes twice, a double-encoded traversal reaches file resolution. This makes it possible for authenticated attackers with Contributor-level access and above to read arbitrary .html files outside the theme template directory.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/64453a11-e0dd-40f8-99c3-f05ef640b42b?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 4.3
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '7.1')
+          - compare_versions(version_by_js, '7.1')
+          - compare_versions(version_by_css, '7.1')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
