@@ -4,21 +4,21 @@ info:
   name: >
     Biggopti Library (Various Versions) - Cross-Site Scripting via display_id from Sigmative API
   author: topscoder
-  severity: medium
+  severity: high
   description: >
-    The Biggop Library is vulnerable to Cross-Site Scripting via the ‘display_id’ parameter from the Sigmative API in various versions due to insufficient output escaping. This makes it possible for attackers who can compromise the Sigmative API server to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7bf1d6f9-afe2-41c2-968b-20dbc474cd73?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7bf1d6f9-afe2-41c2-968b-20dbc474cd73?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N
-    cvss-score: 5.4
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/bdthemes-element-pack-lite/"
     google-query: inurl:"/wp-content/plugins/bdthemes-element-pack-lite/"
     shodan-query: 'http.html:"wp-content/plugins/bdthemes-element-pack-lite/"'
-  tags: cve,wordpress,wp-plugin,bdthemes-element-pack-lite,medium,production
+  tags: cve,wordpress,wp-plugin,bdthemes-element-pack-lite,high,candidate
 
 http:
   - method: GET
