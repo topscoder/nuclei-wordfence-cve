@@ -1,0 +1,61 @@
+id: wordpress-dc1ae2c7-1eff-4976-8f88-f0b97a5cf323
+
+info:
+  name: >
+    WordPress Core <= 7.1 - Authenticated (Administrator+) Missing Authorization to Network Plugin Activation (Multisite)
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to Missing Authorization via the wp_ajax_activate_plugin() AJAX action in various versions up to, and including, 7.1 due to a missing manage_network_plugins capability check when activating a network-only plugin, and a path-normalization mismatch between is_network_only_plugin() and activate_plugin(). This makes it possible for authenticated attackers with site-administrator access on a Multisite network to network-activate an installed network-only plugin.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/dc1ae2c7-1eff-4976-8f88-f0b97a5cf323?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:L/A:N
+    cvss-score: 2.7
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '7.1')
+          - compare_versions(version_by_js, '7.1')
+          - compare_versions(version_by_css, '7.1')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
