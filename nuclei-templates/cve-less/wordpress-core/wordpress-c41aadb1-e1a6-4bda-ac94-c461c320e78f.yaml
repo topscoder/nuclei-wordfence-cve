@@ -1,0 +1,61 @@
+id: wordpress-c41aadb1-e1a6-4bda-ac94-c461c320e78f
+
+info:
+  name: >
+    WordPress Core <= 7.1 - HTML API set_modifiable_text() Comment Boundary Break
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core's HTML API WP_HTML_Tag_Processor::set_modifiable_text() (since 6.7.0) used an incomplete comment-closer guard (/--!?>/) that missed the '-?>' abrupt-closing form, allowing text set into an HTML comment node to terminate the comment early. This is developer-facing hardening; there is no first-party sink that turns it into a direct vulnerability. Impact is realized only in plugin/theme code that round-trips attacker-controlled text through the HTML API into a comment node.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c41aadb1-e1a6-4bda-ac94-c461c320e78f?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N
+    cvss-score: 3.7
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '7.1')
+          - compare_versions(version_by_js, '7.1')
+          - compare_versions(version_by_css, '7.1')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
