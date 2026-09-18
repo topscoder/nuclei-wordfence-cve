@@ -1,0 +1,51 @@
+id: lets_box-a10ab4d6-318e-4dd6-9f81-ed25f181d074
+
+info:
+  name: >
+    WP Cloud Plugins Use-your-Drive, Out-of-the-Box, Share-one-Drive, and Lets-Box <= 3.8.3 - Authenticated (Subscriber+) Arbitrary File Upload via Media Import
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a10ab4d6-318e-4dd6-9f81-ed25f181d074?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/lets-box/"
+    google-query: inurl:"/wp-content/plugins/lets-box/"
+    shodan-query: 'http.html:"wp-content/plugins/lets-box/"'
+  tags: cve,wordpress,wp-plugin,lets-box,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/lets-box/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "lets-box"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.0', '<= 3.8.3')
