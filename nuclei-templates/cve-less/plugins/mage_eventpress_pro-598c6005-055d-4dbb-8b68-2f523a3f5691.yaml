@@ -1,0 +1,51 @@
+id: mage_eventpress_pro-598c6005-055d-4dbb-8b68-2f523a3f5691
+
+info:
+  name: >
+    Event Booking Manager for WooCommerce (Pro) <= 5.0.2 - Unauthenticated Price Manipulation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/598c6005-055d-4dbb-8b68-2f523a3f5691?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mage-eventpress-pro/"
+    google-query: inurl:"/wp-content/plugins/mage-eventpress-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/mage-eventpress-pro/"'
+  tags: cve,wordpress,wp-plugin,mage-eventpress-pro,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mage-eventpress-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mage-eventpress-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.0.2')
