@@ -2,7 +2,7 @@ id: king_addons-57865837-470e-4afd-bb90-d203a78a210b
 
 info:
   name: >
-    King Addons for Elementor <= 51.1.39 - Authenticated (Contributor+) Stored Cross-Site Scripting via Multiple Widgets
+    King Addons for Elementor <= 51.1.53 - Authenticated (Contributor+) Stored Cross-Site Scripting via Multiple Widgets
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 51.1.39')
+          - compare_versions(version, '<= 51.1.53')
