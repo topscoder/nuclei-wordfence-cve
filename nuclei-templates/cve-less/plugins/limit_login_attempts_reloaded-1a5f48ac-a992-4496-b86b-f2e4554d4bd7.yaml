@@ -1,0 +1,51 @@
+id: limit_login_attempts_reloaded-1a5f48ac-a992-4496-b86b-f2e4554d4bd7
+
+info:
+  name: >
+    Limit Login Attempts Security – Login Security, 2FA, Firewall, Brute Force Prevention < 3.3.5 - Unauthenticated Username Denylist Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1a5f48ac-a992-4496-b86b-f2e4554d4bd7?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/limit-login-attempts-reloaded/"
+    google-query: inurl:"/wp-content/plugins/limit-login-attempts-reloaded/"
+    shodan-query: 'http.html:"wp-content/plugins/limit-login-attempts-reloaded/"'
+  tags: cve,wordpress,wp-plugin,limit-login-attempts-reloaded,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/limit-login-attempts-reloaded/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "limit-login-attempts-reloaded"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 3.3.5')
