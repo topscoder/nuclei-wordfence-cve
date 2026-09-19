@@ -2,7 +2,7 @@ id: postaffiliatepro-369cd6ca-bb36-479e-b342-36d2ca778ce1
 
 info:
   name: >
-    Post Affiliate Pro <= 1.28.0 - Authenticated (Administrator+) Server-Side Request Forgery via 'Post Affiliate Pro URL' Field
+    Post Affiliate Pro <= 1.29.0 - Authenticated (Administrator+) Server-Side Request Forgery via 'Post Affiliate Pro URL' Field
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.28.0')
+          - compare_versions(version, '<= 1.29.0')
