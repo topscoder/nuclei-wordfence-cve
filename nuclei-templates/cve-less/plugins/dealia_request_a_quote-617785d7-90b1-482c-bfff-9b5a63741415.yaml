@@ -2,7 +2,7 @@ id: dealia_request_a_quote-617785d7-90b1-482c-bfff-9b5a63741415
 
 info:
   name: >
-    Dealia <= 1.0.8 - Authenticated (Contributor+) Stored Cross-Site Scripting via Gutenberg Block Attributes
+    Dealia <= 1.0.9 - Authenticated (Contributor+) Stored Cross-Site Scripting via Gutenberg Block Attributes
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.8')
+          - compare_versions(version, '<= 1.0.9')
