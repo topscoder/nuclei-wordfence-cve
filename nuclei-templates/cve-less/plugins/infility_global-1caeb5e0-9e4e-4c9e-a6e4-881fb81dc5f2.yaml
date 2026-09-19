@@ -2,7 +2,7 @@ id: infility_global-1caeb5e0-9e4e-4c9e-a6e4-881fb81dc5f2
 
 info:
   name: >
-    Infility Global <= 2.15.16 - Authenticated (Subscriber+) SQL Injection via 'orderby' Parameter
+    Infility Global <= 2.15.19 - Authenticated (Subscriber+) SQL Injection via 'orderby' Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.15.16')
+          - compare_versions(version, '<= 2.15.19')
