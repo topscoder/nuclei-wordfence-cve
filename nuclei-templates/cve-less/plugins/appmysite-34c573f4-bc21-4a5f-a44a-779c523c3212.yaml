@@ -1,0 +1,51 @@
+id: appmysite-34c573f4-bc21-4a5f-a44a-779c523c3212
+
+info:
+  name: >
+    AppMySite <= 3.15.3 - Authenticated (Subscriber+) Stored Cross-Site Scripting via save_ams_license_key AJAX Handler
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/34c573f4-bc21-4a5f-a44a-779c523c3212?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/appmysite/"
+    google-query: inurl:"/wp-content/plugins/appmysite/"
+    shodan-query: 'http.html:"wp-content/plugins/appmysite/"'
+  tags: cve,wordpress,wp-plugin,appmysite,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/appmysite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "appmysite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.15.3')
