@@ -1,0 +1,51 @@
+id: wp_customer_reviews-0e0332d1-b83b-4347-95ef-3429de5a8cca
+
+info:
+  name: >
+    WP Customer Reviews <= 3.7.8 - Reflected Cross-Site Scripting via 'wpcr3_fname' Parameter
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0e0332d1-b83b-4347-95ef-3429de5a8cca?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-customer-reviews/"
+    google-query: inurl:"/wp-content/plugins/wp-customer-reviews/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-customer-reviews/"'
+  tags: cve,wordpress,wp-plugin,wp-customer-reviews,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-customer-reviews/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-customer-reviews"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.7.8')
