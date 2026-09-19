@@ -1,0 +1,51 @@
+id: real3d_flipbook_lite-f6df3abe-ef27-46d7-bbdd-abd994fce132
+
+info:
+  name: >
+    Real 3D Flipbook <= 5.1.1 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'lightboxtext' Shortcode Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f6df3abe-ef27-46d7-bbdd-abd994fce132?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/real3d-flipbook-lite/"
+    google-query: inurl:"/wp-content/plugins/real3d-flipbook-lite/"
+    shodan-query: 'http.html:"wp-content/plugins/real3d-flipbook-lite/"'
+  tags: cve,wordpress,wp-plugin,real3d-flipbook-lite,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/real3d-flipbook-lite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "real3d-flipbook-lite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.1.1')
