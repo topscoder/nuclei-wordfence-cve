@@ -2,7 +2,7 @@ id: lazytasks_project_task_management-c6998185-0f9b-48ab-9dca-05adf5ae603a
 
 info:
   name: >
-    LazyTasks – Project & Task Management with Collaboration, Kanban and Gantt Chart <= 1.2.29 - Missing Authorization to Uanuthenticated Privilege Escalation
+    LazyTasks – Project & Task Management with Collaboration, Kanban and Gantt Chart <= 1.7.43 - Missing Authorization to Uanuthenticated Privilege Escalation
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.29')
+          - compare_versions(version, '<= 1.7.43')
