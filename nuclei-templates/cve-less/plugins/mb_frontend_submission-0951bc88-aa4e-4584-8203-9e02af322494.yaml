@@ -1,0 +1,51 @@
+id: mb_frontend_submission-0951bc88-aa4e-4584-8203-9e02af322494
+
+info:
+  name: >
+    Meta Box AIO <= 3.7.2 And Standalone Plugin Extensions - Unauthenticated Privilege Escalation to Administrator to 'rwmb_frontend_field_object_id' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0951bc88-aa4e-4584-8203-9e02af322494?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mb-frontend-submission/"
+    google-query: inurl:"/wp-content/plugins/mb-frontend-submission/"
+    shodan-query: 'http.html:"wp-content/plugins/mb-frontend-submission/"'
+  tags: cve,wordpress,wp-plugin,mb-frontend-submission,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mb-frontend-submission/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mb-frontend-submission"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.5.6')
