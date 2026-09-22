@@ -1,0 +1,51 @@
+id: image_buzz-3d1c7383-ac3b-48b3-aaea-729a36e77ff5
+
+info:
+  name: >
+    Image Buzz <= 1.0.3 - Missing Authorization to Unauthenticated Arbitrary API Key Modification via 'pixabay_api' Parameter
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3d1c7383-ac3b-48b3-aaea-729a36e77ff5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/image-buzz/"
+    google-query: inurl:"/wp-content/plugins/image-buzz/"
+    shodan-query: 'http.html:"wp-content/plugins/image-buzz/"'
+  tags: cve,wordpress,wp-plugin,image-buzz,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/image-buzz/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "image-buzz"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.3')
