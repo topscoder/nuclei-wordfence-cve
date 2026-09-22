@@ -1,0 +1,51 @@
+id: wp_travel_engine-708b70c7-e4e6-4422-9682-c7d05063a188
+
+info:
+  name: >
+    WP Travel Engine <= 6.8.0 - Authenticated (Contributor+) Local File Inclusion via 'template' Shortcode Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/708b70c7-e4e6-4422-9682-c7d05063a188?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-travel-engine/"
+    google-query: inurl:"/wp-content/plugins/wp-travel-engine/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-travel-engine/"'
+  tags: cve,wordpress,wp-plugin,wp-travel-engine,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-travel-engine/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-travel-engine"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.8.0')
