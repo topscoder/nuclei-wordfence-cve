@@ -2,7 +2,7 @@ id: kalrav_ai_agent-5dc8feae-fc89-4152-b9b2-2b70e6ccb30b
 
 info:
   name: >
-    Kalrav AI Agent <= 3.0.11 - Unauthenticated Arbitrary File Upload via kalrav_upload_file AJAX Action
+    Kalrav AI Agent <= 2.3.8 - Unauthenticated Arbitrary File Upload via kalrav_upload_file AJAX Action
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.0.11')
+          - compare_versions(version, '<= 2.3.8')
