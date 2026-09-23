@@ -1,0 +1,51 @@
+id: wp_shortcut_link-82e6abde-b826-4dd9-81bb-89b6549b3789
+
+info:
+  name: >
+    Shortcut Link <= 1.2.0 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/82e6abde-b826-4dd9-81bb-89b6549b3789?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-shortcut-link/"
+    google-query: inurl:"/wp-content/plugins/wp-shortcut-link/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-shortcut-link/"'
+  tags: cve,wordpress,wp-plugin,wp-shortcut-link,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-shortcut-link/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-shortcut-link"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.0')
