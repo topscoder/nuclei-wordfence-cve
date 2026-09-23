@@ -1,0 +1,51 @@
+id: hide_my_wp-edfa6e7c-2a53-49ff-ad7b-63d579be3acc
+
+info:
+  name: >
+    Ghost (Hide My WP Ghost) <= 7.0.10 - Unauthenticated Login Protection Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/edfa6e7c-2a53-49ff-ad7b-63d579be3acc?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/hide-my-wp/"
+    google-query: inurl:"/wp-content/plugins/hide-my-wp/"
+    shodan-query: 'http.html:"wp-content/plugins/hide-my-wp/"'
+  tags: cve,wordpress,wp-plugin,hide-my-wp,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/hide-my-wp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "hide-my-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.0.10')
