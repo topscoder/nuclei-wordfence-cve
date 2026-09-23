@@ -1,0 +1,51 @@
+id: rename_wp_loginphp_to_anything_you_want-89a07c47-b57c-49de-9f7c-a2bb29e3fecc
+
+info:
+  name: >
+    Rename wp-login.php to anything you want <= 2.0.1 - Unauthenticated SQL Injection via 'log' (Username) Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/89a07c47-b57c-49de-9f7c-a2bb29e3fecc?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/rename-wp-loginphp-to-anything-you-want/"
+    google-query: inurl:"/wp-content/plugins/rename-wp-loginphp-to-anything-you-want/"
+    shodan-query: 'http.html:"wp-content/plugins/rename-wp-loginphp-to-anything-you-want/"'
+  tags: cve,wordpress,wp-plugin,rename-wp-loginphp-to-anything-you-want,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/rename-wp-loginphp-to-anything-you-want/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "rename-wp-loginphp-to-anything-you-want"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.0.1')
