@@ -2,7 +2,7 @@ id: wp_table_builder-7c9ae1cd-c2fa-40a3-88f7-9ee7428391e5
 
 info:
   name: >
-    WP Table Builder <= 2.2.1 - Incorrect Authorization to Authenticated (Subscriber+) Arbitrary Post Deletion via 'ids' Parameter
+    WP Table Builder 2.1.1 - 2.1.13 - Incorrect Authorization to Authenticated (Subscriber+) Arbitrary Post Deletion via 'ids' Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.1')
+          - compare_versions(version, '>= 2.1.1', '<= 2.1.13')
