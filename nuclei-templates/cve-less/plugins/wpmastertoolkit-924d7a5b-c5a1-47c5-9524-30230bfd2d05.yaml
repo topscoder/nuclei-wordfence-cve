@@ -1,0 +1,51 @@
+id: wpmastertoolkit-924d7a5b-c5a1-47c5-9524-30230bfd2d05
+
+info:
+  name: >
+    WPMasterToolKit (WPMTK) – All in one plugin <= 2.22.0 - Authenticated (Administrator+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/924d7a5b-c5a1-47c5-9524-30230bfd2d05?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wpmastertoolkit/"
+    google-query: inurl:"/wp-content/plugins/wpmastertoolkit/"
+    shodan-query: 'http.html:"wp-content/plugins/wpmastertoolkit/"'
+  tags: cve,wordpress,wp-plugin,wpmastertoolkit,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wpmastertoolkit/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wpmastertoolkit"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.22.0')
