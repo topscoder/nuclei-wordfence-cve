@@ -2,7 +2,7 @@ id: divi-79a2fa3b-f9eb-49d8-97be-3a81d1b69c2e
 
 info:
   name: >
-    Divi <= 5.11.1 - Missing Authorization to Unauthenticated Arbitrary Registered Shortcode Execution via 'content' Parameter via Shortcode Module REST Endpoint
+    Divi 5.0 - 5.11.1 - Missing Authorization to Unauthenticated Arbitrary Registered Shortcode Execution via 'content' Parameter via Shortcode Module REST Endpoint
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.11.1')
+          - compare_versions(version, '>= 5.0', '<= 5.11.1')
