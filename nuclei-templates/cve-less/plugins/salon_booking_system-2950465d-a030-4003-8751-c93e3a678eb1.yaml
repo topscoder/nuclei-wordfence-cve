@@ -2,7 +2,7 @@ id: salon_booking_system-2950465d-a030-4003-8751-c93e3a678eb1
 
 info:
   name: >
-    Salon Booking System – Free Version <= 10.30.33 - Missing Authorization to Unauthenticated Google Calendar Connection Hijack
+    Salon Booking System – Free Version < 10.31.3 - Missing Authorization to Unauthenticated Google Calendar Connection Hijack
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 10.30.33')
+          - compare_versions(version, '< 10.31.3')
