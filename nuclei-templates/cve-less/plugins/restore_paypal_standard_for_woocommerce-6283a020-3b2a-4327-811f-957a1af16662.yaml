@@ -2,7 +2,7 @@ id: restore_paypal_standard_for_woocommerce-6283a020-3b2a-4327-811f-957a1af16662
 
 info:
   name: >
-    Restore PayPal Standard for WooCommerce <= 3.1.0 - Unauthenticated Payment Bypass
+    Restore PayPal Standard for WooCommerce < 3.1.1 - Unauthenticated Payment Bypass
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.1.0')
+          - compare_versions(version, '< 3.1.1')
