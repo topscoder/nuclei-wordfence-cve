@@ -2,7 +2,7 @@ id: subscribe2-09ffb955-61cb-461d-8868-06bed94b262e
 
 info:
   name: >
-    Subscribe2 – Form, Email Subscribers & Newsletters <= 10.46 - Unauthenticated Stored Cross-Site Scripting
+    Subscribe2 – Form, Email Subscribers & Newsletters <= 10.47 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 10.46')
+          - compare_versions(version, '<= 10.47')
