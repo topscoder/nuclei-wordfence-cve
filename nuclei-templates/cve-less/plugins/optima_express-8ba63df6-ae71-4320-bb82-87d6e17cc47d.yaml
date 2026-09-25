@@ -1,0 +1,51 @@
+id: optima_express-8ba63df6-ae71-4320-bb82-87d6e17cc47d
+
+info:
+  name: >
+    Optima Express IDX <= 8.7.5 - Unauthenticated Privilege Escalation to 'ihf_clear_cache' AJAX Action to Author Role Assignment
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8ba63df6-ae71-4320-bb82-87d6e17cc47d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/optima-express/"
+    google-query: inurl:"/wp-content/plugins/optima-express/"
+    shodan-query: 'http.html:"wp-content/plugins/optima-express/"'
+  tags: cve,wordpress,wp-plugin,optima-express,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/optima-express/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "optima-express"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.7.5')
