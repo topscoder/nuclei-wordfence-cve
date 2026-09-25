@@ -2,7 +2,7 @@ id: ninja_forms-c599a562-5218-4b37-bcf7-0e82008a4e68
 
 info:
   name: >
-    Ninja Forms – The Contact Form Builder That Grows With You <= 3.15.3 - Stored Cross-Site Scripting
+    Ninja Forms – The Contact Form Builder That Grows With You <= 3.15.3 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
