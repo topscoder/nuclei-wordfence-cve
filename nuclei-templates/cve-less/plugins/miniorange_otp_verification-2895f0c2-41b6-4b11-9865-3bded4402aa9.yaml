@@ -1,0 +1,51 @@
+id: miniorange_otp_verification-2895f0c2-41b6-4b11-9865-3bded4402aa9
+
+info:
+  name: >
+    miniOrange OTP Login, Verification and SMS Notifications <= 5.5.5 - Unauthenticated Authentication Bypass via 'mo_wp_login_intent' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2895f0c2-41b6-4b11-9865-3bded4402aa9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/miniorange-otp-verification/"
+    google-query: inurl:"/wp-content/plugins/miniorange-otp-verification/"
+    shodan-query: 'http.html:"wp-content/plugins/miniorange-otp-verification/"'
+  tags: cve,wordpress,wp-plugin,miniorange-otp-verification,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/miniorange-otp-verification/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "miniorange-otp-verification"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.5.5')
