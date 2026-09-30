@@ -1,0 +1,51 @@
+id: directorist-b0aa5027-3e13-48f4-b6fd-f93ba5ea6963
+
+info:
+  name: >
+    Directorist <= 8.9.4 - Authenticated (Subscriber+) Server-Side Request Forgery
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b0aa5027-3e13-48f4-b6fd-f93ba5ea6963?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/directorist/"
+    google-query: inurl:"/wp-content/plugins/directorist/"
+    shodan-query: 'http.html:"wp-content/plugins/directorist/"'
+  tags: cve,wordpress,wp-plugin,directorist,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/directorist/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "directorist"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.9.4')
