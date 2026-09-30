@@ -1,0 +1,51 @@
+id: wp_subscribe_form-5e74c5d4-c2f6-4877-8863-afda5b22868e
+
+info:
+  name: >
+    Subscribe Forms 1.4.1 - 1.6.2 - Authenticated (Author+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5e74c5d4-c2f6-4877-8863-afda5b22868e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-subscribe-form/"
+    google-query: inurl:"/wp-content/plugins/wp-subscribe-form/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-subscribe-form/"'
+  tags: cve,wordpress,wp-plugin,wp-subscribe-form,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-subscribe-form/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-subscribe-form"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.4.1', '<= 1.6.2')
