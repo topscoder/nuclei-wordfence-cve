@@ -1,0 +1,51 @@
+id: optima_express-06022ca3-7b2e-499b-b2ca-dffc52973fdf
+
+info:
+  name: >
+    Optima Express 8.6.0 - 8.7.5 - Authenticated (Author+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/06022ca3-7b2e-499b-b2ca-dffc52973fdf?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/optima-express/"
+    google-query: inurl:"/wp-content/plugins/optima-express/"
+    shodan-query: 'http.html:"wp-content/plugins/optima-express/"'
+  tags: cve,wordpress,wp-plugin,optima-express,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/optima-express/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "optima-express"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 8.6.0', '<= 8.7.5')
