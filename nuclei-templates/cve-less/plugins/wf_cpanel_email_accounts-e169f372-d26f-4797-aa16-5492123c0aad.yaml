@@ -1,0 +1,51 @@
+id: wf_cpanel_email_accounts-e169f372-d26f-4797-aa16-5492123c0aad
+
+info:
+  name: >
+    WebFacing Email Accounts for cPanel 5.3 - 5.3.6 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e169f372-d26f-4797-aa16-5492123c0aad?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wf-cpanel-email-accounts/"
+    google-query: inurl:"/wp-content/plugins/wf-cpanel-email-accounts/"
+    shodan-query: 'http.html:"wp-content/plugins/wf-cpanel-email-accounts/"'
+  tags: cve,wordpress,wp-plugin,wf-cpanel-email-accounts,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wf-cpanel-email-accounts/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wf-cpanel-email-accounts"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 5.3', '<= 5.3.6')
