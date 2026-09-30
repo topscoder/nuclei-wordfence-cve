@@ -1,0 +1,51 @@
+id: viable_url_media_uploader-c600d267-0fed-4682-bc71-5bd0d2f70cae
+
+info:
+  name: >
+    Viable URL Media Uploader <= 1.0.0 - Authenticated (Author+) Stored Cross-Site Scripting via SVG File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c600d267-0fed-4682-bc71-5bd0d2f70cae?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/viable-url-media-uploader/"
+    google-query: inurl:"/wp-content/plugins/viable-url-media-uploader/"
+    shodan-query: 'http.html:"wp-content/plugins/viable-url-media-uploader/"'
+  tags: cve,wordpress,wp-plugin,viable-url-media-uploader,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/viable-url-media-uploader/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "viable-url-media-uploader"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.0')
