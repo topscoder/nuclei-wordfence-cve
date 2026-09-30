@@ -1,0 +1,51 @@
+id: capability_manager_enhanced-5f97b842-d5ce-4428-ab74-9d15ebbcf341
+
+info:
+  name: >
+    PublishPress Capabilities: User Role Access Control, Admin Area Permissions <= 2.50.1 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5f97b842-d5ce-4428-ab74-9d15ebbcf341?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/capability-manager-enhanced/"
+    google-query: inurl:"/wp-content/plugins/capability-manager-enhanced/"
+    shodan-query: 'http.html:"wp-content/plugins/capability-manager-enhanced/"'
+  tags: cve,wordpress,wp-plugin,capability-manager-enhanced,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/capability-manager-enhanced/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "capability-manager-enhanced"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.50.1')
