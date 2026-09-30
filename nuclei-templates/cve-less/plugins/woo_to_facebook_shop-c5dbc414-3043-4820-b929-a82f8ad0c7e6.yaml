@@ -1,0 +1,51 @@
+id: woo_to_facebook_shop-c5dbc414-3043-4820-b929-a82f8ad0c7e6
+
+info:
+  name: >
+    Social Commerce for WooCommerce <= 2.5.4 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c5dbc414-3043-4820-b929-a82f8ad0c7e6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-to-facebook-shop/"
+    google-query: inurl:"/wp-content/plugins/woo-to-facebook-shop/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-to-facebook-shop/"'
+  tags: cve,wordpress,wp-plugin,woo-to-facebook-shop,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-to-facebook-shop/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-to-facebook-shop"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.5.4')
