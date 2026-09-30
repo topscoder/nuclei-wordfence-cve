@@ -1,0 +1,51 @@
+id: real_estate_manager-1b05171e-e27f-437b-b9a8-0636da7bee8d
+
+info:
+  name: >
+    Real Estate Manager <= 7.3 - Authenticated (Subscriber+) Stored Cross-Site Scripting via 'before_price_text' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1b05171e-e27f-437b-b9a8-0636da7bee8d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/real-estate-manager/"
+    google-query: inurl:"/wp-content/plugins/real-estate-manager/"
+    shodan-query: 'http.html:"wp-content/plugins/real-estate-manager/"'
+  tags: cve,wordpress,wp-plugin,real-estate-manager,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/real-estate-manager/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "real-estate-manager"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.3')
