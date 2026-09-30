@@ -1,0 +1,51 @@
+id: product_designer_app-e94db231-e5d4-4b49-ad36-74c0284abfd2
+
+info:
+  name: >
+    Product Designer App <= 1.1.3 - Unauthenticated Arbitrary File Read via 'svg' Parameter in pdapp-render-design
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e94db231-e5d4-4b49-ad36-74c0284abfd2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/product-designer-app/"
+    google-query: inurl:"/wp-content/plugins/product-designer-app/"
+    shodan-query: 'http.html:"wp-content/plugins/product-designer-app/"'
+  tags: cve,wordpress,wp-plugin,product-designer-app,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/product-designer-app/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "product-designer-app"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.3')
