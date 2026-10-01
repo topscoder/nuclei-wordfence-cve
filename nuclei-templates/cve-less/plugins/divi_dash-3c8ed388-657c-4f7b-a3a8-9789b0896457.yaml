@@ -1,0 +1,51 @@
+id: divi_dash-3c8ed388-657c-4f7b-a3a8-9789b0896457
+
+info:
+  name: >
+    Divi Dash <= 1.0.6 - Unauthenticated IP Spoofing to Protection Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3c8ed388-657c-4f7b-a3a8-9789b0896457?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/divi-dash/"
+    google-query: inurl:"/wp-content/plugins/divi-dash/"
+    shodan-query: 'http.html:"wp-content/plugins/divi-dash/"'
+  tags: cve,wordpress,wp-plugin,divi-dash,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/divi-dash/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "divi-dash"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.6')
