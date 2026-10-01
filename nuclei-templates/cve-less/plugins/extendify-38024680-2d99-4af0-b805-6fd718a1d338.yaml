@@ -1,0 +1,51 @@
+id: extendify-38024680-2d99-4af0-b805-6fd718a1d338
+
+info:
+  name: >
+    Extendify <= 3.1.6 - Unauthenticated Stored Cross-Site Scripting via 'styles.blocks' Block Type Key
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/38024680-2d99-4af0-b805-6fd718a1d338?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/extendify/"
+    google-query: inurl:"/wp-content/plugins/extendify/"
+    shodan-query: 'http.html:"wp-content/plugins/extendify/"'
+  tags: cve,wordpress,wp-plugin,extendify,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/extendify/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "extendify"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.1.6')
