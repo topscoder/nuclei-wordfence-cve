@@ -1,0 +1,51 @@
+id: woocommerce_multilingual-b3a4ff32-52a8-4bb0-8bf6-536a89d338e9
+
+info:
+  name: >
+    WPML Multilingual & Multicurrency for WooCommerce <= 5.5.7 - Authenticated (Shop Manager+) SQL Injection via Exchange Rate Field
+  author: topscoder
+  severity: low
+  description: >
+    The WooCommerce Multilingual & Multicurrency with WPML plugin for WordPress is vulnerable to SQL Injection in all versions up to, and including, 5.5.7. This is due to insufficient input validation on the currency exchange rate parameter in the save_currency() AJAX handler, which lacks capability checks and allows subscriber-level users to store malicious SQL payloads that are later concatenated directly into ORDER BY clauses without proper sanitization. This makes it possible for authenticated attackers, with Shop Manager-level access and above, to append additional SQL queries to extract sensitive information from the database.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b3a4ff32-52a8-4bb0-8bf6-536a89d338e9?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N
+    cvss-score: 4.9
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-multilingual/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-multilingual/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-multilingual/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-multilingual,low,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-multilingual/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-multilingual"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.5.7')
