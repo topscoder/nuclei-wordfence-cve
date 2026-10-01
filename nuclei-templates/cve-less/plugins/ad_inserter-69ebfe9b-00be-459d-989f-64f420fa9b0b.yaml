@@ -1,0 +1,51 @@
+id: ad_inserter-69ebfe9b-00be-459d-989f-64f420fa9b0b
+
+info:
+  name: >
+    Ad Inserter – Ad Manager & AdSense Ads <= 2.8.18 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/69ebfe9b-00be-459d-989f-64f420fa9b0b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ad-inserter/"
+    google-query: inurl:"/wp-content/plugins/ad-inserter/"
+    shodan-query: 'http.html:"wp-content/plugins/ad-inserter/"'
+  tags: cve,wordpress,wp-plugin,ad-inserter,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ad-inserter/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ad-inserter"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.8.18')
