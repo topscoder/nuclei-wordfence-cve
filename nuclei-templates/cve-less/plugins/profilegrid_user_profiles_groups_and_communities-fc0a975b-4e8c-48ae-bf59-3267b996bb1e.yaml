@@ -2,7 +2,7 @@ id: profilegrid_user_profiles_groups_and_communities-fc0a975b-4e8c-48ae-bf59-326
 
 info:
   name: >
-    ProfileGrid – User Profiles, Groups and Communities <= 5.9.9.8 - Cross-Site Request Forgery
+    ProfileGrid – User Profiles, Groups and Communities <= 6.0.0.2 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.9.9.8')
+          - compare_versions(version, '<= 6.0.0.2')
