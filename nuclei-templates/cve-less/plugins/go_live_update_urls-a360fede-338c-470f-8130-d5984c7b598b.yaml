@@ -1,0 +1,51 @@
+id: go_live_update_urls-a360fede-338c-470f-8130-d5984c7b598b
+
+info:
+  name: >
+    Go Live Update Urls <= 7.0.8 - Authenticated (Contributor+) PHP Object Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a360fede-338c-470f-8130-d5984c7b598b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/go-live-update-urls/"
+    google-query: inurl:"/wp-content/plugins/go-live-update-urls/"
+    shodan-query: 'http.html:"wp-content/plugins/go-live-update-urls/"'
+  tags: cve,wordpress,wp-plugin,go-live-update-urls,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/go-live-update-urls/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "go-live-update-urls"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.0.8')
