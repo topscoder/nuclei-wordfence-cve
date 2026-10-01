@@ -1,0 +1,51 @@
+id: rzp_woocommerce-99d7ea62-3a2b-4c29-99aa-a279bda84092
+
+info:
+  name: >
+    Razorpay Payment Links for WooCommerce <= 2.1.5 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/99d7ea62-3a2b-4c29-99aa-a279bda84092?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/rzp-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/rzp-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/rzp-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,rzp-woocommerce,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/rzp-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "rzp-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.1.5')
