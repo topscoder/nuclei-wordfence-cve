@@ -1,0 +1,51 @@
+id: copy_delete_posts-c475c51e-f01d-4698-822f-5b8df999bf6d
+
+info:
+  name: >
+    Duplicate Post <= 1.5.6 - Authenticated (Subscriber+) Stored Cross-Site Scripting via 'noti_token' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c475c51e-f01d-4698-822f-5b8df999bf6d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/copy-delete-posts/"
+    google-query: inurl:"/wp-content/plugins/copy-delete-posts/"
+    shodan-query: 'http.html:"wp-content/plugins/copy-delete-posts/"'
+  tags: cve,wordpress,wp-plugin,copy-delete-posts,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/copy-delete-posts/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "copy-delete-posts"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.6')
