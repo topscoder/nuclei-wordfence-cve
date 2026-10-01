@@ -1,0 +1,51 @@
+id: zportals-8f83c4b4-6ff9-4d25-9c71-8ce1cfa515f1
+
+info:
+  name: >
+    Zportals <= 6.4.1 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8f83c4b4-6ff9-4d25-9c71-8ce1cfa515f1?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/zportals/"
+    google-query: inurl:"/wp-content/plugins/zportals/"
+    shodan-query: 'http.html:"wp-content/plugins/zportals/"'
+  tags: cve,wordpress,wp-plugin,zportals,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/zportals/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "zportals"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.4.1')
