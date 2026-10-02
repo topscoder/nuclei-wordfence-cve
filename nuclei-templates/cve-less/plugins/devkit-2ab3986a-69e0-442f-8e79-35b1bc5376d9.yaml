@@ -1,0 +1,51 @@
+id: devkit-2ab3986a-69e0-442f-8e79-35b1bc5376d9
+
+info:
+  name: >
+    DevKit Pro <= 2.3.0 - Unauthenticated Authentication Bypass to Administrator Account Takeover via 'original_user_id' Cookie in Frontend Revert Switch Flow
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2ab3986a-69e0-442f-8e79-35b1bc5376d9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/devkit/"
+    google-query: inurl:"/wp-content/plugins/devkit/"
+    shodan-query: 'http.html:"wp-content/plugins/devkit/"'
+  tags: cve,wordpress,wp-plugin,devkit,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/devkit/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "devkit"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3.0')
