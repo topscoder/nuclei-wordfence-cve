@@ -1,0 +1,51 @@
+id: json_api_auth-f2fdf8bf-7f53-4579-9a1f-be7b3ef1ca50
+
+info:
+  name: >
+    JSON API Auth <= 3.1.2 - Unauthenticated Authentication Bypass via Cached 'generate_auth_cookie' Response
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f2fdf8bf-7f53-4579-9a1f-be7b3ef1ca50?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/json-api-auth/"
+    google-query: inurl:"/wp-content/plugins/json-api-auth/"
+    shodan-query: 'http.html:"wp-content/plugins/json-api-auth/"'
+  tags: cve,wordpress,wp-plugin,json-api-auth,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/json-api-auth/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "json-api-auth"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.1.2')
