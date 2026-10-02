@@ -1,0 +1,51 @@
+id: otter_blocks-6cf22af6-3e25-43ae-b10d-f343720e722a
+
+info:
+  name: >
+    Otter Blocks <= 3.2.6 - Authenticated (Subscriber+) Sensitive Information Exposure in Form Submissions Dashboard Widget
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6cf22af6-3e25-43ae-b10d-f343720e722a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/otter-blocks/"
+    google-query: inurl:"/wp-content/plugins/otter-blocks/"
+    shodan-query: 'http.html:"wp-content/plugins/otter-blocks/"'
+  tags: cve,wordpress,wp-plugin,otter-blocks,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/otter-blocks/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "otter-blocks"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.2.6')
