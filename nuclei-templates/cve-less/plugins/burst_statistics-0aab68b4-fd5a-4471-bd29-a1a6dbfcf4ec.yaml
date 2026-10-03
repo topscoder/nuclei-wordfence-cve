@@ -1,0 +1,51 @@
+id: burst_statistics-0aab68b4-fd5a-4471-bd29-a1a6dbfcf4ec
+
+info:
+  name: >
+    Burst Statistics <= 3.7.1 - Improper Authentication to Account Persistence via Share-Link Authentication Bypass via 'burst_share_token'
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0aab68b4-fd5a-4471-bd29-a1a6dbfcf4ec?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/burst-statistics/"
+    google-query: inurl:"/wp-content/plugins/burst-statistics/"
+    shodan-query: 'http.html:"wp-content/plugins/burst-statistics/"'
+  tags: cve,wordpress,wp-plugin,burst-statistics,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/burst-statistics/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "burst-statistics"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.7.1')
