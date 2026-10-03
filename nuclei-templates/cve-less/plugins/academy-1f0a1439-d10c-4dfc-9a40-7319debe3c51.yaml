@@ -1,0 +1,51 @@
+id: academy-1f0a1439-d10c-4dfc-9a40-7319debe3c51
+
+info:
+  name: >
+    Academy LMS <= 4.0.1 - Authenticated (Contributor+) Arbitrary HTML File Read via 'id' Parameter in /wp/v2/templates REST Route
+  author: topscoder
+  severity: low
+  description: >
+    The Academy LMS – AI Course Builder, Quizzes, Certificates & eLearning plugin for WordPress is vulnerable to Directory Traversal in all versions up to, and including, 4.0.1 via the 'id' parameter. This makes it possible for authenticated attackers, with contributor-level access and above, to read the contents of arbitrary .html files on the server. The plugin appends a '.html' extension to the attacker-supplied path before reading it, so files with any other extension — including wp-config.php — are out of reach. The file's contents are returned in full in the REST JSON response's content field.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1f0a1439-d10c-4dfc-9a40-7319debe3c51?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 4.3
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/academy/"
+    google-query: inurl:"/wp-content/plugins/academy/"
+    shodan-query: 'http.html:"wp-content/plugins/academy/"'
+  tags: cve,wordpress,wp-plugin,academy,low,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/academy/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "academy"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.0.1')
