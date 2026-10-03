@@ -1,0 +1,51 @@
+id: responsive_add_ons-15eef02a-d6c9-4956-9e19-b8f3340768ff
+
+info:
+  name: >
+    Responsive Plus <= 3.5.3 - Authenticated (Contributor+) Stored Cross-Site Scripting via Shortcode Attributes
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/15eef02a-d6c9-4956-9e19-b8f3340768ff?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/responsive-add-ons/"
+    google-query: inurl:"/wp-content/plugins/responsive-add-ons/"
+    shodan-query: 'http.html:"wp-content/plugins/responsive-add-ons/"'
+  tags: cve,wordpress,wp-plugin,responsive-add-ons,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/responsive-add-ons/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "responsive-add-ons"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.5.3')
