@@ -2,7 +2,7 @@ id: link_hopper-c6c52046-c85d-46af-b36c-41c70dad5426
 
 info:
   name: >
-    Link Hopper <= 2.5 - Authenticated (Administrator+) Stored Cross-Site Scripting via 'hop_name' Parameter
+    Link Hopper <= 1.4 - Authenticated (Administrator+) Stored Cross-Site Scripting via 'hop_name' Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.5')
+          - compare_versions(version, '<= 1.4')
