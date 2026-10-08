@@ -1,0 +1,61 @@
+id: wordpress-d27c2393-64b2-4087-aa91-cbfaec644e13
+
+info:
+  name: >
+    WordPress Core 4.7.0 - 7.1.2 - Conditional Action Hook Injection via Unregistered Post Status or Post Type
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to conditional action hook injection in versions 4.7 through 7.1.2 because wp_transition_post_status() constructs status- and post-type-specific action names without first verifying that the supplied status and post type are registered. This makes it possible for attackers who have a separate method of introducing an unregistered status or post type into a post transition to collide with an existing action name and invoke a site-specific callback in an unintended context.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d27c2393-64b2-4087-aa91-cbfaec644e13?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:L/I:L/A:N
+    cvss-score: 3.3
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.2')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
