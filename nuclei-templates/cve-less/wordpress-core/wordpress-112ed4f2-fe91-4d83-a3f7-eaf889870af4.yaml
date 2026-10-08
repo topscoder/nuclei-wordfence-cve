@@ -33,9 +33,9 @@ http:
     matchers:
       - type: dsl
         dsl:
-          - compare_versions(version_by_generator, '<= *')
-          - compare_versions(version_by_js, '<= *')
-          - compare_versions(version_by_css, '<= *')
+          - compare_versions(version_by_generator, '>= 4.1.30', '<= 6.1.1')
+          - compare_versions(version_by_js, '>= 4.1.30', '<= 6.1.1')
+          - compare_versions(version_by_css, '>= 4.1.30', '<= 6.1.1')
 
       - type: status
         status:
