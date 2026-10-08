@@ -1,0 +1,61 @@
+id: wordpress-71f883d7-edf5-409e-92c1-f87f880602d3
+
+info:
+  name: >
+    WordPress Core 4.7.0 - 7.1.2 - Authenticated (Contributor+) Stored Cross-Site Scripting via Imgur oEmbed
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to Stored Cross-Site Scripting via Imgur embeds in versions 4.7 through 7.1.2 because Imgur is registered as a trusted oEmbed provider and its returned embed HTML is rendered without untrusted-provider sanitization. This makes it possible for authenticated attackers, with Contributor-level access and above, to store a crafted Imgur embed that can execute web scripts when an affected post is rendered by another user.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/71f883d7-edf5-409e-92c1-f87f880602d3?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 6.4
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.2')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
