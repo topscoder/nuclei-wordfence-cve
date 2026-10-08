@@ -1,0 +1,61 @@
+id: wordpress-bc5886e8-a520-48e4-9976-2e92b37e4bdf
+
+info:
+  name: >
+    WordPress Core 4.7.0 - 7.1.2 - Authenticated (Contributor+) Denial of Service via Block Editor URL Details
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to Denial of Service in versions 4.7 through 7.1.2 because WP_Http::make_absolute_url() can enter a non-terminating loop when a malformed relative path contains a parent-directory component that its replacement expression cannot remove. In the demonstrated Core path, this makes it possible for authenticated attackers with Contributor-level access and above to occupy a PHP worker by asking the Block Editor URL Details endpoint to process attacker-controlled remote HTML containing a malformed relative icon or image URL. Repeated concurrent requests may reduce site availability.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bc5886e8-a520-48e4-9976-2e92b37e4bdf?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L
+    cvss-score: 4.3
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.2')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
