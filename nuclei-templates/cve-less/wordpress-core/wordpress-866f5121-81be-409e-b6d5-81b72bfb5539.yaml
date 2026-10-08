@@ -1,0 +1,61 @@
+id: wordpress-866f5121-81be-409e-b6d5-81b72bfb5539
+
+info:
+  name: >
+    WordPress Core 6.5.0 - 7.1.2 - Authenticated (Author+) Second-Order SQL Injection via WXR Export
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to second-order SQL Injection in versions 6.5 through 7.1.2 because non-numeric values collected from post thumbnail metadata are concatenated into a later WXR export query. This makes it possible for authenticated attackers, with Author-level access and above and a separate method of storing a crafted _thumbnail_id value, to alter a database query when a privileged user subsequently performs an applicable single-content-type export. The default All content export does not reach the vulnerable branch.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/866f5121-81be-409e-b6d5-81b72bfb5539?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:H/I:N/A:N
+    cvss-score: 4.8
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.2')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.2')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
