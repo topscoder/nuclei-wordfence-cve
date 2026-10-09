@@ -1,0 +1,51 @@
+id: local_sync-6ba8dd06-03a1-4cee-a5c5-ece65a401157
+
+info:
+  name: >
+    WP Duplicate – WordPress Migration Plugin <= 1.1.11 - Authenticated (Subscriber+) Arbitrary File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6ba8dd06-03a1-4cee-a5c5-ece65a401157?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/local-sync/"
+    google-query: inurl:"/wp-content/plugins/local-sync/"
+    shodan-query: 'http.html:"wp-content/plugins/local-sync/"'
+  tags: cve,wordpress,wp-plugin,local-sync,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/local-sync/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "local-sync"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.11')
