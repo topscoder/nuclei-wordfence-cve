@@ -1,0 +1,51 @@
+id: magee_shortcodes-888aa96e-7da6-4778-83f6-294f77f51ee4
+
+info:
+  name: >
+    Magee Shortcodes <= 2.1.1 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/888aa96e-7da6-4778-83f6-294f77f51ee4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/magee-shortcodes/"
+    google-query: inurl:"/wp-content/plugins/magee-shortcodes/"
+    shodan-query: 'http.html:"wp-content/plugins/magee-shortcodes/"'
+  tags: cve,wordpress,wp-plugin,magee-shortcodes,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/magee-shortcodes/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "magee-shortcodes"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.1.1')
