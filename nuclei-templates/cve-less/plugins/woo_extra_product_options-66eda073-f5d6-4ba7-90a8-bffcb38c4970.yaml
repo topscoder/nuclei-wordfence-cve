@@ -1,0 +1,51 @@
+id: woo_extra_product_options-66eda073-f5d6-4ba7-90a8-bffcb38c4970
+
+info:
+  name: >
+    Extra Product Options For WooCommerce | Custom Product Addons and Fields <= 3.3.8 - Authenticated (Shop Manager+) PHP Object Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/66eda073-f5d6-4ba7-90a8-bffcb38c4970?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-extra-product-options/"
+    google-query: inurl:"/wp-content/plugins/woo-extra-product-options/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-extra-product-options/"'
+  tags: cve,wordpress,wp-plugin,woo-extra-product-options,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-extra-product-options/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-extra-product-options"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.3.8')
