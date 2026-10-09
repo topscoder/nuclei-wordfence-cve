@@ -1,0 +1,51 @@
+id: slider_pro_wp-91529cba-ef88-469a-9122-778db6863acc
+
+info:
+  name: >
+    Slider Pro <= 1.0.0 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/91529cba-ef88-469a-9122-778db6863acc?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/slider-pro-wp/"
+    google-query: inurl:"/wp-content/plugins/slider-pro-wp/"
+    shodan-query: 'http.html:"wp-content/plugins/slider-pro-wp/"'
+  tags: cve,wordpress,wp-plugin,slider-pro-wp,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/slider-pro-wp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "slider-pro-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.0')
