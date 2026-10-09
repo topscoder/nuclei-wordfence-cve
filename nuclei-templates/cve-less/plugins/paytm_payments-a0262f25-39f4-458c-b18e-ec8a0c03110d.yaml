@@ -1,0 +1,51 @@
+id: paytm_payments-a0262f25-39f4-458c-b18e-ec8a0c03110d
+
+info:
+  name: >
+    Paytm Payment Gateway <= 2.8.8 - Unauthenticated Payment Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a0262f25-39f4-458c-b18e-ec8a0c03110d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/paytm-payments/"
+    google-query: inurl:"/wp-content/plugins/paytm-payments/"
+    shodan-query: 'http.html:"wp-content/plugins/paytm-payments/"'
+  tags: cve,wordpress,wp-plugin,paytm-payments,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/paytm-payments/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "paytm-payments"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.8.8')
