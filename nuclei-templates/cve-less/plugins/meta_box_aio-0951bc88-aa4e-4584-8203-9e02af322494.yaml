@@ -2,7 +2,7 @@ id: meta_box_aio-0951bc88-aa4e-4584-8203-9e02af322494
 
 info:
   name: >
-    Meta Box AIO <= 3.7.2 And Standalone Plugin Extensions - Unauthenticated Privilege Escalation to Administrator to 'rwmb_frontend_field_object_id' Parameter
+    Meta Box AIO <= 3.11.0 And Standalone Plugin Extensions - Unauthenticated Privilege Escalation to Administrator to 'rwmb_frontend_field_object_id' Parameter
   author: topscoder
   severity: low
   description: >
