@@ -1,0 +1,51 @@
+id: woo_multi_currency-31c54e41-20e5-47bd-a2ce-3d552202bd59
+
+info:
+  name: >
+    CURCY – Multi Currency for WooCommerce  2.2.18 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/31c54e41-20e5-47bd-a2ce-3d552202bd59?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-multi-currency/"
+    google-query: inurl:"/wp-content/plugins/woo-multi-currency/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-multi-currency/"'
+  tags: cve,wordpress,wp-plugin,woo-multi-currency,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-multi-currency/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-multi-currency"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '2.2.18')
