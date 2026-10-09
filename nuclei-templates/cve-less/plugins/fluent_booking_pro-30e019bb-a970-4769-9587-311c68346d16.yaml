@@ -1,0 +1,51 @@
+id: fluent_booking_pro-30e019bb-a970-4769-9587-311c68346d16
+
+info:
+  name: >
+    Fluent Booking Pro < 2.5.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/30e019bb-a970-4769-9587-311c68346d16?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fluent-booking-pro/"
+    google-query: inurl:"/wp-content/plugins/fluent-booking-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/fluent-booking-pro/"'
+  tags: cve,wordpress,wp-plugin,fluent-booking-pro,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fluent-booking-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fluent-booking-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.5.0')
