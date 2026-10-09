@@ -1,0 +1,51 @@
+id: wp_rest_api_log-9bd1a15d-4be6-4367-b6e9-9ddb45675b82
+
+info:
+  name: >
+    REST API Log <= 1.7.2 - Unauthenticated Insecure Direct Object Reference
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9bd1a15d-4be6-4367-b6e9-9ddb45675b82?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-rest-api-log/"
+    google-query: inurl:"/wp-content/plugins/wp-rest-api-log/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-rest-api-log/"'
+  tags: cve,wordpress,wp-plugin,wp-rest-api-log,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-rest-api-log/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-rest-api-log"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.2')
