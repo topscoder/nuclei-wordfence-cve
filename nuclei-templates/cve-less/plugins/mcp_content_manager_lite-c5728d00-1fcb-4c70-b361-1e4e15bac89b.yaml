@@ -1,0 +1,51 @@
+id: mcp_content_manager_lite-c5728d00-1fcb-4c70-b361-1e4e15bac89b
+
+info:
+  name: >
+    MCP Content Manager Lite <= 1.1.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c5728d00-1fcb-4c70-b361-1e4e15bac89b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mcp-content-manager-lite/"
+    google-query: inurl:"/wp-content/plugins/mcp-content-manager-lite/"
+    shodan-query: 'http.html:"wp-content/plugins/mcp-content-manager-lite/"'
+  tags: cve,wordpress,wp-plugin,mcp-content-manager-lite,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mcp-content-manager-lite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mcp-content-manager-lite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.0')
