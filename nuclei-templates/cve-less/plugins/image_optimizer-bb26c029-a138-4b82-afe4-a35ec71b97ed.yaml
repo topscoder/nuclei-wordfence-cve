@@ -1,0 +1,51 @@
+id: image_optimizer-bb26c029-a138-4b82-afe4-a35ec71b97ed
+
+info:
+  name: >
+    Image Optimizer by Elementor <= 1.7.6 - Authenticated (Subscriber+) Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bb26c029-a138-4b82-afe4-a35ec71b97ed?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/image-optimizer/"
+    google-query: inurl:"/wp-content/plugins/image-optimizer/"
+    shodan-query: 'http.html:"wp-content/plugins/image-optimizer/"'
+  tags: cve,wordpress,wp-plugin,image-optimizer,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/image-optimizer/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "image-optimizer"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.6')
