@@ -1,0 +1,51 @@
+id: wp_coder-c1a7f09e-2d2a-4d5e-bf4c-cb61a6cc28e1
+
+info:
+  name: >
+    Coder 4.0 - 4.5.1 - Authenticated (Editor+) Remote Code Execution
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c1a7f09e-2d2a-4d5e-bf4c-cb61a6cc28e1?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-coder/"
+    google-query: inurl:"/wp-content/plugins/wp-coder/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-coder/"'
+  tags: cve,wordpress,wp-plugin,wp-coder,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-coder/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-coder"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 4.0', '<= 4.5.1')
