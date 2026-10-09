@@ -1,0 +1,51 @@
+id: wp_books_gallery-1fecbe10-7b55-4087-859d-c5a2f824c065
+
+info:
+  name: >
+    Books Gallery – Book Showcase, Library & Affiliate Plugin <= 4.8.3 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1fecbe10-7b55-4087-859d-c5a2f824c065?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-books-gallery/"
+    google-query: inurl:"/wp-content/plugins/wp-books-gallery/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-books-gallery/"'
+  tags: cve,wordpress,wp-plugin,wp-books-gallery,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-books-gallery/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-books-gallery"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.8.3')
