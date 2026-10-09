@@ -1,0 +1,51 @@
+id: airano_mcp_bridge-b4f56e27-7d1a-43ae-b507-16b5bc5e9898
+
+info:
+  name: >
+    Airano MCP Bridge <= 2.11.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b4f56e27-7d1a-43ae-b507-16b5bc5e9898?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/airano-mcp-bridge/"
+    google-query: inurl:"/wp-content/plugins/airano-mcp-bridge/"
+    shodan-query: 'http.html:"wp-content/plugins/airano-mcp-bridge/"'
+  tags: cve,wordpress,wp-plugin,airano-mcp-bridge,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/airano-mcp-bridge/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "airano-mcp-bridge"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.11.0')
