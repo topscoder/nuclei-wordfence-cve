@@ -1,0 +1,51 @@
+id: woo_photo_reviews-73a6c292-b598-497c-b42c-a1261f888621
+
+info:
+  name: >
+    Photo Reviews for WooCommerce <= 1.2.30 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/73a6c292-b598-497c-b42c-a1261f888621?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-photo-reviews/"
+    google-query: inurl:"/wp-content/plugins/woo-photo-reviews/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-photo-reviews/"'
+  tags: cve,wordpress,wp-plugin,woo-photo-reviews,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-photo-reviews/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-photo-reviews"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.30')
