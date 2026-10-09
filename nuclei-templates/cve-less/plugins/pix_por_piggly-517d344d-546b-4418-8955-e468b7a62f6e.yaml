@@ -1,0 +1,51 @@
+id: pix_por_piggly-517d344d-546b-4418-8955-e468b7a62f6e
+
+info:
+  name: >
+    Pix por Piggly (para Woocommerce) <= 2.1.2 - Authenticated (Shop Manager+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/517d344d-546b-4418-8955-e468b7a62f6e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pix-por-piggly/"
+    google-query: inurl:"/wp-content/plugins/pix-por-piggly/"
+    shodan-query: 'http.html:"wp-content/plugins/pix-por-piggly/"'
+  tags: cve,wordpress,wp-plugin,pix-por-piggly,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pix-por-piggly/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pix-por-piggly"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.1.2')
