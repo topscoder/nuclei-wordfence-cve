@@ -1,0 +1,51 @@
+id: wp_user_profiles-3673e8d6-599b-4d2b-8a5d-9fb14316ce75
+
+info:
+  name: >
+    WP User Profiles <= 2.7.3 - Authenticated (Subscriber+) Privilege Escalation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3673e8d6-599b-4d2b-8a5d-9fb14316ce75?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-user-profiles/"
+    google-query: inurl:"/wp-content/plugins/wp-user-profiles/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-user-profiles/"'
+  tags: cve,wordpress,wp-plugin,wp-user-profiles,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-user-profiles/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-user-profiles"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.7.3')
