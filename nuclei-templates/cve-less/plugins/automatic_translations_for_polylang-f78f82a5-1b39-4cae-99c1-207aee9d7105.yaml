@@ -1,0 +1,51 @@
+id: automatic_translations_for_polylang-f78f82a5-1b39-4cae-99c1-207aee9d7105
+
+info:
+  name: >
+    AutoPoly – AI Translation For Polylang <= 1.6.2 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f78f82a5-1b39-4cae-99c1-207aee9d7105?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/automatic-translations-for-polylang/"
+    google-query: inurl:"/wp-content/plugins/automatic-translations-for-polylang/"
+    shodan-query: 'http.html:"wp-content/plugins/automatic-translations-for-polylang/"'
+  tags: cve,wordpress,wp-plugin,automatic-translations-for-polylang,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/automatic-translations-for-polylang/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "automatic-translations-for-polylang"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.6.2')
