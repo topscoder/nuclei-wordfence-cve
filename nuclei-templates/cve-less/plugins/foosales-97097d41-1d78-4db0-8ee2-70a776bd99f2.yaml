@@ -1,0 +1,51 @@
+id: foosales-97097d41-1d78-4db0-8ee2-70a776bd99f2
+
+info:
+  name: >
+    FooSales <= 1.43.0 - Authenticated (Custom+) Privilege Escalation via create_update_customer REST Endpoint
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/97097d41-1d78-4db0-8ee2-70a776bd99f2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/foosales/"
+    google-query: inurl:"/wp-content/plugins/foosales/"
+    shodan-query: 'http.html:"wp-content/plugins/foosales/"'
+  tags: cve,wordpress,wp-plugin,foosales,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/foosales/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "foosales"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.43.0')
