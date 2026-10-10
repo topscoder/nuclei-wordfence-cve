@@ -1,0 +1,51 @@
+id: fastcache_by_host_it-d72d7a21-0bea-4a32-b92b-326f47998b80
+
+info:
+  name: >
+    Fastcache by Host.it <= 1.7.4 - Authenticated (Administrator+) Code Injection via .htaccess Directive Injection via 'cache_cookie_exclude' Setting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d72d7a21-0bea-4a32-b92b-326f47998b80?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fastcache-by-host-it/"
+    google-query: inurl:"/wp-content/plugins/fastcache-by-host-it/"
+    shodan-query: 'http.html:"wp-content/plugins/fastcache-by-host-it/"'
+  tags: cve,wordpress,wp-plugin,fastcache-by-host-it,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fastcache-by-host-it/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fastcache-by-host-it"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.4')
