@@ -1,0 +1,51 @@
+id: villatheme_core-1628656a-8aa6-4b97-8935-73bc5ab6b6c2
+
+info:
+  name: >
+    VillaTheme Core <= 1.0.5 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1628656a-8aa6-4b97-8935-73bc5ab6b6c2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/villatheme-core/"
+    google-query: inurl:"/wp-content/plugins/villatheme-core/"
+    shodan-query: 'http.html:"wp-content/plugins/villatheme-core/"'
+  tags: cve,wordpress,wp-plugin,villatheme-core,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/villatheme-core/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "villatheme-core"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.5')
