@@ -1,0 +1,51 @@
+id: armania-08f95cc3-6c75-4258-909f-3fc802cbdcae
+
+info:
+  name: >
+    Armania - Fashion, Furniture, Organic, Food Multipurpose Elementor WooCommerce Theme (RTL Supported) <= 1.4.8 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/08f95cc3-6c75-4258-909f-3fc802cbdcae?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/armania/"
+    google-query: inurl:"/wp-content/themes/armania/"
+    shodan-query: 'http.html:"wp-content/themes/armania/"'
+  tags: cve,wordpress,wp-theme,armania,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/armania/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "armania"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.8')
