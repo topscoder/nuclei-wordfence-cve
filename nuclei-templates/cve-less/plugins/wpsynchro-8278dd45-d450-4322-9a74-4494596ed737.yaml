@@ -1,0 +1,51 @@
+id: wpsynchro-8278dd45-d450-4322-9a74-4494596ed737
+
+info:
+  name: >
+    WP Synchro – The Ultimate WordPress Migration Tool <= 1.16.1 - 2-Factor Authentication Bypass
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8278dd45-d450-4322-9a74-4494596ed737?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wpsynchro/"
+    google-query: inurl:"/wp-content/plugins/wpsynchro/"
+    shodan-query: 'http.html:"wp-content/plugins/wpsynchro/"'
+  tags: cve,wordpress,wp-plugin,wpsynchro,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wpsynchro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wpsynchro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.16.1')
