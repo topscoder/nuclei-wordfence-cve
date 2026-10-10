@@ -1,0 +1,51 @@
+id: search_in_place-136b7e71-c299-4747-90f5-27ed9ba275db
+
+info:
+  name: >
+    Search in Place <= 1.5.5 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/136b7e71-c299-4747-90f5-27ed9ba275db?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/search-in-place/"
+    google-query: inurl:"/wp-content/plugins/search-in-place/"
+    shodan-query: 'http.html:"wp-content/plugins/search-in-place/"'
+  tags: cve,wordpress,wp-plugin,search-in-place,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/search-in-place/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "search-in-place"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.5')
