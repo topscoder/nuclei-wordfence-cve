@@ -1,0 +1,51 @@
+id: iato_mcp-29a1359b-6075-4ebd-a77e-6052d173b801
+
+info:
+  name: >
+    IATO MCP <= 1.12.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/29a1359b-6075-4ebd-a77e-6052d173b801?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/iato-mcp/"
+    google-query: inurl:"/wp-content/plugins/iato-mcp/"
+    shodan-query: 'http.html:"wp-content/plugins/iato-mcp/"'
+  tags: cve,wordpress,wp-plugin,iato-mcp,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/iato-mcp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "iato-mcp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.12.0')
