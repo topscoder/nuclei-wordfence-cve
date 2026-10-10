@@ -1,0 +1,51 @@
+id: workreap_core-e9a345b7-b58e-49e1-b7d8-ff76c80e5f4d
+
+info:
+  name: >
+    Workreap Core <= 3.4.5 - Authenticated (Employer / Sales Representative+) Arbitrary File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e9a345b7-b58e-49e1-b7d8-ff76c80e5f4d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/workreap_core/"
+    google-query: inurl:"/wp-content/plugins/workreap_core/"
+    shodan-query: 'http.html:"wp-content/plugins/workreap_core/"'
+  tags: cve,wordpress,wp-plugin,workreap_core,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/workreap_core/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "workreap_core"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.4.5')
