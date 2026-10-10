@@ -1,0 +1,51 @@
+id: gptranslate-4a88566d-29c8-43f0-8816-80cbe93f5604
+
+info:
+  name: >
+    GPTranslate – Multilingual AI Translation Agent for WordPress: Translate Your Site with AI < 2.34.14 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4a88566d-29c8-43f0-8816-80cbe93f5604?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/gptranslate/"
+    google-query: inurl:"/wp-content/plugins/gptranslate/"
+    shodan-query: 'http.html:"wp-content/plugins/gptranslate/"'
+  tags: cve,wordpress,wp-plugin,gptranslate,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/gptranslate/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gptranslate"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.34.14')
