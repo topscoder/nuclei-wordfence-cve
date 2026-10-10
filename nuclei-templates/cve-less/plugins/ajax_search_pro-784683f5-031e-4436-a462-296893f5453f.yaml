@@ -1,0 +1,51 @@
+id: ajax_search_pro-784683f5-031e-4436-a462-296893f5453f
+
+info:
+  name: >
+    Ajax Search Pro <= 4.29.1 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/784683f5-031e-4436-a462-296893f5453f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ajax-search-pro/"
+    google-query: inurl:"/wp-content/plugins/ajax-search-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/ajax-search-pro/"'
+  tags: cve,wordpress,wp-plugin,ajax-search-pro,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ajax-search-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ajax-search-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.29.1')
