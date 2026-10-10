@@ -1,0 +1,51 @@
+id: woocommerce_product_addon-650b510f-dc13-4ba4-af68-187f516b3051
+
+info:
+  name: >
+    PPOM <= 34.0.10 - Unauthenticated Arbitrary File Deletion via 'ppom[fields][<data_name>][n][org]' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/650b510f-dc13-4ba4-af68-187f516b3051?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-product-addon/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-product-addon/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-product-addon/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-product-addon,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-product-addon/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-product-addon"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 34.0.10')
