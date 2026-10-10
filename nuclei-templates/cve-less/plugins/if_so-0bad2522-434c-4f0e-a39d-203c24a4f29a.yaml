@@ -1,0 +1,51 @@
+id: if_so-0bad2522-434c-4f0e-a39d-203c24a4f29a
+
+info:
+  name: >
+    If-So Dynamic Content 1.4.4 - 1.10.1 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0bad2522-434c-4f0e-a39d-203c24a4f29a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/if-so/"
+    google-query: inurl:"/wp-content/plugins/if-so/"
+    shodan-query: 'http.html:"wp-content/plugins/if-so/"'
+  tags: cve,wordpress,wp-plugin,if-so,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/if-so/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "if-so"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.4.4', '<= 1.10.1')
