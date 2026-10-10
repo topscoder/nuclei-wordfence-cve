@@ -1,0 +1,51 @@
+id: fv_player-5c75cb7b-1ebe-411c-8664-848d741e40d4
+
+info:
+  name: >
+    FV Player 8 <= 8.1.7 - Authenticated (Subscriber+) Arbitrary File Upload via videos[].fv_wp_flowplayer_field_src Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5c75cb7b-1ebe-411c-8664-848d741e40d4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fv-player/"
+    google-query: inurl:"/wp-content/plugins/fv-player/"
+    shodan-query: 'http.html:"wp-content/plugins/fv-player/"'
+  tags: cve,wordpress,wp-plugin,fv-player,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fv-player/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fv-player"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.1.7')
