@@ -1,0 +1,51 @@
+id: wplms-5eeb40a0-7b18-4676-af71-ed0bf9b21e4f
+
+info:
+  name: >
+    WPLMS Learning Management System for WordPress, WordPress LMS <= 4.972 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5eeb40a0-7b18-4676-af71-ed0bf9b21e4f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/wplms/"
+    google-query: inurl:"/wp-content/themes/wplms/"
+    shodan-query: 'http.html:"wp-content/themes/wplms/"'
+  tags: cve,wordpress,wp-theme,wplms,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/wplms/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wplms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.972')
