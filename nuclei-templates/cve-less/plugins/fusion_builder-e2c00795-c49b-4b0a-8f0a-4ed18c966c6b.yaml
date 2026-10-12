@@ -2,7 +2,7 @@ id: fusion_builder-e2c00795-c49b-4b0a-8f0a-4ed18c966c6b
 
 info:
   name: >
-    Avada (Fusion) Builder <= 7.16.1 -  Unauthenticated Arbitrary WordPress Action Invocation via '{action_hook}' Dynamic-Data Token in Form Field
+    Avada (Fusion) Builder <= 3.16.1 -  Unauthenticated Arbitrary WordPress Action Invocation via '{action_hook}' Dynamic-Data Token in Form Field
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.16.1')
+          - compare_versions(version, '<= 3.16.1')
