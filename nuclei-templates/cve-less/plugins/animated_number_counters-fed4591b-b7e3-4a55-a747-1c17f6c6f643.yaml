@@ -1,0 +1,51 @@
+id: animated_number_counters-fed4591b-b7e3-4a55-a747-1c17f6c6f643
+
+info:
+  name: >
+    Animated Number Counters <= 3.0 - Authenticated (Editor+) SQL Injection via 'counterid' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fed4591b-b7e3-4a55-a747-1c17f6c6f643?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/animated-number-counters/"
+    google-query: inurl:"/wp-content/plugins/animated-number-counters/"
+    shodan-query: 'http.html:"wp-content/plugins/animated-number-counters/"'
+  tags: cve,wordpress,wp-plugin,animated-number-counters,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/animated-number-counters/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "animated-number-counters"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0')
