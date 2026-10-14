@@ -2,7 +2,7 @@ id: rave_woocommerce_payment_gateway-ee5ebdbf-2ea6-4d0c-adb3-af1ea53cda68
 
 info:
   name: >
-    Flutterwave WooCommerce <= 3.3.0 - Missing Authorization
+    Flutterwave WooCommerce <= 3.3.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.3.0')
+          - compare_versions(version, '<= 3.3.1')
