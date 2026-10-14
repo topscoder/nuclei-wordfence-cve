@@ -1,0 +1,51 @@
+id: web_vitals_tracking-68f20e70-121c-43d7-830d-53f6442cd20c
+
+info:
+  name: >
+    Web Vitals Tracking <= 5.4.2 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/68f20e70-121c-43d7-830d-53f6442cd20c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/web-vitals-tracking/"
+    google-query: inurl:"/wp-content/plugins/web-vitals-tracking/"
+    shodan-query: 'http.html:"wp-content/plugins/web-vitals-tracking/"'
+  tags: cve,wordpress,wp-plugin,web-vitals-tracking,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/web-vitals-tracking/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "web-vitals-tracking"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.4.2')
