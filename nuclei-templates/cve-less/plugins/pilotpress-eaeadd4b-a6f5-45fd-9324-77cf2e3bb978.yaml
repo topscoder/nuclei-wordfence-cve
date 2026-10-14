@@ -2,7 +2,7 @@ id: pilotpress-eaeadd4b-a6f5-45fd-9324-77cf2e3bb978
 
 info:
   name: >
-    PilotPress <= 2.0.36 - Missing Authorization
+    PilotPress <= 2.0.39 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.36')
+          - compare_versions(version, '<= 2.0.39')
