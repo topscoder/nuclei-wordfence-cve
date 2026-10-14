@@ -1,0 +1,51 @@
+id: tantra-9e8eb7e0-7724-4563-851a-87cd79b7d48f
+
+info:
+  name: >
+    Tantra | Yoga Studio and Fitness Club WordPress Theme <= 2.9.0 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9e8eb7e0-7724-4563-851a-87cd79b7d48f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/tantra/"
+    google-query: inurl:"/wp-content/themes/tantra/"
+    shodan-query: 'http.html:"wp-content/themes/tantra/"'
+  tags: cve,wordpress,wp-theme,tantra,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/tantra/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tantra"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.9.0')
