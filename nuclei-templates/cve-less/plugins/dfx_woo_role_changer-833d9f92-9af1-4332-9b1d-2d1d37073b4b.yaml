@@ -1,0 +1,51 @@
+id: dfx_woo_role_changer-833d9f92-9af1-4332-9b1d-2d1d37073b4b
+
+info:
+  name: >
+    Membership & User Roles for WooCommerce (Automatic Role Changer) <= 20260828 - Authenticated (Subscriber+) Privilege Escalation to Stale Foreign Role Cache
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/833d9f92-9af1-4332-9b1d-2d1d37073b4b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/dfx-woo-role-changer/"
+    google-query: inurl:"/wp-content/plugins/dfx-woo-role-changer/"
+    shodan-query: 'http.html:"wp-content/plugins/dfx-woo-role-changer/"'
+  tags: cve,wordpress,wp-plugin,dfx-woo-role-changer,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/dfx-woo-role-changer/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "dfx-woo-role-changer"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 20260828')
