@@ -1,0 +1,51 @@
+id: gf_add_on_by_click5-e4f090da-938c-4b33-b8bf-5cb00474f02a
+
+info:
+  name: >
+    click5 CRM add-on to Gravity Forms <= 1.0.3 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e4f090da-938c-4b33-b8bf-5cb00474f02a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/gf-add-on-by-click5/"
+    google-query: inurl:"/wp-content/plugins/gf-add-on-by-click5/"
+    shodan-query: 'http.html:"wp-content/plugins/gf-add-on-by-click5/"'
+  tags: cve,wordpress,wp-plugin,gf-add-on-by-click5,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/gf-add-on-by-click5/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gf-add-on-by-click5"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.3')
