@@ -1,0 +1,51 @@
+id: buddypress_xprofile_image_field-1a53bcf5-61ed-427c-9efd-29c9309d2426
+
+info:
+  name: >
+    BuddyPress XProfile Image Field <= 3.1.0 - Unauthenticated Arbitrary File Deletion via Signup Image Field Activation Handler
+  author: topscoder
+  severity: critical
+  description: >
+    The BuddyPress XProfile Image Field plugin for WordPress is vulnerable to arbitrary file deletion in all versions up to, and including, 3.1.0. This is due to bpxp_image_field_update_on_user_activation() calling unlink() on a path built from visitor-supplied signup metadata with no realpath() resolution, no containment check against the profile-image directory and no extension allow-list. Submitting a zero-byte file with the 'field_N_hidden' parameter during registration makes the plugin store the raw value, which is then resolved against the document root when the pending signup is activated. This makes it possible for unauthenticated attackers to delete arbitrary files on the server, which can easily lead to remote code execution when the right file (such as wp-config.php) is deleted. Requires open registration and an image-type profile field on the signup form.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1a53bcf5-61ed-427c-9efd-29c9309d2426?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H
+    cvss-score: 9.1
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/buddypress-xprofile-image-field/"
+    google-query: inurl:"/wp-content/plugins/buddypress-xprofile-image-field/"
+    shodan-query: 'http.html:"wp-content/plugins/buddypress-xprofile-image-field/"'
+  tags: cve,wordpress,wp-plugin,buddypress-xprofile-image-field,critical,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/buddypress-xprofile-image-field/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "buddypress-xprofile-image-field"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.1.0')
