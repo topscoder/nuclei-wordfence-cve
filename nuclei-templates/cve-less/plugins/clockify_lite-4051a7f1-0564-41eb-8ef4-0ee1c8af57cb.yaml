@@ -2,7 +2,7 @@ id: clockify_lite-4051a7f1-0564-41eb-8ef4-0ee1c8af57cb
 
 info:
   name: >
-    Clockinator Lite <= 1.0.7 - Missing Authorization
+    Clockinator Lite <= 1.0.9 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.7')
+          - compare_versions(version, '<= 1.0.9')
