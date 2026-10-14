@@ -1,0 +1,51 @@
+id: stargaze-2b294f01-d99a-4977-aa11-fa698291f02d
+
+info:
+  name: >
+    Stargaze <= 1.10 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2b294f01-d99a-4977-aa11-fa698291f02d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/stargaze/"
+    google-query: inurl:"/wp-content/themes/stargaze/"
+    shodan-query: 'http.html:"wp-content/themes/stargaze/"'
+  tags: cve,wordpress,wp-theme,stargaze,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/stargaze/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "stargaze"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.10')
