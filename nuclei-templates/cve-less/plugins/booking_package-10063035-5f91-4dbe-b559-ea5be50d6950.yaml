@@ -1,0 +1,51 @@
+id: booking_package-10063035-5f91-4dbe-b559-ea5be50d6950
+
+info:
+  name: >
+    Booking Package <= 1.7.29 - Missing Authorization to Unauthenticated Sensitive Information Disclosure via 'mode=sendBooking' with nonexistent 'timeKey' and 'public=0'
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/10063035-5f91-4dbe-b559-ea5be50d6950?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/booking-package/"
+    google-query: inurl:"/wp-content/plugins/booking-package/"
+    shodan-query: 'http.html:"wp-content/plugins/booking-package/"'
+  tags: cve,wordpress,wp-plugin,booking-package,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/booking-package/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "booking-package"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.29')
