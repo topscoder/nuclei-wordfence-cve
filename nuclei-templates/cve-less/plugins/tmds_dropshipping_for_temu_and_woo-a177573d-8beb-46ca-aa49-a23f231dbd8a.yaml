@@ -1,0 +1,51 @@
+id: tmds_dropshipping_for_temu_and_woo-a177573d-8beb-46ca-aa49-a23f231dbd8a
+
+info:
+  name: >
+    TMDS – Dropshipping for TEMU and Woo <= 1.0.15 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a177573d-8beb-46ca-aa49-a23f231dbd8a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/tmds-dropshipping-for-temu-and-woo/"
+    google-query: inurl:"/wp-content/plugins/tmds-dropshipping-for-temu-and-woo/"
+    shodan-query: 'http.html:"wp-content/plugins/tmds-dropshipping-for-temu-and-woo/"'
+  tags: cve,wordpress,wp-plugin,tmds-dropshipping-for-temu-and-woo,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/tmds-dropshipping-for-temu-and-woo/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tmds-dropshipping-for-temu-and-woo"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.15')
