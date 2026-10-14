@@ -1,0 +1,51 @@
+id: ozeum-7892c965-c82b-4fe7-be45-ae2c0356a3e5
+
+info:
+  name: >
+    Ozeum | Art Gallery and Museum Theme <= 1.3.0 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7892c965-c82b-4fe7-be45-ae2c0356a3e5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/ozeum/"
+    google-query: inurl:"/wp-content/themes/ozeum/"
+    shodan-query: 'http.html:"wp-content/themes/ozeum/"'
+  tags: cve,wordpress,wp-theme,ozeum,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/ozeum/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ozeum"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.0')
