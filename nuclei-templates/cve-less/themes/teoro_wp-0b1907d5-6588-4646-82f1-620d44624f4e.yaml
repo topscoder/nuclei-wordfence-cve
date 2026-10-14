@@ -1,0 +1,51 @@
+id: teoro_wp-0b1907d5-6588-4646-82f1-620d44624f4e
+
+info:
+  name: >
+    Teoro <= 1.1 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0b1907d5-6588-4646-82f1-620d44624f4e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/teoro-wp/"
+    google-query: inurl:"/wp-content/themes/teoro-wp/"
+    shodan-query: 'http.html:"wp-content/themes/teoro-wp/"'
+  tags: cve,wordpress,wp-theme,teoro-wp,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/teoro-wp/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "teoro-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1')
