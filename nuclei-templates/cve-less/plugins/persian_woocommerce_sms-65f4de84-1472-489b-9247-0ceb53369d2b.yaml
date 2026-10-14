@@ -2,7 +2,7 @@ id: persian_woocommerce_sms-65f4de84-1472-489b-9247-0ceb53369d2b
 
 info:
   name: >
-    Persian Woocommerce SMS <= 7.1.1 - Reflected Cross-Site Scripting
+    Persian Woocommerce SMS <= 7.2.3 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.1.1')
+          - compare_versions(version, '<= 7.2.3')
