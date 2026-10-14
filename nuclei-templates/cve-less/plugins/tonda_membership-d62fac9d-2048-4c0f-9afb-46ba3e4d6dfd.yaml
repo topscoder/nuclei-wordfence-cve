@@ -1,0 +1,51 @@
+id: tonda_membership-d62fac9d-2048-4c0f-9afb-46ba3e4d6dfd
+
+info:
+  name: >
+    Tonda Membership <= 1.0.1 - Unauthenticated Privilege Escalation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d62fac9d-2048-4c0f-9afb-46ba3e4d6dfd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/tonda-membership/"
+    google-query: inurl:"/wp-content/plugins/tonda-membership/"
+    shodan-query: 'http.html:"wp-content/plugins/tonda-membership/"'
+  tags: cve,wordpress,wp-plugin,tonda-membership,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/tonda-membership/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tonda-membership"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.1')
