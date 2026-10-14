@@ -1,0 +1,51 @@
+id: kidsplanet-d6c5451b-0967-47c9-b7e7-0c2194fd24e9
+
+info:
+  name: >
+    Kids Planet - Children Kindergarten and Playgroup WordPress Theme <= 2.2.14.2 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d6c5451b-0967-47c9-b7e7-0c2194fd24e9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/kidsplanet/"
+    google-query: inurl:"/wp-content/themes/kidsplanet/"
+    shodan-query: 'http.html:"wp-content/themes/kidsplanet/"'
+  tags: cve,wordpress,wp-theme,kidsplanet,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/kidsplanet/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "kidsplanet"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.2.14.2')
