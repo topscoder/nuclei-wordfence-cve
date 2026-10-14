@@ -1,0 +1,51 @@
+id: insurify-2503b101-62a8-4865-b4c6-b69416141087
+
+info:
+  name: >
+    Insurify <= 1.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2503b101-62a8-4865-b4c6-b69416141087?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/insurify/"
+    google-query: inurl:"/wp-content/plugins/insurify/"
+    shodan-query: 'http.html:"wp-content/plugins/insurify/"'
+  tags: cve,wordpress,wp-plugin,insurify,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/insurify/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "insurify"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0')
