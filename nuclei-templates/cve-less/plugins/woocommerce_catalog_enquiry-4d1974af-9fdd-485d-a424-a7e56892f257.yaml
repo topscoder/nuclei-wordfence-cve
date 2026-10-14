@@ -2,7 +2,7 @@ id: woocommerce_catalog_enquiry-4d1974af-9fdd-485d-a424-a7e56892f257
 
 info:
   name: >
-    CatalogX – Catalog Mode, Enquiry & Quotes for WooCommerce <= 6.1.4 - Unauthenticated Privilege Escalation
+    CatalogX – Catalog Mode, Enquiry & Quotes for WooCommerce <= 6.1.5 - Unauthenticated Privilege Escalation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.1.4')
+          - compare_versions(version, '<= 6.1.5')
