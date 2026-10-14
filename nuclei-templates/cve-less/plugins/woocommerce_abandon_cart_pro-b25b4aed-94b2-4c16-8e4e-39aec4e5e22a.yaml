@@ -1,0 +1,51 @@
+id: woocommerce_abandon_cart_pro-b25b4aed-94b2-4c16-8e4e-39aec4e5e22a
+
+info:
+  name: >
+    Abandoned Cart Pro for WooCommerce <= 10.8.0 - Unauthenticated Authentication Bypass via Malleable Encryption and Bypassable HMAC via Recovery Link 'validate' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b25b4aed-94b2-4c16-8e4e-39aec4e5e22a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-abandon-cart-pro/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-abandon-cart-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-abandon-cart-pro/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-abandon-cart-pro,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-abandon-cart-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-abandon-cart-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 10.8.0')
