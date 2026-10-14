@@ -2,7 +2,7 @@ id: cm_on_demand_search_and_replace-13ba9474-b1ca-4ba4-ad94-88f7795a4c3c
 
 info:
   name: >
-    CM On Demand Search And Replace <= 1.5.4 - Missing Authorization
+    CM On Demand Search And Replace <= 1.5.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.4')
+          - compare_versions(version, '<= 1.5.6')
