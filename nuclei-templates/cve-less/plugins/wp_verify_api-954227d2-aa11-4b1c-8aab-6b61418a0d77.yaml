@@ -1,0 +1,51 @@
+id: wp_verify_api-954227d2-aa11-4b1c-8aab-6b61418a0d77
+
+info:
+  name: >
+    Verify API <= 1.0.0 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/954227d2-aa11-4b1c-8aab-6b61418a0d77?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-verify-api/"
+    google-query: inurl:"/wp-content/plugins/wp-verify-api/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-verify-api/"'
+  tags: cve,wordpress,wp-plugin,wp-verify-api,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-verify-api/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-verify-api"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.0')
