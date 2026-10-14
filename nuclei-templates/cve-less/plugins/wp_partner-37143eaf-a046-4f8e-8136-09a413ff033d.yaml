@@ -1,0 +1,51 @@
+id: wp_partner-37143eaf-a046-4f8e-8136-09a413ff033d
+
+info:
+  name: >
+    WP-Partner <= 1.2.1 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/37143eaf-a046-4f8e-8136-09a413ff033d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-partner/"
+    google-query: inurl:"/wp-content/plugins/wp-partner/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-partner/"'
+  tags: cve,wordpress,wp-plugin,wp-partner,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-partner/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-partner"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.1')
