@@ -1,0 +1,51 @@
+id: kaven_wp-4629d12c-8ddc-48f2-8ff1-956cd37f177d
+
+info:
+  name: >
+    Kaven <= 1.2 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4629d12c-8ddc-48f2-8ff1-956cd37f177d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/kaven-wp/"
+    google-query: inurl:"/wp-content/themes/kaven-wp/"
+    shodan-query: 'http.html:"wp-content/themes/kaven-wp/"'
+  tags: cve,wordpress,wp-theme,kaven-wp,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/kaven-wp/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "kaven-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2')
