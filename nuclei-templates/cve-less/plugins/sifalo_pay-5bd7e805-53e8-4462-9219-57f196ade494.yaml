@@ -1,0 +1,51 @@
+id: sifalo_pay-5bd7e805-53e8-4462-9219-57f196ade494
+
+info:
+  name: >
+    Sifalo Pay – Mobile Money & Card Payments for WooCommerce 2.0 - 2.5.2 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5bd7e805-53e8-4462-9219-57f196ade494?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/sifalo-pay/"
+    google-query: inurl:"/wp-content/plugins/sifalo-pay/"
+    shodan-query: 'http.html:"wp-content/plugins/sifalo-pay/"'
+  tags: cve,wordpress,wp-plugin,sifalo-pay,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/sifalo-pay/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "sifalo-pay"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.0', '<= 2.5.2')
