@@ -1,0 +1,51 @@
+id: gloria_admin_panel-d2f78e28-5a80-4a17-afbf-3d8df29ed448
+
+info:
+  name: >
+    Gloria Admin Panel <= 1.3 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d2f78e28-5a80-4a17-afbf-3d8df29ed448?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/gloria-admin-panel/"
+    google-query: inurl:"/wp-content/plugins/gloria-admin-panel/"
+    shodan-query: 'http.html:"wp-content/plugins/gloria-admin-panel/"'
+  tags: cve,wordpress,wp-plugin,gloria-admin-panel,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/gloria-admin-panel/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gloria-admin-panel"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3')
