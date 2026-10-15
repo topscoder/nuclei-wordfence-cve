@@ -1,0 +1,51 @@
+id: builderius-8d9ba69a-6918-4999-a74c-c8e740ea46db
+
+info:
+  name: >
+    Builderius – Landing Page Builder + Dynamic Templates <= 1.4-beta - Unauthenticated Server-Side Request Forgery
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8d9ba69a-6918-4999-a74c-c8e740ea46db?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/builderius/"
+    google-query: inurl:"/wp-content/plugins/builderius/"
+    shodan-query: 'http.html:"wp-content/plugins/builderius/"'
+  tags: cve,wordpress,wp-plugin,builderius,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/builderius/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "builderius"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4-beta')
