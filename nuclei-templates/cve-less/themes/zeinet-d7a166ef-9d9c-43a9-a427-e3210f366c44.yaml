@@ -1,0 +1,51 @@
+id: zeinet-d7a166ef-9d9c-43a9-a427-e3210f366c44
+
+info:
+  name: >
+    Zeinet <= 1.0.0 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d7a166ef-9d9c-43a9-a427-e3210f366c44?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/zeinet/"
+    google-query: inurl:"/wp-content/themes/zeinet/"
+    shodan-query: 'http.html:"wp-content/themes/zeinet/"'
+  tags: cve,wordpress,wp-theme,zeinet,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/zeinet/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "zeinet"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.0')
