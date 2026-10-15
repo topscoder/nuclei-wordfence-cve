@@ -1,0 +1,51 @@
+id: thevoux_wp-6cef60a8-0601-4e0b-adfb-e3fe6a5351e9
+
+info:
+  name: >
+    The Voux <= 6.9.5 - Unauthenticated Local File Inclusion
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6cef60a8-0601-4e0b-adfb-e3fe6a5351e9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/thevoux-wp/"
+    google-query: inurl:"/wp-content/themes/thevoux-wp/"
+    shodan-query: 'http.html:"wp-content/themes/thevoux-wp/"'
+  tags: cve,wordpress,wp-theme,thevoux-wp,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/thevoux-wp/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "thevoux-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.9.5')
