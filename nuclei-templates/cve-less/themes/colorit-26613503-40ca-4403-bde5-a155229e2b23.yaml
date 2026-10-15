@@ -1,0 +1,51 @@
+id: colorit-26613503-40ca-4403-bde5-a155229e2b23
+
+info:
+  name: >
+    ColorFolio <= 1.3 - Authenticated (Subscriber+) PHP Object Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/26613503-40ca-4403-bde5-a155229e2b23?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/colorit/"
+    google-query: inurl:"/wp-content/themes/colorit/"
+    shodan-query: 'http.html:"wp-content/themes/colorit/"'
+  tags: cve,wordpress,wp-theme,colorit,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/colorit/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "colorit"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3')
