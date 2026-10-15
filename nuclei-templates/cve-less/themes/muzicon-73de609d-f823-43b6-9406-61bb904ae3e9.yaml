@@ -1,0 +1,51 @@
+id: muzicon-73de609d-f823-43b6-9406-61bb904ae3e9
+
+info:
+  name: >
+    Muzicon - Music Festival & Concert WordPress Theme <= 1.15 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/73de609d-f823-43b6-9406-61bb904ae3e9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/muzicon/"
+    google-query: inurl:"/wp-content/themes/muzicon/"
+    shodan-query: 'http.html:"wp-content/themes/muzicon/"'
+  tags: cve,wordpress,wp-theme,muzicon,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/muzicon/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "muzicon"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.15')
