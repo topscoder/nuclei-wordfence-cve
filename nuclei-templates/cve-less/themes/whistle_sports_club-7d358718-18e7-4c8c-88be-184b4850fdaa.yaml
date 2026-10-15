@@ -1,0 +1,51 @@
+id: whistle_sports_club-7d358718-18e7-4c8c-88be-184b4850fdaa
+
+info:
+  name: >
+    Whistle - Sports Club <= 4.2 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7d358718-18e7-4c8c-88be-184b4850fdaa?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/whistle-sports-club/"
+    google-query: inurl:"/wp-content/themes/whistle-sports-club/"
+    shodan-query: 'http.html:"wp-content/themes/whistle-sports-club/"'
+  tags: cve,wordpress,wp-theme,whistle-sports-club,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/whistle-sports-club/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "whistle-sports-club"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.2')
