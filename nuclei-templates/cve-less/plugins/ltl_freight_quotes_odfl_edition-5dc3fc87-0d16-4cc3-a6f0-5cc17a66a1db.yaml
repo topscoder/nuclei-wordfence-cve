@@ -1,0 +1,51 @@
+id: ltl_freight_quotes_odfl_edition-5dc3fc87-0d16-4cc3-a6f0-5cc17a66a1db
+
+info:
+  name: >
+    LTL Freight Quotes – ODFL Edition < 4.2.19 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5dc3fc87-0d16-4cc3-a6f0-5cc17a66a1db?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ltl-freight-quotes-odfl-edition/"
+    google-query: inurl:"/wp-content/plugins/ltl-freight-quotes-odfl-edition/"
+    shodan-query: 'http.html:"wp-content/plugins/ltl-freight-quotes-odfl-edition/"'
+  tags: cve,wordpress,wp-plugin,ltl-freight-quotes-odfl-edition,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ltl-freight-quotes-odfl-edition/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ltl-freight-quotes-odfl-edition"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 4.2.19')
