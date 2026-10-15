@@ -1,0 +1,51 @@
+id: foodbakery-a62abdcb-d9a1-444e-90eb-aadeda4e94f9
+
+info:
+  name: >
+    FoodBakery <= 4.6 - Authenticated (Subscriber+) Arbitrary File Deletion
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a62abdcb-d9a1-444e-90eb-aadeda4e94f9?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/foodbakery/"
+    google-query: inurl:"/wp-content/themes/foodbakery/"
+    shodan-query: 'http.html:"wp-content/themes/foodbakery/"'
+  tags: cve,wordpress,wp-theme,foodbakery,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/foodbakery/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "foodbakery"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.6')
