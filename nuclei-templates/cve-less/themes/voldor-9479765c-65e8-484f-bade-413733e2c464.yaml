@@ -1,0 +1,51 @@
+id: voldor-9479765c-65e8-484f-bade-413733e2c464
+
+info:
+  name: >
+    Voldor <= 1.0.0 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9479765c-65e8-484f-bade-413733e2c464?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/voldor/"
+    google-query: inurl:"/wp-content/themes/voldor/"
+    shodan-query: 'http.html:"wp-content/themes/voldor/"'
+  tags: cve,wordpress,wp-theme,voldor,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/voldor/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "voldor"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.0')
