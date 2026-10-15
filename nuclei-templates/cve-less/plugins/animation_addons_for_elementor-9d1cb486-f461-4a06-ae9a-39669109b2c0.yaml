@@ -2,7 +2,7 @@ id: animation_addons_for_elementor-9d1cb486-f461-4a06-ae9a-39669109b2c0
 
 info:
   name: >
-    Animation Addons for Elementor – GSAP Powered Elementor Addons & Website Templates <= 2.6.7 - Authenticated (Contributor+) DOM-Based Stored Cross-Site Scripting via Multiple Parameters
+    Animation Addons for Elementor – GSAP Powered Elementor Addons & Website Templates <= 4.2.6 - Authenticated (Contributor+) DOM-Based Stored Cross-Site Scripting via Multiple Parameters
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.6.7')
+          - compare_versions(version, '<= 4.2.6')
