@@ -1,0 +1,51 @@
+id: shopping_feed_for_google-48164d31-f868-48bd-aa52-46cd829297a2
+
+info:
+  name: >
+    Product Feed for Google Shopping, Microsoft Advertising and 40+ Channels for WooCommerce Merchant < 5.3.2 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/48164d31-f868-48bd-aa52-46cd829297a2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/shopping-feed-for-google/"
+    google-query: inurl:"/wp-content/plugins/shopping-feed-for-google/"
+    shodan-query: 'http.html:"wp-content/plugins/shopping-feed-for-google/"'
+  tags: cve,wordpress,wp-plugin,shopping-feed-for-google,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/shopping-feed-for-google/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "shopping-feed-for-google"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 5.3.2')
