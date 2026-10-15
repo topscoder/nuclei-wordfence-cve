@@ -1,0 +1,51 @@
+id: presto_player_pro-367a6589-5b71-44bf-9483-7da6e3e82b70
+
+info:
+  name: >
+    Presto Player Pro <= 3.0.1 - Authenticated (Author+) Arbitrary File Deletion
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/367a6589-5b71-44bf-9483-7da6e3e82b70?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/presto-player-pro/"
+    google-query: inurl:"/wp-content/plugins/presto-player-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/presto-player-pro/"'
+  tags: cve,wordpress,wp-plugin,presto-player-pro,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/presto-player-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "presto-player-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.1')
