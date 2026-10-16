@@ -1,0 +1,51 @@
+id: vulnity-5574a52f-cec8-4f79-a3a7-5c13272e5e17
+
+info:
+  name: >
+    Vulnity Security <= 1.4.3 - Unauthenticated Authentication Bypass to Administrator via Exposed Pairing Credentials
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5574a52f-cec8-4f79-a3a7-5c13272e5e17?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/vulnity/"
+    google-query: inurl:"/wp-content/plugins/vulnity/"
+    shodan-query: 'http.html:"wp-content/plugins/vulnity/"'
+  tags: cve,wordpress,wp-plugin,vulnity,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/vulnity/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "vulnity"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.3')
