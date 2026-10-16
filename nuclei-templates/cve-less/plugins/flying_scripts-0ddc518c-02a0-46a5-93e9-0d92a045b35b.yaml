@@ -1,0 +1,51 @@
+id: flying_scripts-0ddc518c-02a0-46a5-93e9-0d92a045b35b
+
+info:
+  name: >
+    Flying Scripts: Delay JavaScript to Improve Site Speed & Performance <= 1.2.4 - Unauthenticated Stored Cross-Site Scripting via Comment Content
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0ddc518c-02a0-46a5-93e9-0d92a045b35b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/flying-scripts/"
+    google-query: inurl:"/wp-content/plugins/flying-scripts/"
+    shodan-query: 'http.html:"wp-content/plugins/flying-scripts/"'
+  tags: cve,wordpress,wp-plugin,flying-scripts,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/flying-scripts/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "flying-scripts"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.4')
