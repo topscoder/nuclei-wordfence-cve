@@ -1,0 +1,51 @@
+id: instawp_connect-925b009e-3aeb-496d-8218-6ea5dc9d9989
+
+info:
+  name: >
+    InstaWP Connect <= 0.1.4.1 - Authenticated (Subscriber+) Privilege Escalation via Role-as-Capability Admin Page and API Key Disclosure via 'instawp_sync_tab_roles' Role-as-Capability Setting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/925b009e-3aeb-496d-8218-6ea5dc9d9989?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/instawp-connect/"
+    google-query: inurl:"/wp-content/plugins/instawp-connect/"
+    shodan-query: 'http.html:"wp-content/plugins/instawp-connect/"'
+  tags: cve,wordpress,wp-plugin,instawp-connect,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/instawp-connect/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "instawp-connect"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 0.1.4.1')
