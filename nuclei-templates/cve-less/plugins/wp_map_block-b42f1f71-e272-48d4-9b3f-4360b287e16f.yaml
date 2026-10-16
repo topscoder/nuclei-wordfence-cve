@@ -1,0 +1,51 @@
+id: wp_map_block-b42f1f71-e272-48d4-9b3f-4360b287e16f
+
+info:
+  name: >
+    WP Map Block <= 3.0.0 - Missing Authorization to Authenticated (Contributor+) Arbitrary Map Publish/Unpublish/Delete via set_status() and bulk() REST Endpoints
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b42f1f71-e272-48d4-9b3f-4360b287e16f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-map-block/"
+    google-query: inurl:"/wp-content/plugins/wp-map-block/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-map-block/"'
+  tags: cve,wordpress,wp-plugin,wp-map-block,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-map-block/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-map-block"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.0')
