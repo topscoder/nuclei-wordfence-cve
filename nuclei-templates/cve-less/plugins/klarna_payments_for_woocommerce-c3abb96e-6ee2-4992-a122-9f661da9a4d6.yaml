@@ -1,0 +1,51 @@
+id: klarna_payments_for_woocommerce-c3abb96e-6ee2-4992-a122-9f661da9a4d6
+
+info:
+  name: >
+    Klarna for WooCommerce <= 4.13.3 - Missing Authorization to Unauthenticated Sensitive Information Disclosure via 'order-pay' Endpoint
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c3abb96e-6ee2-4992-a122-9f661da9a4d6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/klarna-payments-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/klarna-payments-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/klarna-payments-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,klarna-payments-for-woocommerce,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/klarna-payments-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "klarna-payments-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.13.3')
