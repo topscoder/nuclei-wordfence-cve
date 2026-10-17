@@ -2,7 +2,7 @@ id: advanced_custom_post_type-44c0c0a0-94a4-4394-b661-1ce53d63f789
 
 info:
   name: >
-    ACPT (Premium) <= 2.0.63 - Unauthenticated Privilege Escalation
+    ACPT (Premium) <= 2.0.66 - Unauthenticated Privilege Escalation via 'acpt_form_post_id' Parameter
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.63')
+          - compare_versions(version, '<= 2.0.66')
