@@ -1,0 +1,51 @@
+id: profile_builder-21931b7b-3c3d-4297-878e-bc0f187557a0
+
+info:
+  name: >
+    User Profile Builder – Beautiful User Registration Forms, User Profiles & User Role Editor <= 4.0.3 - Authenticated (Author+) Limited Privilege Escalation via Gutenberg Block 'Assigned Role' Attribute
+  author: topscoder
+  severity: low
+  description: >
+    The User Profile Builder – Beautiful User Registration Forms, User Profiles & User Role Editor plugin for WordPress is vulnerable to Limited Privilege Escalation in all versions up to, and including, 4.0.3. This is due to the Gutenberg Register block passing the attacker-controlled Assigned Role attribute directly into the `[wppb-register]` shortcode without server-side authorization. The role guard in the form builder only downgrades roles that carry the manage_options or remove_users capability, leaving the Editor role and other privileged non-Administrator roles completely unrestricted. This makes it possible for authenticated attackers with Author-level access and above to create new WordPress accounts bearing the Editor role (or any other role that lacks the two guarded capabilities).
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/21931b7b-3c3d-4297-878e-bc0f187557a0?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:N
+    cvss-score: 7.1
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/profile-builder/"
+    google-query: inurl:"/wp-content/plugins/profile-builder/"
+    shodan-query: 'http.html:"wp-content/plugins/profile-builder/"'
+  tags: cve,wordpress,wp-plugin,profile-builder,low,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/profile-builder/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "profile-builder"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.0.3')
