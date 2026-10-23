@@ -4,21 +4,21 @@ info:
   name: >
     Music Store <= 1.4.7 - Unauthenticated Arbitrary File Read via 'f' Parameter
   author: topscoder
-  severity: high
+  severity: low
   description: >
-    The Music Store – WordPress eCommerce plugin for WordPress is vulnerable to Directory Traversal in all versions up to, and including, 1.4.7 via the 'f' parameter parameter. This makes it possible for unauthenticated attackers to read the contents of arbitrary files on the server, which can contain sensitive information. Exploitation requires a valid purchase_id token, which any user can obtain by making a single low-cost purchase or receiving a shared download link.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/31e41b8c-f83f-4cd7-a30f-deac6154c7e3?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/31e41b8c-f83f-4cd7-a30f-deac6154c7e3?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
-    cvss-score: 7.5
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/music-store/"
     google-query: inurl:"/wp-content/plugins/music-store/"
     shodan-query: 'http.html:"wp-content/plugins/music-store/"'
-  tags: cve,wordpress,wp-plugin,music-store,high,production
+  tags: cve,wordpress,wp-plugin,music-store,low,candidate
 
 http:
   - method: GET
