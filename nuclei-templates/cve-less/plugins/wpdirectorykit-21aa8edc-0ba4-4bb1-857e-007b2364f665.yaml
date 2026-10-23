@@ -2,7 +2,7 @@ id: wpdirectorykit-21aa8edc-0ba4-4bb1-857e-007b2364f665
 
 info:
   name: >
-    Directory Kit <= 1.5.7 - Authenticated (Editor+) SQL Injection
+    Directory Kit <= 1.5.8 - Authenticated (Editor+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.7')
+          - compare_versions(version, '<= 1.5.8')
