@@ -2,7 +2,7 @@ id: super_forms-8242b23f-bc2b-4d10-b323-641602539d4e
 
 info:
   name: >
-    Super Forms – Drag & Drop Form Builder <= 6.3.315 - Unauthenticated Arbitrary File Read
+    Super Forms – Drag & Drop Form Builder <= 6.3.316 - Unauthenticated Arbitrary File Read
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.3.315')
+          - compare_versions(version, '<= 6.3.316')
