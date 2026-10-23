@@ -2,7 +2,7 @@ id: wpdirectorykit-8080d02a-a89a-4f26-9895-0c11c59188d9
 
 info:
   name: >
-    Directory Kit <= 1.5.7 - Authenticated (Contributor+) Information Exposure
+    Directory Kit <= 1.6.0 - Authenticated (Contributor+) Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.5.7')
+          - compare_versions(version, '<= 1.6.0')
