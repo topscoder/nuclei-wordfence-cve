@@ -2,7 +2,7 @@ id: my_auctions_allegro_free_edition-5579957a-ad45-4518-ad3c-16b3841a301d
 
 info:
   name: >
-    My auctions allegro <= 3.6.34 - Reflected Cross-Site Scripting
+    My auctions allegro <= 4.0.2 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.6.34')
+          - compare_versions(version, '<= 4.0.2')
