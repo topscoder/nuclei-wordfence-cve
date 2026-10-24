@@ -2,7 +2,7 @@ id: armember-dff8f331-586a-4579-8ee8-cadec06f4d65
 
 info:
   name: >
-    ARMember Premium – Membership Plugin, Content Restriction, Member Levels, User Profile & User signup <= 7.8 - Unauthenticated SQL Injection
+    ARMember Premium – Membership Plugin, Content Restriction, Member Levels, User Profile & User signup <= 7.9.0 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 7.8')
+          - compare_versions(version, '<= 7.9.0')
