@@ -1,0 +1,51 @@
+id: cardinity_free_payment_gateway_for_woocommerce-f4d52bc6-1056-4e08-a1b5-57107c75a0e5
+
+info:
+  name: >
+    Cardinity Payment Gateway for WooCommerce 3.2.6 - 3.4.1 - Unauthenticated Arbitrary Order Status Manipulation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f4d52bc6-1056-4e08-a1b5-57107c75a0e5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/cardinity-free-payment-gateway-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/cardinity-free-payment-gateway-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/cardinity-free-payment-gateway-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,cardinity-free-payment-gateway-for-woocommerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/cardinity-free-payment-gateway-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "cardinity-free-payment-gateway-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 3.2.6', '<= 3.4.1')
