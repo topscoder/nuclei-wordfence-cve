@@ -1,0 +1,51 @@
+id: fancy_facebook_comments-a7dee387-06fc-43c1-88e8-a8ffd9c5718e
+
+info:
+  name: >
+    Fancy Comments WordPress <= 1.2.21 - Reflected Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a7dee387-06fc-43c1-88e8-a8ffd9c5718e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fancy-facebook-comments/"
+    google-query: inurl:"/wp-content/plugins/fancy-facebook-comments/"
+    shodan-query: 'http.html:"wp-content/plugins/fancy-facebook-comments/"'
+  tags: cve,wordpress,wp-plugin,fancy-facebook-comments,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fancy-facebook-comments/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fancy-facebook-comments"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.21')
