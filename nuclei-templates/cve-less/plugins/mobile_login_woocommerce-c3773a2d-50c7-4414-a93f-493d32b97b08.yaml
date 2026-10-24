@@ -1,0 +1,51 @@
+id: mobile_login_woocommerce-c3773a2d-50c7-4414-a93f-493d32b97b08
+
+info:
+  name: >
+    OTP Login & Register Woocommerce <= 2.7.2 - Unauthenticated Account Takeover
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c3773a2d-50c7-4414-a93f-493d32b97b08?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mobile-login-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/mobile-login-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/mobile-login-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,mobile-login-woocommerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mobile-login-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mobile-login-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.7.2')
