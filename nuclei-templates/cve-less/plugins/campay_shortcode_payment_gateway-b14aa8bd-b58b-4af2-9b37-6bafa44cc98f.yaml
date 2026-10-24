@@ -1,0 +1,51 @@
+id: campay_shortcode_payment_gateway-b14aa8bd-b58b-4af2-9b37-6bafa44cc98f
+
+info:
+  name: >
+    CamPay Shortcode Payment Gateway < 1.7 - Unauthenticated Arbitrary Payment Status Manipulation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b14aa8bd-b58b-4af2-9b37-6bafa44cc98f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/campay-shortcode-payment-gateway/"
+    google-query: inurl:"/wp-content/plugins/campay-shortcode-payment-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/campay-shortcode-payment-gateway/"'
+  tags: cve,wordpress,wp-plugin,campay-shortcode-payment-gateway,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/campay-shortcode-payment-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "campay-shortcode-payment-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 1.7')
