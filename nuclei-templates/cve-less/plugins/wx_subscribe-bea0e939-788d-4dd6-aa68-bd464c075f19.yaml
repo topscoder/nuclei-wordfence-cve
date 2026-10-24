@@ -1,0 +1,51 @@
+id: wx_subscribe-bea0e939-788d-4dd6-aa68-bd464c075f19
+
+info:
+  name: >
+    WX Subscribe <= 1.2.1 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bea0e939-788d-4dd6-aa68-bd464c075f19?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wx-subscribe/"
+    google-query: inurl:"/wp-content/plugins/wx-subscribe/"
+    shodan-query: 'http.html:"wp-content/plugins/wx-subscribe/"'
+  tags: cve,wordpress,wp-plugin,wx-subscribe,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wx-subscribe/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wx-subscribe"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.1')
