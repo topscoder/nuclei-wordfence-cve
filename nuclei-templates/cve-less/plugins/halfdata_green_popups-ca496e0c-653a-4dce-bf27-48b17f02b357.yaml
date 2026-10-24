@@ -1,0 +1,51 @@
+id: halfdata_green_popups-ca496e0c-653a-4dce-bf27-48b17f02b357
+
+info:
+  name: >
+    Green Popups < 7.6.3 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ca496e0c-653a-4dce-bf27-48b17f02b357?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/halfdata-green-popups/"
+    google-query: inurl:"/wp-content/plugins/halfdata-green-popups/"
+    shodan-query: 'http.html:"wp-content/plugins/halfdata-green-popups/"'
+  tags: cve,wordpress,wp-plugin,halfdata-green-popups,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/halfdata-green-popups/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "halfdata-green-popups"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 7.6.3')
