@@ -1,0 +1,51 @@
+id: ipospays_gateways_wc-ed0c6e90-1b57-465d-8a30-a41c6197631d
+
+info:
+  name: >
+    iPOSpays Payment Gateway for WooCommerce <= 1.4.6 - Unauthenticated Payment Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ed0c6e90-1b57-465d-8a30-a41c6197631d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ipospays-gateways-wc/"
+    google-query: inurl:"/wp-content/plugins/ipospays-gateways-wc/"
+    shodan-query: 'http.html:"wp-content/plugins/ipospays-gateways-wc/"'
+  tags: cve,wordpress,wp-plugin,ipospays-gateways-wc,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ipospays-gateways-wc/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ipospays-gateways-wc"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.6')
