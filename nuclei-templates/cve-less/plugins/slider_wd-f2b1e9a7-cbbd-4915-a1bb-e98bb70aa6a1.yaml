@@ -2,7 +2,7 @@ id: slider_wd-f2b1e9a7-cbbd-4915-a1bb-e98bb70aa6a1
 
 info:
   name: >
-    Slider by 10Web – Responsive Image Slider <= 1.2.62 - Cross-Site Request Forgery
+    Slider by 10Web – Responsive Image Slider <= 1.2.63 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.62')
+          - compare_versions(version, '<= 1.2.63')
