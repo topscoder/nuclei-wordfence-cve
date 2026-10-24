@@ -1,0 +1,51 @@
+id: ettrick_escape_room_booking-c63cc262-28a9-43d0-9b4b-25a5a87fd2d6
+
+info:
+  name: >
+    Ettrick Escape Room Booking <= 1.3.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c63cc262-28a9-43d0-9b4b-25a5a87fd2d6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ettrick-escape-room-booking/"
+    google-query: inurl:"/wp-content/plugins/ettrick-escape-room-booking/"
+    shodan-query: 'http.html:"wp-content/plugins/ettrick-escape-room-booking/"'
+  tags: cve,wordpress,wp-plugin,ettrick-escape-room-booking,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ettrick-escape-room-booking/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ettrick-escape-room-booking"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.0')
