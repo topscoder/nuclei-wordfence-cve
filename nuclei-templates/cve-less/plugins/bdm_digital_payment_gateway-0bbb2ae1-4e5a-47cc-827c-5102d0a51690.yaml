@@ -1,0 +1,51 @@
+id: bdm_digital_payment_gateway-0bbb2ae1-4e5a-47cc-827c-5102d0a51690
+
+info:
+  name: >
+    BDM Digital Payment Gateway 1.2.7 - 1.3.12 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0bbb2ae1-4e5a-47cc-827c-5102d0a51690?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bdm-digital-payment-gateway/"
+    google-query: inurl:"/wp-content/plugins/bdm-digital-payment-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/bdm-digital-payment-gateway/"'
+  tags: cve,wordpress,wp-plugin,bdm-digital-payment-gateway,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bdm-digital-payment-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bdm-digital-payment-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.2.7', '<= 1.3.12')
