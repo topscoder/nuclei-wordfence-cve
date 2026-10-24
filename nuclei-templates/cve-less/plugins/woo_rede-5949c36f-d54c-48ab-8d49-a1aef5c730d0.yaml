@@ -1,0 +1,51 @@
+id: woo_rede-5949c36f-d54c-48ab-8d49-a1aef5c730d0
+
+info:
+  name: >
+    Rede Itaú for WooCommerce 3.7.1 - 5.5.2 - Unauthenticated Arbitrary Order Status Modification
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/5949c36f-d54c-48ab-8d49-a1aef5c730d0?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-rede/"
+    google-query: inurl:"/wp-content/plugins/woo-rede/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-rede/"'
+  tags: cve,wordpress,wp-plugin,woo-rede,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-rede/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-rede"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 3.7.1', '<= 5.5.2')
