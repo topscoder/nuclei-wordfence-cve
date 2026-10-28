@@ -1,0 +1,51 @@
+id: payment_integration_wompi-162e95c3-6344-4fd9-8666-b8b9e0121531
+
+info:
+  name: >
+    Payment Integration Wompi <= 4.0.1 - Unauthenticated Payment Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/162e95c3-6344-4fd9-8666-b8b9e0121531?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/payment-integration-wompi/"
+    google-query: inurl:"/wp-content/plugins/payment-integration-wompi/"
+    shodan-query: 'http.html:"wp-content/plugins/payment-integration-wompi/"'
+  tags: cve,wordpress,wp-plugin,payment-integration-wompi,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/payment-integration-wompi/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "payment-integration-wompi"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.0.1')
