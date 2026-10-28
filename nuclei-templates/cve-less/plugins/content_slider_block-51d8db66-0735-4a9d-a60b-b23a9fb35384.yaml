@@ -1,0 +1,51 @@
+id: content_slider_block-51d8db66-0735-4a9d-a60b-b23a9fb35384
+
+info:
+  name: >
+    Content Slider Block – Bring your content to life with slides <= 3.2.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/51d8db66-0735-4a9d-a60b-b23a9fb35384?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/content-slider-block/"
+    google-query: inurl:"/wp-content/plugins/content-slider-block/"
+    shodan-query: 'http.html:"wp-content/plugins/content-slider-block/"'
+  tags: cve,wordpress,wp-plugin,content-slider-block,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/content-slider-block/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "content-slider-block"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.2.1')
