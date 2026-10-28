@@ -1,0 +1,51 @@
+id: customer_email_verification_for_woocommerce-a2e9fa74-5501-4429-a500-1d4199571a34
+
+info:
+  name: >
+    Customer Email Verification for WooCommerce <= 2.8.2 - Unauthenticated Authentication Bypass via Predictable Email-Verification Token to 'cusomer_email_verify' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a2e9fa74-5501-4429-a500-1d4199571a34?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/customer-email-verification-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/customer-email-verification-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/customer-email-verification-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,customer-email-verification-for-woocommerce,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/customer-email-verification-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "customer-email-verification-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.8.2')
