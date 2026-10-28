@@ -1,0 +1,51 @@
+id: uichemy-1fdc5c50-1d5b-4141-9524-f0e01c097a87
+
+info:
+  name: >
+    UiChemy <= 5.3.0 - Authenticated (Contributor+) Stored Cross-Site Scripting via Slot Link URL
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1fdc5c50-1d5b-4141-9524-f0e01c097a87?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/uichemy/"
+    google-query: inurl:"/wp-content/plugins/uichemy/"
+    shodan-query: 'http.html:"wp-content/plugins/uichemy/"'
+  tags: cve,wordpress,wp-plugin,uichemy,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/uichemy/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "uichemy"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.3.0')
