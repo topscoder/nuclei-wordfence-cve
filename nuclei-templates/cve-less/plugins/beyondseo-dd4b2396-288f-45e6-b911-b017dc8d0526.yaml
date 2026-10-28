@@ -1,0 +1,51 @@
+id: beyondseo-dd4b2396-288f-45e6-b911-b017dc8d0526
+
+info:
+  name: >
+    BeyondSEO <= 1.3.6 - Missing Authorization to Authenticated (Contributor+) Limited Privilege Escalation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/dd4b2396-288f-45e6-b911-b017dc8d0526?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/beyondseo/"
+    google-query: inurl:"/wp-content/plugins/beyondseo/"
+    shodan-query: 'http.html:"wp-content/plugins/beyondseo/"'
+  tags: cve,wordpress,wp-plugin,beyondseo,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/beyondseo/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "beyondseo"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.6')
