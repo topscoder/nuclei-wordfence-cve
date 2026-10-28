@@ -1,0 +1,51 @@
+id: ai_alt_text_generator-fa4741fa-0871-4f23-b164-94f5e94f5712
+
+info:
+  name: >
+    AI Alt Text Generator <= 2.7.0 - Missing Authorization to Unauthenticated Arbitrary Attachment Modification via 'post_id' Parameter
+  author: topscoder
+  severity: high
+  description: >
+    The AI Alt Text Generator plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 2.7.0. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for unauthenticated attackers to modify the alt text, and optionally the title, caption, and description of arbitrary attachments owned by other users. Exploiting this vulnerability requires a Contributor-level account to retrieve the nonce from the page source of post.php, post-new.php, or upload.php; additionally, overwriting post_title, post_excerpt, and post_content requires the plugin's set_title, set_caption, or set_description options to be enabled.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fa4741fa-0871-4f23-b164-94f5e94f5712?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N
+    cvss-score: 5.3
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ai-alt-text-generator/"
+    google-query: inurl:"/wp-content/plugins/ai-alt-text-generator/"
+    shodan-query: 'http.html:"wp-content/plugins/ai-alt-text-generator/"'
+  tags: cve,wordpress,wp-plugin,ai-alt-text-generator,high,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ai-alt-text-generator/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ai-alt-text-generator"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.7.0')
