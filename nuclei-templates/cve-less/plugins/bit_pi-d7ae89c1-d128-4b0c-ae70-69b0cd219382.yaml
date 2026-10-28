@@ -1,0 +1,51 @@
+id: bit_pi-d7ae89c1-d128-4b0c-ae70-69b0cd219382
+
+info:
+  name: >
+    Bit Flows: AI Agent Automation & Integrations for Forms, CRM, eCommerce, Google Sheets, and More <= 1.31.0 - Unauthenticated Local File Inclusion via 'webhook' and 'body' Parameters
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d7ae89c1-d128-4b0c-ae70-69b0cd219382?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bit-pi/"
+    google-query: inurl:"/wp-content/plugins/bit-pi/"
+    shodan-query: 'http.html:"wp-content/plugins/bit-pi/"'
+  tags: cve,wordpress,wp-plugin,bit-pi,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bit-pi/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bit-pi"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.31.0')
