@@ -1,0 +1,51 @@
+id: paypal_brasil_para_woocommerce-2fa13ee0-0aee-4929-9bd0-a1375e002d26
+
+info:
+  name: >
+    PayPal Brasil para WooCommerce <= 1.7.8 - Missing Authorization to Unauthenticated Payment Gateway Modification via 'bcdc_activation_update' Action
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2fa13ee0-0aee-4929-9bd0-a1375e002d26?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/paypal-brasil-para-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/paypal-brasil-para-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/paypal-brasil-para-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,paypal-brasil-para-woocommerce,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/paypal-brasil-para-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "paypal-brasil-para-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.8')
