@@ -2,7 +2,7 @@ id: ultraaddons_elementor_lite-9b0737b6-c30b-4244-bf17-4ade1991af6a
 
 info:
   name: >
-    UltraAddons <= 2.0.0 - Cross-Site Request Forgery
+    UltraAddons <= 2.0.3 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.0.0')
+          - compare_versions(version, '<= 2.0.3')
