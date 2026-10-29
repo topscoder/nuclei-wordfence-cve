@@ -2,7 +2,7 @@ id: wp_storymap-9596cae1-37d8-4618-a701-34e8461c3d73
 
 info:
   name: >
-    StoryMap <= 2.1 - Cross-Site Request Forgery
+    StoryMap <= 3.0 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1')
+          - compare_versions(version, '<= 3.0')
