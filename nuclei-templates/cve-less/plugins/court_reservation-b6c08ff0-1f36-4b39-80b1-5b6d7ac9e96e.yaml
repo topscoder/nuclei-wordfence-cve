@@ -2,7 +2,7 @@ id: court_reservation-b6c08ff0-1f36-4b39-80b1-5b6d7ac9e96e
 
 info:
   name: >
-    Court Reservation <= 1.10.8 - Reflected Cross-Site Scripting
+    Court Reservation <= 1.11.1 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.10.8')
+          - compare_versions(version, '<= 1.11.1')
