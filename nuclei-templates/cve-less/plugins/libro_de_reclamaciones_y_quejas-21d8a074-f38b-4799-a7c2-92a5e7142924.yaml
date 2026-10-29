@@ -2,7 +2,7 @@ id: libro_de_reclamaciones_y_quejas-21d8a074-f38b-4799-a7c2-92a5e7142924
 
 info:
   name: >
-    Libro de Reclamaciones y Quejas <= 0.9 - Cross-Site Request Forgery to Stored Cross-Site Scripting
+    Libro de Reclamaciones y Quejas <= 1.2 - Cross-Site Request Forgery to Stored Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 0.9')
+          - compare_versions(version, '<= 1.2')
