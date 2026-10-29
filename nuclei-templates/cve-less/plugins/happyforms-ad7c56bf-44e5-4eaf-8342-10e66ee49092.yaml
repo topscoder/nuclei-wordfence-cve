@@ -1,0 +1,51 @@
+id: happyforms-ad7c56bf-44e5-4eaf-8342-10e66ee49092
+
+info:
+  name: >
+    Happyforms – Form Builder for WordPress: Drag & Drop Contact Forms, Surveys, Payments & Multipurpose Forms < 1.26.15 - Unauthenticated HTML Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ad7c56bf-44e5-4eaf-8342-10e66ee49092?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/happyforms/"
+    google-query: inurl:"/wp-content/plugins/happyforms/"
+    shodan-query: 'http.html:"wp-content/plugins/happyforms/"'
+  tags: cve,wordpress,wp-plugin,happyforms,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/happyforms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "happyforms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 1.26.15')
