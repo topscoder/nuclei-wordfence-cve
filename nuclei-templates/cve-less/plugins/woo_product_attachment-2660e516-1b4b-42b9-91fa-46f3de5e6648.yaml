@@ -2,7 +2,7 @@ id: woo_product_attachment-2660e516-1b4b-42b9-91fa-46f3de5e6648
 
 info:
   name: >
-    Product Attachment for WooCommerce <= 2.3.3 - Unauthenticated Information Exposure
+    Product Attachment for WooCommerce <= 2.3.4 - Unauthenticated Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.3.3')
+          - compare_versions(version, '<= 2.3.4')
