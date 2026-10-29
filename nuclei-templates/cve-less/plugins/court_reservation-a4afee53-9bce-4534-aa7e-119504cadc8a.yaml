@@ -2,7 +2,7 @@ id: court_reservation-a4afee53-9bce-4534-aa7e-119504cadc8a
 
 info:
   name: >
-    Court Reservation <= 1.10.11 - Missing Authorization
+    Court Reservation <= 1.11.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.10.11')
+          - compare_versions(version, '<= 1.11.1')
