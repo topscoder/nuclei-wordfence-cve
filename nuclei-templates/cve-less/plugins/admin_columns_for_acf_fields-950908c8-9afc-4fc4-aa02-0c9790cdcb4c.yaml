@@ -2,7 +2,7 @@ id: admin_columns_for_acf_fields-950908c8-9afc-4fc4-aa02-0c9790cdcb4c
 
 info:
   name: >
-    Admin Columns for ACF Fields <= 0.3.2 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    Admin Columns for ACF Fields < 0.3.3.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 0.3.2')
+          - compare_versions(version, '< 0.3.3.1')
