@@ -2,7 +2,7 @@ id: translit_it-3199e007-2710-4eb7-acd0-e1645130f0a5
 
 info:
   name: >
-    translit it! <= 1.6 - Cross-Site Request Forgery to Stored Cross-Site Scripting
+    translit it! <= 1.8.3 - Cross-Site Request Forgery to Stored Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.6')
+          - compare_versions(version, '<= 1.8.3')
