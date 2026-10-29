@@ -1,0 +1,51 @@
+id: hk_idram_payment_gateway-e98a42c4-b5fa-42fa-a444-7af779644d8d
+
+info:
+  name: >
+    Payment Gateway for Idram < 2.1.6 - Unauthenticated Arbitrary Order Status Manipulation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e98a42c4-b5fa-42fa-a444-7af779644d8d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/hk-idram-payment-gateway/"
+    google-query: inurl:"/wp-content/plugins/hk-idram-payment-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/hk-idram-payment-gateway/"'
+  tags: cve,wordpress,wp-plugin,hk-idram-payment-gateway,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/hk-idram-payment-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "hk-idram-payment-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 2.1.6')
