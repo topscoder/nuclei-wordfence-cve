@@ -2,7 +2,7 @@ id: bootstrap_shortcodes-9f97bc19-c600-4819-ae75-d80b119a7575
 
 info:
   name: >
-    BootStrap Shortcode <= 3.4.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    BootStrap Shortcode < 3.4.6 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.4.0')
+          - compare_versions(version, '< 3.4.6')
