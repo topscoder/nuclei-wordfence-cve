@@ -1,0 +1,51 @@
+id: nativechurch-fa348259-b242-4f29-ac88-c32e546b09a5
+
+info:
+  name: >
+    NativeChurch <= 1.6.1 - Unauthenticated Arbitrary File Read
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fa348259-b242-4f29-ac88-c32e546b09a5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/NativeChurch/"
+    google-query: inurl:"/wp-content/themes/NativeChurch/"
+    shodan-query: 'http.html:"wp-content/themes/NativeChurch/"'
+  tags: cve,wordpress,wp-theme,NativeChurch,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/NativeChurch/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "NativeChurch"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.6.1')
