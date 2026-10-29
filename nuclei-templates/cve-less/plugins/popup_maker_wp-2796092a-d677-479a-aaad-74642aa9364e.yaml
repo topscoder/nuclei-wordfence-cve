@@ -2,7 +2,7 @@ id: popup_maker_wp-2796092a-d677-479a-aaad-74642aa9364e
 
 info:
   name: >
-    Popup Maker WP <= 1.4.5 - Missing Authorization
+    Popup Maker WP < 1.4.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.5')
+          - compare_versions(version, '< 1.4.6')
