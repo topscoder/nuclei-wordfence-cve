@@ -2,7 +2,7 @@ id: realpress-996697c7-39a9-411e-a1cf-c9bb7c34b258
 
 info:
   name: >
-    RealPress – Real Estate Plugin <= 1.1.2 - Unauthenticated SQL Injection
+    RealPress – Real Estate Plugin <= 1.1.4 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.2')
+          - compare_versions(version, '<= 1.1.4')
