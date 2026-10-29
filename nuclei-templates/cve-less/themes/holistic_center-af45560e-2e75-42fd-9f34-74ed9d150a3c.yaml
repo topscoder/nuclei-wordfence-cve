@@ -1,0 +1,51 @@
+id: holistic_center-af45560e-2e75-42fd-9f34-74ed9d150a3c
+
+info:
+  name: >
+    Holistic Center <= 1.2.6 - Unauthenticated PHP Object Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/af45560e-2e75-42fd-9f34-74ed9d150a3c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/holistic-center/"
+    google-query: inurl:"/wp-content/themes/holistic-center/"
+    shodan-query: 'http.html:"wp-content/themes/holistic-center/"'
+  tags: cve,wordpress,wp-theme,holistic-center,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/holistic-center/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "holistic-center"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.6')
