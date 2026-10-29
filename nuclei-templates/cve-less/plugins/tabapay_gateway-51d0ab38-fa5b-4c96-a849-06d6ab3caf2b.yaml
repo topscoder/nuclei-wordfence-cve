@@ -2,7 +2,7 @@ id: tabapay_gateway-51d0ab38-fa5b-4c96-a849-06d6ab3caf2b
 
 info:
   name: >
-    TabaPay Gateway <= 1.4.0 - Unauthenticated Privilege Escalation
+    TabaPay Gateway < 1.4.1 - Unauthenticated Privilege Escalation
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.4.0')
+          - compare_versions(version, '< 1.4.1')
