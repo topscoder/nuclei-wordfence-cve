@@ -2,7 +2,7 @@ id: mega_addons_for_visual_composer-33aed550-5a2d-4a0a-8199-f2dfd212be92
 
 info:
   name: >
-    Mega Addons For WPBakery Page Builder <= 4.2.7 - Cross-Site Request Forgery to Settings Update
+    Mega Addons For WPBakery Page Builder <= 4.3.1 - Cross-Site Request Forgery to Settings Update
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.2.7')
+          - compare_versions(version, '<= 4.3.1')
