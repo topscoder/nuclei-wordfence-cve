@@ -2,7 +2,7 @@ id: jotform_ai_chatbot-d8af9d7e-e99e-4d60-ac02-9b0e3699e59f
 
 info:
   name: >
-    Jotform – AI Chatbot <= 3.8.2 - Unauthenticated Stored Cross-Site Scripting
+    Jotform – AI Chatbot <= 3.8.3 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.2')
+          - compare_versions(version, '<= 3.8.3')
