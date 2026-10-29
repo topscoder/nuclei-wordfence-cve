@@ -2,7 +2,7 @@ id: wpfunnels-f3ff1bb7-bb90-45a9-8ed1-1497aed14b4d
 
 info:
   name: >
-    WPFunnels – Funnel Builder for WooCommerce with Checkout & One Click Upsell <= 3.13.3 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    WPFunnels – Funnel Builder for WooCommerce with Checkout & One Click Upsell <= 3.13.5 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.13.3')
+          - compare_versions(version, '<= 3.13.5')
