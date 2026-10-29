@@ -2,7 +2,7 @@ id: quick_event_manager-5d795754-3d42-49b5-99ab-c52eeca518f5
 
 info:
   name: >
-    Quick Event Manager <= 9.17 - Unauthenticated Stored Cross-Site Scripting
+    Quick Event Manager <= 9.18 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 9.17')
+          - compare_versions(version, '<= 9.18')
