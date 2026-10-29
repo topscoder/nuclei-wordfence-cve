@@ -1,0 +1,51 @@
+id: royal_mcp-a1deef30-a6c3-466c-8eaa-93f26adc64bc
+
+info:
+  name: >
+    Royal MCP – Secure AI Connector for Claude, ChatGPT & any LLM via MCP 1.4.38 - 1.5.9 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a1deef30-a6c3-466c-8eaa-93f26adc64bc?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/royal-mcp/"
+    google-query: inurl:"/wp-content/plugins/royal-mcp/"
+    shodan-query: 'http.html:"wp-content/plugins/royal-mcp/"'
+  tags: cve,wordpress,wp-plugin,royal-mcp,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/royal-mcp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "royal-mcp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.4.38', '<= 1.5.9')
