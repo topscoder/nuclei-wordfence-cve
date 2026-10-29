@@ -1,0 +1,51 @@
+id: newsmanapp-ba6e0223-66d4-4fe7-8c15-6b37990a2f8a
+
+info:
+  name: >
+    NewsmanApp <= 3.7.29 - Unauthenticated Stored Cross-Site Scripting via 'billing_first_name' and 'billing_last_name' Parameters
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ba6e0223-66d4-4fe7-8c15-6b37990a2f8a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/newsmanapp/"
+    google-query: inurl:"/wp-content/plugins/newsmanapp/"
+    shodan-query: 'http.html:"wp-content/plugins/newsmanapp/"'
+  tags: cve,wordpress,wp-plugin,newsmanapp,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/newsmanapp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "newsmanapp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.7.29')
