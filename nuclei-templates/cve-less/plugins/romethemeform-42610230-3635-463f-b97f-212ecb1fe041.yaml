@@ -2,7 +2,7 @@ id: romethemeform-42610230-3635-463f-b97f-212ecb1fe041
 
 info:
   name: >
-    RTMForm Builder <= 1.2.7 - Missing Authorization
+    RTMForm Builder <= 1.2.6 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.7')
+          - compare_versions(version, '<= 1.2.6')
