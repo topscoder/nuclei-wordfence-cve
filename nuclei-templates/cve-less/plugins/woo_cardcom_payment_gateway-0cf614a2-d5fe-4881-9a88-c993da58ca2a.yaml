@@ -2,7 +2,7 @@ id: woo_cardcom_payment_gateway-0cf614a2-d5fe-4881-9a88-c993da58ca2a
 
 info:
   name: >
-    CardCom Payment Gateway <= 3.5.0.4 - Missing Authorization
+    CardCom Payment Gateway <= 3.5.1.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.5.0.4')
+          - compare_versions(version, '<= 3.5.1.0')
