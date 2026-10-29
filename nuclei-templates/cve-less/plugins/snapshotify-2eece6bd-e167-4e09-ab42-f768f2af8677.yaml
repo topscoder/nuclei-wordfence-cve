@@ -2,7 +2,7 @@ id: snapshotify-2eece6bd-e167-4e09-ab42-f768f2af8677
 
 info:
   name: >
-    Snapshotify – All-in-One Backup & Restore & Migrate <= 1.3.2 - Unauthenticated Information Exposure
+    Snapshotify – All-in-One Backup & Restore & Migrate <= 1.3.6 - Unauthenticated Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.3.2')
+          - compare_versions(version, '<= 1.3.6')
