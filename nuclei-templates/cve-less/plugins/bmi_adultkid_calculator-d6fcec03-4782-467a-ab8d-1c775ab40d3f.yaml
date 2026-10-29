@@ -2,7 +2,7 @@ id: bmi_adultkid_calculator-d6fcec03-4782-467a-ab8d-1c775ab40d3f
 
 info:
   name: >
-    BMI Adult & Kid Calculator <= 1.2.2 - Reflected Cross-Site Scripting
+    BMI Adult & Kid Calculator <= 1.2.3 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.2')
+          - compare_versions(version, '<= 1.2.3')
