@@ -2,7 +2,7 @@ id: quick_event_manager-408d602f-380d-4202-b9fa-9b86c801f892
 
 info:
   name: >
-    Quick Event Manager <= 9.17 - Missing Authorization
+    Quick Event Manager <= 9.18 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 9.17')
+          - compare_versions(version, '<= 9.18')
