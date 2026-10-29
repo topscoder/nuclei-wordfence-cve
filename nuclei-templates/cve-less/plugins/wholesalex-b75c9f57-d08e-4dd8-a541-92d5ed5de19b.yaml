@@ -1,0 +1,51 @@
+id: wholesalex-b75c9f57-d08e-4dd8-a541-92d5ed5de19b
+
+info:
+  name: >
+    WholesaleX – All-in-One B2B Solution with Wholesale Pricing < 3.0.9 - Unauthenticated Account Activation Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b75c9f57-d08e-4dd8-a541-92d5ed5de19b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wholesalex/"
+    google-query: inurl:"/wp-content/plugins/wholesalex/"
+    shodan-query: 'http.html:"wp-content/plugins/wholesalex/"'
+  tags: cve,wordpress,wp-plugin,wholesalex,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wholesalex/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wholesalex"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 3.0.9')
