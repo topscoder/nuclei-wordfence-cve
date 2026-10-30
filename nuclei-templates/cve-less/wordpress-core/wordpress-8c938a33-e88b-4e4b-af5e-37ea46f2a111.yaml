@@ -1,0 +1,61 @@
+id: wordpress-8c938a33-e88b-4e4b-af5e-37ea46f2a111
+
+info:
+  name: >
+    WordPress Core 6.4.0 - 7.1.3 - Authenticated (Contributor+) Stored Denial of Service via Malformed Interactivity API Bindings
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to a stored client-side Denial of Service in versions 6.4 through 7.1.3 because Interactivity API directive maps and class or style bindings do not validate reserved names and value types before using them. This makes it possible for authenticated attackers, with Contributor-level access and above, to store malformed interactive markup that aborts client-side rendering on affected pages.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8c938a33-e88b-4e4b-af5e-37ea46f2a111?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:L
+    cvss-score: 3.5
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.3')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.3')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.3')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
