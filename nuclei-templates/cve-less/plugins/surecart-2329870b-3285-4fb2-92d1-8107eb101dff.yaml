@@ -1,0 +1,51 @@
+id: surecart-2329870b-3285-4fb2-92d1-8107eb101dff
+
+info:
+  name: >
+    SureCart <= 4.9.4 - Unauthenticated Stored Cross-Site Scripting via 'manual-payment-instructions' Attribute of sc-order-manual-instructions in Comments
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2329870b-3285-4fb2-92d1-8107eb101dff?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/surecart/"
+    google-query: inurl:"/wp-content/plugins/surecart/"
+    shodan-query: 'http.html:"wp-content/plugins/surecart/"'
+  tags: cve,wordpress,wp-plugin,surecart,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/surecart/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "surecart"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.9.4')
