@@ -1,0 +1,51 @@
+id: avada-af757e6b-cbb3-4efd-8c83-99a03dee2311
+
+info:
+  name: >
+    Avada | Website Builder For WordPress & WooCommerce <= 7.16.2 - Unauthenticated Arbitrary File Upload via Avada Form Upload Field
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/af757e6b-cbb3-4efd-8c83-99a03dee2311?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/Avada/"
+    google-query: inurl:"/wp-content/themes/Avada/"
+    shodan-query: 'http.html:"wp-content/themes/Avada/"'
+  tags: cve,wordpress,wp-theme,Avada,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/Avada/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "Avada"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.16.2')
