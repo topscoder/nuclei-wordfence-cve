@@ -1,0 +1,51 @@
+id: wplr_sync-ebb6a31a-3d12-4dd1-b9f8-5d9e17f0bf48
+
+info:
+  name: >
+    Photo Engine (Media Organizer & Lightroom) <= 6.5.7 - Authenticated (Subscriber+) Stored Cross-Site Scripting via Collection Name
+  author: topscoder
+  severity: low
+  description: >
+    The Photo Engine (Media Organizer & Lightroom) plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'hierarchy[].name' parameter in all versions up to, and including, 6.5.7 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with subscriber-level access and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. This is exploitable by Subscribers because the /?wplr-sync-api endpoint authenticates solely via wplr_auth_token usermeta with no capability check, and the current user's token is exposed on every admin page via localized script data due to a commented-out screen-condition guard.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ebb6a31a-3d12-4dd1-b9f8-5d9e17f0bf48?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 6.4
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wplr-sync/"
+    google-query: inurl:"/wp-content/plugins/wplr-sync/"
+    shodan-query: 'http.html:"wp-content/plugins/wplr-sync/"'
+  tags: cve,wordpress,wp-plugin,wplr-sync,low,production
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wplr-sync/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wplr-sync"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.5.7')
