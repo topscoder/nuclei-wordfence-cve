@@ -2,7 +2,7 @@ id: printcart_integration-4e4f0275-7689-4b72-9761-45534f9c706d
 
 info:
   name: >
-    Printcart Web to Print Product Designer for WooCommerce <= 2.4.3 - Missing Authorization
+    Printcart Web to Print Product Designer for WooCommerce <= 2.13.2 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.4.3')
+          - compare_versions(version, '<= 2.13.2')
