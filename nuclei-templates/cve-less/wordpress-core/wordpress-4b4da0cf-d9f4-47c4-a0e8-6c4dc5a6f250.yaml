@@ -6,17 +6,17 @@ info:
   author: topscoder
   severity: critical
   description: >
-    WordPress Core is vulnerable to Remote Code Execution in versions 4.7 through 7.1.3. This is due to predictable, web-accessible staging paths used during full-package core upgrades. This makes it possible for unauthenticated attackers to execute code on the server during the upgrade window.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4b4da0cf-d9f4-47c4-a0e8-6c4dc5a6f250?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4b4da0cf-d9f4-47c4-a0e8-6c4dc5a6f250?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H
-    cvss-score: 8.1
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     shodan-query: 'vuln:'
-  tags: cve,wordpress,wp-core,critical,production
+  tags: cve,wordpress,wp-core,critical,candidate
 
 http:
   - method: GET
