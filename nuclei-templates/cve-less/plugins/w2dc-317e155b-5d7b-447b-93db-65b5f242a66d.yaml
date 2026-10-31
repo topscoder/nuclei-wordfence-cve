@@ -1,0 +1,51 @@
+id: w2dc-317e155b-5d7b-447b-93db-65b5f242a66d
+
+info:
+  name: >
+    Web 2.0 Directory <= 2.10.12 - Unauthenticated SQL Injection via 'w2dc_level_filter' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/317e155b-5d7b-447b-93db-65b5f242a66d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/w2dc/"
+    google-query: inurl:"/wp-content/plugins/w2dc/"
+    shodan-query: 'http.html:"wp-content/plugins/w2dc/"'
+  tags: cve,wordpress,wp-plugin,w2dc,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/w2dc/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "w2dc"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.10.12')
