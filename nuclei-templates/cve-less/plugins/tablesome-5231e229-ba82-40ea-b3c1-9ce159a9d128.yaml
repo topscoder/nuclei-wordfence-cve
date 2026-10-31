@@ -2,7 +2,7 @@ id: tablesome-5231e229-ba82-40ea-b3c1-9ce159a9d128
 
 info:
   name: >
-    Tablesome Table – Contact Form DB – WPForms, CF7, Gravity, Forminator, Fluent <= 1.2.9 - Unauthenticated SQL Injection
+    Tablesome Table – Contact Form DB – WPForms, CF7, Gravity, Forminator, Fluent <= 1.2.12 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.2.9')
+          - compare_versions(version, '<= 1.2.12')
