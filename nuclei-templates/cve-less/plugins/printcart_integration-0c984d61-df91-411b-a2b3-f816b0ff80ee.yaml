@@ -2,7 +2,7 @@ id: printcart_integration-0c984d61-df91-411b-a2b3-f816b0ff80ee
 
 info:
   name: >
-    Printcart Web to Print Product Designer for WooCommerce <= 2.4.8 - Directory Traversal to Unauthenticated Folder Content Disclosure
+    Printcart Web to Print Product Designer for WooCommerce <= 2.5.1 - Directory Traversal to Unauthenticated Folder Content Disclosure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.4.8')
+          - compare_versions(version, '<= 2.5.1')
