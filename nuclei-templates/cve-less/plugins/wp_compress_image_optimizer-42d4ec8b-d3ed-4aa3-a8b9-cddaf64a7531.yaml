@@ -6,19 +6,19 @@ info:
   author: topscoder
   severity: high
   description: >
-    The WP Compress – Instant Performance & Speed Optimization plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 7.22.01. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for unauthenticated attackers to link the victim site to an attacker-controlled WP Compress account, overwrite plugin settings to an aggressive live-CDN preset, and gain the shared api_key that authenticates all nopriv HMAC-gated endpoints — enabling full control over cache purging, file deletion, opcode cache invalidation, and other privileged plugin operations. This vulnerability only affects fresh installations or lite/free-mode installs where no api_key is already stored, as the sole guard fails open when the stored key is absent.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/42d4ec8b-d3ed-4aa3-a8b9-cddaf64a7531?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/42d4ec8b-d3ed-4aa3-a8b9-cddaf64a7531?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N
-    cvss-score: 5.3
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/wp-compress-image-optimizer/"
     google-query: inurl:"/wp-content/plugins/wp-compress-image-optimizer/"
     shodan-query: 'http.html:"wp-content/plugins/wp-compress-image-optimizer/"'
-  tags: cve,wordpress,wp-plugin,wp-compress-image-optimizer,high,production
+  tags: cve,wordpress,wp-plugin,wp-compress-image-optimizer,high,candidate
 
 http:
   - method: GET
