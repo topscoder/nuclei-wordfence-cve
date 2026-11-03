@@ -6,19 +6,19 @@ info:
   author: topscoder
   severity: low
   description: >
-    The SEO Engine – Smart SEO with AI, Schema & Redirection for WordPress plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'title' parameter in all versions up to, and including, 0.9.9 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. WordPress core's wp_filter_kses (applied via title_save_pre for Contributors and Authors) strips literal tag markup on save but leaves HTML-entity-encoded payloads intact in the database, meaning entity-encoded XSS payloads stored via the standard WordPress REST API (POST /wp-json/wp/v2/posts) are not neutralized before reaching the vulnerable sink.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/454a05eb-fd4e-4125-abd0-7ba90ee2048a?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/454a05eb-fd4e-4125-abd0-7ba90ee2048a?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N
-    cvss-score: 6.4
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/seo-engine/"
     google-query: inurl:"/wp-content/plugins/seo-engine/"
     shodan-query: 'http.html:"wp-content/plugins/seo-engine/"'
-  tags: cve,wordpress,wp-plugin,seo-engine,low,production
+  tags: cve,wordpress,wp-plugin,seo-engine,low,candidate
 
 http:
   - method: GET
