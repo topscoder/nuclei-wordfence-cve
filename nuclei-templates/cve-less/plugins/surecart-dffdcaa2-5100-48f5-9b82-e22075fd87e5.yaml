@@ -6,19 +6,19 @@ info:
   author: topscoder
   severity: low
   description: >
-    The SureCart plugin for WordPress is vulnerable to unauthenticated account takeover in all versions up to, and including, 4.9.5. The passwordless one-time-code login REST route (VerificationCodeController::verify(), whose permission callback returns true) resolves an attacker-supplied login to any WordPress user, verifies a 6-digit code, and on success calls $user->login() → wp_set_auth_cookie() for a user of any role. In the affected versions this path has no per-account attempt counter, no persistent email/IP lockout or rate limit (the upstream CDN throttle is bypassable via IP rotation), and no restriction preventing high-privilege accounts from being logged in through it. An unauthenticated attacker can trigger a code for any user (including an administrator) via the companion unauthenticated endpoint and brute-force the 6-digit code to obtain an authenticated session as that user, resulting in a full administrator account takeover.
+    
   reference:
     - https://github.com/topscoder/nuclei-wordfence-cve
-    - https://www.wordfence.com/threat-intel/vulnerabilities/id/dffdcaa2-5100-48f5-9b82-e22075fd87e5?source=api-prod
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/dffdcaa2-5100-48f5-9b82-e22075fd87e5?source=api-scan
   classification:
-    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H
-    cvss-score: 8.1
+    cvss-metrics: 
+    cvss-score: 
     cve-id: 
   metadata:
     fofa-query: "wp-content/plugins/surecart/"
     google-query: inurl:"/wp-content/plugins/surecart/"
     shodan-query: 'http.html:"wp-content/plugins/surecart/"'
-  tags: cve,wordpress,wp-plugin,surecart,low,production
+  tags: cve,wordpress,wp-plugin,surecart,low,candidate
 
 http:
   - method: GET
