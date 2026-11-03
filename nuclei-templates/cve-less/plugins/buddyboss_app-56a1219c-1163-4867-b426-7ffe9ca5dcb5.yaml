@@ -1,0 +1,51 @@
+id: buddyboss_app-56a1219c-1163-4867-b426-7ffe9ca5dcb5
+
+info:
+  name: >
+    BuddyBoss App <= 3.2.1 - Authenticated (Subscriber+) Arbitrary File Upload via Feedback Endpoint
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/56a1219c-1163-4867-b426-7ffe9ca5dcb5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/buddyboss-app/"
+    google-query: inurl:"/wp-content/plugins/buddyboss-app/"
+    shodan-query: 'http.html:"wp-content/plugins/buddyboss-app/"'
+  tags: cve,wordpress,wp-plugin,buddyboss-app,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/buddyboss-app/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "buddyboss-app"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.2.1')
