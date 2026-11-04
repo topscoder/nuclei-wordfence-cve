@@ -2,7 +2,7 @@ id: snapwidget_wp_instagram_widget-63bb9298-dd00-49a9-aea2-2797f0974d7f
 
 info:
   name: >
-    SnapWidget Social Photo Feed Widget <= 1.1.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
+    SnapWidget Social Photo Feed Widget <= 1.2.0 - Authenticated (Contributor+) Stored Cross-Site Scripting
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.0')
+          - compare_versions(version, '<= 1.2.0')
