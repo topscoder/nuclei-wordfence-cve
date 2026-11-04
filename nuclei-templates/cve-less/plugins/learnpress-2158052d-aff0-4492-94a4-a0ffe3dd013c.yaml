@@ -2,7 +2,7 @@ id: learnpress-2158052d-aff0-4492-94a4-a0ffe3dd013c
 
 info:
   name: >
-    LearnPress – WordPress LMS Plugin for Create and Sell Online Courses <= 4.4.9.1 - Missing Authorization
+    LearnPress – WordPress LMS Plugin for Create and Sell Online Courses <= 4.4.10 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.4.9.1')
+          - compare_versions(version, '<= 4.4.10')
