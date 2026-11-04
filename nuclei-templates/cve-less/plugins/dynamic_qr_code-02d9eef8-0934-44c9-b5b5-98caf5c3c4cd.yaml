@@ -1,0 +1,51 @@
+id: dynamic_qr_code-02d9eef8-0934-44c9-b5b5-98caf5c3c4cd
+
+info:
+  name: >
+    Dynamic QR Code – generator <= 1.0.1 - Authenticated (Contributor+) PHP Object Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/02d9eef8-0934-44c9-b5b5-98caf5c3c4cd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/dynamic-qr-code/"
+    google-query: inurl:"/wp-content/plugins/dynamic-qr-code/"
+    shodan-query: 'http.html:"wp-content/plugins/dynamic-qr-code/"'
+  tags: cve,wordpress,wp-plugin,dynamic-qr-code,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/dynamic-qr-code/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "dynamic-qr-code"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.1')
