@@ -2,7 +2,7 @@ id: essential_real_estate-14d2198a-4117-4182-9b03-9fa463da03d9
 
 info:
   name: >
-    Essential Real Estate <= 5.2.2 - Missing Authorization
+    Essential Real Estate <= 5.3.4 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 5.2.2')
+          - compare_versions(version, '<= 5.3.4')
