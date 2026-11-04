@@ -1,0 +1,51 @@
+id: auto_import_products_cart_dragdropfile-45b1584f-bfb4-4a60-b87b-945be980c36f
+
+info:
+  name: >
+    Automated Import Products to Cart <= 1.0.3 - Authenticated (Subscriber+) Arbitrary File Read
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/45b1584f-bfb4-4a60-b87b-945be980c36f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/auto-import-products-cart-dragdropfile/"
+    google-query: inurl:"/wp-content/plugins/auto-import-products-cart-dragdropfile/"
+    shodan-query: 'http.html:"wp-content/plugins/auto-import-products-cart-dragdropfile/"'
+  tags: cve,wordpress,wp-plugin,auto-import-products-cart-dragdropfile,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/auto-import-products-cart-dragdropfile/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "auto-import-products-cart-dragdropfile"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.3')
