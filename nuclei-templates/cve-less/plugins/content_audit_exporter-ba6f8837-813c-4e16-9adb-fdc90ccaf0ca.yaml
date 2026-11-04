@@ -2,7 +2,7 @@ id: content_audit_exporter-ba6f8837-813c-4e16-9adb-fdc90ccaf0ca
 
 info:
   name: >
-    Content Audit Exporter <= 1.1 - Unauthenticated Sensitive Information Exposure
+    Content Audit Exporter <= 1.2 - Unauthenticated Sensitive Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1')
+          - compare_versions(version, '<= 1.2')
