@@ -2,7 +2,7 @@ id: templatespare-c04449a1-24ac-4dca-932b-fc8c62b53ce6
 
 info:
   name: >
-    TemplateSpare – 1000+ WordPress Starter Templates & Full Site Migration Tool | 1-Click Import/Export & No-Code Builder <= 4.2.2 - Missing Authorization
+    TemplateSpare – 1000+ WordPress Starter Templates & Full Site Migration Tool | 1-Click Import/Export & No-Code Builder <= 4.3.1 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 4.2.2')
+          - compare_versions(version, '<= 4.3.1')
