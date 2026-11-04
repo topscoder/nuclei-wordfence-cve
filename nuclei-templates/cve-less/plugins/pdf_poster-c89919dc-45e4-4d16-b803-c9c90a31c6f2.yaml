@@ -1,0 +1,51 @@
+id: pdf_poster-c89919dc-45e4-4d16-b803-c9c90a31c6f2
+
+info:
+  name: >
+    PDF Poster – Let visitors read PDF’s without leaving the page <= 2.6.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c89919dc-45e4-4d16-b803-c9c90a31c6f2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pdf-poster/"
+    google-query: inurl:"/wp-content/plugins/pdf-poster/"
+    shodan-query: 'http.html:"wp-content/plugins/pdf-poster/"'
+  tags: cve,wordpress,wp-plugin,pdf-poster,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pdf-poster/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pdf-poster"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.6.1')
