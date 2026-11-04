@@ -1,0 +1,51 @@
+id: flexible_chat-eab424ac-fdc4-4984-904f-0c884d07524a
+
+info:
+  name: >
+    Flexible Chat – AI chatbot plugin for WordPress and WooCommerce <= 1.1.0 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/eab424ac-fdc4-4984-904f-0c884d07524a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/flexible-chat/"
+    google-query: inurl:"/wp-content/plugins/flexible-chat/"
+    shodan-query: 'http.html:"wp-content/plugins/flexible-chat/"'
+  tags: cve,wordpress,wp-plugin,flexible-chat,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/flexible-chat/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "flexible-chat"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.0')
