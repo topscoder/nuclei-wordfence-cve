@@ -2,7 +2,7 @@ id: vireo-d7c03f9e-fd4e-4787-ae7c-8aff8c854730
 
 info:
   name: >
-    Vireo <= 1.0.24 - Missing Authorization
+    Vireo <= 1.0.37 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.24')
+          - compare_versions(version, '<= 1.0.37')
