@@ -1,0 +1,51 @@
+id: wc_bitpay_gateway-f3b3f4b7-b25e-4d1f-b919-1cef5eb0d006
+
+info:
+  name: >
+    BitPay Gateway for WooCommerce <= 4.1.3 - Unauthenticated Payment Bypass
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f3b3f4b7-b25e-4d1f-b919-1cef5eb0d006?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wc-bitpay-gateway/"
+    google-query: inurl:"/wp-content/plugins/wc-bitpay-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/wc-bitpay-gateway/"'
+  tags: cve,wordpress,wp-plugin,wc-bitpay-gateway,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wc-bitpay-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wc-bitpay-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.1.3')
