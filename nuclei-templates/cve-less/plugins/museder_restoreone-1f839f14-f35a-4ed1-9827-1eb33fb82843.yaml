@@ -2,7 +2,7 @@ id: museder_restoreone-1f839f14-f35a-4ed1-9827-1eb33fb82843
 
 info:
   name: >
-    Museder RestoreOne <= 2.7.276 - Unauthenticated Information Exposure
+    Museder RestoreOne <= 2.7.277 - Unauthenticated Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.7.276')
+          - compare_versions(version, '<= 2.7.277')
