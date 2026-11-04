@@ -1,0 +1,51 @@
+id: chat_ai_with_dispatcher-645cf143-5ae9-4d87-8f5d-e3daabb87291
+
+info:
+  name: >
+    Chat AI with Dispatcher <= 2.3 - Unauthenticated Arbitrary File Upload
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/645cf143-5ae9-4d87-8f5d-e3daabb87291?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/chat-ai-with-dispatcher/"
+    google-query: inurl:"/wp-content/plugins/chat-ai-with-dispatcher/"
+    shodan-query: 'http.html:"wp-content/plugins/chat-ai-with-dispatcher/"'
+  tags: cve,wordpress,wp-plugin,chat-ai-with-dispatcher,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/chat-ai-with-dispatcher/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "chat-ai-with-dispatcher"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3')
