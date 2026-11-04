@@ -2,7 +2,7 @@ id: form_maker-d4bcd44e-2677-4d53-9404-350979915647
 
 info:
   name: >
-    Form Maker by 10Web – Mobile-Friendly Drag & Drop Contact Form Builder <= 1.15.46 - Unauthenticated Stored Cross-Site Scripting
+    Form Maker by 10Web – Mobile-Friendly Drag & Drop Contact Form Builder <= 1.15.49 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.15.46')
+          - compare_versions(version, '<= 1.15.49')
