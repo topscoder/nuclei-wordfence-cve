@@ -1,0 +1,51 @@
+id: woo_conditional_product_fees_for_checkout-18f726d6-61a2-4cdb-b09f-bedc19695d63
+
+info:
+  name: >
+    Extra Fees for WooCommerce <= 4.4.0 - Authenticated (Contributor+) PHP Object Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/18f726d6-61a2-4cdb-b09f-bedc19695d63?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-conditional-product-fees-for-checkout/"
+    google-query: inurl:"/wp-content/plugins/woo-conditional-product-fees-for-checkout/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-conditional-product-fees-for-checkout/"'
+  tags: cve,wordpress,wp-plugin,woo-conditional-product-fees-for-checkout,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-conditional-product-fees-for-checkout/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-conditional-product-fees-for-checkout"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.4.0')
