@@ -1,0 +1,51 @@
+id: advanced_ads_tracking-bc028a1f-00d2-42b7-bb89-68a2ef88435d
+
+info:
+  name: >
+    Advanced Ads – Tracking < 4.0.0 - Authenticated (Subscriber+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bc028a1f-00d2-42b7-bb89-68a2ef88435d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/advanced-ads-tracking/"
+    google-query: inurl:"/wp-content/plugins/advanced-ads-tracking/"
+    shodan-query: 'http.html:"wp-content/plugins/advanced-ads-tracking/"'
+  tags: cve,wordpress,wp-plugin,advanced-ads-tracking,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/advanced-ads-tracking/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "advanced-ads-tracking"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 4.0.0')
