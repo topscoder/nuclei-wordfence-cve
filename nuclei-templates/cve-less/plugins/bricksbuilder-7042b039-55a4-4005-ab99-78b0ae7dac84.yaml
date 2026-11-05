@@ -1,0 +1,51 @@
+id: bricksbuilder-7042b039-55a4-4005-ab99-78b0ae7dac84
+
+info:
+  name: >
+    Bricks Builder <= 2.4.3 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7042b039-55a4-4005-ab99-78b0ae7dac84?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bricksbuilder/"
+    google-query: inurl:"/wp-content/plugins/bricksbuilder/"
+    shodan-query: 'http.html:"wp-content/plugins/bricksbuilder/"'
+  tags: cve,wordpress,wp-plugin,bricksbuilder,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bricksbuilder/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bricksbuilder"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.4.3')
