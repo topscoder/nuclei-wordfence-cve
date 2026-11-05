@@ -1,0 +1,51 @@
+id: woo_sadad_payment_gateway-96a72f20-25a0-4c8f-a789-83833798bcb8
+
+info:
+  name: >
+    Sadad QA Payment <= 1.28 - Payment Verification Bypass to Unauthenticated Arbitrary Order Payment Confirmation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/96a72f20-25a0-4c8f-a789-83833798bcb8?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-sadad-payment-gateway/"
+    google-query: inurl:"/wp-content/plugins/woo-sadad-payment-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-sadad-payment-gateway/"'
+  tags: cve,wordpress,wp-plugin,woo-sadad-payment-gateway,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-sadad-payment-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-sadad-payment-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.28')
