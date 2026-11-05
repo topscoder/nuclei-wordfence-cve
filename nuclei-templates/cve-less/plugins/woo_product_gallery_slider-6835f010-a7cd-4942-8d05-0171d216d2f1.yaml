@@ -1,0 +1,51 @@
+id: woo_product_gallery_slider-6835f010-a7cd-4942-8d05-0171d216d2f1
+
+info:
+  name: >
+    Product Gallery Slider, Additional Variation Images for WooCommerce  2.3.23 - 2.3.26 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/6835f010-a7cd-4942-8d05-0171d216d2f1?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-product-gallery-slider/"
+    google-query: inurl:"/wp-content/plugins/woo-product-gallery-slider/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-product-gallery-slider/"'
+  tags: cve,wordpress,wp-plugin,woo-product-gallery-slider,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-product-gallery-slider/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-product-gallery-slider"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.3.23', '< 2.3.36')
