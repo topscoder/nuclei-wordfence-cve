@@ -1,0 +1,51 @@
+id: mls_on_the_fly-9c0f1916-53a1-4867-8fd9-96f3180b9693
+
+info:
+  name: >
+    MLS On The Fly <= 1.8.1.5 - Authenticated (Subscriber+) SQL Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9c0f1916-53a1-4867-8fd9-96f3180b9693?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mls-on-the-fly/"
+    google-query: inurl:"/wp-content/plugins/mls-on-the-fly/"
+    shodan-query: 'http.html:"wp-content/plugins/mls-on-the-fly/"'
+  tags: cve,wordpress,wp-plugin,mls-on-the-fly,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mls-on-the-fly/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mls-on-the-fly"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.8.1.5')
