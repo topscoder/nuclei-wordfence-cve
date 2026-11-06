@@ -2,7 +2,7 @@ id: innovs_hr_manager-e806ca3b-daae-48a2-9923-315dbf86a9e5
 
 info:
   name: >
-    Innovs HR – Complete Human Resource Management System for Your Business <= 1.0.3.4 - Cross-Site Request Forgery
+    Innovs HR – Complete Human Resource Management System for Your Business <= 1.0.3.7 - Cross-Site Request Forgery
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0.3.4')
+          - compare_versions(version, '<= 1.0.3.7')
