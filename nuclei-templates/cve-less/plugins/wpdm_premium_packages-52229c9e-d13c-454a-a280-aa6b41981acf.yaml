@@ -1,0 +1,51 @@
+id: wpdm_premium_packages-52229c9e-d13c-454a-a280-aa6b41981acf
+
+info:
+  name: >
+    Premium Packages – Sell Digital Products Securely < 7.3.1 - Unauthenticated Insecure Direct Object Reference
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/52229c9e-d13c-454a-a280-aa6b41981acf?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wpdm-premium-packages/"
+    google-query: inurl:"/wp-content/plugins/wpdm-premium-packages/"
+    shodan-query: 'http.html:"wp-content/plugins/wpdm-premium-packages/"'
+  tags: cve,wordpress,wp-plugin,wpdm-premium-packages,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wpdm-premium-packages/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wpdm-premium-packages"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '< 7.3.1')
