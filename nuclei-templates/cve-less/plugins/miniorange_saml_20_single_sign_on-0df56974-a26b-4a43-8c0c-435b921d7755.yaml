@@ -1,0 +1,51 @@
+id: miniorange_saml_20_single_sign_on-0df56974-a26b-4a43-8c0c-435b921d7755
+
+info:
+  name: >
+    SAML Single Sign On – SSO Login <= 6.1.0 - Unauthenticated Denial of Service
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0df56974-a26b-4a43-8c0c-435b921d7755?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/miniorange-saml-20-single-sign-on/"
+    google-query: inurl:"/wp-content/plugins/miniorange-saml-20-single-sign-on/"
+    shodan-query: 'http.html:"wp-content/plugins/miniorange-saml-20-single-sign-on/"'
+  tags: cve,wordpress,wp-plugin,miniorange-saml-20-single-sign-on,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/miniorange-saml-20-single-sign-on/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "miniorange-saml-20-single-sign-on"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 6.1.0')
