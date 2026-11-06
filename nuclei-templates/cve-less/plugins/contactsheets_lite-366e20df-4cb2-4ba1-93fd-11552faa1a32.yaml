@@ -1,0 +1,51 @@
+id: contactsheets_lite-366e20df-4cb2-4ba1-93fd-11552faa1a32
+
+info:
+  name: >
+    WPSyncSheets For Contact Form 7 <= 1.8.0 - Unauthenticated PHP Object Injection to Remote Code Execution via Untrusted CF7 Submission Field via maybe_unserialize()
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/366e20df-4cb2-4ba1-93fd-11552faa1a32?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/contactsheets-lite/"
+    google-query: inurl:"/wp-content/plugins/contactsheets-lite/"
+    shodan-query: 'http.html:"wp-content/plugins/contactsheets-lite/"'
+  tags: cve,wordpress,wp-plugin,contactsheets-lite,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/contactsheets-lite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "contactsheets-lite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.8.0')
