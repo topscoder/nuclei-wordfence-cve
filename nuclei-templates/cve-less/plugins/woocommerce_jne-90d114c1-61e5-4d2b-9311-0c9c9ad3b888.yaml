@@ -1,0 +1,51 @@
+id: woocommerce_jne-90d114c1-61e5-4d2b-9311-0c9c9ad3b888
+
+info:
+  name: >
+    AgenWebsite Shipping <= 9.2.41 - Unauthenticated Stored Cross-Site Scripting via 'zipcode' Parameter via Setup Wizard
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/90d114c1-61e5-4d2b-9311-0c9c9ad3b888?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-jne/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-jne/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-jne/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-jne,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-jne/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-jne"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 9.2.41')
