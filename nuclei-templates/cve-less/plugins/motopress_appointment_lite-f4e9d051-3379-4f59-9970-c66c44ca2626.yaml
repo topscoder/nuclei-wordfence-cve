@@ -1,0 +1,51 @@
+id: motopress_appointment_lite-f4e9d051-3379-4f59-9970-c66c44ca2626
+
+info:
+  name: >
+    MotoPress Appointment Booking <= 2.4.8 - Unauthenticated Stored Cross-Site Scripting via Customer Name via /customers/create REST Endpoint
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f4e9d051-3379-4f59-9970-c66c44ca2626?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/motopress-appointment-lite/"
+    google-query: inurl:"/wp-content/plugins/motopress-appointment-lite/"
+    shodan-query: 'http.html:"wp-content/plugins/motopress-appointment-lite/"'
+  tags: cve,wordpress,wp-plugin,motopress-appointment-lite,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/motopress-appointment-lite/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "motopress-appointment-lite"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.4.8')
