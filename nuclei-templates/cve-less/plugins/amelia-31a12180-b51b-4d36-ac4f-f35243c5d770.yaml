@@ -1,0 +1,51 @@
+id: amelia-31a12180-b51b-4d36-ac4f-f35243c5d770
+
+info:
+  name: >
+    Amelia Pro <= 9.9.1 - Unauthenticated SQL Injection via 'tag' Parameter Array Keys
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/31a12180-b51b-4d36-ac4f-f35243c5d770?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/amelia/"
+    google-query: inurl:"/wp-content/plugins/amelia/"
+    shodan-query: 'http.html:"wp-content/plugins/amelia/"'
+  tags: cve,wordpress,wp-plugin,amelia,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/amelia/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "amelia"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 4.0', '<= 9.9.1')
