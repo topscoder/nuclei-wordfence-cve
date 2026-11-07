@@ -1,0 +1,51 @@
+id: payever_woocommerce_gateway-03412063-d73a-4c5c-8dc6-3e76a5d975a5
+
+info:
+  name: >
+    payever – WooCommerce Gateway <= 4.8.0 - Unauthenticated Arbitrary File Upload Leading to Remote Code Execution
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/03412063-d73a-4c5c-8dc6-3e76a5d975a5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/payever-woocommerce-gateway/"
+    google-query: inurl:"/wp-content/plugins/payever-woocommerce-gateway/"
+    shodan-query: 'http.html:"wp-content/plugins/payever-woocommerce-gateway/"'
+  tags: cve,wordpress,wp-plugin,payever-woocommerce-gateway,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/payever-woocommerce-gateway/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "payever-woocommerce-gateway"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.8.0')
