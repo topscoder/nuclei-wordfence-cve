@@ -1,0 +1,51 @@
+id: wp_imageviewer-2d3f78b4-04c7-4978-919f-997b39307c5b
+
+info:
+  name: >
+    WP ImageViewer <= 3.0.2 - Authenticated (Subscriber+) Stored DOM-Based Cross-Site Scripting via Image 'alt' Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2d3f78b4-04c7-4978-919f-997b39307c5b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-imageviewer/"
+    google-query: inurl:"/wp-content/plugins/wp-imageviewer/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-imageviewer/"'
+  tags: cve,wordpress,wp-plugin,wp-imageviewer,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-imageviewer/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-imageviewer"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.2')
