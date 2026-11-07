@@ -1,0 +1,51 @@
+id: yml_for_yandex_market-33a2cf5c-d71f-45cf-8f8a-0edd47bc1974
+
+info:
+  name: >
+    YML for Yandex Market <= 5.10.0 - Unauthenticated Sensitive Information Exposure through Log File via 'y4ym_check_action' Parameter via admin-post.php
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/33a2cf5c-d71f-45cf-8f8a-0edd47bc1974?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/yml-for-yandex-market/"
+    google-query: inurl:"/wp-content/plugins/yml-for-yandex-market/"
+    shodan-query: 'http.html:"wp-content/plugins/yml-for-yandex-market/"'
+  tags: cve,wordpress,wp-plugin,yml-for-yandex-market,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/yml-for-yandex-market/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "yml-for-yandex-market"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.10.0')
