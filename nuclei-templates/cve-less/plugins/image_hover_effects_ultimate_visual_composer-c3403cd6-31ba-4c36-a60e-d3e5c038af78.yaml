@@ -1,0 +1,51 @@
+id: image_hover_effects_ultimate_visual_composer-c3403cd6-31ba-4c36-a60e-d3e5c038af78
+
+info:
+  name: >
+    Flipbox <= 3.1.1 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'flip-box-image-upload-url-01-alt' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c3403cd6-31ba-4c36-a60e-d3e5c038af78?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/image-hover-effects-ultimate-visual-composer/"
+    google-query: inurl:"/wp-content/plugins/image-hover-effects-ultimate-visual-composer/"
+    shodan-query: 'http.html:"wp-content/plugins/image-hover-effects-ultimate-visual-composer/"'
+  tags: cve,wordpress,wp-plugin,image-hover-effects-ultimate-visual-composer,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/image-hover-effects-ultimate-visual-composer/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "image-hover-effects-ultimate-visual-composer"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.1.1')
