@@ -1,0 +1,51 @@
+id: newsletter_optin_box-463de4fc-c5c2-43f9-86e9-686004447561
+
+info:
+  name: >
+    Noptin <= 4.4.3 - Unauthenticated Local File Inclusion via 'the_template_path' Merge-Tag Attribute via Stored Subscriber first_name
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/463de4fc-c5c2-43f9-86e9-686004447561?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/newsletter-optin-box/"
+    google-query: inurl:"/wp-content/plugins/newsletter-optin-box/"
+    shodan-query: 'http.html:"wp-content/plugins/newsletter-optin-box/"'
+  tags: cve,wordpress,wp-plugin,newsletter-optin-box,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/newsletter-optin-box/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "newsletter-optin-box"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.4.3')
