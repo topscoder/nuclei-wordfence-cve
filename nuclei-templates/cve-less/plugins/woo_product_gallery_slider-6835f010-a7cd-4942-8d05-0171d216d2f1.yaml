@@ -2,7 +2,7 @@ id: woo_product_gallery_slider-6835f010-a7cd-4942-8d05-0171d216d2f1
 
 info:
   name: >
-    Product Gallery Slider, Additional Variation Images for WooCommerce  2.3.23 - 2.3.26 - Missing Authorization
+    Product Gallery Slider, Additional Variation Images for WooCommerce  2.3.23 - 2.3.25 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '>= 2.3.23', '< 2.3.36')
+          - compare_versions(version, '>= 2.3.23', '< 2.3.26')
