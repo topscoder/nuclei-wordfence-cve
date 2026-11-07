@@ -1,0 +1,51 @@
+id: vanquish_upload_files_for_woocommerce-97977c09-b8e0-4ad3-8819-67d7bcff596a
+
+info:
+  name: >
+    Vanquish Upload Files for WooCommerce <= 2.7.13 - Unauthenticated Arbitrary File Read via 'vanupfi_file_name' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/97977c09-b8e0-4ad3-8819-67d7bcff596a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/vanquish-upload-files-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/vanquish-upload-files-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/vanquish-upload-files-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,vanquish-upload-files-for-woocommerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/vanquish-upload-files-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "vanquish-upload-files-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.7.13')
