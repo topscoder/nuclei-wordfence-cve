@@ -1,0 +1,51 @@
+id: interactive_real_estate-b5aeab8b-86f7-4453-9070-632dceaf137d
+
+info:
+  name: >
+    Interactive Real Estate <= 2.6.0- Authenticated (Subscriber+) Arbitrary File Upload via Project Import ZIP with Crafted image_map.json
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b5aeab8b-86f7-4453-9070-632dceaf137d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/interactive-real-estate/"
+    google-query: inurl:"/wp-content/plugins/interactive-real-estate/"
+    shodan-query: 'http.html:"wp-content/plugins/interactive-real-estate/"'
+  tags: cve,wordpress,wp-plugin,interactive-real-estate,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/interactive-real-estate/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "interactive-real-estate"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.6.0')
