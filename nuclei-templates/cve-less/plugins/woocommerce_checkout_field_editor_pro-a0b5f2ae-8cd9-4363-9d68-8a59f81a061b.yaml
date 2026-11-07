@@ -1,0 +1,51 @@
+id: woocommerce_checkout_field_editor_pro-a0b5f2ae-8cd9-4363-9d68-8a59f81a061b
+
+info:
+  name: >
+    Checkout Field Editor for WooCommerce (Pro) <= 3.8.0 - Missing Authorization to Unauthenticated Arbitrary Attachment Deletion via 'attachment_id' Parameter via thwcfe_remove_uploaded AJAX Action
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a0b5f2ae-8cd9-4363-9d68-8a59f81a061b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-checkout-field-editor-pro/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-checkout-field-editor-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-checkout-field-editor-pro/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-checkout-field-editor-pro,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-checkout-field-editor-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-checkout-field-editor-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.8.0')
