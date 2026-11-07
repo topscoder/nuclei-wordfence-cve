@@ -2,7 +2,7 @@ id: lingotek_translation-be86c751-499b-4772-a457-14427fa56c39
 
 info:
   name: >
-    Ray Enterprise Translation <= 1.7.3 - Missing Authorization
+    Ray Enterprise Translation <= 1.7.4 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.7.3')
+          - compare_versions(version, '<= 1.7.4')
