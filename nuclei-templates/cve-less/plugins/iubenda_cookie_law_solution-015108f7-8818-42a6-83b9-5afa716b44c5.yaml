@@ -1,0 +1,51 @@
+id: iubenda_cookie_law_solution-015108f7-8818-42a6-83b9-5afa716b44c5
+
+info:
+  name: >
+    iubenda <= 3.13.6 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/015108f7-8818-42a6-83b9-5afa716b44c5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/iubenda-cookie-law-solution/"
+    google-query: inurl:"/wp-content/plugins/iubenda-cookie-law-solution/"
+    shodan-query: 'http.html:"wp-content/plugins/iubenda-cookie-law-solution/"'
+  tags: cve,wordpress,wp-plugin,iubenda-cookie-law-solution,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/iubenda-cookie-law-solution/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "iubenda-cookie-law-solution"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.13.6')
