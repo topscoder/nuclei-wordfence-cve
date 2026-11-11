@@ -1,0 +1,51 @@
+id: melapress_role_editor-4985f24e-b80f-4b11-94bf-e59311a3d8eb
+
+info:
+  name: >
+    Melapress Role Editor <= 1.3.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4985f24e-b80f-4b11-94bf-e59311a3d8eb?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/melapress-role-editor/"
+    google-query: inurl:"/wp-content/plugins/melapress-role-editor/"
+    shodan-query: 'http.html:"wp-content/plugins/melapress-role-editor/"'
+  tags: cve,wordpress,wp-plugin,melapress-role-editor,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/melapress-role-editor/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "melapress-role-editor"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.0')
