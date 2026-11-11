@@ -2,7 +2,7 @@ id: document_emberdder-5ee28fac-d969-4890-ae78-15587e986413
 
 info:
   name: >
-    Document Embedder – let visitors read files without downloading <= 2.4.0 - Unauthenticated Stored Cross-Site Scripting
+    Document Embedder – let visitors read files without downloading <= 2.5.0 - Unauthenticated Stored Cross-Site Scripting
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.4.0')
+          - compare_versions(version, '<= 2.5.0')
