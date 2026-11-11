@@ -2,7 +2,7 @@ id: productive_commerce-9a455340-4d07-4f02-9dcb-835fcd43985d
 
 info:
   name: >
-    Productive Commerce <= 1.1.22 - Unauthenticated SQL Injection
+    Productive Commerce <= 1.1.53 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.1.22')
+          - compare_versions(version, '<= 1.1.53')
