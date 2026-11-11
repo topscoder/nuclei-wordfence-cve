@@ -1,0 +1,51 @@
+id: pay_wp-cfaf39b3-ac83-4cf8-ad52-0eff3c83cffd
+
+info:
+  name: >
+    Autopay dla WooCommerce <= 2.3.0 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cfaf39b3-ac83-4cf8-ad52-0eff3c83cffd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pay-wp/"
+    google-query: inurl:"/wp-content/plugins/pay-wp/"
+    shodan-query: 'http.html:"wp-content/plugins/pay-wp/"'
+  tags: cve,wordpress,wp-plugin,pay-wp,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pay-wp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pay-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3.0')
