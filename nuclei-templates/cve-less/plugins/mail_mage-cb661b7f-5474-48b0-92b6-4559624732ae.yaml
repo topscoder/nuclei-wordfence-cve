@@ -1,0 +1,51 @@
+id: mail_mage-cb661b7f-5474-48b0-92b6-4559624732ae
+
+info:
+  name: >
+    Mail Mage <= 0.0.25 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cb661b7f-5474-48b0-92b6-4559624732ae?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mail-mage/"
+    google-query: inurl:"/wp-content/plugins/mail-mage/"
+    shodan-query: 'http.html:"wp-content/plugins/mail-mage/"'
+  tags: cve,wordpress,wp-plugin,mail-mage,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mail-mage/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mail-mage"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 0.0.25')
