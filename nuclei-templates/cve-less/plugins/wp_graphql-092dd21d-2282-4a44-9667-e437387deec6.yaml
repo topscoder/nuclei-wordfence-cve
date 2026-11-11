@@ -2,7 +2,7 @@ id: wp_graphql-092dd21d-2282-4a44-9667-e437387deec6
 
 info:
   name: >
-    WPGraphQL <= 2.24.0 - Unauthenticated Information Exposure
+    WPGraphQL <= 2.26.0 - Unauthenticated Information Exposure
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.24.0')
+          - compare_versions(version, '<= 2.26.0')
