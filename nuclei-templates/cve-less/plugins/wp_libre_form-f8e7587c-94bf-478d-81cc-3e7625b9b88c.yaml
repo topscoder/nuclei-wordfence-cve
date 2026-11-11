@@ -1,0 +1,51 @@
+id: wp_libre_form-f8e7587c-94bf-478d-81cc-3e7625b9b88c
+
+info:
+  name: >
+    Libre Form <= 1.5.0.1 - Unauthenticated Remote Code Execution
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f8e7587c-94bf-478d-81cc-3e7625b9b88c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-libre-form/"
+    google-query: inurl:"/wp-content/plugins/wp-libre-form/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-libre-form/"'
+  tags: cve,wordpress,wp-plugin,wp-libre-form,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-libre-form/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-libre-form"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.0.1')
