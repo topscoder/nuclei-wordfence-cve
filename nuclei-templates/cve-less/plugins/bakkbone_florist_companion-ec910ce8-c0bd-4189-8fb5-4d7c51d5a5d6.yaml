@@ -1,0 +1,51 @@
+id: bakkbone_florist_companion-ec910ce8-c0bd-4189-8fb5-4d7c51d5a5d6
+
+info:
+  name: >
+    FloristPress for Woo – Customize your eCommerce store for your Florist <= 7.8.4 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ec910ce8-c0bd-4189-8fb5-4d7c51d5a5d6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bakkbone-florist-companion/"
+    google-query: inurl:"/wp-content/plugins/bakkbone-florist-companion/"
+    shodan-query: 'http.html:"wp-content/plugins/bakkbone-florist-companion/"'
+  tags: cve,wordpress,wp-plugin,bakkbone-florist-companion,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bakkbone-florist-companion/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bakkbone-florist-companion"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.8.4')
