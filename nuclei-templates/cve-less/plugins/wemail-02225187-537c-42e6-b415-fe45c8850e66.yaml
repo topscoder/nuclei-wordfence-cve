@@ -2,7 +2,7 @@ id: wemail-02225187-537c-42e6-b415-fe45c8850e66
 
 info:
   name: >
-    weMail – Email Marketing, Newsletters Builder & Email Automations for WooCommerce <= 2.1.6 - Missing Authorization
+    weMail – Email Marketing, Newsletters Builder & Email Automations for WooCommerce < 2.1.7 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1.6')
+          - compare_versions(version, '< 2.1.7')
