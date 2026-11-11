@@ -1,0 +1,51 @@
+id: ultimate_security_for_woocommerce-37aebd9b-d04a-481a-aa84-cafc8ac42f8b
+
+info:
+  name: >
+    Security For WooCommerce 1.0.10 - 1.0.16 - Unauthenticated Privilege Escalation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/37aebd9b-d04a-481a-aa84-cafc8ac42f8b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ultimate-security-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/ultimate-security-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/ultimate-security-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,ultimate-security-for-woocommerce,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ultimate-security-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ultimate-security-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 1.0.10', '<= 1.0.16')
