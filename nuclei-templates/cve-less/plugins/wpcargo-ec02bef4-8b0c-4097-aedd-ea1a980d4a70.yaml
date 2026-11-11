@@ -2,7 +2,7 @@ id: wpcargo-ec02bef4-8b0c-4097-aedd-ea1a980d4a70
 
 info:
   name: >
-    WPCargo Track & Trace <= 8.0.2 - Missing Authorization
+    WPCargo Track & Trace <= 8.0.5 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 8.0.2')
+          - compare_versions(version, '<= 8.0.5')
