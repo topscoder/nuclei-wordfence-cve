@@ -2,7 +2,7 @@ id: torod-7fd2d8cd-277d-4951-9445-45e8e37db9b4
 
 info:
   name: >
-    Torod <= 1.9 - Unauthenticated SQL Injection
+    Torod <= 2.1.1 - Unauthenticated SQL Injection
   author: topscoder
   severity: critical
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.9')
+          - compare_versions(version, '<= 2.1.1')
