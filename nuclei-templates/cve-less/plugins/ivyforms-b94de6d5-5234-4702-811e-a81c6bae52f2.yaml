@@ -1,0 +1,51 @@
+id: ivyforms-b94de6d5-5234-4702-811e-a81c6bae52f2
+
+info:
+  name: >
+    The Innovative Form Builder – IvyForms <= 1.5.1 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b94de6d5-5234-4702-811e-a81c6bae52f2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/ivyforms/"
+    google-query: inurl:"/wp-content/plugins/ivyforms/"
+    shodan-query: 'http.html:"wp-content/plugins/ivyforms/"'
+  tags: cve,wordpress,wp-plugin,ivyforms,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ivyforms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "ivyforms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.1')
