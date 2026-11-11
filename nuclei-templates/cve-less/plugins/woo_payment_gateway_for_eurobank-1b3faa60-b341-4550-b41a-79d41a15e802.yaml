@@ -2,7 +2,7 @@ id: woo_payment_gateway_for_eurobank-1b3faa60-b341-4550-b41a-79d41a15e802
 
 info:
   name: >
-    Eurobank WooCommerce Payment Gateway <= 2.1.1 - Unauthenticated Order Payment Forgery
+    Eurobank WooCommerce Payment Gateway < 2.1.2 - Unauthenticated Order Payment Forgery
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.1.1')
+          - compare_versions(version, '< 2.1.2')
