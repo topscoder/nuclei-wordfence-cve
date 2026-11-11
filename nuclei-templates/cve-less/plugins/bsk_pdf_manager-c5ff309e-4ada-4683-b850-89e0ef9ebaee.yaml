@@ -2,7 +2,7 @@ id: bsk_pdf_manager-c5ff309e-4ada-4683-b850-89e0ef9ebaee
 
 info:
   name: >
-    BSK PDF Manager <= 3.8.1 - Authenticated (Contributor+) SQL Injection
+    BSK PDF Manager < 3.8.2 - Authenticated (Contributor+) SQL Injection
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.8.1')
+          - compare_versions(version, '< 3.8.2')
