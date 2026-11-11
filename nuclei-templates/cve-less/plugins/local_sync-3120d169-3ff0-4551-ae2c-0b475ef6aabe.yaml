@@ -1,0 +1,51 @@
+id: local_sync-3120d169-3ff0-4551-ae2c-0b475ef6aabe
+
+info:
+  name: >
+    Duplicate <= 1.1.11 - Unauthenticated Arbitrary File Upload
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3120d169-3ff0-4551-ae2c-0b475ef6aabe?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/local-sync/"
+    google-query: inurl:"/wp-content/plugins/local-sync/"
+    shodan-query: 'http.html:"wp-content/plugins/local-sync/"'
+  tags: cve,wordpress,wp-plugin,local-sync,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/local-sync/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "local-sync"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.1.11')
