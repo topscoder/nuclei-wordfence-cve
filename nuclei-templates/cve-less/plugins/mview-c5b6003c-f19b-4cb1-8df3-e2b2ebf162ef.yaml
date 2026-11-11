@@ -1,0 +1,51 @@
+id: mview-c5b6003c-f19b-4cb1-8df3-e2b2ebf162ef
+
+info:
+  name: >
+    mView <= 1.0.3 - Authenticated (Subscriber+) Arbitrary File Upload
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c5b6003c-f19b-4cb1-8df3-e2b2ebf162ef?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mview/"
+    google-query: inurl:"/wp-content/plugins/mview/"
+    shodan-query: 'http.html:"wp-content/plugins/mview/"'
+  tags: cve,wordpress,wp-plugin,mview,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mview/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mview"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.3')
