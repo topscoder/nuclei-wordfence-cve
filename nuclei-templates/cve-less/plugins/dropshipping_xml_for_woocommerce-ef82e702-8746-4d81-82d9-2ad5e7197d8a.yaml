@@ -1,0 +1,51 @@
+id: dropshipping_xml_for_woocommerce-ef82e702-8746-4d81-82d9-2ad5e7197d8a
+
+info:
+  name: >
+    Dropshipping XML Import for WooCommerce <= 1.7.4 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ef82e702-8746-4d81-82d9-2ad5e7197d8a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/dropshipping-xml-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/dropshipping-xml-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/dropshipping-xml-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,dropshipping-xml-for-woocommerce,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/dropshipping-xml-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "dropshipping-xml-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.7.4')
