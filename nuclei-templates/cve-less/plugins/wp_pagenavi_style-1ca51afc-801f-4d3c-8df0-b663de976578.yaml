@@ -1,0 +1,51 @@
+id: wp_pagenavi_style-1ca51afc-801f-4d3c-8df0-b663de976578
+
+info:
+  name: >
+    PageNavi Style <= 1.4 - Cross-Site Request Forgery to Stored Cross-Site Scripting
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1ca51afc-801f-4d3c-8df0-b663de976578?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-pagenavi-style/"
+    google-query: inurl:"/wp-content/plugins/wp-pagenavi-style/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-pagenavi-style/"'
+  tags: cve,wordpress,wp-plugin,wp-pagenavi-style,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-pagenavi-style/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-pagenavi-style"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4')
