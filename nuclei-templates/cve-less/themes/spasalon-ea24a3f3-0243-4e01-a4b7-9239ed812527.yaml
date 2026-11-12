@@ -1,0 +1,51 @@
+id: spasalon-ea24a3f3-0243-4e01-a4b7-9239ed812527
+
+info:
+  name: >
+    Spasalon <= 3.0 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ea24a3f3-0243-4e01-a4b7-9239ed812527?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/spasalon/"
+    google-query: inurl:"/wp-content/themes/spasalon/"
+    shodan-query: 'http.html:"wp-content/themes/spasalon/"'
+  tags: cve,wordpress,wp-theme,spasalon,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/spasalon/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "spasalon"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0')
