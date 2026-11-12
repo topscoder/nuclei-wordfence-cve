@@ -1,0 +1,51 @@
+id: jet_form_builder_hierarchical_select-cf31cda3-9485-49cf-91e4-2d9baaf7ad0c
+
+info:
+  name: >
+    JetFormBuilder – Hierarchical Select <= 1.0.10 - Unauthenticated Insecure Direct Object Reference
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cf31cda3-9485-49cf-91e4-2d9baaf7ad0c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/jet-form-builder-hierarchical-select/"
+    google-query: inurl:"/wp-content/plugins/jet-form-builder-hierarchical-select/"
+    shodan-query: 'http.html:"wp-content/plugins/jet-form-builder-hierarchical-select/"'
+  tags: cve,wordpress,wp-plugin,jet-form-builder-hierarchical-select,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/jet-form-builder-hierarchical-select/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "jet-form-builder-hierarchical-select"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.10')
