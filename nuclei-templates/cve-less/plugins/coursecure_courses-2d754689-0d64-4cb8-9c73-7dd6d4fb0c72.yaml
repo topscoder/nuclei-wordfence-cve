@@ -1,0 +1,51 @@
+id: coursecure_courses-2d754689-0d64-4cb8-9c73-7dd6d4fb0c72
+
+info:
+  name: >
+    CourseCure Courses <= 1.5.1 - Authenticated (Subscriber+) Privilege Escalation to 'ajax_save_settings' Endpoint
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2d754689-0d64-4cb8-9c73-7dd6d4fb0c72?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/coursecure-courses/"
+    google-query: inurl:"/wp-content/plugins/coursecure-courses/"
+    shodan-query: 'http.html:"wp-content/plugins/coursecure-courses/"'
+  tags: cve,wordpress,wp-plugin,coursecure-courses,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/coursecure-courses/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "coursecure-courses"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.1')
