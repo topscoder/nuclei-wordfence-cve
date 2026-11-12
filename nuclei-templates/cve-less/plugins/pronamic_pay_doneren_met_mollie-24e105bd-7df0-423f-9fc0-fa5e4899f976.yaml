@@ -1,0 +1,51 @@
+id: pronamic_pay_doneren_met_mollie-24e105bd-7df0-423f-9fc0-fa5e4899f976
+
+info:
+  name: >
+    Pronamic Pay & Pronamic Pay doneren met Mollie <= 11.0.0 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/24e105bd-7df0-423f-9fc0-fa5e4899f976?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pronamic-pay-doneren-met-mollie/"
+    google-query: inurl:"/wp-content/plugins/pronamic-pay-doneren-met-mollie/"
+    shodan-query: 'http.html:"wp-content/plugins/pronamic-pay-doneren-met-mollie/"'
+  tags: cve,wordpress,wp-plugin,pronamic-pay-doneren-met-mollie,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pronamic-pay-doneren-met-mollie/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pronamic-pay-doneren-met-mollie"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 11.0.0')
