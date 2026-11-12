@@ -1,0 +1,51 @@
+id: komfortkasse_for_woocommerce-0f89ae50-0dbe-4dc0-9f19-ab3d001aceaa
+
+info:
+  name: >
+    Komfortkasse for WooCommerce <= 1.4.8 - Cross-Site Request Forgery to Administrator Account Creation
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0f89ae50-0dbe-4dc0-9f19-ab3d001aceaa?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/komfortkasse-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/komfortkasse-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/komfortkasse-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,komfortkasse-for-woocommerce,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/komfortkasse-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "komfortkasse-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.8')
