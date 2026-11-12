@@ -1,0 +1,51 @@
+id: woo_delivery-de3ed8fb-8a8c-423a-b8a7-12564813e02e
+
+info:
+  name: >
+    Delivery & Pickup Date Time for WooCommerce <= 1.3.90 - Authenticated (Subscriber+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/de3ed8fb-8a8c-423a-b8a7-12564813e02e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woo-delivery/"
+    google-query: inurl:"/wp-content/plugins/woo-delivery/"
+    shodan-query: 'http.html:"wp-content/plugins/woo-delivery/"'
+  tags: cve,wordpress,wp-plugin,woo-delivery,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woo-delivery/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woo-delivery"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.90')
