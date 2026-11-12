@@ -1,0 +1,51 @@
+id: appointment_dark-ad5f2123-4cbc-4bec-807e-3bd72dd4a626
+
+info:
+  name: >
+    Appointment Dark <= 1.3.4 - Cross-Site Request Forgery
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ad5f2123-4cbc-4bec-807e-3bd72dd4a626?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/themes/appointment-dark/"
+    google-query: inurl:"/wp-content/themes/appointment-dark/"
+    shodan-query: 'http.html:"wp-content/themes/appointment-dark/"'
+  tags: cve,wordpress,wp-theme,appointment-dark,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/themes/appointment-dark/style.css"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Version:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "appointment-dark"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3.4')
