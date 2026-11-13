@@ -1,0 +1,51 @@
+id: suredash-2f317dcd-dc4f-482a-8faa-91cd9c022276
+
+info:
+  name: >
+    SureDash <= 1.13.0 - Authenticated (Custom+) Privilege Escalation to /suredash/v1/save-settings REST Endpoint
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2f317dcd-dc4f-482a-8faa-91cd9c022276?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/suredash/"
+    google-query: inurl:"/wp-content/plugins/suredash/"
+    shodan-query: 'http.html:"wp-content/plugins/suredash/"'
+  tags: cve,wordpress,wp-plugin,suredash,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/suredash/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "suredash"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.13.0')
