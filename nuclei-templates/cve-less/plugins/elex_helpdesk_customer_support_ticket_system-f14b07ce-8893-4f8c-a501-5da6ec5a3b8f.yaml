@@ -1,0 +1,51 @@
+id: elex_helpdesk_customer_support_ticket_system-f14b07ce-8893-4f8c-a501-5da6ec5a3b8f
+
+info:
+  name: >
+    ELEX WordPress HelpDesk & Customer Ticketing System <= 3.3.9 - Unauthenticated PHP Object Injection to Remote Code Execution via 'form' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f14b07ce-8893-4f8c-a501-5da6ec5a3b8f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/elex-helpdesk-customer-support-ticket-system/"
+    google-query: inurl:"/wp-content/plugins/elex-helpdesk-customer-support-ticket-system/"
+    shodan-query: 'http.html:"wp-content/plugins/elex-helpdesk-customer-support-ticket-system/"'
+  tags: cve,wordpress,wp-plugin,elex-helpdesk-customer-support-ticket-system,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/elex-helpdesk-customer-support-ticket-system/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "elex-helpdesk-customer-support-ticket-system"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.3.9')
