@@ -1,0 +1,51 @@
+id: chatterbug_forms-7819c1fa-884b-4f1d-ba63-84057bf6da84
+
+info:
+  name: >
+    Chatterbug Forms <= 1.0.2 - Unauthenticated Arbitrary File Upload via File Upload via Public Form Submission
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7819c1fa-884b-4f1d-ba63-84057bf6da84?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/chatterbug-forms/"
+    google-query: inurl:"/wp-content/plugins/chatterbug-forms/"
+    shodan-query: 'http.html:"wp-content/plugins/chatterbug-forms/"'
+  tags: cve,wordpress,wp-plugin,chatterbug-forms,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/chatterbug-forms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "chatterbug-forms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.2')
