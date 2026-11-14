@@ -15,17 +15,17 @@ info:
     cvss-score: 
     cve-id: 
   metadata:
-    fofa-query: "wp-content/themes/NativeChurch/"
-    google-query: inurl:"/wp-content/themes/NativeChurch/"
-    shodan-query: 'http.html:"wp-content/themes/NativeChurch/"'
-  tags: cve,wordpress,wp-theme,NativeChurch,low,candidate
+    fofa-query: "wp-content/themes/nativechurch/"
+    google-query: inurl:"/wp-content/themes/nativechurch/"
+    shodan-query: 'http.html:"wp-content/themes/nativechurch/"'
+  tags: cve,wordpress,wp-theme,nativechurch,low,candidate
 
 http:
   - method: GET
     redirects: true
     max-redirects: 3
     path:
-      - "{{BaseURL}}/wp-content/themes/NativeChurch/style.css"
+      - "{{BaseURL}}/wp-content/themes/nativechurch/style.css"
 
     extractors:
       - type: regex
@@ -43,7 +43,7 @@ http:
 
       - type: word
         words:
-          - "NativeChurch"
+          - "nativechurch"
         part: body
 
       - type: dsl
