@@ -1,0 +1,51 @@
+id: fv_player-4d581f96-5a30-49f7-bddf-45dd581d7a24
+
+info:
+  name: >
+    FV Player 8 <= 8.1.9 - Authenticated (Subscriber+) Stored Cross-Site Scripting via 'Popup' Shortcode Attribute via Profile Video
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4d581f96-5a30-49f7-bddf-45dd581d7a24?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fv-player/"
+    google-query: inurl:"/wp-content/plugins/fv-player/"
+    shodan-query: 'http.html:"wp-content/plugins/fv-player/"'
+  tags: cve,wordpress,wp-plugin,fv-player,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fv-player/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fv-player"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.1.9')
