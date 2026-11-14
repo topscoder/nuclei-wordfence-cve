@@ -1,0 +1,51 @@
+id: optimole_wp-277b9a34-8e0b-496e-b07b-602b25f125d8
+
+info:
+  name: >
+    Optimole <= 4.2.19 - Unauthenticated PHP Object Injection to Arbitrary File Deletion via 'comment_content'/'comment_agent' Parameter during Attachment Rename
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/277b9a34-8e0b-496e-b07b-602b25f125d8?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/optimole-wp/"
+    google-query: inurl:"/wp-content/plugins/optimole-wp/"
+    shodan-query: 'http.html:"wp-content/plugins/optimole-wp/"'
+  tags: cve,wordpress,wp-plugin,optimole-wp,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/optimole-wp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "optimole-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.2.19')
