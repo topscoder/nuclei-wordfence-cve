@@ -1,0 +1,51 @@
+id: automatorwp_webhooks-04ea5758-2400-4885-8342-c57d61206ef1
+
+info:
+  name: >
+    AutomatorWP Pro Webhooks addon <= 1.4.4 - Missing Authorization to Unauthenticated Arbitrary User Password Reset / Account Takeover via Webhook with 'Is the user ID' Field
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/04ea5758-2400-4885-8342-c57d61206ef1?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/automatorwp-webhooks/"
+    google-query: inurl:"/wp-content/plugins/automatorwp-webhooks/"
+    shodan-query: 'http.html:"wp-content/plugins/automatorwp-webhooks/"'
+  tags: cve,wordpress,wp-plugin,automatorwp-webhooks,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/automatorwp-webhooks/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "automatorwp-webhooks"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.4.4')
