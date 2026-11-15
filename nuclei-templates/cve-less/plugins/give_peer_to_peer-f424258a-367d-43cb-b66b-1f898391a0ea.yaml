@@ -1,0 +1,51 @@
+id: give_peer_to_peer-f424258a-367d-43cb-b66b-1f898391a0ea
+
+info:
+  name: >
+    Give - Peer-to-Peer <= 2.9.5 - Authorization Bypass to Team Modification and Media Upload
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f424258a-367d-43cb-b66b-1f898391a0ea?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/give-peer-to-peer/"
+    google-query: inurl:"/wp-content/plugins/give-peer-to-peer/"
+    shodan-query: 'http.html:"wp-content/plugins/give-peer-to-peer/"'
+  tags: cve,wordpress,wp-plugin,give-peer-to-peer,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/give-peer-to-peer/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "give-peer-to-peer"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.9.5')
