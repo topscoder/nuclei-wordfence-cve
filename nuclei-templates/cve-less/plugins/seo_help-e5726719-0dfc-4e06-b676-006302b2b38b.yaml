@@ -2,7 +2,7 @@ id: seo_help-e5726719-0dfc-4e06-b676-006302b2b38b
 
 info:
   name: >
-    SEO Help <= 6.6.1 - Authenticated (Admin+) Server-Side Request Forgery
+    SEO Help <= 6.9.1 - Authenticated (Admin+) Server-Side Request Forgery
   author: topscoder
   severity: low
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 6.6.1')
+          - compare_versions(version, '<= 6.9.1')
