@@ -1,0 +1,51 @@
+id: immonex_kickstart-cac5e7fe-3f23-4f3c-bd9b-bfc23a396186
+
+info:
+  name: >
+    immonex Kickstart <= 1.19.0 - Unauthenticated Local File Inclusion via 'inx-r-cidata' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cac5e7fe-3f23-4f3c-bd9b-bfc23a396186?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/immonex-kickstart/"
+    google-query: inurl:"/wp-content/plugins/immonex-kickstart/"
+    shodan-query: 'http.html:"wp-content/plugins/immonex-kickstart/"'
+  tags: cve,wordpress,wp-plugin,immonex-kickstart,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/immonex-kickstart/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "immonex-kickstart"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.19.0')
