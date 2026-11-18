@@ -1,0 +1,51 @@
+id: cleverreach_wp-35c9aa17-88a1-406d-9c49-4f8cf5545890
+
+info:
+  name: >
+    CleverReach® WP <= 1.5.26 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/35c9aa17-88a1-406d-9c49-4f8cf5545890?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/cleverreach-wp/"
+    google-query: inurl:"/wp-content/plugins/cleverreach-wp/"
+    shodan-query: 'http.html:"wp-content/plugins/cleverreach-wp/"'
+  tags: cve,wordpress,wp-plugin,cleverreach-wp,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/cleverreach-wp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "cleverreach-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.26')
