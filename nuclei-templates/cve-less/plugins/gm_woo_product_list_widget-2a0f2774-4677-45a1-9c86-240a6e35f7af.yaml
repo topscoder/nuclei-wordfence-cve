@@ -2,7 +2,7 @@ id: gm_woo_product_list_widget-2a0f2774-4677-45a1-9c86-240a6e35f7af
 
 info:
   name: >
-    Product list Widget for Woocommerce <= 1.0 - Reflected Cross-Site Scripting
+    Product list Widget for Woocommerce < 3.4.0 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.0')
+          - compare_versions(version, '< 3.4.0')
