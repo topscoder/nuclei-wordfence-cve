@@ -2,7 +2,7 @@ id: chordpress-cbc86326-fced-4583-b128-9f592979cc9e
 
 info:
   name: >
-    Lewe ChordPress <= 3.9.7 - Cross-Site Request Forgery to Stored Cross-Site Scripting
+    Lewe ChordPress <= 4.0.2 - Cross-Site Request Forgery to Stored Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.9.7')
+          - compare_versions(version, '<= 4.0.2')
