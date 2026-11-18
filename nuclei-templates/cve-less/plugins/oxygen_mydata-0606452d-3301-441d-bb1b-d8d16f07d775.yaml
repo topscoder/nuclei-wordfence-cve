@@ -1,0 +1,51 @@
+id: oxygen_mydata-0606452d-3301-441d-bb1b-d8d16f07d775
+
+info:
+  name: >
+    Oxygen MyData for WooCommerce 3.0.0 - 3.0.8 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0606452d-3301-441d-bb1b-d8d16f07d775?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/oxygen-mydata/"
+    google-query: inurl:"/wp-content/plugins/oxygen-mydata/"
+    shodan-query: 'http.html:"wp-content/plugins/oxygen-mydata/"'
+  tags: cve,wordpress,wp-plugin,oxygen-mydata,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/oxygen-mydata/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "oxygen-mydata"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 3.0.0', '<= 3.0.8')
