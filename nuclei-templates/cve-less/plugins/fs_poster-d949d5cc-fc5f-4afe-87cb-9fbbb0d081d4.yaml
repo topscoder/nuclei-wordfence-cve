@@ -1,0 +1,51 @@
+id: fs_poster-d949d5cc-fc5f-4afe-87cb-9fbbb0d081d4
+
+info:
+  name: >
+    FS Poster - WordPress Social media Auto Poster & Scheduler [Facebook, Instagram, Twitter, Pinterest] <= 8.0.1 - Authenticated (Subscriber+) Server-Side Request Forgery via 'site_url' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d949d5cc-fc5f-4afe-87cb-9fbbb0d081d4?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fs-poster/"
+    google-query: inurl:"/wp-content/plugins/fs-poster/"
+    shodan-query: 'http.html:"wp-content/plugins/fs-poster/"'
+  tags: cve,wordpress,wp-plugin,fs-poster,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fs-poster/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fs-poster"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.0.1')
