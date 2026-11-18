@@ -1,0 +1,51 @@
+id: mine_cloudvod-22ccaad3-eee1-426d-94ad-0ec3f4bf19b5
+
+info:
+  name: >
+    Mine CloudVod <= 2.6.6 - Unauthenticated Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/22ccaad3-eee1-426d-94ad-0ec3f4bf19b5?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mine-cloudvod/"
+    google-query: inurl:"/wp-content/plugins/mine-cloudvod/"
+    shodan-query: 'http.html:"wp-content/plugins/mine-cloudvod/"'
+  tags: cve,wordpress,wp-plugin,mine-cloudvod,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mine-cloudvod/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mine-cloudvod"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.6.6')
