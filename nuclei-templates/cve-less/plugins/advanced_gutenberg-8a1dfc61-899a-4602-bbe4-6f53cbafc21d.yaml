@@ -1,0 +1,51 @@
+id: advanced_gutenberg-8a1dfc61-899a-4602-bbe4-6f53cbafc21d
+
+info:
+  name: >
+    PublishPress Blocks – Block Controls, Block Visibility, Block Permissions <= 3.7.6 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8a1dfc61-899a-4602-bbe4-6f53cbafc21d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/advanced-gutenberg/"
+    google-query: inurl:"/wp-content/plugins/advanced-gutenberg/"
+    shodan-query: 'http.html:"wp-content/plugins/advanced-gutenberg/"'
+  tags: cve,wordpress,wp-plugin,advanced-gutenberg,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/advanced-gutenberg/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "advanced-gutenberg"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.7.6')
