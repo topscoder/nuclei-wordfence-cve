@@ -1,0 +1,51 @@
+id: imagify-b5d5074e-b313-492c-89d0-b987d8e3e5c3
+
+info:
+  name: >
+    Imagify Image Optimization: Optimize Images | Compress & Convert to WebP/AVIF <= 2.3.4 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b5d5074e-b313-492c-89d0-b987d8e3e5c3?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/imagify/"
+    google-query: inurl:"/wp-content/plugins/imagify/"
+    shodan-query: 'http.html:"wp-content/plugins/imagify/"'
+  tags: cve,wordpress,wp-plugin,imagify,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/imagify/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "imagify"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.3.4')
