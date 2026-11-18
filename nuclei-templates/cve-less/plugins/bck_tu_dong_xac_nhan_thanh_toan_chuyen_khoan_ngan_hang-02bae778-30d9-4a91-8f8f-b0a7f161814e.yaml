@@ -1,0 +1,51 @@
+id: bck_tu_dong_xac_nhan_thanh_toan_chuyen_khoan_ngan_hang-02bae778-30d9-4a91-8f8f-b0a7f161814e
+
+info:
+  name: >
+    Thanh Toán Quét Mã QR Code Tự Động – MoMo, ViettelPay, VNPay và 40 ngân hàng Việt Nam <= 2.0.1 - Unauthenticated Order Payment Confirmation
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/02bae778-30d9-4a91-8f8f-b0a7f161814e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang/"
+    google-query: inurl:"/wp-content/plugins/bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang/"
+    shodan-query: 'http.html:"wp-content/plugins/bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang/"'
+  tags: cve,wordpress,wp-plugin,bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.0.1')
