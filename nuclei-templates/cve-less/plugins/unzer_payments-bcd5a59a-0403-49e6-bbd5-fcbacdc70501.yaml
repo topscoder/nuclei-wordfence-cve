@@ -1,0 +1,51 @@
+id: unzer_payments-bcd5a59a-0403-49e6-bbd5-fcbacdc70501
+
+info:
+  name: >
+    Unzer Payments <= 2.2.1 - Unauthenticated Authentication Bypass to Account Takeover via 'paymentData.email' Parameter
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bcd5a59a-0403-49e6-bbd5-fcbacdc70501?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/unzer-payments/"
+    google-query: inurl:"/wp-content/plugins/unzer-payments/"
+    shodan-query: 'http.html:"wp-content/plugins/unzer-payments/"'
+  tags: cve,wordpress,wp-plugin,unzer-payments,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/unzer-payments/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "unzer-payments"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.2.1')
