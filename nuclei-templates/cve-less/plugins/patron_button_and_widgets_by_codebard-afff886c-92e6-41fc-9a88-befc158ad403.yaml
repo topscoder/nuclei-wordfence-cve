@@ -2,7 +2,7 @@ id: patron_button_and_widgets_by_codebard-afff886c-92e6-41fc-9a88-befc158ad403
 
 info:
   name: >
-    CodeBard's Patron Button and Widgets for Patreon <= 2.2.0 - Reflected Cross-Site Scripting
+    CodeBard's Patron Button and Widgets for Patreon <= 2.2.7 - Reflected Cross-Site Scripting
   author: topscoder
   severity: medium
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 2.2.0')
+          - compare_versions(version, '<= 2.2.7')
