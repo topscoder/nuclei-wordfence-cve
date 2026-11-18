@@ -1,0 +1,51 @@
+id: payment_gateway_via_valitor_for_woocommerce-3841c9d6-95f2-408e-a282-5667b2b41c30
+
+info:
+  name: >
+    Payment Gateway via Valitor for WooCommerce <= 1.9.40 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3841c9d6-95f2-408e-a282-5667b2b41c30?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/payment-gateway-via-valitor-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/payment-gateway-via-valitor-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/payment-gateway-via-valitor-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,payment-gateway-via-valitor-for-woocommerce,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/payment-gateway-via-valitor-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "payment-gateway-via-valitor-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.9.40')
