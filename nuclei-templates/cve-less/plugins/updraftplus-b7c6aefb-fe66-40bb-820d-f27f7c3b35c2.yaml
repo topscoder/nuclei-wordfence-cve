@@ -1,0 +1,51 @@
+id: updraftplus-b7c6aefb-fe66-40bb-820d-f27f7c3b35c2
+
+info:
+  name: >
+    UpdraftPlus: WP Backup & Migration Plugin <= 1.26.15 and UpdraftPlus Premium <= 2.26.15 - Authenticated (Subscriber+) Second-Order SQL Injection to Remote Code Execution via User Profile Description
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b7c6aefb-fe66-40bb-820d-f27f7c3b35c2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/updraftplus/"
+    google-query: inurl:"/wp-content/plugins/updraftplus/"
+    shodan-query: 'http.html:"wp-content/plugins/updraftplus/"'
+  tags: cve,wordpress,wp-plugin,updraftplus,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/updraftplus/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "updraftplus"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 2.0.0', '<= 2.26.15')
