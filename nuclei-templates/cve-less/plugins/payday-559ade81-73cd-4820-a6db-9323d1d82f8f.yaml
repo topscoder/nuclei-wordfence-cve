@@ -2,7 +2,7 @@ id: payday-559ade81-73cd-4820-a6db-9323d1d82f8f
 
 info:
   name: >
-    Payday <= 3.3.13 - Missing Authorization
+    Payday <= 3.3.18 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.3.13')
+          - compare_versions(version, '<= 3.3.18')
