@@ -1,0 +1,51 @@
+id: search_everything-bcd413ae-2cee-47a3-9e75-0b49c2fa9a2b
+
+info:
+  name: >
+    Search Everything <= 8.1.9 - Missing Authorization to Authenticated (Subscriber+) Sensitive Information Exposure via 's' Parameter via search_everything AJAX Action
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/bcd413ae-2cee-47a3-9e75-0b49c2fa9a2b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/search-everything/"
+    google-query: inurl:"/wp-content/plugins/search-everything/"
+    shodan-query: 'http.html:"wp-content/plugins/search-everything/"'
+  tags: cve,wordpress,wp-plugin,search-everything,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/search-everything/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "search-everything"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.1.9')
