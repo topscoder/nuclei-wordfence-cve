@@ -1,0 +1,51 @@
+id: email_marketing_4dem-38b8246d-5be7-433c-935f-90ad766fb924
+
+info:
+  name: >
+    Email Marketing 4Dem <= 2.0.5 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/38b8246d-5be7-433c-935f-90ad766fb924?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/email-marketing-4dem/"
+    google-query: inurl:"/wp-content/plugins/email-marketing-4dem/"
+    shodan-query: 'http.html:"wp-content/plugins/email-marketing-4dem/"'
+  tags: cve,wordpress,wp-plugin,email-marketing-4dem,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/email-marketing-4dem/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "email-marketing-4dem"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.0.5')
