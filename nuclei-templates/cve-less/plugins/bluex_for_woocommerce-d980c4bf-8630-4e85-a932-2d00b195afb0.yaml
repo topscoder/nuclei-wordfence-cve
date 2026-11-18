@@ -2,7 +2,7 @@ id: bluex_for_woocommerce-d980c4bf-8630-4e85-a932-2d00b195afb0
 
 info:
   name: >
-    Plugin BlueX for WooCommerce <= 3.1.4 - Missing Authorization
+    Plugin BlueX for WooCommerce <= 3.4.0 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 3.1.4')
+          - compare_versions(version, '<= 3.4.0')
