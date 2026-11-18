@@ -1,0 +1,51 @@
+id: fs_poster-4087ac22-6ef8-41fc-b934-c1065cd1d9c3
+
+info:
+  name: >
+    FS Poster - WordPress Social media Auto Poster & Scheduler [Facebook, Instagram, Twitter, Pinterest] <= 8.0.1 - Missing Authorization to Unauthorized Social App Data Modification via 'fsp_app_redirect' / 'app' Parameters
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4087ac22-6ef8-41fc-b934-c1065cd1d9c3?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/fs-poster/"
+    google-query: inurl:"/wp-content/plugins/fs-poster/"
+    shodan-query: 'http.html:"wp-content/plugins/fs-poster/"'
+  tags: cve,wordpress,wp-plugin,fs-poster,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/fs-poster/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "fs-poster"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 8.0.1')
