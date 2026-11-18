@@ -2,7 +2,7 @@ id: wp_webinarsystem-6de3dfaa-4bf8-49a3-8409-7ef2d37a38cd
 
 info:
   name: >
-    WebinarPress <= 1.33.27 - Missing Authorization
+    WebinarPress <= 1.33.30 - Missing Authorization
   author: topscoder
   severity: high
   description: >
@@ -48,4 +48,4 @@ http:
 
       - type: dsl
         dsl:
-          - compare_versions(version, '<= 1.33.27')
+          - compare_versions(version, '<= 1.33.30')
