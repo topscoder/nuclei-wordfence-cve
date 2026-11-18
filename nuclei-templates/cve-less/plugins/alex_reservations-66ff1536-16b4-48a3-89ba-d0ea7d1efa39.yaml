@@ -1,0 +1,51 @@
+id: alex_reservations-66ff1536-16b4-48a3-89ba-d0ea7d1efa39
+
+info:
+  name: >
+    Alex Reservations – Restaurant Reservations, Tables & White-Label Booking System <= 2.4.8 - Unauthenticated SQL Injection
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/66ff1536-16b4-48a3-89ba-d0ea7d1efa39?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/alex-reservations/"
+    google-query: inurl:"/wp-content/plugins/alex-reservations/"
+    shodan-query: 'http.html:"wp-content/plugins/alex-reservations/"'
+  tags: cve,wordpress,wp-plugin,alex-reservations,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/alex-reservations/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "alex-reservations"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.4.8')
