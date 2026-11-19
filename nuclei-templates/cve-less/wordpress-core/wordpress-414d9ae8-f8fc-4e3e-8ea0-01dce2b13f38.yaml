@@ -1,0 +1,61 @@
+id: wordpress-414d9ae8-f8fc-4e3e-8ea0-01dce2b13f38
+
+info:
+  name: >
+    WordPress Core 5.6.0 - 7.1.4 - Unauthenticated Private Taxonomy Term Disclosure via REST Search
+  author: topscoder
+  severity: medium
+  description: >
+    WordPress Core is vulnerable to information disclosure in versions 5.6.0 through 7.1.4. A public REST term-search request with an explicitly empty subtype can search taxonomies that are not public or exposed through REST. This makes it possible for unauthenticated visitors to obtain the names of private taxonomy terms when an affected site has such terms.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/414d9ae8-f8fc-4e3e-8ea0-01dce2b13f38?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 5.3
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,medium,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.4')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
