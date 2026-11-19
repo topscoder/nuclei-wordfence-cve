@@ -1,0 +1,61 @@
+id: wordpress-ee29a5ba-c143-4705-b991-76cfc589692f
+
+info:
+  name: >
+    WordPress Core 4.8.0 - 7.1.4 - Authenticated (Contributor+) Stored Cross-Site Scripting via oEmbed Provider Scripts
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to stored cross-site scripting through oEmbed provider responses in versions 4.8.0 through 7.1.4. A Contributor can save a post with an embed URL on a site they control that advertises an oEmbed provider. The oEmbed proxy returns the provider-controlled scripts array to the block editor. When a privileged user opens the draft, the editor loads those scripts in a same-origin preview frame, allowing them to run in the privileged editor origin. On WordPress 4.8 and 4.9, this editor path requires a separate Gutenberg block editor integration; the block editor is included in Core from 5.0.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/ee29a5ba-c143-4705-b991-76cfc589692f?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 6.4
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.4')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
