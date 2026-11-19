@@ -1,0 +1,51 @@
+id: somatic_framework-8b6719bb-5ea2-49bb-a2b0-ce9b50baf62d
+
+info:
+  name: >
+    Somatic Framework <= 1.8.14 - Authenticated (Subscriber+) Arbitrary File Deletion
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/8b6719bb-5ea2-49bb-a2b0-ce9b50baf62d?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/somatic-framework/"
+    google-query: inurl:"/wp-content/plugins/somatic-framework/"
+    shodan-query: 'http.html:"wp-content/plugins/somatic-framework/"'
+  tags: cve,wordpress,wp-plugin,somatic-framework,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/somatic-framework/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "somatic-framework"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.8.14')
