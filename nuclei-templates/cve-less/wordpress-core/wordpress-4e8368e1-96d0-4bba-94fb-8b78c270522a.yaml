@@ -1,0 +1,61 @@
+id: wordpress-4e8368e1-96d0-4bba-94fb-8b78c270522a
+
+info:
+  name: >
+    WordPress Core 4.7.0 - 7.1.4 - Authenticated (Administrator+) Stored Cross-Site Scripting via Customizer Preview
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to Stored Cross-Site Scripting through Customizer changeset previews in versions 4.7.0 through 7.1.4. An authenticated attacker with Administrator-level access can save a draft changeset containing a crafted option value and send its preview URL to a victim. In WordPress 5.8.0 and later, the attacker can place the Core Site Tagline block on a page and supply a crafted blogdescription value; the block outputs the unsanitized preview as markup, causing script execution in the site's origin when the victim opens the changeset URL. WordPress 4.7.0 through 5.7.x have the same unsanitized preview behavior but require another theme, plugin, or output sink. WordPress 7.1.5 sanitizes previewed option values with sanitize_option().
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4e8368e1-96d0-4bba-94fb-8b78c270522a?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 4.4
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.4')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
