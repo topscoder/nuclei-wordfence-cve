@@ -1,0 +1,61 @@
+id: wordpress-1976680b-c49a-4239-8dc7-d9d46530f385
+
+info:
+  name: >
+    WordPress Core 4.3.0 - 7.1.4 - Authenticated (Administrator+) Privilege Escalation to Super Administrator via Customizer Menu Preview
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to Privilege Escalation in versions 4.3.0 through 7.1.4. This is due to insufficient domain separation when hashing Customizer navigation-menu preview arguments. This makes it possible for authenticated attackers, with Administrator-level access and above, on multisite installations to take over a Super Administrator account.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1976680b-c49a-4239-8dc7-d9d46530f385?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 9.1
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.4')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
