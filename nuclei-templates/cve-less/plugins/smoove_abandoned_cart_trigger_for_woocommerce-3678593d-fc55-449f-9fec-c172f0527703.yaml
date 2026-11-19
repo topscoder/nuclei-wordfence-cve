@@ -1,0 +1,51 @@
+id: smoove_abandoned_cart_trigger_for_woocommerce-3678593d-fc55-449f-9fec-c172f0527703
+
+info:
+  name: >
+    Smoove abandoned cart trigger for WooCommerce 4.0.0 - 4.3.5 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/3678593d-fc55-449f-9fec-c172f0527703?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/smoove-abandoned-cart-trigger-for-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/smoove-abandoned-cart-trigger-for-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/smoove-abandoned-cart-trigger-for-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,smoove-abandoned-cart-trigger-for-woocommerce,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/smoove-abandoned-cart-trigger-for-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "smoove-abandoned-cart-trigger-for-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 4.0.0', '<= 4.3.5')
