@@ -1,0 +1,51 @@
+id: catna_woo_name_your_price_and_offers-a6396f69-87a1-4fb9-9d2d-d462318f2164
+
+info:
+  name: >
+    Catna – Woo Name Your Price and Offers <= 2.0.3 - Unauthenticated Stored Cross-Site Scripting
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a6396f69-87a1-4fb9-9d2d-d462318f2164?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/catna-woo-name-your-price-and-offers/"
+    google-query: inurl:"/wp-content/plugins/catna-woo-name-your-price-and-offers/"
+    shodan-query: 'http.html:"wp-content/plugins/catna-woo-name-your-price-and-offers/"'
+  tags: cve,wordpress,wp-plugin,catna-woo-name-your-price-and-offers,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/catna-woo-name-your-price-and-offers/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "catna-woo-name-your-price-and-offers"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.0.3')
