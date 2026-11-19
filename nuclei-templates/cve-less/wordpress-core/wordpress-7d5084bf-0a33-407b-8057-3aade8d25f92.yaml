@@ -1,0 +1,61 @@
+id: wordpress-7d5084bf-0a33-407b-8057-3aade8d25f92
+
+info:
+  name: >
+    WordPress Core 4.7.0 - 7.1.4 - Authenticated (Editor+) Network User Enumeration via REST Post Author Assignment
+  author: topscoder
+  severity: low
+  description: >
+    WordPress Core is vulnerable to network user enumeration through REST post author assignment on multisite installations in versions 4.7.0 through 7.1.4. An Editor can submit a user ID that is registered on the network but is not a member of the current site as the author of a post. Existing nonmember IDs are accepted while nonexistent IDs are rejected, revealing whether an account exists elsewhere on the network. The same missing membership check was present in the REST template author path on versions that support it.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/7d5084bf-0a33-407b-8057-3aade8d25f92?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 2.7
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,low,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.4')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
