@@ -1,0 +1,51 @@
+id: slimbox-cd9c9666-02f5-4602-ac35-3b68e18bf612
+
+info:
+  name: >
+    Slimbox <= 1.0.8 - Unauthenticated Stored Cross-Site Scripting via Comment Anchor title Attribute
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cd9c9666-02f5-4602-ac35-3b68e18bf612?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/slimbox/"
+    google-query: inurl:"/wp-content/plugins/slimbox/"
+    shodan-query: 'http.html:"wp-content/plugins/slimbox/"'
+  tags: cve,wordpress,wp-plugin,slimbox,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/slimbox/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "slimbox"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.8')
