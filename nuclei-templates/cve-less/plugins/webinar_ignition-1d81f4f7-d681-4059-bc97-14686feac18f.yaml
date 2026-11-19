@@ -1,0 +1,51 @@
+id: webinar_ignition-1d81f4f7-d681-4059-bc97-14686feac18f
+
+info:
+  name: >
+    WebinarIgnition – AI & MCP Webinar Builder on Your WordPress: Live, Automated & Evergreen, WooCommerce Upsells Inside <= 4.27.125 - Unauthenticated Insecure Direct Object Reference
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/1d81f4f7-d681-4059-bc97-14686feac18f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/webinar-ignition/"
+    google-query: inurl:"/wp-content/plugins/webinar-ignition/"
+    shodan-query: 'http.html:"wp-content/plugins/webinar-ignition/"'
+  tags: cve,wordpress,wp-plugin,webinar-ignition,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/webinar-ignition/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "webinar-ignition"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.27.125')
