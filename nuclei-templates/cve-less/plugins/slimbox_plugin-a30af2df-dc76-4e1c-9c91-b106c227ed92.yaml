@@ -1,0 +1,51 @@
+id: slimbox_plugin-a30af2df-dc76-4e1c-9c91-b106c227ed92
+
+info:
+  name: >
+    Slimbox Plugin <= 1.3 - Authenticated (Subscriber+) Stored DOM-Based Cross-Site Scripting via Link 'title' Attribute via Slimbox Caption
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a30af2df-dc76-4e1c-9c91-b106c227ed92?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/slimbox-plugin/"
+    google-query: inurl:"/wp-content/plugins/slimbox-plugin/"
+    shodan-query: 'http.html:"wp-content/plugins/slimbox-plugin/"'
+  tags: cve,wordpress,wp-plugin,slimbox-plugin,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/slimbox-plugin/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "slimbox-plugin"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.3')
