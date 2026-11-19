@@ -1,0 +1,61 @@
+id: wordpress-fd291522-d428-4ff6-b0f7-0e74db718b16
+
+info:
+  name: >
+    WordPress Core 2.5.0 - 7.1.4 - Unauthenticated Stored Cross-Site Scripting via Escaped Shortcode Attributes in Comments
+  author: topscoder
+  severity: high
+  description: >
+    WordPress Core is vulnerable to stored cross-site scripting through escaped shortcode attributes in comments in versions 2.5.0 through 7.1.4. An unauthenticated commenter can submit hex or octal escapes that pass comment markup filtering and are later decoded into HTML structural characters by shortcode_parse_atts(). On WordPress 5.0 and later, an approved comment displayed by the Core Latest Comments block can reach the normal shortcode pass; a crafted stock caption and video shortcode chain causes bundled MediaElement code to reconstruct and execute an image event handler from a track label. Earlier versions require another integration that processes comment content as shortcodes and exposes the decoded attribute to an HTML or browser-side sink. The comment must be approved and rendered.
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fd291522-d428-4ff6-b0f7-0e74db718b16?source=api-prod
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 7.2
+    cve-id: 
+  metadata:
+    shodan-query: 'vuln:'
+  tags: cve,wordpress,wp-core,high,production
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/wp-admin/install.php"
+      - "{{BaseURL}}/feed/"
+      - "{{BaseURL}}/?feed=rss2" # alternative if /feed/ is blocked
+
+    redirects: true
+    max-redirects: 2
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - compare_versions(version_by_generator, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_js, '>= 7.1.0', '<= 7.1.4')
+          - compare_versions(version_by_css, '>= 7.1.0', '<= 7.1.4')
+
+      - type: status
+        status:
+          - 200
+
+    extractors:
+      - type: regex
+        name: version_by_generator
+        group: 1
+        regex:
+          - '(?m)https:\/\/wordpress.org\/\?v=([0-9.]+)'
+
+      - type: regex
+        name: version_by_js
+        group: 1
+        regex:
+          - 'wp-emoji-release\.min\.js\?ver=((\d+\.?)+)\b'
+
+      - type: regex
+        name: version_by_css
+        group: 1
+        regex:
+          - 'install\.min\.css\?ver=((\d+\.?)+)\b'
