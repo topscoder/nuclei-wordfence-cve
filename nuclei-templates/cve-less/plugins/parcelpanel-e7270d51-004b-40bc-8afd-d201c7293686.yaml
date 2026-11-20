@@ -1,0 +1,51 @@
+id: parcelpanel-e7270d51-004b-40bc-8afd-d201c7293686
+
+info:
+  name: >
+    CWILL (Formerly ParcelPanel) <= 4.6.2 - Unauthenticated Stored Cross-Site Scripting via 'courier_code' and 'tracking_number' Parameters via REST Auth Bypass
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e7270d51-004b-40bc-8afd-d201c7293686?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/parcelpanel/"
+    google-query: inurl:"/wp-content/plugins/parcelpanel/"
+    shodan-query: 'http.html:"wp-content/plugins/parcelpanel/"'
+  tags: cve,wordpress,wp-plugin,parcelpanel,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/parcelpanel/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "parcelpanel"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.6.2')
