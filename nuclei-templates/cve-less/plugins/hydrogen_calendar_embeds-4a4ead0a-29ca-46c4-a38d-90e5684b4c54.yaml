@@ -1,0 +1,51 @@
+id: hydrogen_calendar_embeds-4a4ead0a-29ca-46c4-a38d-90e5684b4c54
+
+info:
+  name: >
+    Hydrogen Calendar Embeds <= 3.0.3 - Unauthenticated Stored DOM-Based Cross-Site Scripting via ICS Feed Event Fields (SUMMARY/DESCRIPTION/LOCATION)
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/4a4ead0a-29ca-46c4-a38d-90e5684b4c54?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/hydrogen-calendar-embeds/"
+    google-query: inurl:"/wp-content/plugins/hydrogen-calendar-embeds/"
+    shodan-query: 'http.html:"wp-content/plugins/hydrogen-calendar-embeds/"'
+  tags: cve,wordpress,wp-plugin,hydrogen-calendar-embeds,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/hydrogen-calendar-embeds/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "hydrogen-calendar-embeds"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.3')
