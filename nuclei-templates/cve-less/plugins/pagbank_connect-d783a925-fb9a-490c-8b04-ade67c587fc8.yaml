@@ -1,0 +1,51 @@
+id: pagbank_connect-d783a925-fb9a-490c-8b04-ade67c587fc8
+
+info:
+  name: >
+    PagBank / PagSeguro e Vindi para WooCommerce <= 5.1.6 - Unauthenticated Stored Cross-Site Scripting via 'customer.name' Parameter
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d783a925-fb9a-490c-8b04-ade67c587fc8?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pagbank-connect/"
+    google-query: inurl:"/wp-content/plugins/pagbank-connect/"
+    shodan-query: 'http.html:"wp-content/plugins/pagbank-connect/"'
+  tags: cve,wordpress,wp-plugin,pagbank-connect,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pagbank-connect/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pagbank-connect"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.1.6')
