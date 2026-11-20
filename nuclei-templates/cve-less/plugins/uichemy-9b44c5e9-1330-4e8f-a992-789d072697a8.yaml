@@ -1,0 +1,51 @@
+id: uichemy-9b44c5e9-1330-4e8f-a992-789d072697a8
+
+info:
+  name: >
+    UiChemy <= 5.6.1 - Authenticated (Editor+) Stored Cross-Site Scripting via 'head' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9b44c5e9-1330-4e8f-a992-789d072697a8?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/uichemy/"
+    google-query: inurl:"/wp-content/plugins/uichemy/"
+    shodan-query: 'http.html:"wp-content/plugins/uichemy/"'
+  tags: cve,wordpress,wp-plugin,uichemy,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/uichemy/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "uichemy"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.6.1')
