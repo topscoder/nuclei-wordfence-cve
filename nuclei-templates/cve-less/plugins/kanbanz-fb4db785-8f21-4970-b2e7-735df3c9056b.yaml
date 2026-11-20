@@ -1,0 +1,51 @@
+id: kanbanz-fb4db785-8f21-4970-b2e7-735df3c9056b
+
+info:
+  name: >
+    Kanbanz <= 1.0.2 - Authenticated (Kanban Staff+) Insecure Direct Object Reference
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fb4db785-8f21-4970-b2e7-735df3c9056b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/kanbanz/"
+    google-query: inurl:"/wp-content/plugins/kanbanz/"
+    shodan-query: 'http.html:"wp-content/plugins/kanbanz/"'
+  tags: cve,wordpress,wp-plugin,kanbanz,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/kanbanz/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "kanbanz"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.0.2')
