@@ -1,0 +1,51 @@
+id: wp_sms-297fa481-257c-4c45-8d0a-233770e12b02
+
+info:
+  name: >
+    WSMS (formerly WP SMS): SMS Notifications, OTP Login and WooCommerce SMS <= 7.2.14 - Missing Authorization to Authenticated (Author+) Arbitrary SMS Sending via 'wpsms_text_template' and 'wps_send_to' Parameters
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/297fa481-257c-4c45-8d0a-233770e12b02?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-sms/"
+    google-query: inurl:"/wp-content/plugins/wp-sms/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-sms/"'
+  tags: cve,wordpress,wp-plugin,wp-sms,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-sms/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-sms"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.2.14')
