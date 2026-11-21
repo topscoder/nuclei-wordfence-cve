@@ -1,0 +1,51 @@
+id: tag_groups-01320102-3ce3-4e4f-bdd2-b4d1406ffbd2
+
+info:
+  name: >
+    PublishPress Tag Groups: Stylish Displays For Your Tags and Categories <= 3.0.0 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'column_gap' Shortcode Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/01320102-3ce3-4e4f-bdd2-b4d1406ffbd2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/tag-groups/"
+    google-query: inurl:"/wp-content/plugins/tag-groups/"
+    shodan-query: 'http.html:"wp-content/plugins/tag-groups/"'
+  tags: cve,wordpress,wp-plugin,tag-groups,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/tag-groups/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "tag-groups"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.0')
