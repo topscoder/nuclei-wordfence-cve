@@ -2,7 +2,7 @@ id: gravityforms-271458d7-7994-41d1-ad19-de5caf5a93c6
 
 info:
   name: >
-    Gravity Forms < 3.2.2 - Unauthenticated Arbitrary File Upload
+    Gravity Forms <= 3.2.1 - Unauthenticated Limited File Upload to Remote Code Execution via Chunked Uploads
   author: topscoder
   severity: critical
   description: >
