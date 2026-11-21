@@ -2,7 +2,7 @@ id: simple_membership_wp_user_import-ce9f2d32-7335-42ea-9aeb-7a688e0e7266
 
 info:
   name: >
-    Simple Membership WP user Import <= 1.9.2 - Cross-Site Request Forgery to add_selective Action
+    Simple Membership WP user Import <= 1.9.2 - Cross-Site Request Forgery to Privilege Escalation.
   author: topscoder
   severity: medium
   description: >
