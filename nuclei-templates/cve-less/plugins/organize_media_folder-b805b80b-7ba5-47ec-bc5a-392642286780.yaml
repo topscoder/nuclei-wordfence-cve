@@ -1,0 +1,51 @@
+id: organize_media_folder-b805b80b-7ba5-47ec-bc5a-392642286780
+
+info:
+  name: >
+    Organize Media Folder <= 2.00 - Authenticated (Subscriber+) Stored Cross-Site Scripting via EXIF 'DateTimeOriginal' Metadata
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/b805b80b-7ba5-47ec-bc5a-392642286780?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/organize-media-folder/"
+    google-query: inurl:"/wp-content/plugins/organize-media-folder/"
+    shodan-query: 'http.html:"wp-content/plugins/organize-media-folder/"'
+  tags: cve,wordpress,wp-plugin,organize-media-folder,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/organize-media-folder/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "organize-media-folder"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.00')
