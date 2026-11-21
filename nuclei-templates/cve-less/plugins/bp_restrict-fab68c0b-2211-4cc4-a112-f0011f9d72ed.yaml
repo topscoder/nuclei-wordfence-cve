@@ -1,0 +1,51 @@
+id: bp_restrict-fab68c0b-2211-4cc4-a112-f0011f9d72ed
+
+info:
+  name: >
+    Restrictions for BuddyPress <= 1.5.4 - Unauthenticated Remote Code Execution via Request URI String Interpolation in eval()
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fab68c0b-2211-4cc4-a112-f0011f9d72ed?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/bp-restrict/"
+    google-query: inurl:"/wp-content/plugins/bp-restrict/"
+    shodan-query: 'http.html:"wp-content/plugins/bp-restrict/"'
+  tags: cve,wordpress,wp-plugin,bp-restrict,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/bp-restrict/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "bp-restrict"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.4')
