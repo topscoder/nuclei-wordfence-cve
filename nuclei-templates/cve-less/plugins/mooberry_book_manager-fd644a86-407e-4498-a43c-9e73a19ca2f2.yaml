@@ -1,0 +1,51 @@
+id: mooberry_book_manager-fd644a86-407e-4498-a43c-9e73a19ca2f2
+
+info:
+  name: >
+    Mooberry Book Manager <= 4.16.2 - Missing Authorization
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/fd644a86-407e-4498-a43c-9e73a19ca2f2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mooberry-book-manager/"
+    google-query: inurl:"/wp-content/plugins/mooberry-book-manager/"
+    shodan-query: 'http.html:"wp-content/plugins/mooberry-book-manager/"'
+  tags: cve,wordpress,wp-plugin,mooberry-book-manager,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mooberry-book-manager/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mooberry-book-manager"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.16.2')
