@@ -1,0 +1,51 @@
+id: woocommerce_dynamic_gallery-496346ef-f23a-4cc6-a65a-f5fe8e4b20ff
+
+info:
+  name: >
+    Dynamic Product Gallery for WooCommerce <= 3.6.1 - Authenticated (Contributor+) Stored Cross-Site Scripting
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/496346ef-f23a-4cc6-a65a-f5fe8e4b20ff?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/woocommerce-dynamic-gallery/"
+    google-query: inurl:"/wp-content/plugins/woocommerce-dynamic-gallery/"
+    shodan-query: 'http.html:"wp-content/plugins/woocommerce-dynamic-gallery/"'
+  tags: cve,wordpress,wp-plugin,woocommerce-dynamic-gallery,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/woocommerce-dynamic-gallery/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "woocommerce-dynamic-gallery"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.6.1')
