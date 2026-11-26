@@ -1,0 +1,51 @@
+id: 3d_website_builder-206c6b61-0e8f-4a05-9d2d-b7249cefa17f
+
+info:
+  name: >
+    3D Website Builder <= 2.0.3 - Missing Authorization to Unauthenticated Arbitrary 3D Builder Object Deletion
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/206c6b61-0e8f-4a05-9d2d-b7249cefa17f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/3d-website-builder/"
+    google-query: inurl:"/wp-content/plugins/3d-website-builder/"
+    shodan-query: 'http.html:"wp-content/plugins/3d-website-builder/"'
+  tags: cve,wordpress,wp-plugin,3d-website-builder,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/3d-website-builder/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "3d-website-builder"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.0.3')
