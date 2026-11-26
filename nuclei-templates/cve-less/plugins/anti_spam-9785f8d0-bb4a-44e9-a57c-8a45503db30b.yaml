@@ -1,0 +1,51 @@
+id: anti_spam-9785f8d0-bb4a-44e9-a57c-8a45503db30b
+
+info:
+  name: >
+    Titan Anti-spam & Security <= 7.5.4 - Unauthenticated Sensitive Information Exposure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/9785f8d0-bb4a-44e9-a57c-8a45503db30b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/anti-spam/"
+    google-query: inurl:"/wp-content/plugins/anti-spam/"
+    shodan-query: 'http.html:"wp-content/plugins/anti-spam/"'
+  tags: cve,wordpress,wp-plugin,anti-spam,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/anti-spam/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "anti-spam"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 7.5.4')
