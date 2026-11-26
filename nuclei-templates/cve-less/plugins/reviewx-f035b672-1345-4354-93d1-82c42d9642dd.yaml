@@ -1,0 +1,51 @@
+id: reviewx-f035b672-1345-4354-93d1-82c42d9642dd
+
+info:
+  name: >
+    ReviewX – Multi-Criteria Reviews for WooCommerce with Google Reviews & Schema <= 3.0.1 - Unauthenticated XML External Entity Injection
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/f035b672-1345-4354-93d1-82c42d9642dd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/reviewx/"
+    google-query: inurl:"/wp-content/plugins/reviewx/"
+    shodan-query: 'http.html:"wp-content/plugins/reviewx/"'
+  tags: cve,wordpress,wp-plugin,reviewx,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/reviewx/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "reviewx"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 3.0.1')
