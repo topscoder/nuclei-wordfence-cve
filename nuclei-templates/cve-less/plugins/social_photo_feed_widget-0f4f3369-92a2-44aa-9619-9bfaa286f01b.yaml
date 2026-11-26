@@ -1,0 +1,51 @@
+id: social_photo_feed_widget-0f4f3369-92a2-44aa-9619-9bfaa286f01b
+
+info:
+  name: >
+    Widgets for Social Photo Feed <= 1.8.3 - Authenticated (Contributor+) Stored Cross-Site Scripting via 'widget-id' Shortcode Attribute
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/0f4f3369-92a2-44aa-9619-9bfaa286f01b?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/social-photo-feed-widget/"
+    google-query: inurl:"/wp-content/plugins/social-photo-feed-widget/"
+    shodan-query: 'http.html:"wp-content/plugins/social-photo-feed-widget/"'
+  tags: cve,wordpress,wp-plugin,social-photo-feed-widget,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/social-photo-feed-widget/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "social-photo-feed-widget"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.8.3')
