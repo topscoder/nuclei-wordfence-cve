@@ -1,0 +1,51 @@
+id: pdf_generator_for_wp-870d7ba4-7701-4629-a809-5089c1672163
+
+info:
+  name: >
+    PDF Generator for WordPress <= 1.6.5 - Unauthenticated Insecure Direct Object Reference to Post Disclosure
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/870d7ba4-7701-4629-a809-5089c1672163?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/pdf-generator-for-wp/"
+    google-query: inurl:"/wp-content/plugins/pdf-generator-for-wp/"
+    shodan-query: 'http.html:"wp-content/plugins/pdf-generator-for-wp/"'
+  tags: cve,wordpress,wp-plugin,pdf-generator-for-wp,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/pdf-generator-for-wp/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "pdf-generator-for-wp"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.6.5')
