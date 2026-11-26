@@ -1,0 +1,51 @@
+id: wp_asset_clean_up_pro-a304ae09-f7e7-4352-940f-e52dd9f0ff7a
+
+info:
+  name: >
+    Asset CleanUp Pro: Page Speed Booster <= 1.2.8.1 - Authenticated (Subscriber+) SQL Injection via 'author_name' URL segment (author archive rewrite capture)
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/a304ae09-f7e7-4352-940f-e52dd9f0ff7a?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/wp-asset-clean-up-pro/"
+    google-query: inurl:"/wp-content/plugins/wp-asset-clean-up-pro/"
+    shodan-query: 'http.html:"wp-content/plugins/wp-asset-clean-up-pro/"'
+  tags: cve,wordpress,wp-plugin,wp-asset-clean-up-pro,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/wp-asset-clean-up-pro/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "wp-asset-clean-up-pro"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.2.8.1')
