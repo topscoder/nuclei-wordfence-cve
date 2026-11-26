@@ -1,0 +1,51 @@
+id: gd_bbpress_tools-e8d6e874-4714-499b-a241-5f51fca1c01e
+
+info:
+  name: >
+    GD bbPress Tools <= 4.0.1 - Authenticated (Subscriber+) Stored Cross-Site Scripting via User Signature
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/e8d6e874-4714-499b-a241-5f51fca1c01e?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/gd-bbpress-tools/"
+    google-query: inurl:"/wp-content/plugins/gd-bbpress-tools/"
+    shodan-query: 'http.html:"wp-content/plugins/gd-bbpress-tools/"'
+  tags: cve,wordpress,wp-plugin,gd-bbpress-tools,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/gd-bbpress-tools/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "gd-bbpress-tools"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 4.0.1')
