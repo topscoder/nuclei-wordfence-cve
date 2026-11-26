@@ -1,0 +1,51 @@
+id: subscribe2-cde3737f-54f3-42ef-9787-02e117302a69
+
+info:
+  name: >
+    Subscribe2 – Form, Email Subscribers & Newsletters  10.35 - 10.50 - Unauthenticated Insecure Direct Object Reference
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cde3737f-54f3-42ef-9787-02e117302a69?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/subscribe2/"
+    google-query: inurl:"/wp-content/plugins/subscribe2/"
+    shodan-query: 'http.html:"wp-content/plugins/subscribe2/"'
+  tags: cve,wordpress,wp-plugin,subscribe2,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/subscribe2/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "subscribe2"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '>= 10.35', '< 10.50')
