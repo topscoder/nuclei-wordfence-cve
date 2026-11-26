@@ -1,0 +1,51 @@
+id: app_builder-24f15f6d-2326-4604-a83d-29fd6c437da6
+
+info:
+  name: >
+    App Builder <= 5.7.1 - Unauthenticated Authentication Bypass via Google ID Token Audience Validation Bypass
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/24f15f6d-2326-4604-a83d-29fd6c437da6?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/app-builder/"
+    google-query: inurl:"/wp-content/plugins/app-builder/"
+    shodan-query: 'http.html:"wp-content/plugins/app-builder/"'
+  tags: cve,wordpress,wp-plugin,app-builder,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/app-builder/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "app-builder"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 5.7.1')
