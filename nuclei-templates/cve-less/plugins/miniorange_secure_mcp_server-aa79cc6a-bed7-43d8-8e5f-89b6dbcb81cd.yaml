@@ -1,0 +1,51 @@
+id: miniorange_secure_mcp_server-aa79cc6a-bed7-43d8-8e5f-89b6dbcb81cd
+
+info:
+  name: >
+    Secure MCP Server for Claude, ChatGPT, Gemini, Cursor and other AI Agents <= 1.5.8 - Improperly Scoped Authorization Token to Privilege Escalation via 'is_mcp_endpoint_request' Function
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/aa79cc6a-bed7-43d8-8e5f-89b6dbcb81cd?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/miniorange-secure-mcp-server/"
+    google-query: inurl:"/wp-content/plugins/miniorange-secure-mcp-server/"
+    shodan-query: 'http.html:"wp-content/plugins/miniorange-secure-mcp-server/"'
+  tags: cve,wordpress,wp-plugin,miniorange-secure-mcp-server,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/miniorange-secure-mcp-server/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "miniorange-secure-mcp-server"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.5.8')
