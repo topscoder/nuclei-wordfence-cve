@@ -1,0 +1,51 @@
+id: beautiful_taxonomy_filters-c4b3ffa1-2200-4718-be4f-2153abafff6f
+
+info:
+  name: >
+    Beautiful taxonomy filters <= 2.6.0 - Authenticated (Author+) Stored Cross-Site Scripting via 'term_name' Parameter
+  author: topscoder
+  severity: low
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/c4b3ffa1-2200-4718-be4f-2153abafff6f?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/beautiful-taxonomy-filters/"
+    google-query: inurl:"/wp-content/plugins/beautiful-taxonomy-filters/"
+    shodan-query: 'http.html:"wp-content/plugins/beautiful-taxonomy-filters/"'
+  tags: cve,wordpress,wp-plugin,beautiful-taxonomy-filters,low,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/beautiful-taxonomy-filters/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "beautiful-taxonomy-filters"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.6.0')
