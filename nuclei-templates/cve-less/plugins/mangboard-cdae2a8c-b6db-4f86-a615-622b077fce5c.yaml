@@ -1,0 +1,51 @@
+id: mangboard-cdae2a8c-b6db-4f86-a615-622b077fce5c
+
+info:
+  name: >
+    Mang Board <= 2.4.9 - Unauthenticated Stored Cross-Site Scripting via Post Content via mb_ext=file image URL
+  author: topscoder
+  severity: high
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/cdae2a8c-b6db-4f86-a615-622b077fce5c?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/mangboard/"
+    google-query: inurl:"/wp-content/plugins/mangboard/"
+    shodan-query: 'http.html:"wp-content/plugins/mangboard/"'
+  tags: cve,wordpress,wp-plugin,mangboard,high,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mangboard/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "mangboard"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.4.9')
