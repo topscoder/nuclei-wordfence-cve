@@ -1,0 +1,51 @@
+id: flamix_bitrix24_and_woo_products_sync-d8cab5d9-b59e-41cd-8d1f-75c2399b76c2
+
+info:
+  name: >
+    Flamix Bitrix24 and WooCommerce Products Sync <= 1.6.0 - Unauthenticated Arbitrary File Upload
+  author: topscoder
+  severity: critical
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/d8cab5d9-b59e-41cd-8d1f-75c2399b76c2?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/flamix-bitrix24-and-woo-products-sync/"
+    google-query: inurl:"/wp-content/plugins/flamix-bitrix24-and-woo-products-sync/"
+    shodan-query: 'http.html:"wp-content/plugins/flamix-bitrix24-and-woo-products-sync/"'
+  tags: cve,wordpress,wp-plugin,flamix-bitrix24-and-woo-products-sync,critical,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/flamix-bitrix24-and-woo-products-sync/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "flamix-bitrix24-and-woo-products-sync"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 1.6.0')
