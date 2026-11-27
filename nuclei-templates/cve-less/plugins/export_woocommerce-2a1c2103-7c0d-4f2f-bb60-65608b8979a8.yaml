@@ -1,0 +1,51 @@
+id: export_woocommerce-2a1c2103-7c0d-4f2f-bb60-65608b8979a8
+
+info:
+  name: >
+    Export Products, Orders & Customers for WooCommerce <= 2.4.3 - Reflected Cross-Site Scripting via 'start_date' Parameter
+  author: topscoder
+  severity: medium
+  description: >
+    
+  reference:
+    - https://github.com/topscoder/nuclei-wordfence-cve
+    - https://www.wordfence.com/threat-intel/vulnerabilities/id/2a1c2103-7c0d-4f2f-bb60-65608b8979a8?source=api-scan
+  classification:
+    cvss-metrics: 
+    cvss-score: 
+    cve-id: 
+  metadata:
+    fofa-query: "wp-content/plugins/export-woocommerce/"
+    google-query: inurl:"/wp-content/plugins/export-woocommerce/"
+    shodan-query: 'http.html:"wp-content/plugins/export-woocommerce/"'
+  tags: cve,wordpress,wp-plugin,export-woocommerce,medium,candidate
+
+http:
+  - method: GET
+    redirects: true
+    max-redirects: 3
+    path:
+      - "{{BaseURL}}/wp-content/plugins/export-woocommerce/readme.txt"
+
+    extractors:
+      - type: regex
+        name: version
+        part: body
+        group: 1
+        regex:
+          - "(?mi)Stable tag:\\s*([0-9.]+)"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        words:
+          - "export-woocommerce"
+        part: body
+
+      - type: dsl
+        dsl:
+          - compare_versions(version, '<= 2.4.3')
